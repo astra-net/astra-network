@@ -17,7 +17,7 @@ const (
 	LegAddressPrefix = "ad_"
 	CheckpointPrefix = "dc"
 
-	oneAddrByteLen = 42 // byte size of string "one1..."
+	oneAddrByteLen = 41 // byte size of string "Ax1..."
 )
 
 // Common schema

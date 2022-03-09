@@ -298,11 +298,11 @@ func TestDecMarshalJSON(t *testing.T) {
 		wantErr bool // if wantErr = false, will also attempt unmarshaling
 	}{
 		{"zero", decimal(0), "\"0.000000000000000000\"", false},
-		{"one", decimal(1), "\"0.000000000000000001\"", false},
+		{"ast", decimal(1), "\"0.000000000000000001\"", false},
 		{"ten", decimal(10), "\"0.000000000000000010\"", false},
 		{"12340", decimal(12340), "\"0.000000000000012340\"", false},
 		{"zeroInt", NewDec(0), "\"0.000000000000000000\"", false},
-		{"oneInt", NewDec(1), "\"1.000000000000000000\"", false},
+		{"astInt", NewDec(1), "\"1.000000000000000000\"", false},
 		{"tenInt", NewDec(10), "\"10.000000000000000000\"", false},
 		{"12340Int", NewDec(12340), "\"12340.000000000000000000\"", false},
 	}
