@@ -28,7 +28,7 @@ type instance struct {
 	numAstraOperatedNodesPerShard int
 	astraVotePercent              numeric.Dec
 	externalVotePercent             numeric.Dec
-	hmyAccounts                     []genesis.DeployAccount
+	astraAccounts                     []genesis.DeployAccount
 	fnAccounts                      []genesis.DeployAccount
 	reshardingEpoch                 []*big.Int
 	blocksPerEpoch                  uint64
@@ -38,7 +38,7 @@ type instance struct {
 // upon given parameters.
 func NewInstance(
 	numShards uint32, numNodesPerShard, numAstraOperatedNodesPerShard int, astraVotePercent numeric.Dec,
-	hmyAccounts []genesis.DeployAccount,
+	astraAccounts []genesis.DeployAccount,
 	fnAccounts []genesis.DeployAccount,
 	reshardingEpoch []*big.Int, blocksE uint64,
 ) (Instance, error) {
@@ -78,7 +78,7 @@ func NewInstance(
 		numAstraOperatedNodesPerShard: numAstraOperatedNodesPerShard,
 		astraVotePercent:              astraVotePercent,
 		externalVotePercent:             numeric.OneDec().Sub(astraVotePercent),
-		hmyAccounts:                     hmyAccounts,
+		astraAccounts:                     astraAccounts,
 		fnAccounts:                      fnAccounts,
 		reshardingEpoch:                 reshardingEpoch,
 		blocksPerEpoch:                  blocksE,
@@ -92,13 +92,13 @@ func MustNewInstance(
 	numShards uint32,
 	numNodesPerShard, numAstraOperatedNodesPerShard int,
 	astraVotePercent numeric.Dec,
-	hmyAccounts []genesis.DeployAccount,
+	astraAccounts []genesis.DeployAccount,
 	fnAccounts []genesis.DeployAccount,
 	reshardingEpoch []*big.Int, blocksPerEpoch uint64,
 ) Instance {
 	sc, err := NewInstance(
 		numShards, numNodesPerShard, numAstraOperatedNodesPerShard, astraVotePercent,
-		hmyAccounts, fnAccounts, reshardingEpoch, blocksPerEpoch,
+		astraAccounts, fnAccounts, reshardingEpoch, blocksPerEpoch,
 	)
 	if err != nil {
 		panic(err)
@@ -139,7 +139,7 @@ func (sc instance) NumAstraOperatedNodesPerShard() int {
 
 // HmyAccounts returns the list of Astra accounts
 func (sc instance) HmyAccounts() []genesis.DeployAccount {
-	return sc.hmyAccounts
+	return sc.astraAccounts
 }
 
 // FnAccounts returns the list of Foundational Node accounts
@@ -150,7 +150,7 @@ func (sc instance) FnAccounts() []genesis.DeployAccount {
 // FindAccount returns the deploy account based on the blskey, and if the account is a leader
 // or not in the bootstrapping process.
 func (sc instance) FindAccount(blsPubKey string) (bool, *genesis.DeployAccount) {
-	for i, item := range sc.hmyAccounts {
+	for i, item := range sc.astraAccounts {
 		if item.BLSPublicKey == blsPubKey {
 			item.ShardID = uint32(i) % sc.numShards
 			return uint32(i) < sc.numShards, &item

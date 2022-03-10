@@ -38,7 +38,7 @@ Version = "1.0.4"
   KMSConfigFile = ""
   KMSConfigSrcType = "shared"
   KMSEnabled = false
-  KeyDir = "./.hmy/blskeys"
+  KeyDir = "./.astra/blskeys"
   KeyFiles = []
   MaxKeys = 10
   PassEnabled = true
@@ -74,7 +74,7 @@ Version = "1.0.4"
   NetworkType = "mainnet"
 
 [P2P]
-  KeyFile = "./.hmykey"
+  KeyFile = "./.astrakey"
   Port = 9000
 
 [Pprof]
@@ -82,7 +82,7 @@ Version = "1.0.4"
   ListenAddr = "127.0.0.1:6060"
 
 [TxPool]
-  BlacklistFile = "./.hmy/blacklist.txt"
+  BlacklistFile = "./.astra/blacklist.txt"
 
 [Sync]
   Downloader = false

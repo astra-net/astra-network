@@ -6,19 +6,19 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/harmony-one/astra/core/rawdb"
-	hmyTypes "github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/hmy"
+	astraTypes "github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/astra"
 	internal_common "github.com/harmony-one/astra/internal/common"
 	rosetta_common "github.com/harmony-one/astra/rosetta/common"
 )
 
 // SearchAPI implements the server.SearchAPIServicer interface.
 type SearchAPI struct {
-	hmy *hmy.Astra
+	astra *astra.Astra
 }
 
-func NewSearchAPI(hmy *hmy.Astra) *SearchAPI {
-	return &SearchAPI{hmy: hmy}
+func NewSearchAPI(astra *astra.Astra) *SearchAPI {
+	return &SearchAPI{astra: astra}
 }
 
 // SearchTransactions implements the /search/transactions endpoint
@@ -32,7 +32,7 @@ func (s *SearchAPI) SearchTransactions(ctx context.Context, request *types.Searc
 		}
 	}
 
-	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.hmy.ShardID); err != nil {
+	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.astra.ShardID); err != nil {
 		return nil, err
 	}
 
@@ -54,7 +54,7 @@ func (s *SearchAPI) SearchTransactions(ctx context.Context, request *types.Searc
 			return nil, &rosetta_common.ErrCallParametersInvalid
 		}
 
-		histories, err := s.hmy.GetTransactionsHistory(address.String(), "", "")
+		histories, err := s.astra.GetTransactionsHistory(address.String(), "", "")
 		if err != nil {
 			return nil, rosetta_common.NewError(rosetta_common.CatchAllError, map[string]interface{}{
 				"message": err.Error(),
@@ -79,7 +79,7 @@ func (s *SearchAPI) SearchTransactions(ctx context.Context, request *types.Searc
 	}
 
 	for _, hash := range rangeHash {
-		tx, blockHash, blockNumber, index := rawdb.ReadTransaction(s.hmy.ChainDb(), hash)
+		tx, blockHash, blockNumber, index := rawdb.ReadTransaction(s.astra.ChainDb(), hash)
 		if tx == nil {
 			return nil, rosetta_common.NewError(rosetta_common.CatchAllError, map[string]interface{}{
 				"message": "can not get tx info by hash",
@@ -102,7 +102,7 @@ func (s *SearchAPI) SearchTransactions(ctx context.Context, request *types.Searc
 	return resp, nil
 }
 
-func buildFromTXInfo(tx *hmyTypes.Transaction, blockHash common.Hash, blockNumber uint64, index uint64) (*types.BlockTransaction, *types.Error) {
+func buildFromTXInfo(tx *astraTypes.Transaction, blockHash common.Hash, blockNumber uint64, index uint64) (*types.BlockTransaction, *types.Error) {
 	receiverAccountID, rosettaError := newAccountIdentifier(*tx.To())
 	if rosettaError != nil {
 		return nil, rosettaError

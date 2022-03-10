@@ -1248,7 +1248,7 @@ var (
 		Hidden:   true,
 	}
 	devnetHmyNodeSizeFlag = cli.IntFlag{
-		Name:     "devnet.hmy-node-size",
+		Name:     "devnet.astra-node-size",
 		Usage:    "number of Astra-operated nodes per shard for devnet (negative means equal to --devnet.shard-size)",
 		DefValue: defaultDevnetConfig.HmyNodeSize,
 		Hidden:   true,
@@ -1266,10 +1266,10 @@ var (
 		Deprecated: "use --devnet.shard-size",
 	}
 	legacyDevnetHmyNodeSizeFlag = cli.IntFlag{
-		Name:       "dn_hmy_size",
+		Name:       "dn_astra_size",
 		Usage:      "number of Astra-operated nodes per shard for -network_type=devnet; negative means equal to -dn_shard_size",
 		DefValue:   defaultDevnetConfig.HmyNodeSize,
-		Deprecated: "use --devnet.hmy-node-size",
+		Deprecated: "use --devnet.astra-node-size",
 	}
 )
 

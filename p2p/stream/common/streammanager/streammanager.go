@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/event"
+	"github.com/harmony-one/abool"
 	"github.com/harmony-one/astra/internal/utils"
 	sttypes "github.com/harmony-one/astra/p2p/stream/types"
 	"github.com/libp2p/go-libp2p-core/network"

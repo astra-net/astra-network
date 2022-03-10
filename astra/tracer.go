@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
 
-package hmy
+package astra
 
 import (
 	"bufio"
@@ -38,7 +38,7 @@ import (
 	"github.com/harmony-one/astra/core/types"
 	"github.com/harmony-one/astra/core/vm"
 	"github.com/harmony-one/astra/eth/rpc"
-	"github.com/harmony-one/astra/hmy/tracers"
+	"github.com/harmony-one/astra/astra/tracers"
 	"github.com/harmony-one/astra/internal/utils"
 )
 
@@ -103,7 +103,7 @@ type txTraceTask struct {
 // TraceChain configures a new tracer according to the provided configuration, and
 // executes all the transactions contained within. The return value will be one item
 // per transaction, dependent on the requested tracer.
-func (hmy *Astra) TraceChain(ctx context.Context, start, end *types.Block, config *TraceConfig) (*rpc.Subscription, error) {
+func (astra *Astra) TraceChain(ctx context.Context, start, end *types.Block, config *TraceConfig) (*rpc.Subscription, error) {
 	// Tracing a chain is a **long** operation, only do with subscriptions
 	notifier, supported := rpc.NotifierFromContext(ctx)
 	if !supported {
@@ -113,10 +113,10 @@ func (hmy *Astra) TraceChain(ctx context.Context, start, end *types.Block, confi
 
 	// Ensure we have a valid starting state before doing any work
 	origin := start.NumberU64()
-	database := state.NewDatabaseWithCache(hmy.ChainDb(), 16)
+	database := state.NewDatabaseWithCache(astra.ChainDb(), 16)
 
 	if origin > 0 {
-		start = hmy.BlockChain.GetBlock(start.ParentHash(), origin-1)
+		start = astra.BlockChain.GetBlock(start.ParentHash(), origin-1)
 		if start == nil {
 			return nil, fmt.Errorf("parent block #%d not found", origin-1)
 		}
@@ -131,7 +131,7 @@ func (hmy *Astra) TraceChain(ctx context.Context, start, end *types.Block, confi
 		}
 		// Find the most recent block that has state available
 		for i := uint64(0); i < reexec; i++ {
-			start = hmy.BlockChain.GetBlock(start.ParentHash(), start.NumberU64()-1)
+			start = astra.BlockChain.GetBlock(start.ParentHash(), start.NumberU64()-1)
 			if start == nil {
 				break
 			}
@@ -164,19 +164,19 @@ func (hmy *Astra) TraceChain(ctx context.Context, start, end *types.Block, confi
 
 			// Fetch and execute the next block trace tasks
 			for task := range tasks {
-				hmySigner := types.MakeSigner(hmy.BlockChain.Config(), task.block.Number())
-				ethSigner := types.NewEIP155Signer(hmy.BlockChain.Config().EthCompatibleChainID)
+				astraSigner := types.MakeSigner(astra.BlockChain.Config(), task.block.Number())
+				ethSigner := types.NewEIP155Signer(astra.BlockChain.Config().EthCompatibleChainID)
 
 				// Trace all the transactions contained within
 				for i, tx := range task.block.Transactions() {
-					signer := hmySigner
+					signer := astraSigner
 					if tx.IsEthCompatible() {
 						signer = ethSigner
 					}
 					msg, _ := tx.AsMessage(signer)
-					vmCtx := core.NewEVMContext(msg, task.block.Header(), hmy.BlockChain, nil)
+					vmCtx := core.NewEVMContext(msg, task.block.Header(), astra.BlockChain, nil)
 
-					res, err := hmy.TraceTx(ctx, msg, vmCtx, task.statedb, config)
+					res, err := astra.TraceTx(ctx, msg, vmCtx, task.statedb, config)
 					if err != nil {
 						task.results[i] = &TxTraceResult{Error: err.Error()}
 						utils.Logger().Warn().Msg("Tracing failed")
@@ -265,7 +265,7 @@ func (hmy *Astra) TraceChain(ctx context.Context, start, end *types.Block, confi
 				logged = time.Now()
 			}
 			// Retrieve the next block to trace
-			block := hmy.BlockChain.GetBlockByNumber(number)
+			block := astra.BlockChain.GetBlockByNumber(number)
 			if block == nil {
 				failed = fmt.Errorf("block #%d not found", number)
 				break
@@ -282,7 +282,7 @@ func (hmy *Astra) TraceChain(ctx context.Context, start, end *types.Block, confi
 				traced += uint64(len(txs))
 			}
 			// Generate the next state snapshot fast without tracing
-			_, _, _, _, _, _, _, err := hmy.BlockChain.Processor().Process(block, statedb, vm.Config{}, false)
+			_, _, _, _, _, _, _, err := astra.BlockChain.Processor().Process(block, statedb, vm.Config{}, false)
 			if err != nil {
 				failed = err
 				break
@@ -345,12 +345,12 @@ func (hmy *Astra) TraceChain(ctx context.Context, start, end *types.Block, confi
 }
 
 // same as TraceBlock, but only use 1 thread
-func (hmy *Astra) traceBlockNoThread(ctx context.Context, block *types.Block, config *TraceConfig) ([]*TxTraceResult, error) {
+func (astra *Astra) traceBlockNoThread(ctx context.Context, block *types.Block, config *TraceConfig) ([]*TxTraceResult, error) {
 	// Create the parent state database
-	if err := hmy.BlockChain.Engine().VerifyHeader(hmy.BlockChain, block.Header(), true); err != nil {
+	if err := astra.BlockChain.Engine().VerifyHeader(astra.BlockChain, block.Header(), true); err != nil {
 		return nil, err
 	}
-	parent := hmy.BlockChain.GetBlock(block.ParentHash(), block.NumberU64()-1)
+	parent := astra.BlockChain.GetBlock(block.ParentHash(), block.NumberU64()-1)
 	if parent == nil {
 		return nil, fmt.Errorf("parent %#x not found", block.ParentHash())
 	}
@@ -358,14 +358,14 @@ func (hmy *Astra) traceBlockNoThread(ctx context.Context, block *types.Block, co
 	if config != nil && config.Reexec != nil {
 		reexec = *config.Reexec
 	}
-	statedb, err := hmy.ComputeStateDB(parent, reexec)
+	statedb, err := astra.ComputeStateDB(parent, reexec)
 	if err != nil {
 		return nil, err
 	}
 	// Execute all the transaction contained within the block concurrently
 	var (
-		hmySigner = types.MakeSigner(hmy.BlockChain.Config(), block.Number())
-		ethSigner = types.NewEIP155Signer(hmy.BlockChain.Config().EthCompatibleChainID)
+		astraSigner = types.MakeSigner(astra.BlockChain.Config(), block.Number())
+		ethSigner = types.NewEIP155Signer(astra.BlockChain.Config().EthCompatibleChainID)
 		txs       = block.Transactions()
 		results   = make([]*TxTraceResult, len(txs))
 	)
@@ -375,7 +375,7 @@ func (hmy *Astra) traceBlockNoThread(ctx context.Context, block *types.Block, co
 	var failed error
 traceLoop:
 	for i, tx := range txs {
-		signer := hmySigner
+		signer := astraSigner
 		if tx.IsEthCompatible() {
 			signer = ethSigner
 		}
@@ -384,8 +384,8 @@ traceLoop:
 
 		ethTx := tx.ConvertToEth()
 		statedb.Prepare(ethTx.Hash(), blockHash, i)
-		vmctx := core.NewEVMContext(msg, block.Header(), hmy.BlockChain, nil)
-		res, err := hmy.TraceTx(ctx, msg, vmctx, statedb, config)
+		vmctx := core.NewEVMContext(msg, block.Header(), astra.BlockChain, nil)
+		res, err := astra.TraceTx(ctx, msg, vmctx, statedb, config)
 		if err != nil {
 			results[i] = &TxTraceResult{Error: err.Error()}
 			failed = err
@@ -412,7 +412,7 @@ traceLoop:
 // TraceBlock configures a new tracer according to the provided configuration, and
 // executes all the transactions contained within. The return value will be one item
 // per transaction, dependent on the requested tracer.
-func (hmy *Astra) TraceBlock(ctx context.Context, block *types.Block, config *TraceConfig) ([]*TxTraceResult, error) {
+func (astra *Astra) TraceBlock(ctx context.Context, block *types.Block, config *TraceConfig) ([]*TxTraceResult, error) {
 	select {
 	case <-ctx.Done():
 		return nil, errors.New("canceled!")
@@ -420,13 +420,13 @@ func (hmy *Astra) TraceBlock(ctx context.Context, block *types.Block, config *Tr
 	}
 
 	if *config.Tracer == "ParityBlockTracer" {
-		return hmy.traceBlockNoThread(ctx, block, config)
+		return astra.traceBlockNoThread(ctx, block, config)
 	}
 	// Create the parent state database
-	if err := hmy.BlockChain.Engine().VerifyHeader(hmy.BlockChain, block.Header(), true); err != nil {
+	if err := astra.BlockChain.Engine().VerifyHeader(astra.BlockChain, block.Header(), true); err != nil {
 		return nil, err
 	}
-	parent := hmy.BlockChain.GetBlock(block.ParentHash(), block.NumberU64()-1)
+	parent := astra.BlockChain.GetBlock(block.ParentHash(), block.NumberU64()-1)
 	if parent == nil {
 		return nil, fmt.Errorf("parent %#x not found", block.ParentHash())
 	}
@@ -434,14 +434,14 @@ func (hmy *Astra) TraceBlock(ctx context.Context, block *types.Block, config *Tr
 	if config != nil && config.Reexec != nil {
 		reexec = *config.Reexec
 	}
-	statedb, err := hmy.ComputeStateDB(parent, reexec)
+	statedb, err := astra.ComputeStateDB(parent, reexec)
 	if err != nil {
 		return nil, err
 	}
 	// Execute all the transaction contained within the block concurrently
 	var (
-		hmySigner = types.MakeSigner(hmy.BlockChain.Config(), block.Number())
-		ethSigner = types.NewEIP155Signer(hmy.BlockChain.Config().EthCompatibleChainID)
+		astraSigner = types.MakeSigner(astra.BlockChain.Config(), block.Number())
+		ethSigner = types.NewEIP155Signer(astra.BlockChain.Config().EthCompatibleChainID)
 		txs       = block.Transactions()
 		results   = make([]*TxTraceResult, len(txs))
 
@@ -460,16 +460,16 @@ func (hmy *Astra) TraceBlock(ctx context.Context, block *types.Block, config *Tr
 
 			// Fetch and execute the next transaction trace tasks
 			for task := range jobs {
-				signer := hmySigner
+				signer := astraSigner
 				if txs[task.index].IsEthCompatible() {
 					signer = ethSigner
 				}
 
 				msg, _ := txs[task.index].AsMessage(signer)
-				vmctx := core.NewEVMContext(msg, block.Header(), hmy.BlockChain, nil)
+				vmctx := core.NewEVMContext(msg, block.Header(), astra.BlockChain, nil)
 				ethTx := txs[task.index].ConvertToEth()
 				task.statedb.Prepare(ethTx.Hash(), blockHash, task.index)
-				res, err := hmy.TraceTx(ctx, msg, vmctx, task.statedb, config)
+				res, err := astra.TraceTx(ctx, msg, vmctx, task.statedb, config)
 				if err != nil {
 					results[task.index] = &TxTraceResult{Error: err.Error()}
 					continue
@@ -484,16 +484,16 @@ func (hmy *Astra) TraceBlock(ctx context.Context, block *types.Block, config *Tr
 		// Send the trace task over for execution
 		jobs <- &txTraceTask{statedb: statedb.Copy(), index: i}
 
-		signer := hmySigner
+		signer := astraSigner
 		if tx.IsEthCompatible() {
 			signer = ethSigner
 		}
 		// Generate the next state snapshot fast without tracing
 		msg, _ := tx.AsMessage(signer)
 		statedb.Prepare(tx.Hash(), block.Hash(), i)
-		vmctx := core.NewEVMContext(msg, block.Header(), hmy.BlockChain, nil)
+		vmctx := core.NewEVMContext(msg, block.Header(), astra.BlockChain, nil)
 
-		vmenv := vm.NewEVM(vmctx, statedb, hmy.BlockChain.Config(), vm.Config{})
+		vmenv := vm.NewEVM(vmctx, statedb, astra.BlockChain.Config(), vm.Config{})
 		if _, err := core.ApplyMessage(vmenv, msg, new(core.GasPool).AddGas(msg.Gas())); err != nil {
 			failed = err
 			break
@@ -514,7 +514,7 @@ func (hmy *Astra) TraceBlock(ctx context.Context, block *types.Block, config *Tr
 // standardTraceBlockToFile configures a new tracer which uses standard JSON output,
 // and traces either a full block or an individual transaction. The return value will
 // be one filename per transaction traced.
-func (hmy *Astra) standardTraceBlockToFile(ctx context.Context, block *types.Block, config *StdTraceConfig) ([]string, error) {
+func (astra *Astra) standardTraceBlockToFile(ctx context.Context, block *types.Block, config *StdTraceConfig) ([]string, error) {
 	// If we're tracing a single transaction, make sure it's present
 	if config != nil && config.TxHash != (common.Hash{}) {
 		if !containsTx(block, config.TxHash) {
@@ -522,10 +522,10 @@ func (hmy *Astra) standardTraceBlockToFile(ctx context.Context, block *types.Blo
 		}
 	}
 	// Create the parent state database
-	if err := hmy.BlockChain.Engine().VerifyHeader(hmy.BlockChain, block.Header(), true); err != nil {
+	if err := astra.BlockChain.Engine().VerifyHeader(astra.BlockChain, block.Header(), true); err != nil {
 		return nil, err
 	}
-	parent := hmy.BlockChain.GetBlock(block.ParentHash(), block.NumberU64()-1)
+	parent := astra.BlockChain.GetBlock(block.ParentHash(), block.NumberU64()-1)
 	if parent == nil {
 		return nil, fmt.Errorf("parent %#x not found", block.ParentHash())
 	}
@@ -533,7 +533,7 @@ func (hmy *Astra) standardTraceBlockToFile(ctx context.Context, block *types.Blo
 	if config != nil && config.Reexec != nil {
 		reexec = *config.Reexec
 	}
-	statedb, err := hmy.ComputeStateDB(parent, reexec)
+	statedb, err := astra.ComputeStateDB(parent, reexec)
 	if err != nil {
 		return nil, err
 	}
@@ -552,19 +552,19 @@ func (hmy *Astra) standardTraceBlockToFile(ctx context.Context, block *types.Blo
 
 	// Execute transaction, either tracing all or just the requested one
 	var (
-		hmySigner = types.MakeSigner(hmy.BlockChain.Config(), block.Number())
-		ethSigner = types.NewEIP155Signer(hmy.BlockChain.Config().EthCompatibleChainID)
+		astraSigner = types.MakeSigner(astra.BlockChain.Config(), block.Number())
+		ethSigner = types.NewEIP155Signer(astra.BlockChain.Config().EthCompatibleChainID)
 		dumps     []string
 	)
 	for i, tx := range block.Transactions() {
-		signer := hmySigner
+		signer := astraSigner
 		if tx.IsEthCompatible() {
 			signer = ethSigner
 		}
 		// Prepare the transaction for un-traced execution
 		var (
 			msg, _ = tx.AsMessage(signer)
-			vmctx  = core.NewEVMContext(msg, block.Header(), hmy.BlockChain, nil)
+			vmctx  = core.NewEVMContext(msg, block.Header(), astra.BlockChain, nil)
 
 			vmConf vm.Config
 			dump   *os.File
@@ -591,7 +591,7 @@ func (hmy *Astra) standardTraceBlockToFile(ctx context.Context, block *types.Blo
 			}
 		}
 		// Execute the transaction and flush any traces to disk
-		vmenv := vm.NewEVM(vmctx, statedb, hmy.BlockChain.Config(), vmConf)
+		vmenv := vm.NewEVM(vmctx, statedb, astra.BlockChain.Config(), vmConf)
 		_, err = core.ApplyMessage(vmenv, msg, new(core.GasPool).AddGas(msg.Gas()))
 		if writer != nil {
 			writer.Flush()
@@ -628,18 +628,18 @@ func containsTx(block *types.Block, hash common.Hash) bool {
 // ComputeStateDB retrieves the state database associated with a certain block.
 // If no state is locally available for the given block, a number of blocks are
 // attempted to be reexecuted to generate the desired state.
-func (hmy *Astra) ComputeStateDB(block *types.Block, reexec uint64) (*state.DB, error) {
+func (astra *Astra) ComputeStateDB(block *types.Block, reexec uint64) (*state.DB, error) {
 	// If we have the state fully available, use that
-	statedb, err := hmy.BlockChain.StateAt(block.Root())
+	statedb, err := astra.BlockChain.StateAt(block.Root())
 	if err == nil {
 		return statedb, nil
 	}
 	// Otherwise try to reexec blocks until we find a state or reach our limit
 	origin := block.NumberU64()
-	database := state.NewDatabaseWithCache(hmy.BlockChain.ChainDb(), 16)
+	database := state.NewDatabaseWithCache(astra.BlockChain.ChainDb(), 16)
 
 	for i := uint64(0); i < reexec; i++ {
-		block = hmy.BlockChain.GetBlock(block.ParentHash(), block.NumberU64()-1)
+		block = astra.BlockChain.GetBlock(block.ParentHash(), block.NumberU64()-1)
 		if block == nil {
 			break
 		}
@@ -673,10 +673,10 @@ func (hmy *Astra) ComputeStateDB(block *types.Block, reexec uint64) (*state.DB, 
 			logged = time.Now()
 		}
 		// Retrieve the next block to regenerate and process it
-		if block = hmy.BlockChain.GetBlockByNumber(block.NumberU64() + 1); block == nil {
+		if block = astra.BlockChain.GetBlockByNumber(block.NumberU64() + 1); block == nil {
 			return nil, fmt.Errorf("block #%d not found", block.NumberU64()+1)
 		}
-		_, _, _, _, _, _, _, err := hmy.BlockChain.Processor().Process(block, statedb, vm.Config{}, false)
+		_, _, _, _, _, _, _, err := astra.BlockChain.Processor().Process(block, statedb, vm.Config{}, false)
 		if err != nil {
 			return nil, fmt.Errorf("processing block %d failed: %v", block.NumberU64(), err)
 		}
@@ -708,7 +708,7 @@ func (hmy *Astra) ComputeStateDB(block *types.Block, reexec uint64) (*state.DB, 
 // executes the given message in the provided environment. The return value will
 // be tracer dependent.
 // NOTE: Only support default StructLogger tracer
-func (hmy *Astra) TraceTx(ctx context.Context, message core.Message, vmctx vm.Context, statedb *state.DB, config *TraceConfig) (interface{}, error) {
+func (astra *Astra) TraceTx(ctx context.Context, message core.Message, vmctx vm.Context, statedb *state.DB, config *TraceConfig) (interface{}, error) {
 	// Assemble the structured logger or the JavaScript tracer
 	var (
 		tracer vm.Tracer
@@ -749,7 +749,7 @@ func (hmy *Astra) TraceTx(ctx context.Context, message core.Message, vmctx vm.Co
 		tracer = vm.NewStructLogger(config.LogConfig)
 	}
 	// Run the transaction with tracing enabled.
-	vmenv := vm.NewEVM(vmctx, statedb, hmy.BlockChain.Config(), vm.Config{Debug: true, Tracer: tracer})
+	vmenv := vm.NewEVM(vmctx, statedb, astra.BlockChain.Config(), vm.Config{Debug: true, Tracer: tracer})
 
 	result, err := core.ApplyMessage(vmenv, message, new(core.GasPool).AddGas(message.Gas()))
 	if err != nil {
@@ -778,13 +778,13 @@ func (hmy *Astra) TraceTx(ctx context.Context, message core.Message, vmctx vm.Co
 }
 
 // ComputeTxEnv returns the execution environment of a certain transaction.
-func (hmy *Astra) ComputeTxEnv(block *types.Block, txIndex int, reexec uint64) (core.Message, vm.Context, *state.DB, error) {
+func (astra *Astra) ComputeTxEnv(block *types.Block, txIndex int, reexec uint64) (core.Message, vm.Context, *state.DB, error) {
 	// Create the parent state database
-	parent := hmy.BlockChain.GetBlock(block.ParentHash(), block.NumberU64()-1)
+	parent := astra.BlockChain.GetBlock(block.ParentHash(), block.NumberU64()-1)
 	if parent == nil {
 		return nil, vm.Context{}, nil, fmt.Errorf("parent %#x not found", block.ParentHash())
 	}
-	statedb, err := hmy.ComputeStateDB(parent, reexec)
+	statedb, err := astra.ComputeStateDB(parent, reexec)
 	if err != nil {
 		return nil, vm.Context{}, nil, err
 	}
@@ -794,23 +794,23 @@ func (hmy *Astra) ComputeTxEnv(block *types.Block, txIndex int, reexec uint64) (
 	}
 
 	// Recompute transactions up to the target index.
-	hmySigner := types.MakeSigner(hmy.BlockChain.Config(), block.Number())
-	ethSigner := types.NewEIP155Signer(hmy.BlockChain.Config().EthCompatibleChainID)
+	astraSigner := types.MakeSigner(astra.BlockChain.Config(), block.Number())
+	ethSigner := types.NewEIP155Signer(astra.BlockChain.Config().EthCompatibleChainID)
 
 	for idx, tx := range block.Transactions() {
-		signer := hmySigner
+		signer := astraSigner
 		if tx.IsEthCompatible() {
 			signer = ethSigner
 		}
 
 		// Assemble the transaction call message and return if the requested offset
 		msg, _ := tx.AsMessage(signer)
-		context := core.NewEVMContext(msg, block.Header(), hmy.BlockChain, nil)
+		context := core.NewEVMContext(msg, block.Header(), astra.BlockChain, nil)
 		if idx == txIndex {
 			return msg, context, statedb, nil
 		}
 		// Not yet the searched for transaction, execute on top of the current state
-		vmenv := vm.NewEVM(context, statedb, hmy.BlockChain.Config(), vm.Config{})
+		vmenv := vm.NewEVM(context, statedb, astra.BlockChain.Config(), vm.Config{})
 		if _, err := core.ApplyMessage(vmenv, msg, new(core.GasPool).AddGas(tx.GasLimit())); err != nil {
 			return nil, vm.Context{}, nil, fmt.Errorf("transaction %#x failed: %v", tx.Hash(), err)
 		}
@@ -821,30 +821,30 @@ func (hmy *Astra) ComputeTxEnv(block *types.Block, txIndex int, reexec uint64) (
 }
 
 // ComputeTxEnvEachBlockWithoutApply returns the execution environment of a certain transaction.
-func (hmy *Astra) ComputeTxEnvEachBlockWithoutApply(block *types.Block, reexec uint64, cb func(int, *types.Transaction, core.Message, vm.Context, *state.DB) bool) error {
+func (astra *Astra) ComputeTxEnvEachBlockWithoutApply(block *types.Block, reexec uint64, cb func(int, *types.Transaction, core.Message, vm.Context, *state.DB) bool) error {
 	// Create the parent state database
-	parent := hmy.BlockChain.GetBlock(block.ParentHash(), block.NumberU64()-1)
+	parent := astra.BlockChain.GetBlock(block.ParentHash(), block.NumberU64()-1)
 	if parent == nil {
 		return fmt.Errorf("parent %#x not found", block.ParentHash())
 	}
-	statedb, err := hmy.ComputeStateDB(parent, reexec)
+	statedb, err := astra.ComputeStateDB(parent, reexec)
 	if err != nil {
 		return err
 	}
 
 	// Recompute transactions up to the target index.
-	hmySigner := types.MakeSigner(hmy.BlockChain.Config(), block.Number())
-	ethSigner := types.NewEIP155Signer(hmy.BlockChain.Config().EthCompatibleChainID)
+	astraSigner := types.MakeSigner(astra.BlockChain.Config(), block.Number())
+	ethSigner := types.NewEIP155Signer(astra.BlockChain.Config().EthCompatibleChainID)
 
 	for idx, tx := range block.Transactions() {
-		signer := hmySigner
+		signer := astraSigner
 		if tx.IsEthCompatible() {
 			signer = ethSigner
 		}
 
 		// Assemble the transaction call message and return if the requested offset
 		msg, _ := tx.AsMessage(signer)
-		context := core.NewEVMContext(msg, block.Header(), hmy.BlockChain, nil)
+		context := core.NewEVMContext(msg, block.Header(), astra.BlockChain, nil)
 		if !cb(idx, tx, msg, context, statedb) {
 			return nil
 		}

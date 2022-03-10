@@ -36,7 +36,7 @@ import (
 	"github.com/harmony-one/astra/consensus"
 	"github.com/harmony-one/astra/consensus/quorum"
 	"github.com/harmony-one/astra/core"
-	"github.com/harmony-one/astra/hmy/downloader"
+	"github.com/harmony-one/astra/astra/downloader"
 	"github.com/harmony-one/astra/internal/cli"
 	"github.com/harmony-one/astra/internal/common"
 	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
@@ -66,7 +66,7 @@ var rootCmd = &cobra.Command{
 
 Examples usage:
 
-# start a validator node with default bls folder (default bls key files in ./.hmy/blskeys)
+# start a validator node with default bls folder (default bls key files in ./.astra/blskeys)
     ./astra
 
 # start a validator node with customized bls key folder

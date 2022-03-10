@@ -17,7 +17,7 @@ import (
 	"github.com/gorilla/mux"
 	msg_pb "github.com/harmony-one/astra/api/proto/message"
 	"github.com/harmony-one/astra/core"
-	"github.com/harmony-one/astra/hmy"
+	"github.com/harmony-one/astra/astra"
 	"github.com/harmony-one/astra/internal/chain"
 	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
 	"github.com/harmony-one/astra/internal/utils"
@@ -49,11 +49,11 @@ type Service struct {
 	server      *http.Server
 	messageChan chan *msg_pb.Message
 	blockchain  *core.BlockChain
-	backend     hmy.NodeAPI
+	backend     astra.NodeAPI
 }
 
 // New returns explorer service.
-func New(selfPeer *p2p.Peer, bc *core.BlockChain, backend hmy.NodeAPI) *Service {
+func New(selfPeer *p2p.Peer, bc *core.BlockChain, backend astra.NodeAPI) *Service {
 	dbPath := defaultDBPath(selfPeer.IP, selfPeer.Port)
 	storage, err := newStorage(bc, dbPath)
 	if err != nil {

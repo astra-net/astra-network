@@ -29,7 +29,7 @@ func TestAstraFlags(t *testing.T) {
 				"/ip4/54.213.43.194/tcp/9874/p2p/QmZJJx6AdaoEkGLrYG4JeLCKeCKDjnFz2wfHNHxAqFSGA9,/ip4/13.113.101." +
 				"219/tcp/12019/p2p/QmQayinFSgMMw5cSpDUiD9pQ2WeP6WNmGxpZ6ou3mdVFJX,/ip4/99.81.170.167/tcp/12019/p" +
 				"2p/QmRVbTpEYup8dSaURZfF6ByrMTSKa4UyUzJhSjahFzRqNj --ip 8.8.8.8 --port 9000 --network_type=mainn" +
-				"et --dns_zone=t.hmny.io --blacklist=./.hmy/blacklist.txt --min_peers=6 --max_bls_keys_per_node=" +
+				"et --dns_zone=t.hmny.io --blacklist=./.astra/blacklist.txt --min_peers=6 --max_bls_keys_per_node=" +
 				"10 --broadcast_invalid_tx=true --verbosity=3 --is_archival=false --shard_id=-1 --staking=true -" +
 				"-aws-config-source file:config.json --p2p.disc.concurrency 5 --p2p.security.max-conn-per-ip 5",
 			expConfig: astraconfig.AstraConfig{
@@ -88,7 +88,7 @@ func TestAstraFlags(t *testing.T) {
 					AggregateSig: true,
 				},
 				BLSKeys: astraconfig.BlsConfig{
-					KeyDir:           "./.hmy/blskeys",
+					KeyDir:           "./.astra/blskeys",
 					KeyFiles:         []string{},
 					MaxKeys:          10,
 					PassEnabled:      true,
@@ -100,7 +100,7 @@ func TestAstraFlags(t *testing.T) {
 					KMSConfigFile:    "config.json",
 				},
 				TxPool: astraconfig.TxPoolConfig{
-					BlacklistFile:  "./.hmy/blacklist.txt",
+					BlacklistFile:  "./.astra/blacklist.txt",
 					RosettaFixFile: "",
 					AccountSlots:   16,
 				},
@@ -182,13 +182,13 @@ func TestGeneralFlags(t *testing.T) {
 		},
 		{
 			args: []string{"--run", "explorer", "--run.legacy", "--run.shard=0",
-				"--run.archive=true", "--datadir=./.hmy"},
+				"--run.archive=true", "--datadir=./.astra"},
 			expConfig: astraconfig.GeneralConfig{
 				NodeType:   "explorer",
 				NoStaking:  true,
 				ShardID:    0,
 				IsArchival: true,
-				DataDir:    "./.hmy",
+				DataDir:    "./.astra",
 			},
 		},
 		{
@@ -396,7 +396,7 @@ func TestP2PFlags(t *testing.T) {
 			expConfig: astraconfig.P2pConfig{
 				Port:            9001,
 				IP:              nodeconfig.DefaultPublicListenIP,
-				KeyFile:         "./.hmykey",
+				KeyFile:         "./.astrakey",
 				DiscConcurrency: 5,
 				MaxConnsPerIP:   5,
 			},
@@ -695,12 +695,12 @@ func TestBLSFlags(t *testing.T) {
 			},
 		},
 		{
-			args: []string{"--blskey_file", "key1,key2", "--blsfolder", "./hmykeys",
+			args: []string{"--blskey_file", "key1,key2", "--blsfolder", "./astrakeys",
 				"--max_bls_keys_per_node", "5", "--blspass", "file:xxx.pass", "--save-passphrase",
 				"--aws-config-source", "file:config.json",
 			},
 			expConfig: astraconfig.BlsConfig{
-				KeyDir:           "./hmykeys",
+				KeyDir:           "./astrakeys",
 				KeyFiles:         []string{"key1", "key2"},
 				MaxKeys:          5,
 				PassEnabled:      true,
@@ -1062,7 +1062,7 @@ func TestDevnetFlags(t *testing.T) {
 		},
 		{
 			args: []string{"--devnet.num-shard", "3", "--devnet.shard-size", "100",
-				"--devnet.hmy-node-size", "60"},
+				"--devnet.astra-node-size", "60"},
 			expConfig: &astraconfig.DevnetConfig{
 				NumShards:   3,
 				ShardSize:   100,
@@ -1070,7 +1070,7 @@ func TestDevnetFlags(t *testing.T) {
 			},
 		},
 		{
-			args: []string{"--dn_num_shards", "3", "--dn_shard_size", "100", "--dn_hmy_size",
+			args: []string{"--dn_num_shards", "3", "--dn_shard_size", "100", "--dn_astra_size",
 				"60"},
 			expConfig: &astraconfig.DevnetConfig{
 				NumShards:   3,

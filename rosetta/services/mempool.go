@@ -7,21 +7,21 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/server"
 	"github.com/coinbase/rosetta-sdk-go/types"
 	ethCommon "github.com/ethereum/go-ethereum/common"
-	hmyTypes "github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/hmy"
+	astraTypes "github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/astra"
 	"github.com/harmony-one/astra/rosetta/common"
 	"github.com/harmony-one/astra/staking"
 )
 
 // MempoolAPI implements the server.MempoolAPIServicer interface
 type MempoolAPI struct {
-	hmy *hmy.Astra
+	astra *astra.Astra
 }
 
 // NewMempoolAPI creates a new instance of MempoolAPI
-func NewMempoolAPI(hmy *hmy.Astra) server.MempoolAPIServicer {
+func NewMempoolAPI(astra *astra.Astra) server.MempoolAPIServicer {
 	return &MempoolAPI{
-		hmy: hmy,
+		astra: astra,
 	}
 }
 
@@ -29,11 +29,11 @@ func NewMempoolAPI(hmy *hmy.Astra) server.MempoolAPIServicer {
 func (s *MempoolAPI) Mempool(
 	ctx context.Context, req *types.NetworkRequest,
 ) (*types.MempoolResponse, *types.Error) {
-	if err := assertValidNetworkIdentifier(req.NetworkIdentifier, s.hmy.ShardID); err != nil {
+	if err := assertValidNetworkIdentifier(req.NetworkIdentifier, s.astra.ShardID); err != nil {
 		return nil, err
 	}
 
-	pool, err := s.hmy.GetPoolTransactions()
+	pool, err := s.astra.GetPoolTransactions()
 	if err != nil {
 		return nil, common.NewError(common.CatchAllError, map[string]interface{}{
 			"message": "unable to fetch pool transactions",
@@ -54,31 +54,31 @@ func (s *MempoolAPI) Mempool(
 func (s *MempoolAPI) MempoolTransaction(
 	ctx context.Context, req *types.MempoolTransactionRequest,
 ) (*types.MempoolTransactionResponse, *types.Error) {
-	if err := assertValidNetworkIdentifier(req.NetworkIdentifier, s.hmy.ShardID); err != nil {
+	if err := assertValidNetworkIdentifier(req.NetworkIdentifier, s.astra.ShardID); err != nil {
 		return nil, err
 	}
 
 	hash := ethCommon.HexToHash(req.TransactionIdentifier.Hash)
-	poolTx := s.hmy.GetPoolTransaction(hash)
+	poolTx := s.astra.GetPoolTransaction(hash)
 	if poolTx == nil {
 		return nil, &common.TransactionNotFoundError
 	}
 
 	senderAddr, _ := poolTx.SenderAddress()
-	estLog := &hmyTypes.Log{
+	estLog := &astraTypes.Log{
 		Address:     senderAddr,
 		Topics:      []ethCommon.Hash{staking.CollectRewardsTopic},
 		Data:        big.NewInt(0).Bytes(),
-		BlockNumber: s.hmy.CurrentBlock().NumberU64(),
+		BlockNumber: s.astra.CurrentBlock().NumberU64(),
 	}
 
 	// Contract related information for pending transactions is not reported
-	estReceipt := &hmyTypes.Receipt{
+	estReceipt := &astraTypes.Receipt{
 		PostState:         []byte{},
-		Status:            hmyTypes.ReceiptStatusSuccessful, // Assume transaction will succeed
+		Status:            astraTypes.ReceiptStatusSuccessful, // Assume transaction will succeed
 		CumulativeGasUsed: poolTx.GasLimit(),
 		Bloom:             [256]byte{},
-		Logs:              []*hmyTypes.Log{estLog},
+		Logs:              []*astraTypes.Log{estLog},
 		TxHash:            poolTx.Hash(),
 		ContractAddress:   ethCommon.Address{},
 		GasUsed:           poolTx.GasLimit(),

@@ -183,7 +183,7 @@ func (tx *EthTransaction) Copy() *EthTransaction {
 	return &tx2
 }
 
-// ConvertToHmy converts eth txn to hmy txn by filling in ShardID and ToShardID fields.
+// ConvertToHmy converts eth txn to astra txn by filling in ShardID and ToShardID fields.
 func (tx *EthTransaction) ConvertToHmy() *Transaction {
 	var tx2 Transaction
 	d := &tx.data

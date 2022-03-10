@@ -273,7 +273,7 @@ func preStakingEnabledCommittee(s shardingconfig.Instance) (*shard.State, error)
 	shardNum := int(s.NumShards())
 	shardAstraNodes := s.NumAstraOperatedNodesPerShard()
 	shardSize := s.NumNodesPerShard()
-	hmyAccounts := s.HmyAccounts()
+	astraAccounts := s.HmyAccounts()
 	fnAccounts := s.FnAccounts()
 	shardState := &shard.State{}
 	// Shard state needs to be sorted by shard ID
@@ -282,11 +282,11 @@ func preStakingEnabledCommittee(s shardingconfig.Instance) (*shard.State, error)
 		for j := 0; j < shardAstraNodes; j++ {
 			index := i + j*shardNum // The initial account to use for genesis nodes
 			pub := &bls_core.PublicKey{}
-			pub.DeserializeHexStr(hmyAccounts[index].BLSPublicKey)
+			pub.DeserializeHexStr(astraAccounts[index].BLSPublicKey)
 			pubKey := bls.SerializedPublicKey{}
 			pubKey.FromLibBLSPublicKey(pub)
 			// TODO: directly read address for bls too
-			addr, err := common2.ParseAddr(hmyAccounts[index].Address)
+			addr, err := common2.ParseAddr(astraAccounts[index].Address)
 			if err != nil {
 				return nil, err
 			}

@@ -29,7 +29,7 @@ RUN make linux_static && \
 
 RUN cp ./rosetta/infra/astra-pstn.conf /root/astra-pstn.conf && \
     cp ./rosetta/infra/astra-mainnet.conf /root/astra-mainnet.conf && \
-    cp ./.hmy/rosetta_local_fix.csv /root/rosetta_local_fix.csv
+    cp ./.astra/rosetta_local_fix.csv /root/rosetta_local_fix.csv
 
 # Execution
 FROM ubuntu:20.04

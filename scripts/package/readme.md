@@ -119,7 +119,7 @@ sudo /usr/sbin/astra-setup.sh -t explorer -s 0
 to setup the node as an explorer node w/o blskey setup.
 
 # Setup new validator
-Please copy your blskey to `/home/astra/.hmy/blskeys` directory, and start the node.
+Please copy your blskey to `/home/astra/.astra/blskeys` directory, and start the node.
 The default configuration is for validators on mainnet. No need to run `astra-setup.sh` script.
 
 # Start/stop node

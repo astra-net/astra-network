@@ -5,7 +5,7 @@ RUN apk add --no-cache bash libstdc++ gmp-dev libc6-compat bind-tools jq && ln -
 # default base port, rpc port and rest port
 EXPOSE 9000/tcp 9500/tcp 9800/tcp 6000/tcp
 
-VOLUME ["/astra/astra_db_0","/astra/astra_db_1","/astra/astra_db_2","/astra/astra_db_3","/astra/log","/astra/.hmy"]
+VOLUME ["/astra/astra_db_0","/astra/astra_db_1","/astra/astra_db_2","/astra/astra_db_3","/astra/log","/astra/.astra"]
 
 # Default BN for S3/mainnet
 ENV NODE_BN_MNET "/ip4/100.26.90.187/tcp/9874/p2p/Qmdfjtk6hPoyrH1zVD9PEH4zfWLo38dP2mDvvKXfh3tnEv,/ip4/54.213.43.194/tcp/9874/p2p/QmZJJx6AdaoEkGLrYG4JeLCKeCKDjnFz2wfHNHxAqFSGA9,/ip4/13.113.101.219/tcp/12019/p2p/QmQayinFSgMMw5cSpDUiD9pQ2WeP6WNmGxpZ6ou3mdVFJX,/ip4/99.81.170.167/tcp/12019/p2p/QmRVbTpEYup8dSaURZfF6ByrMTSKa4UyUzJhSjahFzRqNj"

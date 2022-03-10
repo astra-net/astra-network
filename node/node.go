@@ -603,7 +603,7 @@ func (node *Node) validateShardBoundMessage(
 }
 
 var (
-	errMsgHadNoHMYPayLoadAssumption      = errors.New("did not have sufficient size for hmy msg")
+	errMsgHadNoHMYPayLoadAssumption      = errors.New("did not have sufficient size for astra msg")
 	errConsensusMessageOnUnexpectedTopic = errors.New("received consensus on wrong topic")
 )
 
@@ -705,16 +705,16 @@ func (node *Node) StartPubSub() error {
 			// this is the validation function called to quickly validate every p2p message
 			func(ctx context.Context, peer libp2p_peer.ID, msg *libp2p_pubsub.Message) libp2p_pubsub.ValidationResult {
 				nodeP2PMessageCounterVec.With(prometheus.Labels{"type": "total"}).Inc()
-				hmyMsg := msg.GetData()
+				astraMsg := msg.GetData()
 
 				// first to validate the size of the p2p message
-				if len(hmyMsg) < p2pMsgPrefixSize {
+				if len(astraMsg) < p2pMsgPrefixSize {
 					// TODO (lc): block peers sending empty messages
 					nodeP2PMessageCounterVec.With(prometheus.Labels{"type": "invalid_size"}).Inc()
 					return libp2p_pubsub.ValidationReject
 				}
 
-				openBox := hmyMsg[p2pMsgPrefixSize:]
+				openBox := astraMsg[p2pMsgPrefixSize:]
 
 				// validate message category
 				switch proto.MessageCategory(openBox[proto.MessageCategoryBytes-1]) {

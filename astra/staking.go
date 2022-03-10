@@ -1,4 +1,4 @@
-package hmy
+package astra
 
 import (
 	"context"
@@ -28,7 +28,7 @@ var (
 	bigZero = big.NewInt(0)
 )
 
-func (hmy *Astra) readAndUpdateRawStakes(
+func (astra *Astra) readAndUpdateRawStakes(
 	epoch *big.Int,
 	decider quorum.Decider,
 	comm shard.Committee,
@@ -41,7 +41,7 @@ func (hmy *Astra) readAndUpdateRawStakes(
 		slotKey := slot.BLSPublicKey
 		spread, ok := validatorSpreads[slotAddr]
 		if !ok {
-			snapshot, err := hmy.BlockChain.ReadValidatorSnapshotAtEpoch(epoch, slotAddr)
+			snapshot, err := astra.BlockChain.ReadValidatorSnapshotAtEpoch(epoch, slotAddr)
 			if err != nil {
 				continue
 			}
@@ -63,10 +63,10 @@ func (hmy *Astra) readAndUpdateRawStakes(
 	return rawStakes
 }
 
-func (hmy *Astra) getSuperCommittees() (*quorum.Transition, error) {
-	nowE := hmy.BlockChain.CurrentHeader().Epoch()
+func (astra *Astra) getSuperCommittees() (*quorum.Transition, error) {
+	nowE := astra.BlockChain.CurrentHeader().Epoch()
 
-	if hmy.BlockChain.CurrentHeader().IsLastBlockInEpoch() {
+	if astra.BlockChain.CurrentHeader().IsLastBlockInEpoch() {
 		// current epoch is current header epoch + 1 if the header was last block of prev epoch
 		nowE = new(big.Int).Add(nowE, common.Big1)
 	}
@@ -76,11 +76,11 @@ func (hmy *Astra) getSuperCommittees() (*quorum.Transition, error) {
 		nowCommittee, prevCommittee *shard.State
 		err                         error
 	)
-	nowCommittee, err = hmy.BlockChain.ReadShardState(nowE)
+	nowCommittee, err = astra.BlockChain.ReadShardState(nowE)
 	if err != nil {
 		return nil, err
 	}
-	prevCommittee, err = hmy.BlockChain.ReadShardState(thenE)
+	prevCommittee, err = astra.BlockChain.ReadShardState(thenE)
 	if err != nil {
 		return nil, err
 	}
@@ -98,12 +98,12 @@ func (hmy *Astra) getSuperCommittees() (*quorum.Transition, error) {
 	for _, comm := range prevCommittee.Shards {
 		decider := quorum.NewDecider(quorum.SuperMajorityStake, comm.ShardID)
 		// before staking skip computing
-		if hmy.BlockChain.Config().IsStaking(prevCommittee.Epoch) {
+		if astra.BlockChain.Config().IsStaking(prevCommittee.Epoch) {
 			if _, err := decider.SetVoters(&comm, prevCommittee.Epoch); err != nil {
 				return nil, err
 			}
 		}
-		rawStakes = hmy.readAndUpdateRawStakes(thenE, decider, comm, rawStakes, validatorSpreads)
+		rawStakes = astra.readAndUpdateRawStakes(thenE, decider, comm, rawStakes, validatorSpreads)
 		then.Deciders[fmt.Sprintf("shard-%d", comm.ShardID)] = decider
 	}
 	then.MedianStake = effective.Median(rawStakes)
@@ -116,11 +116,11 @@ func (hmy *Astra) getSuperCommittees() (*quorum.Transition, error) {
 			return nil, errors.Wrapf(
 				err,
 				"committee is only available from staking epoch: %v, current epoch: %v",
-				hmy.BlockChain.Config().StakingEpoch,
-				hmy.BlockChain.CurrentHeader().Epoch(),
+				astra.BlockChain.Config().StakingEpoch,
+				astra.BlockChain.CurrentHeader().Epoch(),
 			)
 		}
-		rawStakes = hmy.readAndUpdateRawStakes(nowE, decider, comm, rawStakes, validatorSpreads)
+		rawStakes = astra.readAndUpdateRawStakes(nowE, decider, comm, rawStakes, validatorSpreads)
 		now.Deciders[fmt.Sprintf("shard-%d", comm.ShardID)] = decider
 	}
 	now.MedianStake = effective.Median(rawStakes)
@@ -129,60 +129,60 @@ func (hmy *Astra) getSuperCommittees() (*quorum.Transition, error) {
 }
 
 // IsStakingEpoch ...
-func (hmy *Astra) IsStakingEpoch(epoch *big.Int) bool {
-	return hmy.BlockChain.Config().IsStaking(epoch)
+func (astra *Astra) IsStakingEpoch(epoch *big.Int) bool {
+	return astra.BlockChain.Config().IsStaking(epoch)
 }
 
 // IsPreStakingEpoch ...
-func (hmy *Astra) IsPreStakingEpoch(epoch *big.Int) bool {
-	return hmy.BlockChain.Config().IsPreStaking(epoch)
+func (astra *Astra) IsPreStakingEpoch(epoch *big.Int) bool {
+	return astra.BlockChain.Config().IsPreStaking(epoch)
 }
 
 // IsNoEarlyUnlockEpoch ...
-func (hmy *Astra) IsNoEarlyUnlockEpoch(epoch *big.Int) bool {
-	return hmy.BlockChain.Config().IsNoEarlyUnlock(epoch)
+func (astra *Astra) IsNoEarlyUnlockEpoch(epoch *big.Int) bool {
+	return astra.BlockChain.Config().IsNoEarlyUnlock(epoch)
 }
 
 // IsCommitteeSelectionBlock checks if the given block is the committee selection block
-func (hmy *Astra) IsCommitteeSelectionBlock(header *block.Header) bool {
-	return chain.IsCommitteeSelectionBlock(hmy.BlockChain, header)
+func (astra *Astra) IsCommitteeSelectionBlock(header *block.Header) bool {
+	return chain.IsCommitteeSelectionBlock(astra.BlockChain, header)
 }
 
 // GetDelegationLockingPeriodInEpoch ...
-func (hmy *Astra) GetDelegationLockingPeriodInEpoch(epoch *big.Int) int {
-	return chain.GetLockPeriodInEpoch(hmy.BlockChain, epoch)
+func (astra *Astra) GetDelegationLockingPeriodInEpoch(epoch *big.Int) int {
+	return chain.GetLockPeriodInEpoch(astra.BlockChain, epoch)
 }
 
 // SendStakingTx adds a staking transaction
-func (hmy *Astra) SendStakingTx(ctx context.Context, signedStakingTx *staking.StakingTransaction) error {
-	stx, _, _, _ := rawdb.ReadStakingTransaction(hmy.chainDb, signedStakingTx.Hash())
+func (astra *Astra) SendStakingTx(ctx context.Context, signedStakingTx *staking.StakingTransaction) error {
+	stx, _, _, _ := rawdb.ReadStakingTransaction(astra.chainDb, signedStakingTx.Hash())
 	if stx == nil {
-		return hmy.NodeAPI.AddPendingStakingTransaction(signedStakingTx)
+		return astra.NodeAPI.AddPendingStakingTransaction(signedStakingTx)
 	}
 	return ErrFinalizedTransaction
 }
 
 // GetStakingTransactionsHistory returns list of staking transactions hashes of address.
-func (hmy *Astra) GetStakingTransactionsHistory(address, txType, order string) ([]common.Hash, error) {
-	return hmy.NodeAPI.GetStakingTransactionsHistory(address, txType, order)
+func (astra *Astra) GetStakingTransactionsHistory(address, txType, order string) ([]common.Hash, error) {
+	return astra.NodeAPI.GetStakingTransactionsHistory(address, txType, order)
 }
 
 // GetStakingTransactionsCount returns the number of staking transactions of address.
-func (hmy *Astra) GetStakingTransactionsCount(address, txType string) (uint64, error) {
-	return hmy.NodeAPI.GetStakingTransactionsCount(address, txType)
+func (astra *Astra) GetStakingTransactionsCount(address, txType string) (uint64, error) {
+	return astra.NodeAPI.GetStakingTransactionsCount(address, txType)
 }
 
 // GetSuperCommittees ..
-func (hmy *Astra) GetSuperCommittees() (*quorum.Transition, error) {
-	nowE := hmy.BlockChain.CurrentHeader().Epoch()
+func (astra *Astra) GetSuperCommittees() (*quorum.Transition, error) {
+	nowE := astra.BlockChain.CurrentHeader().Epoch()
 	key := fmt.Sprintf("sc-%s", nowE.String())
 
-	res, err := hmy.SingleFlightRequest(
+	res, err := astra.SingleFlightRequest(
 		key, func() (interface{}, error) {
 			thenE := new(big.Int).Sub(nowE, common.Big1)
 			thenKey := fmt.Sprintf("sc-%s", thenE.String())
-			hmy.group.Forget(thenKey)
-			return hmy.getSuperCommittees()
+			astra.group.Forget(thenKey)
+			return astra.getSuperCommittees()
 		})
 	if err != nil {
 		return nil, err
@@ -191,13 +191,13 @@ func (hmy *Astra) GetSuperCommittees() (*quorum.Transition, error) {
 }
 
 // GetValidators returns validators for a particular epoch.
-func (hmy *Astra) GetValidators(epoch *big.Int) (*shard.Committee, error) {
-	state, err := hmy.BlockChain.ReadShardState(epoch)
+func (astra *Astra) GetValidators(epoch *big.Int) (*shard.Committee, error) {
+	state, err := astra.BlockChain.ReadShardState(epoch)
 	if err != nil {
 		return nil, err
 	}
 	for _, cmt := range state.Shards {
-		if cmt.ShardID == hmy.ShardID {
+		if cmt.ShardID == astra.ShardID {
 			return &cmt, nil
 		}
 	}
@@ -205,8 +205,8 @@ func (hmy *Astra) GetValidators(epoch *big.Int) (*shard.Committee, error) {
 }
 
 // GetValidatorSelfDelegation returns the amount of staking after applying all delegated stakes
-func (hmy *Astra) GetValidatorSelfDelegation(addr common.Address) *big.Int {
-	wrapper, err := hmy.BlockChain.ReadValidatorInformation(addr)
+func (astra *Astra) GetValidatorSelfDelegation(addr common.Address) *big.Int {
+	wrapper, err := astra.BlockChain.ReadValidatorInformation(addr)
 	if err != nil || wrapper == nil {
 		return nil
 	}
@@ -217,14 +217,14 @@ func (hmy *Astra) GetValidatorSelfDelegation(addr common.Address) *big.Int {
 }
 
 // GetElectedValidatorAddresses returns the address of elected validators for current epoch
-func (hmy *Astra) GetElectedValidatorAddresses() []common.Address {
-	list, _ := hmy.BlockChain.ReadShardState(hmy.BlockChain.CurrentBlock().Epoch())
+func (astra *Astra) GetElectedValidatorAddresses() []common.Address {
+	list, _ := astra.BlockChain.ReadShardState(astra.BlockChain.CurrentBlock().Epoch())
 	return list.StakedValidators().Addrs
 }
 
 // GetAllValidatorAddresses returns the up to date validator candidates for next epoch
-func (hmy *Astra) GetAllValidatorAddresses() []common.Address {
-	return hmy.BlockChain.ValidatorCandidates()
+func (astra *Astra) GetAllValidatorAddresses() []common.Address {
+	return astra.BlockChain.ValidatorCandidates()
 }
 
 var (
@@ -232,7 +232,7 @@ var (
 	mapLock        = sync.Mutex{}
 )
 
-func (hmy *Astra) getEpochSigning(epoch *big.Int, addr common.Address) (staking.EpochSigningEntry, error) {
+func (astra *Astra) getEpochSigning(epoch *big.Int, addr common.Address) (staking.EpochSigningEntry, error) {
 	entry := staking.EpochSigningEntry{}
 	mapLock.Lock()
 	defer mapLock.Unlock()
@@ -242,7 +242,7 @@ func (hmy *Astra) getEpochSigning(epoch *big.Int, addr common.Address) (staking.
 		}
 	}
 
-	snapshot, err := hmy.BlockChain.ReadValidatorSnapshotAtEpoch(epoch, addr)
+	snapshot, err := astra.BlockChain.ReadValidatorSnapshotAtEpoch(epoch, addr)
 	if err != nil {
 		return entry, err
 	}
@@ -253,7 +253,7 @@ func (hmy *Astra) getEpochSigning(epoch *big.Int, addr common.Address) (staking.
 	entry.Blocks = snapshot.Validator.Counters
 
 	// subtract previous epoch counters if exists
-	prevEpochSnap, err := hmy.BlockChain.ReadValidatorSnapshotAtEpoch(prevEpoch, addr)
+	prevEpochSnap, err := astra.BlockChain.ReadValidatorSnapshotAtEpoch(prevEpoch, addr)
 	if err == nil {
 		entry.Blocks.NumBlocksSigned.Sub(
 			entry.Blocks.NumBlocksSigned,
@@ -277,10 +277,10 @@ func (hmy *Astra) getEpochSigning(epoch *big.Int, addr common.Address) (staking.
 }
 
 // GetValidatorInformation returns the information of validator
-func (hmy *Astra) GetValidatorInformation(
+func (astra *Astra) GetValidatorInformation(
 	addr common.Address, block *types.Block,
 ) (*staking.ValidatorRPCEnhanced, error) {
-	bc := hmy.BlockChain
+	bc := astra.BlockChain
 	wrapper, err := bc.ReadValidatorInformationAtRoot(addr, block.Root())
 	if err != nil {
 		return nil, errors.Wrapf(err, "not found address in current state %s", addr)
@@ -321,9 +321,9 @@ func (hmy *Astra) GetValidatorInformation(
 		snapshot.Validator, wrapper,
 	)
 
-	lastBlockOfEpoch := shard.Schedule.EpochLastBlock(hmy.BeaconChain.CurrentBlock().Header().Epoch().Uint64())
+	lastBlockOfEpoch := shard.Schedule.EpochLastBlock(astra.BeaconChain.CurrentBlock().Header().Epoch().Uint64())
 
-	computed.BlocksLeftInEpoch = lastBlockOfEpoch - hmy.BeaconChain.CurrentBlock().Header().Number().Uint64()
+	computed.BlocksLeftInEpoch = lastBlockOfEpoch - astra.BeaconChain.CurrentBlock().Header().Number().Uint64()
 
 	if defaultReply.CurrentlyInCommittee {
 		defaultReply.Performance = &staking.CurrentEpochPerformance{
@@ -404,7 +404,7 @@ func (hmy *Astra) GetValidatorInformation(
 	}
 	for i := now.Int64(); i > epochFrom.Int64(); i-- {
 		epoch := big.NewInt(i)
-		entry, err := hmy.getEpochSigning(epoch, addr)
+		entry, err := astra.getEpochSigning(epoch, addr)
 		if err != nil {
 			break
 		}
@@ -426,22 +426,22 @@ func (hmy *Astra) GetValidatorInformation(
 }
 
 // GetMedianRawStakeSnapshot ..
-func (hmy *Astra) GetMedianRawStakeSnapshot() (
+func (astra *Astra) GetMedianRawStakeSnapshot() (
 	*committee.CompletedEPoSRound, error,
 ) {
-	blockNum := hmy.CurrentBlock().NumberU64()
+	blockNum := astra.CurrentBlock().NumberU64()
 	key := fmt.Sprintf("median-%d", blockNum)
 
 	// delete cache for previous block
 	prevKey := fmt.Sprintf("median-%d", blockNum-1)
-	hmy.group.Forget(prevKey)
+	astra.group.Forget(prevKey)
 
-	res, err := hmy.SingleFlightRequest(
+	res, err := astra.SingleFlightRequest(
 		key,
 		func() (interface{}, error) {
 			// Compute for next epoch
-			epoch := big.NewInt(0).Add(hmy.CurrentBlock().Epoch(), big.NewInt(1))
-			return committee.NewEPoSRound(epoch, hmy.BlockChain, hmy.BlockChain.Config().IsEPoSBound35(epoch))
+			epoch := big.NewInt(0).Add(astra.CurrentBlock().Epoch(), big.NewInt(1))
+			return committee.NewEPoSRound(epoch, astra.BlockChain, astra.BlockChain.Config().IsEPoSBound35(epoch))
 		},
 	)
 	if err != nil {
@@ -451,8 +451,8 @@ func (hmy *Astra) GetMedianRawStakeSnapshot() (
 }
 
 // GetDelegationsByValidator returns all delegation information of a validator
-func (hmy *Astra) GetDelegationsByValidator(validator common.Address) []*staking.Delegation {
-	wrapper, err := hmy.BlockChain.ReadValidatorInformation(validator)
+func (astra *Astra) GetDelegationsByValidator(validator common.Address) []*staking.Delegation {
+	wrapper, err := astra.BlockChain.ReadValidatorInformation(validator)
 	if err != nil || wrapper == nil {
 		return nil
 	}
@@ -464,10 +464,10 @@ func (hmy *Astra) GetDelegationsByValidator(validator common.Address) []*staking
 }
 
 // GetDelegationsByValidatorAtBlock returns all delegation information of a validator at the given block
-func (hmy *Astra) GetDelegationsByValidatorAtBlock(
+func (astra *Astra) GetDelegationsByValidatorAtBlock(
 	validator common.Address, block *types.Block,
 ) []*staking.Delegation {
-	wrapper, err := hmy.BlockChain.ReadValidatorInformationAtRoot(validator, block.Root())
+	wrapper, err := astra.BlockChain.ReadValidatorInformationAtRoot(validator, block.Root())
 	if err != nil || wrapper == nil {
 		return nil
 	}
@@ -479,27 +479,27 @@ func (hmy *Astra) GetDelegationsByValidatorAtBlock(
 }
 
 // GetDelegationsByDelegator returns all delegation information of a delegator
-func (hmy *Astra) GetDelegationsByDelegator(
+func (astra *Astra) GetDelegationsByDelegator(
 	delegator common.Address,
 ) ([]common.Address, []*staking.Delegation) {
-	block := hmy.BlockChain.CurrentBlock()
-	return hmy.GetDelegationsByDelegatorByBlock(delegator, block)
+	block := astra.BlockChain.CurrentBlock()
+	return astra.GetDelegationsByDelegatorByBlock(delegator, block)
 }
 
 // GetDelegationsByDelegatorByBlock returns all delegation information of a delegator
-func (hmy *Astra) GetDelegationsByDelegatorByBlock(
+func (astra *Astra) GetDelegationsByDelegatorByBlock(
 	delegator common.Address, block *types.Block,
 ) ([]common.Address, []*staking.Delegation) {
 	addresses := []common.Address{}
 	delegations := []*staking.Delegation{}
-	delegationIndexes, err := hmy.BlockChain.
+	delegationIndexes, err := astra.BlockChain.
 		ReadDelegationsByDelegatorAt(delegator, block.Number())
 	if err != nil {
 		return nil, nil
 	}
 
 	for i := range delegationIndexes {
-		wrapper, err := hmy.BlockChain.ReadValidatorInformationAtRoot(
+		wrapper, err := astra.BlockChain.ReadValidatorInformationAtRoot(
 			delegationIndexes[i].ValidatorAddress, block.Root(),
 		)
 		if err != nil || wrapper == nil {
@@ -546,33 +546,33 @@ func (u *UndelegationPayouts) SetPayoutByDelegatorAddrAndValidatorAddr(
 // Due to in-memory caching, it is possible to get undelegation payouts for a state / epoch
 // that has been pruned but have it be lost (and unable to recompute) after the node restarts.
 // This not a problem if a full (archival) DB is used.
-func (hmy *Astra) GetUndelegationPayouts(
+func (astra *Astra) GetUndelegationPayouts(
 	ctx context.Context, epoch *big.Int,
 ) (*UndelegationPayouts, error) {
-	if !hmy.IsPreStakingEpoch(epoch) {
+	if !astra.IsPreStakingEpoch(epoch) {
 		return nil, fmt.Errorf("not pre-staking epoch or later")
 	}
 
-	payouts, ok := hmy.undelegationPayoutsCache.Get(epoch.Uint64())
+	payouts, ok := astra.undelegationPayoutsCache.Get(epoch.Uint64())
 	if ok {
 		return payouts.(*UndelegationPayouts), nil
 	}
 	undelegationPayouts := NewUndelegationPayouts()
 	// require second to last block as saved undelegations are AFTER undelegations are payed out
 	blockNumber := shard.Schedule.EpochLastBlock(epoch.Uint64()) - 1
-	undelegationPayoutBlock, err := hmy.BlockByNumber(ctx, rpc.BlockNumber(blockNumber))
+	undelegationPayoutBlock, err := astra.BlockByNumber(ctx, rpc.BlockNumber(blockNumber))
 	if err != nil || undelegationPayoutBlock == nil {
 		// Block not found, so no undelegationPayouts (not an error)
 		return undelegationPayouts, nil
 	}
 
-	lockingPeriod := hmy.GetDelegationLockingPeriodInEpoch(undelegationPayoutBlock.Epoch())
-	for _, validator := range hmy.GetAllValidatorAddresses() {
-		wrapper, err := hmy.BlockChain.ReadValidatorInformationAtRoot(validator, undelegationPayoutBlock.Root())
+	lockingPeriod := astra.GetDelegationLockingPeriodInEpoch(undelegationPayoutBlock.Epoch())
+	for _, validator := range astra.GetAllValidatorAddresses() {
+		wrapper, err := astra.BlockChain.ReadValidatorInformationAtRoot(validator, undelegationPayoutBlock.Root())
 		if err != nil || wrapper == nil {
 			continue // Not a validator at this epoch or unable to fetch validator info because of pruned state.
 		}
-		noEarlyUnlock := hmy.IsNoEarlyUnlockEpoch(epoch)
+		noEarlyUnlock := astra.IsNoEarlyUnlockEpoch(epoch)
 		for _, delegation := range wrapper.Delegations {
 			withdraw := delegation.RemoveUnlockedUndelegations(epoch, wrapper.LastEpochInCommittee, lockingPeriod, noEarlyUnlock)
 			if withdraw.Cmp(bigZero) == 1 {
@@ -581,26 +581,26 @@ func (hmy *Astra) GetUndelegationPayouts(
 		}
 	}
 
-	hmy.undelegationPayoutsCache.Add(epoch.Uint64(), undelegationPayouts)
+	astra.undelegationPayoutsCache.Add(epoch.Uint64(), undelegationPayouts)
 	return undelegationPayouts, nil
 }
 
 // GetTotalStakingSnapshot ..
-func (hmy *Astra) GetTotalStakingSnapshot() *big.Int {
-	if stake := hmy.totalStakeCache.pop(hmy.CurrentBlock().NumberU64()); stake != nil {
+func (astra *Astra) GetTotalStakingSnapshot() *big.Int {
+	if stake := astra.totalStakeCache.pop(astra.CurrentBlock().NumberU64()); stake != nil {
 		return stake
 	}
-	currHeight := hmy.CurrentBlock().NumberU64()
-	candidates := hmy.BlockChain.ValidatorCandidates()
+	currHeight := astra.CurrentBlock().NumberU64()
+	candidates := astra.BlockChain.ValidatorCandidates()
 	if len(candidates) == 0 {
 		stake := big.NewInt(0)
-		hmy.totalStakeCache.push(currHeight, stake)
+		astra.totalStakeCache.push(currHeight, stake)
 		return stake
 	}
 	stakes := big.NewInt(0)
 	for i := range candidates {
-		snapshot, _ := hmy.BlockChain.ReadValidatorSnapshot(candidates[i])
-		validator, _ := hmy.BlockChain.ReadValidatorInformation(candidates[i])
+		snapshot, _ := astra.BlockChain.ReadValidatorSnapshot(candidates[i])
+		validator, _ := astra.BlockChain.ReadValidatorInformation(candidates[i])
 		if !committee.IsEligibleForEPoSAuction(
 			snapshot, validator,
 		) {
@@ -610,13 +610,13 @@ func (hmy *Astra) GetTotalStakingSnapshot() *big.Int {
 			stakes.Add(stakes, validator.Delegations[i].Amount)
 		}
 	}
-	hmy.totalStakeCache.push(currHeight, stakes)
+	astra.totalStakeCache.push(currHeight, stakes)
 	return stakes
 }
 
 // GetCurrentStakingErrorSink ..
-func (hmy *Astra) GetCurrentStakingErrorSink() types.TransactionErrorReports {
-	return hmy.NodeAPI.ReportStakingErrorSink()
+func (astra *Astra) GetCurrentStakingErrorSink() types.TransactionErrorReports {
+	return astra.NodeAPI.ReportStakingErrorSink()
 }
 
 // totalStakeCache ..

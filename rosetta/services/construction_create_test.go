@@ -18,7 +18,7 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	hmytypes "github.com/harmony-one/astra/core/types"
+	astratypes "github.com/harmony-one/astra/core/types"
 	stakingTypes "github.com/harmony-one/astra/staking/types"
 	"github.com/harmony-one/astra/test/helpers"
 )
@@ -34,7 +34,7 @@ func TestUnpackWrappedTransactionFromString(t *testing.T) {
 		t.Fatal(rosettaError)
 	}
 	refEstGasUsed := big.NewInt(100000)
-	signer := hmytypes.NewEIP155Signer(big.NewInt(0))
+	signer := astratypes.NewEIP155Signer(big.NewInt(0))
 
 	// Test plain transactions
 	tx, err := helpers.CreateTestTransaction(

@@ -82,7 +82,7 @@ myip
 # setup runtime environment
 setup_env
 
-keydir=/astra/.hmy
+keydir=/astra/.astra
 
 args=(
       -log_folder "/astra/log"

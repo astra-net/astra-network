@@ -57,7 +57,7 @@ while getopts "lbvp" OPTION; do
 		declare -A PORT=( [POST]="http://s0.b.hmny.io:9500/" [GET]="http://e0.b.hmny.io:5000/" )
 		BLOCK_0_HASH=$(curl --location --request POST "http://l0.b.hmny.io:9500" \
 			  --header "Content-Type: application/json" \
-			  --data "{\"jsonrpc\":\"2.0\",\"method\":\"hmy_getBlockByNumber\",\"params\":[\"0x1\", true],\"id\":1}" | jq -r '.result.hash')
+			  --data "{\"jsonrpc\":\"2.0\",\"method\":\"astra_getBlockByNumber\",\"params\":[\"0x1\", true],\"id\":1}" | jq -r '.result.hash')
 		echo "BLOCK0HASH:"
 		echo "$BLOCK_0_HASH"
 
@@ -66,13 +66,13 @@ while getopts "lbvp" OPTION; do
 		echo "$SIGNED_RAW_TRANSACTION"
 		TRANSACTION_HASH=$(curl  --location --request POST "http://l0.b.hmny.io:9500" \
 			  --header "Content-Type: application/json" \
-			    --data "{\"jsonrpc\":\"2.0\",\"method\":\"hmy_sendRawTransaction\",\"params\":[\""$SIGNED_RAW_TRANSACTION"\"],\"id\":1}" | jq -r '.result')
+			    --data "{\"jsonrpc\":\"2.0\",\"method\":\"astra_sendRawTransaction\",\"params\":[\""$SIGNED_RAW_TRANSACTION"\"],\"id\":1}" | jq -r '.result')
 		echo "TRANSACTION_HASH:"
 		echo $TRANSACTION_HASH
 		sleep 20s
 		TRANSACTION=$(curl --location --request POST "http://l0.b.hmny.io:9500" \
 			  --header "Content-Type: application/json" \
-			  --data "{\"jsonrpc\":\"2.0\",\"method\":\"hmy_getTransactionByHash\",\"params\":[\"$TRANSACTION_HASH\"],\"id\":1}")
+			  --data "{\"jsonrpc\":\"2.0\",\"method\":\"astra_getTransactionByHash\",\"params\":[\"$TRANSACTION_HASH\"],\"id\":1}")
 
 		echo "TRANSACTION:"
 		echo "$TRANSACTION"
@@ -100,7 +100,7 @@ while getopts "lbvp" OPTION; do
 		declare -A PORT=( [POST]="localhost:9500/" [GET]="localhost:5099/" )
 		BLOCK_0_HASH=$(curl -s --location --request POST "localhost:9500" \
 			  --header "Content-Type: application/json" \
-			  --data "{\"jsonrpc\":\"2.0\",\"method\":\"hmy_getBlockByNumber\",\"params\":[\"0x1\", true],\"id\":1}" | jq -r '.result.hash')
+			  --data "{\"jsonrpc\":\"2.0\",\"method\":\"astra_getBlockByNumber\",\"params\":[\"0x1\", true],\"id\":1}" | jq -r '.result.hash')
 
 		echo "BLOCK0HASH:"
 		echo "$BLOCK_0_HASH"
@@ -110,13 +110,13 @@ while getopts "lbvp" OPTION; do
 		echo "$SIGNED_RAW_TRANSACTION"
 		TRANSACTION_HASH=$(curl  --location --request POST "localhost:9500" \
 			  --header "Content-Type: application/json" \
-			    --data "{\"jsonrpc\":\"2.0\",\"method\":\"hmy_sendRawTransaction\",\"params\":[\""$SIGNED_RAW_TRANSACTION"\"],\"id\":1}" | jq -r '.result')
+			    --data "{\"jsonrpc\":\"2.0\",\"method\":\"astra_sendRawTransaction\",\"params\":[\""$SIGNED_RAW_TRANSACTION"\"],\"id\":1}" | jq -r '.result')
 		echo "TRANSACTION_HASH:"
 		echo $TRANSACTION_HASH
 		sleep 20s
 		TRANSACTION=$(curl --location --request POST "http://localhost:9500" \
 			  --header "Content-Type: application/json" \
-			  --data "{\"jsonrpc\":\"2.0\",\"method\":\"hmy_getTransactionByHash\",\"params\":[\"$TRANSACTION_HASH\"],\"id\":1}")
+			  --data "{\"jsonrpc\":\"2.0\",\"method\":\"astra_getTransactionByHash\",\"params\":[\"$TRANSACTION_HASH\"],\"id\":1}")
 
 		echo "TRANSACTION:"
 		echo "$TRANSACTION"
@@ -152,59 +152,59 @@ declare -A GETDATA=( [GET_blocks]="blocks?from=$TRANSACTION_BLOCK_ID&to=$TRANSAC
 declare -A POSTDATA
 
 if [ "$NETWORK" == "localnet" ]; then
-	POSTDATA[hmy_getBlockByHash]="hmy_getBlockByHash\",\"params\":[\"$TRANSACTION_BLOCK_HASH\", true]"
-	POSTDATA[hmy_getBlockByNumber]="hmy_getBlockByNumber\",\"params\":[\"$TRANSACTION_BLOCK_NUMBER\", true]"
-	POSTDATA[hmy_getBlockTransactionCountByHash]="hmy_getBlockTransactionCountByHash\",\"params\":[\"$TRANSACTION_BLOCK_HASH\"]"
-	POSTDATA[hmy_getBlockTransactionCountByNumber]="hmy_getBlockTransactionCountByNumber\",\"params\":[\"$TRANSACTION_BLOCK_NUMBER\"]"
-	POSTDATA[hmy_getCode]="hmy_getCode\",\"params\":[\"0x08AE1abFE01aEA60a47663bCe0794eCCD5763c19\", \"latest\"]"
-	POSTDATA[hmy_getTransactionByBlockHashAndIndex]="hmy_getTransactionByBlockHashAndIndex\",\"params\":[\"$TRANSACTION_BLOCK_HASH\", \"$TRANSACTION_INDEX\"]"
-	POSTDATA[hmy_getTransactionByBlockNumberAndIndex]="hmy_getTransactionByBlockNumberAndIndex\",\"params\":[\"$TRANSACTION_BLOCK_NUMBER\", \"$TRANSACTION_INDEX\"]"
-	POSTDATA[hmy_getTransactionByHash]="hmy_getTransactionByHash\",\"params\":[\"$TRANSACTION_HASH\"]"
-	POSTDATA[hmy_getTransactionReceipt]="hmy_getTransactionReceipt\",\"params\":[\"$TRANSACTION_HASH\"]"
-	POSTDATA[hmy_syncing]="hmy_syncing\",\"params\":[]"
+	POSTDATA[astra_getBlockByHash]="astra_getBlockByHash\",\"params\":[\"$TRANSACTION_BLOCK_HASH\", true]"
+	POSTDATA[astra_getBlockByNumber]="astra_getBlockByNumber\",\"params\":[\"$TRANSACTION_BLOCK_NUMBER\", true]"
+	POSTDATA[astra_getBlockTransactionCountByHash]="astra_getBlockTransactionCountByHash\",\"params\":[\"$TRANSACTION_BLOCK_HASH\"]"
+	POSTDATA[astra_getBlockTransactionCountByNumber]="astra_getBlockTransactionCountByNumber\",\"params\":[\"$TRANSACTION_BLOCK_NUMBER\"]"
+	POSTDATA[astra_getCode]="astra_getCode\",\"params\":[\"0x08AE1abFE01aEA60a47663bCe0794eCCD5763c19\", \"latest\"]"
+	POSTDATA[astra_getTransactionByBlockHashAndIndex]="astra_getTransactionByBlockHashAndIndex\",\"params\":[\"$TRANSACTION_BLOCK_HASH\", \"$TRANSACTION_INDEX\"]"
+	POSTDATA[astra_getTransactionByBlockNumberAndIndex]="astra_getTransactionByBlockNumberAndIndex\",\"params\":[\"$TRANSACTION_BLOCK_NUMBER\", \"$TRANSACTION_INDEX\"]"
+	POSTDATA[astra_getTransactionByHash]="astra_getTransactionByHash\",\"params\":[\"$TRANSACTION_HASH\"]"
+	POSTDATA[astra_getTransactionReceipt]="astra_getTransactionReceipt\",\"params\":[\"$TRANSACTION_HASH\"]"
+	POSTDATA[astra_syncing]="astra_syncing\",\"params\":[]"
 	POSTDATA[net_peerCount]="net_peerCount\",\"params\":[]"
-	POSTDATA[hmy_getBalance]="hmy_getBalance\",\"params\":[\"one18t4yj4fuutj83uwqckkvxp9gfa0568uc48ggj7\", \"latest\"]"
-	POSTDATA[hmy_getStorageAt]="hmy_getStorageAt\",\"params\":[\"0xD7Ff41CA29306122185A07d04293DdB35F24Cf2d\", \"0\", \"latest\"]"
-	POSTDATA[hmy_getAccountNonce]="hmy_getAccountNonce\",\"params\":[\"0x806171f95C5a74371a19e8a312c9e5Cb4E1D24f6\", \"latest\"]"
-	POSTDATA[hmy_sendRawTransaction]="hmy_sendRawTransaction\",\"params\":[\"$SIGNED_RAW_TRANSACTION\"]"
-	POSTDATA[hmy_getLogs]="hmy_getLogs\", \"params\":[{\"BlockHash\": \"$TRANSACTION_BLOCK_HASH\"}]"
-	POSTDATA[hmy_getFilterChanges]="hmy_getFilterChanges\", \"params\":[\"0x58010795a282878ed0d61da72a14b8b0\"]"
-	POSTDATA[hmy_newPendingTransactionFilter]="hmy_newPendingTransactionFilter\", \"params\":[]"
-	POSTDATA[hmy_newBlockFilter]="hmy_newBlockFilter\", \"params\":[]"
-	POSTDATA[hmy_newFilter]="hmy_newFilter\", \"params\":[{\"BlockHash\": \"0x5725b5b2ab28206e7256a78cda4f9050c2629fd85110ffa54eacd2a13ba68072\"}]"
-	POSTDATA[hmy_call]="hmy_call\", \"params\":[{\"to\": \"0x08AE1abFE01aEA60a47663bCe0794eCCD5763c19\"}, \"latest\"]"
-	POSTDATA[hmy_gasPrice]="hmy_gasPrice\",\"params\":[]"
-	POSTDATA[hmy_blockNumber]="hmy_blockNumber\",\"params\":[]"
+	POSTDATA[astra_getBalance]="astra_getBalance\",\"params\":[\"one18t4yj4fuutj83uwqckkvxp9gfa0568uc48ggj7\", \"latest\"]"
+	POSTDATA[astra_getStorageAt]="astra_getStorageAt\",\"params\":[\"0xD7Ff41CA29306122185A07d04293DdB35F24Cf2d\", \"0\", \"latest\"]"
+	POSTDATA[astra_getAccountNonce]="astra_getAccountNonce\",\"params\":[\"0x806171f95C5a74371a19e8a312c9e5Cb4E1D24f6\", \"latest\"]"
+	POSTDATA[astra_sendRawTransaction]="astra_sendRawTransaction\",\"params\":[\"$SIGNED_RAW_TRANSACTION\"]"
+	POSTDATA[astra_getLogs]="astra_getLogs\", \"params\":[{\"BlockHash\": \"$TRANSACTION_BLOCK_HASH\"}]"
+	POSTDATA[astra_getFilterChanges]="astra_getFilterChanges\", \"params\":[\"0x58010795a282878ed0d61da72a14b8b0\"]"
+	POSTDATA[astra_newPendingTransactionFilter]="astra_newPendingTransactionFilter\", \"params\":[]"
+	POSTDATA[astra_newBlockFilter]="astra_newBlockFilter\", \"params\":[]"
+	POSTDATA[astra_newFilter]="astra_newFilter\", \"params\":[{\"BlockHash\": \"0x5725b5b2ab28206e7256a78cda4f9050c2629fd85110ffa54eacd2a13ba68072\"}]"
+	POSTDATA[astra_call]="astra_call\", \"params\":[{\"to\": \"0x08AE1abFE01aEA60a47663bCe0794eCCD5763c19\"}, \"latest\"]"
+	POSTDATA[astra_gasPrice]="astra_gasPrice\",\"params\":[]"
+	POSTDATA[astra_blockNumber]="astra_blockNumber\",\"params\":[]"
 	POSTDATA[net_version]="net_version\",\"params\":[]"
-	POSTDATA[hmy_protocolVersion]="hmy_protocolVersion\",\"params\":[]"
+	POSTDATA[astra_protocolVersion]="astra_protocolVersion\",\"params\":[]"
 fi
 
 if [ "$NETWORK" == "betanet" ]; then
-	POSTDATA[hmy_getBlockByHash]="hmy_getBlockByHash\",\"params\":[\"$TRANSACTION_BLOCK_HASH\", true]"
-	POSTDATA[hmy_getBlockByNumber]="hmy_getBlockByNumber\",\"params\":[\"$TRANSACTION_BLOCK_NUMBER\", true]"
-	POSTDATA[hmy_getBlockTransactionCountByHash]="hmy_getBlockTransactionCountByHash\",\"params\":[\"$TRANSACTION_BLOCK_HASH\"]"
-	POSTDATA[hmy_getBlockTransactionCountByNumber]="hmy_getBlockTransactionCountByNumber\",\"params\":[\"$TRANSACTION_BLOCK_NUMBER\"]"
-	POSTDATA[hmy_getCode]="hmy_getCode\",\"params\":[\"0x08AE1abFE01aEA60a47663bCe0794eCCD5763c19\", \"latest\"]"
-	POSTDATA[hmy_getTransactionByBlockHashAndIndex]="hmy_getTransactionByBlockHashAndIndex\",\"params\":[\"$TRANSACTION_BLOCK_HASH\", \"$TRANSACTION_INDEX\"]"
-	POSTDATA[hmy_getTransactionByBlockNumberAndIndex]="hmy_getTransactionByBlockNumberAndIndex\",\"params\":[\"$TRANSACTION_BLOCK_NUMBER\", \"$TRANSACTION_INDEX\"]"
-	POSTDATA[hmy_getTransactionByHash]="hmy_getTransactionByHash\",\"params\":[\"$TRANSACTION_HASH\"]"
-	POSTDATA[hmy_getTransactionReceipt]="hmy_getTransactionReceipt\",\"params\":[\"$TRANSACTION_HASH\"]"
-	POSTDATA[hmy_syncing]="hmy_syncing\",\"params\":[]"
+	POSTDATA[astra_getBlockByHash]="astra_getBlockByHash\",\"params\":[\"$TRANSACTION_BLOCK_HASH\", true]"
+	POSTDATA[astra_getBlockByNumber]="astra_getBlockByNumber\",\"params\":[\"$TRANSACTION_BLOCK_NUMBER\", true]"
+	POSTDATA[astra_getBlockTransactionCountByHash]="astra_getBlockTransactionCountByHash\",\"params\":[\"$TRANSACTION_BLOCK_HASH\"]"
+	POSTDATA[astra_getBlockTransactionCountByNumber]="astra_getBlockTransactionCountByNumber\",\"params\":[\"$TRANSACTION_BLOCK_NUMBER\"]"
+	POSTDATA[astra_getCode]="astra_getCode\",\"params\":[\"0x08AE1abFE01aEA60a47663bCe0794eCCD5763c19\", \"latest\"]"
+	POSTDATA[astra_getTransactionByBlockHashAndIndex]="astra_getTransactionByBlockHashAndIndex\",\"params\":[\"$TRANSACTION_BLOCK_HASH\", \"$TRANSACTION_INDEX\"]"
+	POSTDATA[astra_getTransactionByBlockNumberAndIndex]="astra_getTransactionByBlockNumberAndIndex\",\"params\":[\"$TRANSACTION_BLOCK_NUMBER\", \"$TRANSACTION_INDEX\"]"
+	POSTDATA[astra_getTransactionByHash]="astra_getTransactionByHash\",\"params\":[\"$TRANSACTION_HASH\"]"
+	POSTDATA[astra_getTransactionReceipt]="astra_getTransactionReceipt\",\"params\":[\"$TRANSACTION_HASH\"]"
+	POSTDATA[astra_syncing]="astra_syncing\",\"params\":[]"
 	POSTDATA[net_peerCount]="net_peerCount\",\"params\":[]"
-	POSTDATA[hmy_getBalance]="hmy_getBalance\",\"params\":[\"one18t4yj4fuutj83uwqckkvxp9gfa0568uc48ggj7\", \"latest\"]"
-	POSTDATA[hmy_getStorageAt]="hmy_getStorageAt\",\"params\":[\"0xD7Ff41CA29306122185A07d04293DdB35F24Cf2d\", \"0\", \"latest\"]"
-	POSTDATA[hmy_getAccountNonce]="hmy_getAccountNonce\",\"params\":[\"0x806171f95C5a74371a19e8a312c9e5Cb4E1D24f6\", \"latest\"]"
-	POSTDATA[hmy_sendRawTransaction]="hmy_sendRawTransaction\",\"params\":[\"$SIGNED_RAW_TRANSACTION\"]"
-	POSTDATA[hmy_getLogs]="hmy_getLogs\", \"params\":[{\"BlockHash\": \"$TRANSACTION_BLOCK_HASH\"}]"
-	POSTDATA[hmy_getFilterChanges]="hmy_getFilterChanges\", \"params\":[\"0x58010795a282878ed0d61da72a14b8b0\"]"
-	POSTDATA[hmy_newPendingTransactionFilter]="hmy_newPendingTransactionFilter\", \"params\":[]"
-	POSTDATA[hmy_newBlockFilter]="hmy_newBlockFilter\", \"params\":[]"
-	POSTDATA[hmy_newFilter]="hmy_newFilter\", \"params\":[{\"BlockHash\": \"0x5725b5b2ab28206e7256a78cda4f9050c2629fd85110ffa54eacd2a13ba68072\"}]"
-	POSTDATA[hmy_call]="hmy_call\", \"params\":[{\"to\": \"0x08AE1abFE01aEA60a47663bCe0794eCCD5763c19\"}, \"latest\"]"
-	POSTDATA[hmy_gasPrice]="hmy_gasPrice\",\"params\":[]"
-	POSTDATA[hmy_blockNumber]="hmy_blockNumber\",\"params\":[]"
+	POSTDATA[astra_getBalance]="astra_getBalance\",\"params\":[\"one18t4yj4fuutj83uwqckkvxp9gfa0568uc48ggj7\", \"latest\"]"
+	POSTDATA[astra_getStorageAt]="astra_getStorageAt\",\"params\":[\"0xD7Ff41CA29306122185A07d04293DdB35F24Cf2d\", \"0\", \"latest\"]"
+	POSTDATA[astra_getAccountNonce]="astra_getAccountNonce\",\"params\":[\"0x806171f95C5a74371a19e8a312c9e5Cb4E1D24f6\", \"latest\"]"
+	POSTDATA[astra_sendRawTransaction]="astra_sendRawTransaction\",\"params\":[\"$SIGNED_RAW_TRANSACTION\"]"
+	POSTDATA[astra_getLogs]="astra_getLogs\", \"params\":[{\"BlockHash\": \"$TRANSACTION_BLOCK_HASH\"}]"
+	POSTDATA[astra_getFilterChanges]="astra_getFilterChanges\", \"params\":[\"0x58010795a282878ed0d61da72a14b8b0\"]"
+	POSTDATA[astra_newPendingTransactionFilter]="astra_newPendingTransactionFilter\", \"params\":[]"
+	POSTDATA[astra_newBlockFilter]="astra_newBlockFilter\", \"params\":[]"
+	POSTDATA[astra_newFilter]="astra_newFilter\", \"params\":[{\"BlockHash\": \"0x5725b5b2ab28206e7256a78cda4f9050c2629fd85110ffa54eacd2a13ba68072\"}]"
+	POSTDATA[astra_call]="astra_call\", \"params\":[{\"to\": \"0x08AE1abFE01aEA60a47663bCe0794eCCD5763c19\"}, \"latest\"]"
+	POSTDATA[astra_gasPrice]="astra_gasPrice\",\"params\":[]"
+	POSTDATA[astra_blockNumber]="astra_blockNumber\",\"params\":[]"
 	POSTDATA[net_version]="net_version\",\"params\":[]"
-	POSTDATA[hmy_protocolVersion]="hmy_protocolVersion\",\"params\":[]"
+	POSTDATA[astra_protocolVersion]="astra_protocolVersion\",\"params\":[]"
 fi
 
 declare -A RESPONSES
@@ -215,31 +215,31 @@ RESPONSES[GET_address]=""
 RESPONSES[GET_node-count]=""
 RESPONSES[GET_shard]=""
 RESPONSES[GET_committee]=""
-RESPONSES[hmy_getBlockByHash]=""
-RESPONSES[hmy_getBlockByNumber]=""
-RESPONSES[hmy_getBlockTransactionCountByHash]=""
-RESPONSES[hmy_getBlockTransactionCountByNumber]=""
-RESPONSES[hmy_getCode]=""
-RESPONSES[hmy_getTransactionByBlockHashAndIndex]=""
-RESPONSES[hmy_getTransactionByBlockNumberAndIndex]=""
-RESPONSES[hmy_getTransactionByHash]=""
-RESPONSES[hmy_getTransactionReceipt]=""
-RESPONSES[hmy_syncing]=""
+RESPONSES[astra_getBlockByHash]=""
+RESPONSES[astra_getBlockByNumber]=""
+RESPONSES[astra_getBlockTransactionCountByHash]=""
+RESPONSES[astra_getBlockTransactionCountByNumber]=""
+RESPONSES[astra_getCode]=""
+RESPONSES[astra_getTransactionByBlockHashAndIndex]=""
+RESPONSES[astra_getTransactionByBlockNumberAndIndex]=""
+RESPONSES[astra_getTransactionByHash]=""
+RESPONSES[astra_getTransactionReceipt]=""
+RESPONSES[astra_syncing]=""
 RESPONSES[net_peerCount]=""
-RESPONSES[hmy_getBalance]=""
-RESPONSES[hmy_getStorageAt]=""
-RESPONSES[hmy_getAccountNonce]=""
-RESPONSES[hmy_sendRawTransaction]=""
-RESPONSES[hmy_getLogs]=""
-RESPONSES[hmy_getFilterChanges]=""
-RESPONSES[hmy_newPendingTransactionFilter]=""
-RESPONSES[hmy_newBlockFilter]=""
-RESPONSES[hmy_newFilter]=""
-RESPONSES[hmy_call]=""
-RESPONSES[hmy_gasPrice]=""
-RESPONSES[hmy_blockNumber]=""
+RESPONSES[astra_getBalance]=""
+RESPONSES[astra_getStorageAt]=""
+RESPONSES[astra_getAccountNonce]=""
+RESPONSES[astra_sendRawTransaction]=""
+RESPONSES[astra_getLogs]=""
+RESPONSES[astra_getFilterChanges]=""
+RESPONSES[astra_newPendingTransactionFilter]=""
+RESPONSES[astra_newBlockFilter]=""
+RESPONSES[astra_newFilter]=""
+RESPONSES[astra_call]=""
+RESPONSES[astra_gasPrice]=""
+RESPONSES[astra_blockNumber]=""
 RESPONSES[net_version]=""
-RESPONSES[hmy_protocolVersion]=""
+RESPONSES[astra_protocolVersion]=""
 
 ### Processes GET requests and stores reponses in RESPONSES ###
 function GET_requests() {
@@ -368,9 +368,9 @@ function Explorer_getCommitte_test() {
 
 function API_getBlockByNumber_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_getBlockByNumber test:"
-	response_test ${RESPONSES[hmy_getBlockByNumber]}
-	BLOCKBYNUMBERHASH=$(echo ${RESPONSES[hmy_getBlockByNumber]} | jq -r '.result.hash')
+	echo "POST astra_getBlockByNumber test:"
+	response_test ${RESPONSES[astra_getBlockByNumber]}
+	BLOCKBYNUMBERHASH=$(echo ${RESPONSES[astra_getBlockByNumber]} | jq -r '.result.hash')
 
 	if [ "$BLOCKBLOCKBYNUMBERHASH" != "null" ]; then
 		if [ "$BLOCKBYNUMBERHASH" == "$TRANSACTION_BLOCK_HASH" ]; then
@@ -386,9 +386,9 @@ function API_getBlockByNumber_test() {
 
 function API_getBlockByHash_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_getBlockByHash test:"
-	response_test ${RESPONSES[hmy_getBlockByHash]}
-	BLOCKBYHASHHASH=$(echo ${RESPONSES[hmy_getBlockByHash]} | jq -r '.result.hash')
+	echo "POST astra_getBlockByHash test:"
+	response_test ${RESPONSES[astra_getBlockByHash]}
+	BLOCKBYHASHHASH=$(echo ${RESPONSES[astra_getBlockByHash]} | jq -r '.result.hash')
 	if [ "$BLOCKBYHASHBYHASH" != "null" ]; then
 		if [ "$BLOCKBYHASHHASH" == "$TRANSACTION_BLOCK_HASH" ]; then
 			TESTS_PASSED=$(( TESTS_PASSED + 1 ))
@@ -403,9 +403,9 @@ function API_getBlockByHash_test() {
 
 function API_getBlockTransactionCountByHash_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_getBlockTransactionCountByHash test:"
-	response_test ${RESPONSES[hmy_getBlockTransactionCountByHash]}
-	TRANSACTIONCOUNTBYHASH=$(echo ${RESPONSES[hmy_getBlockTransactionCountByHash]} | jq -r '.result')
+	echo "POST astra_getBlockTransactionCountByHash test:"
+	response_test ${RESPONSES[astra_getBlockTransactionCountByHash]}
+	TRANSACTIONCOUNTBYHASH=$(echo ${RESPONSES[astra_getBlockTransactionCountByHash]} | jq -r '.result')
 	TRANSACTIONCOUNTBYHASH=$(( TRANSACTIONCOUNTBYHASH ))
 	if [ "$TRANSACTIONCOUNTBYHASH" != "null" ]; then
 		if [ $TRANSACTIONCOUNTBYHASH -gt 0 ]; then
@@ -421,9 +421,9 @@ function API_getBlockTransactionCountByHash_test() {
 
 function API_getBlockTransactionCountByNumber_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_getBlockTransactionCountByNumber test:"
-	response_test ${RESPONSES[hmy_getBlockTransactionCountByNumber]}
-	TRANSACTIONCOUNTBYNUMBER=$(echo ${RESPONSES[hmy_getBlockTransactionCountByNumber]} | jq -r '.result')
+	echo "POST astra_getBlockTransactionCountByNumber test:"
+	response_test ${RESPONSES[astra_getBlockTransactionCountByNumber]}
+	TRANSACTIONCOUNTBYNUMBER=$(echo ${RESPONSES[astra_getBlockTransactionCountByNumber]} | jq -r '.result')
 	TRANSACTIONCOUNTBYNUMBER=$(( TRANSACTIONCOUNTBYNUMBER ))
 	if [ "$BLOCKBYHASH" != "null" ]; then
 		if [ $TRANSACTIONCOUNTBYNUMBER -gt 0 ]; then
@@ -439,17 +439,17 @@ function API_getBlockTransactionCountByNumber_test() {
 
 function API_getCode_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_getCode test:"
-	response_test ${RESPONSES[hmy_getCode]}
+	echo "POST astra_getCode test:"
+	response_test ${RESPONSES[astra_getCode]}
 	[ "$?" == "1" ] && TESTS_PASSED=$(( TESTS_PASSED + 1 ))
 	echo
 }
 
 function API_getTransactionByBlockHashAndIndex_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_getTransactionByBlockHashAndIndex test:"
-	response_test ${RESPONSES[hmy_getTransactionByBlockHashAndIndex]}
-	TRANSACTIONHASHBYHASHANDINDEX=$(echo ${RESPONSES[hmy_getTransactionByBlockHashAndIndex]} | jq -r '.result.hash')
+	echo "POST astra_getTransactionByBlockHashAndIndex test:"
+	response_test ${RESPONSES[astra_getTransactionByBlockHashAndIndex]}
+	TRANSACTIONHASHBYHASHANDINDEX=$(echo ${RESPONSES[astra_getTransactionByBlockHashAndIndex]} | jq -r '.result.hash')
 	if [ "$TRANSACTIONHASHBYHASHANDINDEX" != "null" ]; then
 		if [ "$TRANSACTIONHASHBYHASHANDINDEX" == "$TRANSACTION_HASH" ]; then
 			TESTS_PASSED=$(( TESTS_PASSED + 1 ))
@@ -464,9 +464,9 @@ function API_getTransactionByBlockHashAndIndex_test() {
 
 function API_getTransactionByBlockNumberAndIndex_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_getTransactionByBlockNumberAndIndex test:"
-	response_test ${RESPONSES[hmy_getTransactionByBlockNumberAndIndex]}
-	TRANSACTIONHASHBYNUMBERANDINDEX=$(echo ${RESPONSES[hmy_getTransactionByBlockNumberAndIndex]} | jq -r '.result.hash')
+	echo "POST astra_getTransactionByBlockNumberAndIndex test:"
+	response_test ${RESPONSES[astra_getTransactionByBlockNumberAndIndex]}
+	TRANSACTIONHASHBYNUMBERANDINDEX=$(echo ${RESPONSES[astra_getTransactionByBlockNumberAndIndex]} | jq -r '.result.hash')
 	if [ "$TRANSACTIONHASHBYNUMBERANDINDEX" != "null" ]; then
 		if [ "$TRANSACTIONHASHBYNUMBERANDINDEX" == "$TRANSACTION_HASH" ]; then
 			TESTS_PASSED=$(( TESTS_PASSED + 1 ))
@@ -481,9 +481,9 @@ function API_getTransactionByBlockNumberAndIndex_test() {
 
 function API_getTransactionByHash_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_getTransactionByHash test:"
-	TX_HASH=$(echo ${RESPONSES[hmy_getTransactionByHash]} | jq -r '.result.hash')
-	response_test ${RESPONSES[hmy_getTransactionByHash]}
+	echo "POST astra_getTransactionByHash test:"
+	TX_HASH=$(echo ${RESPONSES[astra_getTransactionByHash]} | jq -r '.result.hash')
+	response_test ${RESPONSES[astra_getTransactionByHash]}
 	if [ "$TX_HASH" != "null" ]; then
 		if [ "$TX_HASH" == "$TRANSACTION_HASH" ]; then
 			TESTS_PASSED=$(( TESTS_PASSED + 1 ))
@@ -498,9 +498,9 @@ function API_getTransactionByHash_test() {
 
 function API_getTransactionReceipt_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_getTransactionReceipt test:"
-	TX_HASH=$(echo ${RESPONSES[hmy_getTransactionReceipt]} | jq -r '.result.transactionHash')
-	response_test ${RESPONSES[hmy_getTransactionReceipt]}
+	echo "POST astra_getTransactionReceipt test:"
+	TX_HASH=$(echo ${RESPONSES[astra_getTransactionReceipt]} | jq -r '.result.transactionHash')
+	response_test ${RESPONSES[astra_getTransactionReceipt]}
 	if [ "$TX_HASH" != "null" ]; then
 		if [ "$TX_HASH" == "$TRANSACTION_HASH" ]; then
 			TESTS_PASSED=$(( TESTS_PASSED + 1 ))
@@ -515,8 +515,8 @@ function API_getTransactionReceipt_test() {
 
 function API_syncing_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_syncing test:"
-	response_test ${RESPONSES[hmy_syncing]}
+	echo "POST astra_syncing test:"
+	response_test ${RESPONSES[astra_syncing]}
 	[ "$?" == "1" ] && TESTS_PASSED=$(( TESTS_PASSED + 1 ))
 	echo
 }
@@ -531,90 +531,90 @@ function API_netPeerCount_test() {
 
 function API_getBalance_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_getBalance test:"
-	response_test ${RESPONSES[hmy_getBalance]}
+	echo "POST astra_getBalance test:"
+	response_test ${RESPONSES[astra_getBalance]}
 	[ "$?" == "1" ] && TESTS_PASSED=$(( TESTS_PASSED + 1 ))
 	echo
 }
 
 function API_getStorageAt_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_getStorageAt test:"
-	response_test ${RESPONSES[hmy_getStorageAt]}
+	echo "POST astra_getStorageAt test:"
+	response_test ${RESPONSES[astra_getStorageAt]}
 	[ "$?" == "1" ] && TESTS_PASSED=$(( TESTS_PASSED + 1 ))
 	echo
 }
 
 function API_getAccountNonce_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_getAccountNonce test:"
-	response_test ${RESPONSES[hmy_getAccountNonce]}
+	echo "POST astra_getAccountNonce test:"
+	response_test ${RESPONSES[astra_getAccountNonce]}
 	[ "$?" == "1" ] && TESTS_PASSED=$(( TESTS_PASSED + 1 ))
 	echo
 }
 
 function API_sendRawTransaction_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_sendRawTransaction test:"
-	response_test ${RESPONSES[hmy_sendRawTransaction]}
+	echo "POST astra_sendRawTransaction test:"
+	response_test ${RESPONSES[astra_sendRawTransaction]}
 	[ "$?" == "1" ] && TESTS_PASSED=$(( TESTS_PASSED + 1 ))
 	echo
 }
 
 function API_getLogs_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_getLogs test:"
-	response_test ${RESPONSES[hmy_getLogs]}
+	echo "POST astra_getLogs test:"
+	response_test ${RESPONSES[astra_getLogs]}
 	[ "$?" == "1" ] && TESTS_PASSED=$(( TESTS_PASSED + 1 ))
 	echo
 }
 
 function API_getFilterChanges_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_getFilterChanges test:"
-	response_test ${RESPONSES[hmy_getFilterChanges]}
+	echo "POST astra_getFilterChanges test:"
+	response_test ${RESPONSES[astra_getFilterChanges]}
 	[ "$?" == "1" ] && TESTS_PASSED=$(( TESTS_PASSED + 1 ))
 	echo
 }
 
 function API_newPendingTransactionFilter_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_sendRawTransaction test:"
-	response_test ${RESPONSES[hmy_newPendingTransactionFilter]}
+	echo "POST astra_sendRawTransaction test:"
+	response_test ${RESPONSES[astra_newPendingTransactionFilter]}
 	[ "$?" == "1" ] && TESTS_PASSED=$(( TESTS_PASSED + 1 ))
 	echo
 }
 
 function API_newBlockFilter_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_newBlockFilter test:"
-	response_test ${RESPONSES[hmy_newBlockFilter]}
+	echo "POST astra_newBlockFilter test:"
+	response_test ${RESPONSES[astra_newBlockFilter]}
 	[ "$?" == "1" ] && TESTS_PASSED=$(( TESTS_PASSED + 1 ))
 	echo
 }
 
 function API_newFilter_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_newFilter test:"
-	response_test ${RESPONSES[hmy_newFilter]}
+	echo "POST astra_newFilter test:"
+	response_test ${RESPONSES[astra_newFilter]}
 	[ "$?" == "1" ] && TESTS_PASSED=$(( TESTS_PASSED + 1 ))
 	echo
 }
 
 function API_call_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_call test:"
-	response_test ${RESPONSES[hmy_call]}
+	echo "POST astra_call test:"
+	response_test ${RESPONSES[astra_call]}
 	[ "$?" == "1" ] && TESTS_PASSED=$(( TESTS_PASSED + 1 ))
 	echo
 }
 
 function API_gasPrice_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_gasPrice test:"
-	response_test ${RESPONSES[hmy_gasPrice]}
+	echo "POST astra_gasPrice test:"
+	response_test ${RESPONSES[astra_gasPrice]}
 	if [ "$?" == "1" ]; then
-		RESULT=$(echo ${RESPONSES[hmy_gasPrice]} | jq -r '.result')
+		RESULT=$(echo ${RESPONSES[astra_gasPrice]} | jq -r '.result')
 		isHexTest $RESULT
 		[ "$?" == "1" ] && TESTS_PASSED=$(( TESTS_PASSED + 1 ))
 	fi
@@ -622,10 +622,10 @@ function API_gasPrice_test() {
 
 function API_blockNumber_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_blockNumber test:"
-	response_test ${RESPONSES[hmy_blockNumber]}
+	echo "POST astra_blockNumber test:"
+	response_test ${RESPONSES[astra_blockNumber]}
 	if [ "$?" == "1" ]; then
-		RESULT=$(echo ${RESPONSES[hmy_blockNumber]} | jq -r '.result')
+		RESULT=$(echo ${RESPONSES[astra_blockNumber]} | jq -r '.result')
 		isHexTest $RESULT
 		[ "$?" == "1" ] && TESTS_PASSED=$(( TESTS_PASSED + 1 ))
 	fi
@@ -641,8 +641,8 @@ function API_net_version_test() {
 
 function API_protocolVersion_test() {
 	TESTS_RAN=$(( TESTS_RAN + 1 ))
-	echo "POST hmy_protocolVersion test:"
-	response_test ${RESPONSES[hmy_protocolVersion]}
+	echo "POST astra_protocolVersion test:"
+	response_test ${RESPONSES[astra_protocolVersion]}
 	[ "$?" == "1" ] && TESTS_PASSED=$(( TESTS_PASSED + 1 ))
 	echo
 }

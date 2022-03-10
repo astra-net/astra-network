@@ -7,7 +7,7 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/server"
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/harmony-one/astra/eth/rpc"
-	"github.com/harmony-one/astra/hmy"
+	"github.com/harmony-one/astra/astra"
 	internal_common "github.com/harmony-one/astra/internal/common"
 	"github.com/harmony-one/astra/rosetta/common"
 	rpc2 "github.com/harmony-one/astra/rpc"
@@ -15,25 +15,25 @@ import (
 )
 
 var CallMethod = []string{
-	"hmyv2_call",
-	"hmyv2_getCode",
-	"hmyv2_getStorageAt",
-	"hmyv2_getDelegationsByDelegator",
-	"hmyv2_getDelegationsByDelegatorByBlockNumber",
-	"hmyv2_getDelegationsByValidator",
-	"hmyv2_getAllValidatorAddresses",
-	"hmyv2_getAllValidatorInformation",
-	"hmyv2_getAllValidatorInformationByBlockNumber",
-	"hmyv2_getElectedValidatorAddresses",
-	"hmyv2_getValidatorInformation",
-	"hmyv2_getCurrentUtilityMetrics",
-	"hmyv2_getMedianRawStakeSnapshot",
-	"hmyv2_getStakingNetworkInfo",
-	"hmyv2_getSuperCommittees",
+	"astrav2_call",
+	"astrav2_getCode",
+	"astrav2_getStorageAt",
+	"astrav2_getDelegationsByDelegator",
+	"astrav2_getDelegationsByDelegatorByBlockNumber",
+	"astrav2_getDelegationsByValidator",
+	"astrav2_getAllValidatorAddresses",
+	"astrav2_getAllValidatorInformation",
+	"astrav2_getAllValidatorInformationByBlockNumber",
+	"astrav2_getElectedValidatorAddresses",
+	"astrav2_getValidatorInformation",
+	"astrav2_getCurrentUtilityMetrics",
+	"astrav2_getMedianRawStakeSnapshot",
+	"astrav2_getStakingNetworkInfo",
+	"astrav2_getSuperCommittees",
 }
 
 type CallAPIService struct {
-	hmy                 *hmy.Astra
+	astra                 *astra.Astra
 	publicContractAPI   rpc.API
 	publicStakingAPI    rpc.API
 	publicBlockChainAPI rpc.API
@@ -44,35 +44,35 @@ func (c *CallAPIService) Call(
 	ctx context.Context, request *types.CallRequest,
 ) (*types.CallResponse, *types.Error) {
 	switch request.Method {
-	case "hmyv2_call":
+	case "astrav2_call":
 		return c.call(ctx, request)
-	case "hmyv2_getCode":
+	case "astrav2_getCode":
 		return c.getCode(ctx, request)
-	case "hmyv2_getStorageAt":
+	case "astrav2_getStorageAt":
 		return c.getStorageAt(ctx, request)
-	case "hmyv2_getDelegationsByDelegator":
+	case "astrav2_getDelegationsByDelegator":
 		return c.getDelegationsByDelegator(ctx, request)
-	case "hmyv2_getDelegationsByDelegatorByBlockNumber":
+	case "astrav2_getDelegationsByDelegatorByBlockNumber":
 		return c.getDelegationsByDelegatorByBlockNumber(ctx, request)
-	case "hmyv2_getDelegationsByValidator":
+	case "astrav2_getDelegationsByValidator":
 		return c.getDelegationsByValidator(ctx, request)
-	case "hmyv2_getAllValidatorAddresses":
+	case "astrav2_getAllValidatorAddresses":
 		return c.getAllValidatorAddresses(ctx)
-	case "hmyv2_getAllValidatorInformation":
+	case "astrav2_getAllValidatorInformation":
 		return c.getAllValidatorInformation(ctx, request)
-	case "hmyv2_getAllValidatorInformationByBlockNumber":
+	case "astrav2_getAllValidatorInformationByBlockNumber":
 		return c.getAllValidatorInformationByBlockNumber(ctx, request)
-	case "hmyv2_getElectedValidatorAddresses":
+	case "astrav2_getElectedValidatorAddresses":
 		return c.getElectedValidatorAddresses(ctx)
-	case "hmyv2_getValidatorInformation":
+	case "astrav2_getValidatorInformation":
 		return c.getValidatorInformation(ctx, request)
-	case "hmyv2_getCurrentUtilityMetrics":
+	case "astrav2_getCurrentUtilityMetrics":
 		return c.getCurrentUtilityMetrics()
-	case "hmyv2_getMedianRawStakeSnapshot":
+	case "astrav2_getMedianRawStakeSnapshot":
 		return c.getMedianRawStakeSnapshot()
-	case "hmyv2_getStakingNetworkInfo":
+	case "astrav2_getStakingNetworkInfo":
 		return c.getStakingNetworkInfo(ctx)
-	case "hmyv2_getSuperCommittees":
+	case "astrav2_getSuperCommittees":
 		return c.getSuperCommittees()
 	}
 
@@ -82,17 +82,17 @@ func (c *CallAPIService) Call(
 
 }
 
-func NewCallAPIService(hmy *hmy.Astra, limiterEnable bool, rateLimit int) server.CallAPIServicer {
+func NewCallAPIService(astra *astra.Astra, limiterEnable bool, rateLimit int) server.CallAPIServicer {
 	return &CallAPIService{
-		hmy:                 hmy,
-		publicContractAPI:   rpc2.NewPublicContractAPI(hmy, rpc2.V2),
-		publicStakingAPI:    rpc2.NewPublicStakingAPI(hmy, rpc2.V2),
-		publicBlockChainAPI: rpc2.NewPublicBlockchainAPI(hmy, rpc2.V2, limiterEnable, rateLimit),
+		astra:                 astra,
+		publicContractAPI:   rpc2.NewPublicContractAPI(astra, rpc2.V2),
+		publicStakingAPI:    rpc2.NewPublicStakingAPI(astra, rpc2.V2),
+		publicBlockChainAPI: rpc2.NewPublicBlockchainAPI(astra, rpc2.V2, limiterEnable, rateLimit),
 	}
 }
 
 func (c *CallAPIService) getSuperCommittees() (*types.CallResponse, *types.Error) {
-	committees, err := c.hmy.GetSuperCommittees()
+	committees, err := c.astra.GetSuperCommittees()
 	if err != nil {
 		return nil, common.NewError(common.ErrGetStakingInfo, map[string]interface{}{
 			"message": errors.WithMessage(err, "get super committees error").Error(),
@@ -123,7 +123,7 @@ func (c *CallAPIService) getStakingNetworkInfo(
 }
 
 func (c *CallAPIService) getMedianRawStakeSnapshot() (*types.CallResponse, *types.Error) {
-	snapshot, err := c.hmy.GetMedianRawStakeSnapshot()
+	snapshot, err := c.astra.GetMedianRawStakeSnapshot()
 	if err != nil {
 		return nil, common.NewError(common.ErrGetStakingInfo, map[string]interface{}{
 			"message": errors.WithMessage(err, "get median raw stake snapshot error").Error(),
@@ -137,7 +137,7 @@ func (c *CallAPIService) getMedianRawStakeSnapshot() (*types.CallResponse, *type
 }
 
 func (c *CallAPIService) getCurrentUtilityMetrics() (*types.CallResponse, *types.Error) {
-	metric, err := c.hmy.GetCurrentUtilityMetrics()
+	metric, err := c.astra.GetCurrentUtilityMetrics()
 	if err != nil {
 		return nil, common.NewError(common.ErrGetStakingInfo, map[string]interface{}{
 			"message": errors.WithMessage(err, "get current utility metrics error").Error(),

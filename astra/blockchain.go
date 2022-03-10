@@ -1,4 +1,4 @@
-package hmy
+package astra
 
 import (
 	"context"
@@ -25,31 +25,31 @@ import (
 )
 
 // ChainConfig ...
-func (hmy *Astra) ChainConfig() *params.ChainConfig {
-	return hmy.BlockChain.Config()
+func (astra *Astra) ChainConfig() *params.ChainConfig {
+	return astra.BlockChain.Config()
 }
 
 // GetShardState ...
-func (hmy *Astra) GetShardState() (*shard.State, error) {
-	return hmy.BlockChain.ReadShardState(hmy.BlockChain.CurrentHeader().Epoch())
+func (astra *Astra) GetShardState() (*shard.State, error) {
+	return astra.BlockChain.ReadShardState(astra.BlockChain.CurrentHeader().Epoch())
 }
 
 // GetBlockSigners ..
-func (hmy *Astra) GetBlockSigners(
+func (astra *Astra) GetBlockSigners(
 	ctx context.Context, blockNum rpc.BlockNumber,
 ) (shard.SlotList, *internal_bls.Mask, error) {
-	blk, err := hmy.BlockByNumber(ctx, blockNum)
+	blk, err := astra.BlockByNumber(ctx, blockNum)
 	if err != nil {
 		return nil, nil, err
 	}
-	blockWithSigners, err := hmy.BlockByNumber(ctx, blockNum+1)
+	blockWithSigners, err := astra.BlockByNumber(ctx, blockNum+1)
 	if err != nil {
 		return nil, nil, err
 	}
 	if blockWithSigners == nil {
 		return nil, nil, fmt.Errorf("block number %v not found", blockNum+1)
 	}
-	committee, err := hmy.GetValidators(blk.Epoch())
+	committee, err := astra.GetValidators(blk.Epoch())
 	if err != nil {
 		return nil, nil, err
 	}
@@ -85,14 +85,14 @@ type DetailedBlockSignerInfo struct {
 }
 
 // GetDetailedBlockSignerInfo fetches the block signer information for any non-genesis block
-func (hmy *Astra) GetDetailedBlockSignerInfo(
+func (astra *Astra) GetDetailedBlockSignerInfo(
 	ctx context.Context, blk *types.Block,
 ) (*DetailedBlockSignerInfo, error) {
-	parentBlk, err := hmy.BlockByNumber(ctx, rpc.BlockNumber(blk.NumberU64()-1))
+	parentBlk, err := astra.BlockByNumber(ctx, rpc.BlockNumber(blk.NumberU64()-1))
 	if err != nil {
 		return nil, err
 	}
-	parentShardState, err := hmy.BlockChain.ReadShardState(parentBlk.Epoch())
+	parentShardState, err := astra.BlockChain.ReadShardState(parentBlk.Epoch())
 	if err != nil {
 		return nil, err
 	}
@@ -111,19 +111,19 @@ type PreStakingBlockRewards map[common.Address]*big.Int
 
 // GetPreStakingBlockRewards for the given block number.
 // Calculated rewards are done exactly like chain.AccumulateRewardsAndCountSigs.
-func (hmy *Astra) GetPreStakingBlockRewards(
+func (astra *Astra) GetPreStakingBlockRewards(
 	ctx context.Context, blk *types.Block,
 ) (PreStakingBlockRewards, error) {
-	if hmy.IsStakingEpoch(blk.Epoch()) {
+	if astra.IsStakingEpoch(blk.Epoch()) {
 		return nil, fmt.Errorf("block %v is in staking era", blk.Number())
 	}
 
-	if cachedReward, ok := hmy.preStakingBlockRewardsCache.Get(blk.Hash()); ok {
+	if cachedReward, ok := astra.preStakingBlockRewardsCache.Get(blk.Hash()); ok {
 		return cachedReward.(PreStakingBlockRewards), nil
 	}
 	rewards := PreStakingBlockRewards{}
 
-	sigInfo, err := hmy.GetDetailedBlockSignerInfo(ctx, blk)
+	sigInfo, err := astra.GetDetailedBlockSignerInfo(ctx, blk)
 	if err != nil {
 		return nil, err
 	}
@@ -142,14 +142,14 @@ func (hmy *Astra) GetPreStakingBlockRewards(
 	}
 
 	// Report tx fees of the coinbase (== leader)
-	receipts, err := hmy.GetReceipts(ctx, blk.Hash())
+	receipts, err := astra.GetReceipts(ctx, blk.Hash())
 	if err != nil {
 		return nil, err
 	}
 	txFees := big.NewInt(0)
 	for _, tx := range blk.Transactions() {
 		txnHash := tx.HashByType()
-		dbTx, _, _, receiptIndex := rawdb.ReadTransaction(hmy.ChainDb(), txnHash)
+		dbTx, _, _, receiptIndex := rawdb.ReadTransaction(astra.ChainDb(), txnHash)
 		if dbTx == nil {
 			return nil, fmt.Errorf("could not find receipt for tx: %v", txnHash.String())
 		}
@@ -167,23 +167,23 @@ func (hmy *Astra) GetPreStakingBlockRewards(
 		rewards[blk.Header().Coinbase()] = txFees
 	}
 
-	hmy.preStakingBlockRewardsCache.Add(blk.Hash(), rewards)
+	astra.preStakingBlockRewardsCache.Add(blk.Hash(), rewards)
 	return rewards, nil
 }
 
 // GetLatestChainHeaders ..
-func (hmy *Astra) GetLatestChainHeaders() *block.HeaderPair {
+func (astra *Astra) GetLatestChainHeaders() *block.HeaderPair {
 	return &block.HeaderPair{
-		BeaconHeader: hmy.BeaconChain.CurrentHeader(),
-		ShardHeader:  hmy.BlockChain.CurrentHeader(),
+		BeaconHeader: astra.BeaconChain.CurrentHeader(),
+		ShardHeader:  astra.BlockChain.CurrentHeader(),
 	}
 }
 
 // GetLastCrossLinks ..
-func (hmy *Astra) GetLastCrossLinks() ([]*types.CrossLink, error) {
+func (astra *Astra) GetLastCrossLinks() ([]*types.CrossLink, error) {
 	crossLinks := []*types.CrossLink{}
-	for i := uint32(1); i < shard.Schedule.InstanceForEpoch(hmy.CurrentBlock().Epoch()).NumShards(); i++ {
-		link, err := hmy.BlockChain.ReadShardLastCrossLink(i)
+	for i := uint32(1); i < shard.Schedule.InstanceForEpoch(astra.CurrentBlock().Epoch()).NumShards(); i++ {
+		link, err := astra.BlockChain.ReadShardLastCrossLink(i)
 		if err != nil {
 			return nil, err
 		}
@@ -194,23 +194,23 @@ func (hmy *Astra) GetLastCrossLinks() ([]*types.CrossLink, error) {
 }
 
 // CurrentBlock ...
-func (hmy *Astra) CurrentBlock() *types.Block {
-	return types.NewBlockWithHeader(hmy.BlockChain.CurrentHeader())
+func (astra *Astra) CurrentBlock() *types.Block {
+	return types.NewBlockWithHeader(astra.BlockChain.CurrentHeader())
 }
 
 // GetBlock ...
-func (hmy *Astra) GetBlock(ctx context.Context, hash common.Hash) (*types.Block, error) {
-	return hmy.BlockChain.GetBlockByHash(hash), nil
+func (astra *Astra) GetBlock(ctx context.Context, hash common.Hash) (*types.Block, error) {
+	return astra.BlockChain.GetBlockByHash(hash), nil
 }
 
 // GetCurrentBadBlocks ..
-func (hmy *Astra) GetCurrentBadBlocks() []core.BadBlock {
-	return hmy.BlockChain.BadBlocks()
+func (astra *Astra) GetCurrentBadBlocks() []core.BadBlock {
+	return astra.BlockChain.BadBlocks()
 }
 
 // GetBalance returns balance of an given address.
-func (hmy *Astra) GetBalance(ctx context.Context, address common.Address, blockNum rpc.BlockNumber) (*big.Int, error) {
-	s, _, err := hmy.StateAndHeaderByNumber(ctx, blockNum)
+func (astra *Astra) GetBalance(ctx context.Context, address common.Address, blockNum rpc.BlockNumber) (*big.Int, error) {
+	s, _, err := astra.StateAndHeaderByNumber(ctx, blockNum)
 	if s == nil || err != nil {
 		return nil, err
 	}
@@ -218,34 +218,34 @@ func (hmy *Astra) GetBalance(ctx context.Context, address common.Address, blockN
 }
 
 // BlockByNumber ...
-func (hmy *Astra) BlockByNumber(ctx context.Context, blockNum rpc.BlockNumber) (*types.Block, error) {
+func (astra *Astra) BlockByNumber(ctx context.Context, blockNum rpc.BlockNumber) (*types.Block, error) {
 	// Pending block is only known by the miner
 	if blockNum == rpc.PendingBlockNumber {
 		return nil, errors.New("not implemented")
 	}
 	// Otherwise resolve and return the block
 	if blockNum == rpc.LatestBlockNumber {
-		return hmy.BlockChain.CurrentBlock(), nil
+		return astra.BlockChain.CurrentBlock(), nil
 	}
-	return hmy.BlockChain.GetBlockByNumber(uint64(blockNum)), nil
+	return astra.BlockChain.GetBlockByNumber(uint64(blockNum)), nil
 }
 
 // HeaderByNumber ...
-func (hmy *Astra) HeaderByNumber(ctx context.Context, blockNum rpc.BlockNumber) (*block.Header, error) {
+func (astra *Astra) HeaderByNumber(ctx context.Context, blockNum rpc.BlockNumber) (*block.Header, error) {
 	// Pending block is only known by the miner
 	if blockNum == rpc.PendingBlockNumber {
 		return nil, errors.New("not implemented")
 	}
 	// Otherwise resolve and return the block
 	if blockNum == rpc.LatestBlockNumber {
-		return hmy.BlockChain.CurrentBlock().Header(), nil
+		return astra.BlockChain.CurrentBlock().Header(), nil
 	}
-	return hmy.BlockChain.GetHeaderByNumber(uint64(blockNum)), nil
+	return astra.BlockChain.GetHeaderByNumber(uint64(blockNum)), nil
 }
 
 // HeaderByHash ...
-func (hmy *Astra) HeaderByHash(ctx context.Context, blockHash common.Hash) (*block.Header, error) {
-	header := hmy.BlockChain.GetHeaderByHash(blockHash)
+func (astra *Astra) HeaderByHash(ctx context.Context, blockHash common.Hash) (*block.Header, error) {
+	header := astra.BlockChain.GetHeaderByHash(blockHash)
 	if header == nil {
 		return nil, errors.New("Header is not found")
 	}
@@ -253,35 +253,35 @@ func (hmy *Astra) HeaderByHash(ctx context.Context, blockHash common.Hash) (*blo
 }
 
 // StateAndHeaderByNumber ...
-func (hmy *Astra) StateAndHeaderByNumber(ctx context.Context, blockNum rpc.BlockNumber) (*state.DB, *block.Header, error) {
+func (astra *Astra) StateAndHeaderByNumber(ctx context.Context, blockNum rpc.BlockNumber) (*state.DB, *block.Header, error) {
 	// Pending state is only known by the miner
 	if blockNum == rpc.PendingBlockNumber {
 		return nil, nil, errors.New("not implemented")
 	}
 	// Otherwise resolve the block number and return its state
-	header, err := hmy.HeaderByNumber(ctx, blockNum)
+	header, err := astra.HeaderByNumber(ctx, blockNum)
 	if header == nil || err != nil {
 		return nil, nil, err
 	}
-	stateDb, err := hmy.BlockChain.StateAt(header.Root())
+	stateDb, err := astra.BlockChain.StateAt(header.Root())
 	return stateDb, header, err
 }
 
 // GetLeaderAddress returns the one address of the leader, given the coinbaseAddr.
 // Note that the coinbaseAddr is overloaded with the BLS pub key hash in staking era.
-func (hmy *Astra) GetLeaderAddress(coinbaseAddr common.Address, epoch *big.Int) string {
-	if hmy.IsStakingEpoch(epoch) {
-		if leader, exists := hmy.leaderCache.Get(coinbaseAddr); exists {
+func (astra *Astra) GetLeaderAddress(coinbaseAddr common.Address, epoch *big.Int) string {
+	if astra.IsStakingEpoch(epoch) {
+		if leader, exists := astra.leaderCache.Get(coinbaseAddr); exists {
 			addr := leader.(common.Address).String()
 			return addr
 		}
-		committee, err := hmy.GetValidators(epoch)
+		committee, err := astra.GetValidators(epoch)
 		if err != nil {
 			return ""
 		}
 		for _, val := range committee.Slots {
 			addr := utils.GetAddressFromBLSPubKeyBytes(val.BLSPublicKey[:])
-			hmy.leaderCache.Add(addr, val.EcdsaAddress)
+			astra.leaderCache.Add(addr, val.EcdsaAddress)
 			if addr == coinbaseAddr {
 				addr := val.EcdsaAddress.String()
 				return addr
@@ -296,13 +296,13 @@ func (hmy *Astra) GetLeaderAddress(coinbaseAddr common.Address, epoch *big.Int) 
 // Filter related APIs
 
 // GetLogs ...
-func (hmy *Astra) GetLogs(ctx context.Context, blockHash common.Hash, isEth bool) ([][]*types.Log, error) {
-	receipts := hmy.BlockChain.GetReceiptsByHash(blockHash)
+func (astra *Astra) GetLogs(ctx context.Context, blockHash common.Hash, isEth bool) ([][]*types.Log, error) {
+	receipts := astra.BlockChain.GetReceiptsByHash(blockHash)
 	if receipts == nil {
 		return nil, errors.New("Missing receipts")
 	}
 	if isEth {
-		block := hmy.BlockChain.GetBlockByHash(blockHash)
+		block := astra.BlockChain.GetBlockByHash(blockHash)
 		if block == nil {
 			return nil, errors.New("Missing block data")
 		}
@@ -327,42 +327,42 @@ func (hmy *Astra) GetLogs(ctx context.Context, blockHash common.Hash, isEth bool
 }
 
 // ServiceFilter ...
-func (hmy *Astra) ServiceFilter(ctx context.Context, session *bloombits.MatcherSession) {
+func (astra *Astra) ServiceFilter(ctx context.Context, session *bloombits.MatcherSession) {
 	// TODO(dm): implement
 }
 
 // SubscribeNewTxsEvent subscribes new tx event.
 // TODO: this is not implemented or verified yet for astra.
-func (hmy *Astra) SubscribeNewTxsEvent(ch chan<- core.NewTxsEvent) event.Subscription {
-	return hmy.TxPool.SubscribeNewTxsEvent(ch)
+func (astra *Astra) SubscribeNewTxsEvent(ch chan<- core.NewTxsEvent) event.Subscription {
+	return astra.TxPool.SubscribeNewTxsEvent(ch)
 }
 
 // SubscribeChainEvent subscribes chain event.
 // TODO: this is not implemented or verified yet for astra.
-func (hmy *Astra) SubscribeChainEvent(ch chan<- core.ChainEvent) event.Subscription {
-	return hmy.BlockChain.SubscribeChainEvent(ch)
+func (astra *Astra) SubscribeChainEvent(ch chan<- core.ChainEvent) event.Subscription {
+	return astra.BlockChain.SubscribeChainEvent(ch)
 }
 
 // SubscribeChainHeadEvent subcribes chain head event.
 // TODO: this is not implemented or verified yet for astra.
-func (hmy *Astra) SubscribeChainHeadEvent(ch chan<- core.ChainHeadEvent) event.Subscription {
-	return hmy.BlockChain.SubscribeChainHeadEvent(ch)
+func (astra *Astra) SubscribeChainHeadEvent(ch chan<- core.ChainHeadEvent) event.Subscription {
+	return astra.BlockChain.SubscribeChainHeadEvent(ch)
 }
 
 // SubscribeChainSideEvent subcribes chain side event.
 // TODO: this is not implemented or verified yet for astra.
-func (hmy *Astra) SubscribeChainSideEvent(ch chan<- core.ChainSideEvent) event.Subscription {
-	return hmy.BlockChain.SubscribeChainSideEvent(ch)
+func (astra *Astra) SubscribeChainSideEvent(ch chan<- core.ChainSideEvent) event.Subscription {
+	return astra.BlockChain.SubscribeChainSideEvent(ch)
 }
 
 // SubscribeRemovedLogsEvent subcribes removed logs event.
 // TODO: this is not implemented or verified yet for astra.
-func (hmy *Astra) SubscribeRemovedLogsEvent(ch chan<- core.RemovedLogsEvent) event.Subscription {
-	return hmy.BlockChain.SubscribeRemovedLogsEvent(ch)
+func (astra *Astra) SubscribeRemovedLogsEvent(ch chan<- core.RemovedLogsEvent) event.Subscription {
+	return astra.BlockChain.SubscribeRemovedLogsEvent(ch)
 }
 
 // SubscribeLogsEvent subcribes log event.
 // TODO: this is not implemented or verified yet for astra.
-func (hmy *Astra) SubscribeLogsEvent(ch chan<- []*types.Log) event.Subscription {
-	return hmy.BlockChain.SubscribeLogsEvent(ch)
+func (astra *Astra) SubscribeLogsEvent(ch chan<- []*types.Log) event.Subscription {
+	return astra.BlockChain.SubscribeLogsEvent(ch)
 }

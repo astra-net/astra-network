@@ -502,12 +502,12 @@ func VerifyBLSKey(pubKey *bls.SerializedPublicKey, pubKeySig *bls.SerializedSign
 
 func containsAstraBLSKeys(
 	blsKeys []bls.SerializedPublicKey,
-	hmyAccounts []genesis.DeployAccount,
+	astraAccounts []genesis.DeployAccount,
 	epoch *big.Int,
 ) error {
 	for i := range blsKeys {
 		if err := matchesAstraBLSKey(
-			&blsKeys[i], hmyAccounts, epoch,
+			&blsKeys[i], astraAccounts, epoch,
 		); err != nil {
 			return err
 		}
@@ -517,7 +517,7 @@ func containsAstraBLSKeys(
 
 func matchesAstraBLSKey(
 	blsKey *bls.SerializedPublicKey,
-	hmyAccounts []genesis.DeployAccount,
+	astraAccounts []genesis.DeployAccount,
 	epoch *big.Int,
 ) error {
 	type publicKeyAsHex = string
@@ -527,9 +527,9 @@ func matchesAstraBLSKey(
 		if _, ok := cache[key]; !ok {
 			// one time cost per epoch
 			cache[key] = map[publicKeyAsHex]struct{}{}
-			for i := range hmyAccounts {
+			for i := range astraAccounts {
 				// invariant assume it is hex
-				cache[key][hmyAccounts[i].BLSPublicKey] = struct{}{}
+				cache[key][astraAccounts[i].BLSPublicKey] = struct{}{}
 			}
 		}
 

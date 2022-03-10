@@ -257,7 +257,7 @@ func (v *stakedVoteWeight) MarshalJSON() ([]byte, error) {
 		Count               int    `json:"count"`
 		Externals           int    `json:"external-validator-slot-count"`
 		Participants        []u    `json:"committee-members"`
-		HmyVotingPower      string `json:"hmy-voting-power"`
+		HmyVotingPower      string `json:"astra-voting-power"`
 		StakedVotingPower   string `json:"staked-voting-power"`
 		TotalRawStake       string `json:"total-raw-stake"`
 		TotalEffectiveStake string `json:"total-effective-stake"`

@@ -39,7 +39,7 @@ getent group astra >/dev/null || groupadd -r astra
 getent passwd astra >/dev/null || \
    useradd -r -g astra -d /home/astra -m -s /sbin/nologin \
    -c "Astra validator node account" astra
-mkdir -p /home/astra/.hmy/blskeys
+mkdir -p /home/astra/.astra/blskeys
 mkdir -p /home/astra/.config/rclone
 chown -R astra.astra /home/astra
 exit 0

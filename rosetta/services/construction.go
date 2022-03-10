@@ -11,8 +11,8 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 
 	"github.com/harmony-one/astra/common/denominations"
-	hmyTypes "github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/hmy"
+	astraTypes "github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/astra"
 	"github.com/harmony-one/astra/rosetta/common"
 	stakingTypes "github.com/harmony-one/astra/staking/types"
 )
@@ -24,17 +24,17 @@ const (
 
 // ConstructAPI implements the server.ConstructAPIServicer interface.
 type ConstructAPI struct {
-	hmy           *hmy.Astra
-	signer        hmyTypes.Signer
+	astra           *astra.Astra
+	signer        astraTypes.Signer
 	stakingSigner stakingTypes.Signer
 }
 
 // NewConstructionAPI creates a new instance of a ConstructAPI.
-func NewConstructionAPI(hmy *hmy.Astra) server.ConstructionAPIServicer {
+func NewConstructionAPI(astra *astra.Astra) server.ConstructionAPIServicer {
 	return &ConstructAPI{
-		hmy:           hmy,
-		signer:        hmyTypes.NewEIP155Signer(new(big.Int).SetUint64(hmy.ChainID)),
-		stakingSigner: stakingTypes.NewEIP155Signer(new(big.Int).SetUint64(hmy.ChainID)),
+		astra:           astra,
+		signer:        astraTypes.NewEIP155Signer(new(big.Int).SetUint64(astra.ChainID)),
+		stakingSigner: stakingTypes.NewEIP155Signer(new(big.Int).SetUint64(astra.ChainID)),
 	}
 }
 
@@ -42,7 +42,7 @@ func NewConstructionAPI(hmy *hmy.Astra) server.ConstructionAPIServicer {
 func (s *ConstructAPI) ConstructionDerive(
 	ctx context.Context, request *types.ConstructionDeriveRequest,
 ) (*types.ConstructionDeriveResponse, *types.Error) {
-	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.hmy.ShardID); err != nil {
+	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.astra.ShardID); err != nil {
 		return nil, err
 	}
 	address, rosettaError := getAddressFromPublicKey(request.PublicKey)

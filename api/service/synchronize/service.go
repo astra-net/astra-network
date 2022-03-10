@@ -2,7 +2,7 @@ package synchronize
 
 import (
 	"github.com/harmony-one/astra/core"
-	"github.com/harmony-one/astra/hmy/downloader"
+	"github.com/harmony-one/astra/astra/downloader"
 	"github.com/harmony-one/astra/p2p"
 )
 

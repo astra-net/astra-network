@@ -1,4 +1,4 @@
-package hmy
+package astra
 
 import (
 	"context"
@@ -162,32 +162,32 @@ func New(
 }
 
 // SingleFlightRequest ..
-func (hmy *Astra) SingleFlightRequest(
+func (astra *Astra) SingleFlightRequest(
 	key string,
 	fn func() (interface{}, error),
 ) (interface{}, error) {
-	res, err, _ := hmy.group.Do(key, fn)
+	res, err, _ := astra.group.Do(key, fn)
 	return res, err
 }
 
 // SingleFlightForgetKey ...
-func (hmy *Astra) SingleFlightForgetKey(key string) {
-	hmy.group.Forget(key)
+func (astra *Astra) SingleFlightForgetKey(key string) {
+	astra.group.Forget(key)
 }
 
 // ProtocolVersion ...
-func (hmy *Astra) ProtocolVersion() int {
+func (astra *Astra) ProtocolVersion() int {
 	return proto.ProtocolVersion
 }
 
 // IsLeader exposes if node is currently leader
-func (hmy *Astra) IsLeader() bool {
-	return hmy.NodeAPI.IsCurrentlyLeader()
+func (astra *Astra) IsLeader() bool {
+	return astra.NodeAPI.IsCurrentlyLeader()
 }
 
 // GetNodeMetadata ..
-func (hmy *Astra) GetNodeMetadata() commonRPC.NodeMetadata {
-	header := hmy.CurrentBlock().Header()
+func (astra *Astra) GetNodeMetadata() commonRPC.NodeMetadata {
+	header := astra.CurrentBlock().Header()
 	cfg := nodeconfig.GetShardConfig(header.ShardID())
 	var blockEpoch *uint64
 
@@ -204,26 +204,26 @@ func (hmy *Astra) GetNodeMetadata() commonRPC.NodeMetadata {
 		}
 	}
 	c := commonRPC.C{}
-	c.TotalKnownPeers, c.Connected, c.NotConnected = hmy.NodeAPI.PeerConnectivity()
+	c.TotalKnownPeers, c.Connected, c.NotConnected = astra.NodeAPI.PeerConnectivity()
 
-	syncPeers := hmy.NodeAPI.SyncPeers()
-	consensusInternal := hmy.NodeAPI.GetConsensusInternal()
+	syncPeers := astra.NodeAPI.SyncPeers()
+	consensusInternal := astra.NodeAPI.GetConsensusInternal()
 
 	return commonRPC.NodeMetadata{
 		BLSPublicKey:    blsKeys,
 		Version:         nodeconfig.GetVersion(),
 		NetworkType:     string(cfg.GetNetworkType()),
-		ChainConfig:     *hmy.ChainConfig(),
-		IsLeader:        hmy.IsLeader(),
-		ShardID:         hmy.ShardID,
+		ChainConfig:     *astra.ChainConfig(),
+		IsLeader:        astra.IsLeader(),
+		ShardID:         astra.ShardID,
 		CurrentBlockNum: header.Number().Uint64(),
 		CurrentEpoch:    header.Epoch().Uint64(),
 		BlocksPerEpoch:  blockEpoch,
 		Role:            cfg.Role().String(),
 		DNSZone:         cfg.DNSZone,
 		Archival:        cfg.GetArchival(),
-		IsBackup:        hmy.NodeAPI.IsBackup(),
-		NodeBootTime:    hmy.NodeAPI.GetNodeBootTime(),
+		IsBackup:        astra.NodeAPI.IsBackup(),
+		NodeBootTime:    astra.NodeAPI.GetNodeBootTime(),
 		PeerID:          nodeconfig.GetPeerID(),
 		Consensus:       consensusInternal,
 		C:               c,
@@ -232,25 +232,25 @@ func (hmy *Astra) GetNodeMetadata() commonRPC.NodeMetadata {
 }
 
 // GetEVM returns a new EVM entity
-func (hmy *Astra) GetEVM(ctx context.Context, msg core.Message, state *state.DB, header *block.Header) (*vm.EVM, error) {
+func (astra *Astra) GetEVM(ctx context.Context, msg core.Message, state *state.DB, header *block.Header) (*vm.EVM, error) {
 	state.SetBalance(msg.From(), math.MaxBig256)
-	vmCtx := core.NewEVMContext(msg, header, hmy.BlockChain, nil)
-	return vm.NewEVM(vmCtx, state, hmy.BlockChain.Config(), *hmy.BlockChain.GetVMConfig()), nil
+	vmCtx := core.NewEVMContext(msg, header, astra.BlockChain, nil)
+	return vm.NewEVM(vmCtx, state, astra.BlockChain.Config(), *astra.BlockChain.GetVMConfig()), nil
 }
 
 // ChainDb ..
-func (hmy *Astra) ChainDb() ethdb.Database {
-	return hmy.chainDb
+func (astra *Astra) ChainDb() ethdb.Database {
+	return astra.chainDb
 }
 
 // EventMux ..
-func (hmy *Astra) EventMux() *event.TypeMux {
-	return hmy.eventMux
+func (astra *Astra) EventMux() *event.TypeMux {
+	return astra.eventMux
 }
 
 // BloomStatus ...
 // TODO: this is not implemented or verified yet for astra.
-func (hmy *Astra) BloomStatus() (uint64, uint64) {
-	sections, _, _ := hmy.BloomIndexer.Sections()
+func (astra *Astra) BloomStatus() (uint64, uint64) {
+	sections, _, _ := astra.BloomIndexer.Sections()
 	return BloomBitsBlocks, sections
 }

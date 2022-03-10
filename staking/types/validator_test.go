@@ -19,9 +19,9 @@ import (
 
 var (
 	blsPubSigPairs = makeBLSPubSigPairs(5)
-	hmyBLSPub      bls.SerializedPublicKey
+	astraBLSPub      bls.SerializedPublicKey
 
-	hmyBLSPubStr     = "c2962419d9999a87daa134f6d177f9ccabfe168a470587b13dd02ce91d1690a92170e5949d3dbdfc1b13fd7327dbef8c"
+	astraBLSPubStr     = "c2962419d9999a87daa134f6d177f9ccabfe168a470587b13dd02ce91d1690a92170e5949d3dbdfc1b13fd7327dbef8c"
 	validatorAddr, _ = common2.ParseAddr("0x0b585f8daefbc68a311fbd4cb20d9174ad174016")
 )
 
@@ -69,8 +69,8 @@ var (
 )
 
 func init() {
-	// set bls pub keys for hmy
-	copy(hmyBLSPub[:], common.Hex2Bytes(hmyBLSPubStr))
+	// set bls pub keys for astra
+	copy(astraBLSPub[:], common.Hex2Bytes(astraBLSPubStr))
 }
 
 func TestNewEmptyStats(t *testing.T) {
@@ -499,7 +499,7 @@ func TestCreateValidatorFromNewMsg(t *testing.T) {
 	}{
 		{func(cv *CreateValidator) {}, nil},
 		{func(cv *CreateValidator) { cv.Description = invalidDescription }, errors.New("exceed maximum name length")},
-		{func(cv *CreateValidator) { cv.SlotPubKeys[0] = hmyBLSPub }, errDuplicateSlotKeys},
+		{func(cv *CreateValidator) { cv.SlotPubKeys[0] = astraBLSPub }, errDuplicateSlotKeys},
 		{func(cv *CreateValidator) { cv.SlotKeySigs[0] = blsPubSigPairs[2].sig }, errBLSKeysNotMatchSigs},
 	}
 	for i, test := range tests {
@@ -644,10 +644,10 @@ func TestUpdateValidatorFromEditMsg(t *testing.T) {
 			expErr: errSlotKeyToRemoveNotFound,
 		},
 		{
-			// add pub collide with hmy bls account
+			// add pub collide with astra bls account
 			editValidator: EditValidator{
 				ValidatorAddress: validatorAddr,
-				SlotKeyToAdd:     &hmyBLSPub,
+				SlotKeyToAdd:     &astraBLSPub,
 			},
 			expErr: errDuplicateSlotKeys,
 		},

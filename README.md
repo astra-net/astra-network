@@ -159,7 +159,7 @@ Note that all testing docker container binds a couple of ports to the host machi
 * `9798` - Shard 1 Rosetta (for an explorer)
 * `9899` - Shard 0 WS for an explorer
 * `9898` - Shard 1 WS for an explorer
-> This allows you to use curl, hmy CLI, postman, rosetta-cli, etc... on your host machine to play with or probe the localnet that was used for the test. 
+> This allows you to use curl, astra CLI, postman, rosetta-cli, etc... on your host machine to play with or probe the localnet that was used for the test. 
 
 ### Go tests
 To run this test, do:
@@ -184,7 +184,7 @@ make test-rpc-attach
 > This will open a shell in the docker container that is running the Node API tests.
 >
 > Note that the docker container has the [Astra CLI](https://docs.astra.one/home/wallets/astra-cli) on path,
-> therefore you can use that to debug if needed. For example, one could do `hmy blockchain latest-headers` to check 
+> therefore you can use that to debug if needed. For example, one could do `astra blockchain latest-headers` to check 
 > the current block height of localnet. Reference the documentation for the CLI [here](https://docs.astra.one/home/wallets/astra-cli) 
 > for more details & commands.
 

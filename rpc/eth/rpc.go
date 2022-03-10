@@ -5,17 +5,17 @@ import (
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/harmony-one/astra/eth/rpc"
-	"github.com/harmony-one/astra/hmy"
+	"github.com/harmony-one/astra/astra"
 	internal_common "github.com/harmony-one/astra/internal/common"
 )
 
 // PublicEthService provides an API to access to the Eth endpoints for the Astra blockchain.
 type PublicEthService struct {
-	hmy *hmy.Astra
+	astra *astra.Astra
 }
 
 // NewPublicEthService creates a new API for the RPC interface
-func NewPublicEthService(hmy *hmy.Astra, namespace string) rpc.API {
+func NewPublicEthService(astra *astra.Astra, namespace string) rpc.API {
 	if namespace == "" {
 		namespace = "eth"
 	}
@@ -23,7 +23,7 @@ func NewPublicEthService(hmy *hmy.Astra, namespace string) rpc.API {
 	return rpc.API{
 		Namespace: namespace,
 		Version:   "1.0",
-		Service:   &PublicEthService{hmy},
+		Service:   &PublicEthService{astra},
 		Public:    true,
 	}
 }
@@ -38,7 +38,7 @@ func (s *PublicEthService) GetBalance(
 	if err != nil {
 		return nil, err
 	}
-	balance, err := s.hmy.GetBalance(ctx, addr, blockNr)
+	balance, err := s.astra.GetBalance(ctx, addr, blockNr)
 	if err != nil {
 		return nil, err
 	}

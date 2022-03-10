@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/harmony-one/astra/eth/rpc"
-	"github.com/harmony-one/astra/hmy"
+	"github.com/harmony-one/astra/astra"
 	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
 	"github.com/harmony-one/astra/internal/utils"
 	eth "github.com/harmony-one/astra/rpc/eth"
@@ -44,9 +44,9 @@ const (
 
 var (
 	// HTTPModules ..
-	HTTPModules = []string{"hmy", "hmyv2", "eth", "debug", "trace", netNamespace, netV1Namespace, netV2Namespace, web3Namespace, "explorer"}
+	HTTPModules = []string{"astra", "astrav2", "eth", "debug", "trace", netNamespace, netV1Namespace, netV2Namespace, web3Namespace, "explorer"}
 	// WSModules ..
-	WSModules = []string{"hmy", "hmyv2", "eth", "debug", "trace", netNamespace, netV1Namespace, netV2Namespace, web3Namespace, "web3"}
+	WSModules = []string{"astra", "astrav2", "eth", "debug", "trace", netNamespace, netV1Namespace, netV2Namespace, web3Namespace, "web3"}
 
 	httpListener     net.Listener
 	httpHandler      *rpc.Server
@@ -71,9 +71,9 @@ func (n Version) Namespace() string {
 }
 
 // StartServers starts the http & ws servers
-func StartServers(hmy *hmy.Astra, apis []rpc.API, config nodeconfig.RPCServerConfig) error {
-	apis = append(apis, getAPIs(hmy, config.DebugEnabled, config.RateLimiterEnabled, config.RequestsPerSecond)...)
-	authApis := append(apis, getAuthAPIs(hmy, config.DebugEnabled, config.RateLimiterEnabled, config.RequestsPerSecond)...)
+func StartServers(astra *astra.Astra, apis []rpc.API, config nodeconfig.RPCServerConfig) error {
+	apis = append(apis, getAPIs(astra, config.DebugEnabled, config.RateLimiterEnabled, config.RequestsPerSecond)...)
+	authApis := append(apis, getAuthAPIs(astra, config.DebugEnabled, config.RateLimiterEnabled, config.RequestsPerSecond)...)
 
 	if config.HTTPEnabled {
 		httpEndpoint = fmt.Sprintf("%v:%v", config.HTTPIp, config.HTTPPort)
@@ -133,45 +133,45 @@ func StopServers() error {
 	return nil
 }
 
-func getAuthAPIs(hmy *hmy.Astra, debugEnable bool, rateLimiterEnable bool, ratelimit int) []rpc.API {
+func getAuthAPIs(astra *astra.Astra, debugEnable bool, rateLimiterEnable bool, ratelimit int) []rpc.API {
 	return []rpc.API{
-		NewPublicTraceAPI(hmy, Debug), // Debug version means geth trace rpc
-		NewPublicTraceAPI(hmy, Trace), // Trace version means parity trace rpc
+		NewPublicTraceAPI(astra, Debug), // Debug version means geth trace rpc
+		NewPublicTraceAPI(astra, Trace), // Trace version means parity trace rpc
 	}
 }
 
 // getAPIs returns all the API methods for the RPC interface
-func getAPIs(hmy *hmy.Astra, debugEnable bool, rateLimiterEnable bool, ratelimit int) []rpc.API {
+func getAPIs(astra *astra.Astra, debugEnable bool, rateLimiterEnable bool, ratelimit int) []rpc.API {
 	publicAPIs := []rpc.API{
 		// Public methods
-		NewPublicAstraAPI(hmy, V1),
-		NewPublicAstraAPI(hmy, V2),
-		NewPublicAstraAPI(hmy, Eth),
-		NewPublicBlockchainAPI(hmy, V1, rateLimiterEnable, ratelimit),
-		NewPublicBlockchainAPI(hmy, V2, rateLimiterEnable, ratelimit),
-		NewPublicBlockchainAPI(hmy, Eth, rateLimiterEnable, ratelimit),
-		NewPublicContractAPI(hmy, V1),
-		NewPublicContractAPI(hmy, V2),
-		NewPublicContractAPI(hmy, Eth),
-		NewPublicTransactionAPI(hmy, V1),
-		NewPublicTransactionAPI(hmy, V2),
-		NewPublicTransactionAPI(hmy, Eth),
-		NewPublicPoolAPI(hmy, V1),
-		NewPublicPoolAPI(hmy, V2),
-		NewPublicPoolAPI(hmy, Eth),
-		NewPublicStakingAPI(hmy, V1),
-		NewPublicStakingAPI(hmy, V2),
-		NewPublicDebugAPI(hmy, V1),
-		NewPublicDebugAPI(hmy, V2),
+		NewPublicAstraAPI(astra, V1),
+		NewPublicAstraAPI(astra, V2),
+		NewPublicAstraAPI(astra, Eth),
+		NewPublicBlockchainAPI(astra, V1, rateLimiterEnable, ratelimit),
+		NewPublicBlockchainAPI(astra, V2, rateLimiterEnable, ratelimit),
+		NewPublicBlockchainAPI(astra, Eth, rateLimiterEnable, ratelimit),
+		NewPublicContractAPI(astra, V1),
+		NewPublicContractAPI(astra, V2),
+		NewPublicContractAPI(astra, Eth),
+		NewPublicTransactionAPI(astra, V1),
+		NewPublicTransactionAPI(astra, V2),
+		NewPublicTransactionAPI(astra, Eth),
+		NewPublicPoolAPI(astra, V1),
+		NewPublicPoolAPI(astra, V2),
+		NewPublicPoolAPI(astra, Eth),
+		NewPublicStakingAPI(astra, V1),
+		NewPublicStakingAPI(astra, V2),
+		NewPublicDebugAPI(astra, V1),
+		NewPublicDebugAPI(astra, V2),
 		// Legacy methods (subject to removal)
-		v1.NewPublicLegacyAPI(hmy, "hmy"),
-		eth.NewPublicEthService(hmy, "eth"),
-		v2.NewPublicLegacyAPI(hmy, "hmyv2"),
+		v1.NewPublicLegacyAPI(astra, "astra"),
+		eth.NewPublicEthService(astra, "eth"),
+		v2.NewPublicLegacyAPI(astra, "astrav2"),
 	}
 
 	privateAPIs := []rpc.API{
-		NewPrivateDebugAPI(hmy, V1),
-		NewPrivateDebugAPI(hmy, V2),
+		NewPrivateDebugAPI(astra, V1),
+		NewPrivateDebugAPI(astra, V2),
 	}
 
 	if debugEnable {

@@ -431,7 +431,7 @@ func (ctx *incStateTestCtx) checkAddrIncStateByType(addr common.Address, typeInc
 	return err
 }
 
-// checkHmyNodeStateChangeByAddr checks the state change for hmy nodes. Since hmy nodes does not
+// checkHmyNodeStateChangeByAddr checks the state change for astra nodes. Since astra nodes does not
 // have wrapper, it is supposed to be unchanged in code field
 func (ctx *incStateTestCtx) checkHmyNodeStateChangeByAddr(addr common.Address) error {
 	snapCode := ctx.snapState.GetCode(addr)

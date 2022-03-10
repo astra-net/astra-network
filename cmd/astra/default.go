@@ -26,7 +26,7 @@ var defaultConfig = astraconfig.AstraConfig{
 	P2P: astraconfig.P2pConfig{
 		Port:            nodeconfig.DefaultP2PPort,
 		IP:              nodeconfig.DefaultPublicListenIP,
-		KeyFile:         "./.hmykey",
+		KeyFile:         "./.astrakey",
 		DiscConcurrency: nodeconfig.DefaultP2PConcurrency,
 		MaxConnsPerIP:   nodeconfig.DefaultMaxConnPerIP,
 	},
@@ -50,7 +50,7 @@ var defaultConfig = astraconfig.AstraConfig{
 		RequestsPerSecond: nodeconfig.DefaultRPCRateLimit,
 	},
 	BLSKeys: astraconfig.BlsConfig{
-		KeyDir:   "./.hmy/blskeys",
+		KeyDir:   "./.astra/blskeys",
 		KeyFiles: []string{},
 		MaxKeys:  10,
 
@@ -63,7 +63,7 @@ var defaultConfig = astraconfig.AstraConfig{
 		KMSConfigFile:    "",
 	},
 	TxPool: astraconfig.TxPoolConfig{
-		BlacklistFile:  "./.hmy/blacklist.txt",
+		BlacklistFile:  "./.astra/blacklist.txt",
 		RosettaFixFile: "",
 		AccountSlots:   16,
 	},

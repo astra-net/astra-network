@@ -19,7 +19,7 @@ import (
 	"github.com/harmony-one/astra/core/rawdb"
 	"github.com/harmony-one/astra/core/state"
 	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/hmy"
+	"github.com/harmony-one/astra/astra"
 	"github.com/harmony-one/astra/internal/cli"
 
 	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
@@ -276,7 +276,7 @@ func (db *KakashiDB) GetBlockByNumber(number uint64) *types.Block {
 
 func (db *KakashiDB) indexerDataDump(block *types.Block) {
 	fmt.Println("indexerDataDump:")
-	bloomIndexer := hmy.NewBloomIndexer(db, params.BloomBitsBlocks, params.BloomConfirms)
+	bloomIndexer := astra.NewBloomIndexer(db, params.BloomBitsBlocks, params.BloomConfirms)
 	bloomIndexer.Close() // just stop event loop
 	section, blkno, blkhash := bloomIndexer.Sections()
 	bloomIndexer.AddCheckpoint(section-1, blkhash)

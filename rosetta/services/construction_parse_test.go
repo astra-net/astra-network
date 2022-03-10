@@ -10,14 +10,14 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/parser"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	hmytypes "github.com/harmony-one/astra/core/types"
+	astratypes "github.com/harmony-one/astra/core/types"
 	internalCommon "github.com/harmony-one/astra/internal/common"
 	stakingTypes "github.com/harmony-one/astra/staking/types"
 	"github.com/harmony-one/astra/test/helpers"
 )
 
 var (
-	tempTestSigner        = hmytypes.NewEIP155Signer(big.NewInt(0))
+	tempTestSigner        = astratypes.NewEIP155Signer(big.NewInt(0))
 	tempTestStakingSigner = stakingTypes.NewEIP155Signer(big.NewInt(0))
 )
 
@@ -37,14 +37,14 @@ func TestParseUnsignedTransaction(t *testing.T) {
 	if rosettaError != nil {
 		t.Fatal(rosettaError)
 	}
-	refTestReceipt := &hmytypes.Receipt{
+	refTestReceipt := &astratypes.Receipt{
 		GasUsed: testTx.GasLimit(),
 	}
 	refFormattedTx, rosettaError := FormatTransaction(testTx, refTestReceipt, &ContractInfo{}, false)
 	if rosettaError != nil {
 		t.Fatal(rosettaError)
 	}
-	refUnsignedTx := hmytypes.NewCrossShardTransaction(
+	refUnsignedTx := astratypes.NewCrossShardTransaction(
 		testTx.Nonce(), &refSender, testTx.ShardID(), testTx.ToShardID(), testTx.Value(),
 		testTx.GasLimit(), gasPrice, testTx.Data(),
 	)
@@ -125,7 +125,7 @@ func TestParseSignedTransaction(t *testing.T) {
 	if rosettaError != nil {
 		t.Fatal(rosettaError)
 	}
-	refTestReceipt := &hmytypes.Receipt{
+	refTestReceipt := &astratypes.Receipt{
 		GasUsed: testTx.GasLimit(),
 	}
 	refFormattedTx, rosettaError := FormatTransaction(testTx, refTestReceipt, &ContractInfo{}, true)

@@ -66,7 +66,7 @@ RUN go mod tidy
 
 RUN scripts/go_executable_build.sh -S
 
-RUN cd ${HMY_PATH}/go-sdk && make -j8 && cp hmy /root/bin
+RUN cd ${HMY_PATH}/go-sdk && make -j8 && cp astra /root/bin
 
 ARG K1=0x3b00aab412891853f2cc91a6957a66088f22437b
 ARG K2=0x415077f2efb732538683baf6479a94ed35b836b5
@@ -76,16 +76,16 @@ ARG KS1=8d222cffa99eb1fb86c581d9dfe7d60dd40ec62aa29056b7ff48028385270541
 ARG KS2=da1800da5dedf02717696675c7a7e58383aff90b1014dfa1ab5b7bd1ce3ef535
 ARG KS3=f4267bb5a2f0e65b8f5792bb6992597fac2b35ebfac9885ce0f4152c451ca31a
 
-RUN hmy keys import-private-key ${KS1} && \
-	hmy keys import-private-key ${KS2} && \
-	hmy keys import-private-key ${KS3} && \
-	hmy keys generate-bls-key > keys.json 
+RUN astra keys import-private-key ${KS1} && \
+	astra keys import-private-key ${KS2} && \
+	astra keys import-private-key ${KS3} && \
+	astra keys generate-bls-key > keys.json 
 
 RUN jq  '.["encrypted-private-key-path"]' -r keys.json > /root/keypath && cp keys.json /root && \
 	echo "export BLS_KEY_PATH=$(cat /root/keypath)" >> /root/.bashrc && \
 	echo "export BLS_KEY=$(jq '.["public-key"]' -r keys.json)" >> /root/.bashrc && \
-	echo "printf '${K1}, ${K2}, ${K3} are imported accounts in hmy for local dev\n\n'" >> /root/.bashrc && \
-	echo "printf 'test with: hmy blockchain validator information ${K1}\n\n'" >> /root/.bashrc && \
+	echo "printf '${K1}, ${K2}, ${K3} are imported accounts in astra for local dev\n\n'" >> /root/.bashrc && \
+	echo "printf 'test with: astra blockchain validator information ${K1}\n\n'" >> /root/.bashrc && \
 	echo "echo "$(jq '.["public-key"]' -r keys.json)" is an extern bls key" >> /root/.bashrc && \
 	echo ". /etc/bash_completion" >> /root/.bashrc && \
-	echo ". <(hmy completion)" >> /root/.bashrc
+	echo ". <(astra completion)" >> /root/.bashrc

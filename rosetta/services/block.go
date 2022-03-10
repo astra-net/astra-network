@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/harmony-one/astra/hmy/tracers"
+	"github.com/harmony-one/astra/astra/tracers"
 
 	"github.com/harmony-one/astra/core"
 	"github.com/harmony-one/astra/core/state"
@@ -19,10 +19,10 @@ import (
 	lru "github.com/hashicorp/golang-lru"
 
 	"github.com/harmony-one/astra/core/rawdb"
-	hmytypes "github.com/harmony-one/astra/core/types"
+	astratypes "github.com/harmony-one/astra/core/types"
 	"github.com/harmony-one/astra/core/vm"
 	"github.com/harmony-one/astra/eth/rpc"
-	"github.com/harmony-one/astra/hmy"
+	"github.com/harmony-one/astra/astra"
 	"github.com/harmony-one/astra/rosetta/common"
 	stakingTypes "github.com/harmony-one/astra/staking/types"
 )
@@ -34,15 +34,15 @@ const (
 
 // BlockAPI implements the server.BlockAPIServicer interface.
 type BlockAPI struct {
-	hmy          *hmy.Astra
+	astra          *astra.Astra
 	txTraceCache *lru.Cache
 }
 
 // NewBlockAPI creates a new instance of a BlockAPI.
-func NewBlockAPI(hmy *hmy.Astra) server.BlockAPIServicer {
+func NewBlockAPI(astra *astra.Astra) server.BlockAPIServicer {
 	traceCache, _ := lru.New(txTraceCacheSize)
 	return &BlockAPI{
-		hmy:          hmy,
+		astra:          astra,
 		txTraceCache: traceCache,
 	}
 }
@@ -56,13 +56,13 @@ type BlockMetadata struct {
 func (s *BlockAPI) Block(
 	ctx context.Context, request *types.BlockRequest,
 ) (response *types.BlockResponse, rosettaError *types.Error) {
-	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.hmy.ShardID); err != nil {
+	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.astra.ShardID); err != nil {
 		return nil, err
 	}
 
-	var blk *hmytypes.Block
+	var blk *astratypes.Block
 	var currBlockID, prevBlockID *types.BlockIdentifier
-	if blk, rosettaError = getBlock(ctx, s.hmy, request.BlockIdentifier); rosettaError != nil {
+	if blk, rosettaError = getBlock(ctx, s.astra, request.BlockIdentifier); rosettaError != nil {
 		return nil, rosettaError
 	}
 
@@ -74,7 +74,7 @@ func (s *BlockAPI) Block(
 	if blk.NumberU64() == 0 {
 		prevBlockID = currBlockID
 	} else {
-		prevBlock, err := s.hmy.BlockByNumber(ctx, rpc.BlockNumber(blk.Number().Int64()-1))
+		prevBlock, err := s.astra.BlockByNumber(ctx, rpc.BlockNumber(blk.Number().Int64()-1))
 		if err != nil {
 			return nil, common.NewError(common.CatchAllError, map[string]interface{}{
 				"message": err.Error(),
@@ -142,12 +142,12 @@ func (s *BlockAPI) Block(
 func (s *BlockAPI) BlockTransaction(
 	ctx context.Context, request *types.BlockTransactionRequest,
 ) (*types.BlockTransactionResponse, *types.Error) {
-	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.hmy.ShardID); err != nil {
+	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.astra.ShardID); err != nil {
 		return nil, err
 	}
 
 	blk, rosettaError := getBlock(
-		ctx, s.hmy, &types.PartialBlockIdentifier{Hash: &request.BlockIdentifier.Hash},
+		ctx, s.astra, &types.PartialBlockIdentifier{Hash: &request.BlockIdentifier.Hash},
 	)
 	if rosettaError != nil {
 		return nil, rosettaError
@@ -164,7 +164,7 @@ func (s *BlockAPI) BlockTransaction(
 		}
 		return response, rosettaError2
 	}
-	state, _, err := s.hmy.StateAndHeaderByNumber(ctx, rpc.BlockNumber(blk.NumberU64()))
+	state, _, err := s.astra.StateAndHeaderByNumber(ctx, rpc.BlockNumber(blk.NumberU64()))
 	if state == nil || err != nil {
 		return nil, common.NewError(common.BlockNotFoundError, map[string]interface{}{
 			"message": fmt.Sprintf("block state not found for block %v", blk.NumberU64()),
@@ -174,7 +174,7 @@ func (s *BlockAPI) BlockTransaction(
 	var transaction *types.Transaction
 	if txInfo.tx != nil && txInfo.receipt != nil {
 		contractInfo := &ContractInfo{}
-		if _, ok := txInfo.tx.(*hmytypes.Transaction); ok {
+		if _, ok := txInfo.tx.(*astratypes.Transaction); ok {
 			// check for contract related operations, if it is a plain transaction.
 			if txInfo.tx.To() != nil {
 				// possible call to existing contract so fetch relevant data
@@ -208,34 +208,34 @@ func (s *BlockAPI) BlockTransaction(
 // transactionInfo stores all related information for any transaction on the Astra chain
 // Note that some elements can be nil if not applicable
 type transactionInfo struct {
-	tx        hmytypes.PoolTransaction
+	tx        astratypes.PoolTransaction
 	txIndex   uint64
-	receipt   *hmytypes.Receipt
-	cxReceipt *hmytypes.CXReceipt
+	receipt   *astratypes.Receipt
+	cxReceipt *astratypes.CXReceipt
 }
 
 // getTransactionInfo given the block hash and transaction hash
 func (s *BlockAPI) getTransactionInfo(
-	ctx context.Context, blk *hmytypes.Block, txHash ethcommon.Hash,
+	ctx context.Context, blk *astratypes.Block, txHash ethcommon.Hash,
 ) (txInfo *transactionInfo, rosettaError *types.Error) {
 	// Look for all of the possible transactions
 	var index uint64
-	var plainTx *hmytypes.Transaction
+	var plainTx *astratypes.Transaction
 	var stakingTx *stakingTypes.StakingTransaction
-	plainTx, _, _, index = rawdb.ReadTransaction(s.hmy.ChainDb(), txHash)
+	plainTx, _, _, index = rawdb.ReadTransaction(s.astra.ChainDb(), txHash)
 	if plainTx == nil {
-		stakingTx, _, _, index = rawdb.ReadStakingTransaction(s.hmy.ChainDb(), txHash)
+		stakingTx, _, _, index = rawdb.ReadStakingTransaction(s.astra.ChainDb(), txHash)
 		// if there both normal and staking transactions, correct index offset.
 		index = index + uint64(blk.Transactions().Len())
 	}
-	cxReceipt, _, _, _ := rawdb.ReadCXReceipt(s.hmy.ChainDb(), txHash)
+	cxReceipt, _, _, _ := rawdb.ReadCXReceipt(s.astra.ChainDb(), txHash)
 
 	if plainTx == nil && stakingTx == nil && cxReceipt == nil {
 		return nil, &common.TransactionNotFoundError
 	}
 
-	var receipt *hmytypes.Receipt
-	receipts, err := s.hmy.GetReceipts(ctx, blk.Hash())
+	var receipt *astratypes.Receipt
+	receipts, err := s.astra.GetReceipts(ctx, blk.Hash())
 	if err != nil {
 		return nil, common.NewError(common.CatchAllError, map[string]interface{}{
 			"message": err.Error(),
@@ -251,7 +251,7 @@ func (s *BlockAPI) getTransactionInfo(
 	}
 
 	// Use pool transaction for concise formatting
-	var tx hmytypes.PoolTransaction
+	var tx astratypes.PoolTransaction
 	if stakingTx != nil {
 		tx = stakingTx
 	} else if plainTx != nil {
@@ -290,7 +290,7 @@ func init() {
 
 // getTransactionTrace for the given txInfo.
 func (s *BlockAPI) getTransactionTrace(
-	ctx context.Context, blk *hmytypes.Block, txInfo *transactionInfo,
+	ctx context.Context, blk *astratypes.Block, txInfo *transactionInfo,
 ) ([]*tracers.RosettaLogItem, *types.Error) {
 	cacheKey := blk.Hash().String() + txInfo.tx.Hash().String()
 	if value, ok := s.txTraceCache.Get(cacheKey); ok {
@@ -318,8 +318,8 @@ func (s *BlockAPI) getTransactionTrace(
 	var blockError *types.Error
 	var foundResult []*tracers.RosettaLogItem
 	var tracer = "RosettaBlockTracer"
-	err := s.hmy.ComputeTxEnvEachBlockWithoutApply(blk, defaultTraceReExec, func(txIndex int, tx *coreTypes.Transaction, msg core.Message, vmctx vm.Context, statedb *state.DB) bool {
-		execResultInterface, err := s.hmy.TraceTx(ctx, msg, vmctx, statedb, &hmy.TraceConfig{
+	err := s.astra.ComputeTxEnvEachBlockWithoutApply(blk, defaultTraceReExec, func(txIndex int, tx *coreTypes.Transaction, msg core.Message, vmctx vm.Context, statedb *state.DB) bool {
+		execResultInterface, err := s.astra.TraceTx(ctx, msg, vmctx, statedb, &astra.TraceConfig{
 			Tracer: &tracer,
 			LogConfig: &vm.LogConfig{
 				DisableMemory:  true,
@@ -375,14 +375,14 @@ func (s *BlockAPI) getTransactionTrace(
 
 // getBlock ..
 func getBlock(
-	ctx context.Context, hmy *hmy.Astra, blockID *types.PartialBlockIdentifier,
-) (blk *hmytypes.Block, rosettaError *types.Error) {
+	ctx context.Context, astra *astra.Astra, blockID *types.PartialBlockIdentifier,
+) (blk *astratypes.Block, rosettaError *types.Error) {
 	var err error
 	if blockID.Hash != nil {
 		requestBlockHash := ethcommon.HexToHash(*blockID.Hash)
-		blk, err = hmy.GetBlock(ctx, requestBlockHash)
+		blk, err = astra.GetBlock(ctx, requestBlockHash)
 	} else if blockID.Index != nil {
-		blk, err = hmy.BlockByNumber(ctx, rpc.BlockNumber(*blockID.Index))
+		blk, err = astra.BlockByNumber(ctx, rpc.BlockNumber(*blockID.Index))
 	} else {
 		return nil, &common.BlockNotFoundError
 	}

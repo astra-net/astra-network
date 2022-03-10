@@ -6,22 +6,22 @@ import (
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/harmony-one/astra/eth/rpc"
-	"github.com/harmony-one/astra/hmy"
+	"github.com/harmony-one/astra/astra"
 )
 
 // PublicAstraService provides an API to access Astra related information.
 // It offers only methods that operate on public data that is freely available to anyone.
 type PublicAstraService struct {
-	hmy     *hmy.Astra
+	astra     *astra.Astra
 	version Version
 }
 
 // NewPublicAstraAPI creates a new API for the RPC interface
-func NewPublicAstraAPI(hmy *hmy.Astra, version Version) rpc.API {
+func NewPublicAstraAPI(astra *astra.Astra, version Version) rpc.API {
 	return rpc.API{
 		Namespace: version.Namespace(),
 		Version:   APIVersion,
-		Service:   &PublicAstraService{hmy, version},
+		Service:   &PublicAstraService{astra, version},
 		Public:    true,
 	}
 }
@@ -34,9 +34,9 @@ func (s *PublicAstraService) ProtocolVersion(
 	// Format response according to version
 	switch s.version {
 	case V1, Eth:
-		return hexutil.Uint(s.hmy.ProtocolVersion()), nil
+		return hexutil.Uint(s.astra.ProtocolVersion()), nil
 	case V2:
-		return s.hmy.ProtocolVersion(), nil
+		return s.astra.ProtocolVersion(), nil
 	default:
 		return nil, ErrUnknownRPCVersion
 	}
@@ -59,7 +59,7 @@ func (s *PublicAstraService) Syncing(
 // GasPrice returns a suggestion for a gas price.
 // Note that the return type is an interface to account for the different versions
 func (s *PublicAstraService) GasPrice(ctx context.Context) (interface{}, error) {
-	price, err := s.hmy.SuggestPrice(ctx)
+	price, err := s.astra.SuggestPrice(ctx)
 	if err != nil || price.Cmp(big.NewInt(3e10)) < 0 {
 		price = big.NewInt(3e10)
 	}
@@ -79,7 +79,7 @@ func (s *PublicAstraService) GetNodeMetadata(
 	ctx context.Context,
 ) (StructuredResponse, error) {
 	// Response output is the same for all versions
-	return NewStructuredResponse(s.hmy.GetNodeMetadata())
+	return NewStructuredResponse(s.astra.GetNodeMetadata())
 }
 
 // GetPeerInfo produces a NodePeerInfo record
@@ -87,12 +87,12 @@ func (s *PublicAstraService) GetPeerInfo(
 	ctx context.Context,
 ) (StructuredResponse, error) {
 	// Response output is the same for all versions
-	return NewStructuredResponse(s.hmy.GetPeerInfo())
+	return NewStructuredResponse(s.astra.GetPeerInfo())
 }
 
-// GetNumPendingCrossLinks returns length of hmy.BlockChain.ReadPendingCrossLinks()
+// GetNumPendingCrossLinks returns length of astra.BlockChain.ReadPendingCrossLinks()
 func (s *PublicAstraService) GetNumPendingCrossLinks() (int, error) {
-	links, err := s.hmy.BlockChain.ReadPendingCrossLinks()
+	links, err := s.astra.BlockChain.ReadPendingCrossLinks()
 	if err != nil {
 		return 0, err
 	}

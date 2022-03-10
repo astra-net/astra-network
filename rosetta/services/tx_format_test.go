@@ -10,7 +10,7 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	hmytypes "github.com/harmony-one/astra/core/types"
+	astratypes "github.com/harmony-one/astra/core/types"
 	"github.com/harmony-one/astra/internal/params"
 	"github.com/harmony-one/astra/rosetta/common"
 	stakingTypes "github.com/harmony-one/astra/staking/types"
@@ -74,8 +74,8 @@ func testFormatStakingTransaction(
 		t.Fatal(rosettaError)
 	}
 
-	receipt := &hmytypes.Receipt{
-		Status:  hmytypes.ReceiptStatusSuccessful,
+	receipt := &astratypes.Receipt{
+		Status:  astratypes.ReceiptStatusSuccessful,
 		GasUsed: gasUsed,
 	}
 	rosettaTx, rosettaError := FormatTransaction(tx, receipt, &ContractInfo{}, true)
@@ -113,7 +113,7 @@ func testFormatPlainTransaction(
 	t *testing.T, gasLimit, gasUsed uint64, senderKey, receiverKey *ecdsa.PrivateKey,
 ) {
 	// Note that post EIP-155 epoch singer is tested in detailed tests.
-	signer := hmytypes.HomesteadSigner{}
+	signer := astratypes.HomesteadSigner{}
 	tx, err := helpers.CreateTestTransaction(
 		signer, 0, 0, 0, 1e18, gasPrice, big.NewInt(1), []byte("test"),
 	)
@@ -129,8 +129,8 @@ func testFormatPlainTransaction(
 		t.Fatal(rosettaError)
 	}
 
-	receipt := &hmytypes.Receipt{
-		Status:  hmytypes.ReceiptStatusSuccessful,
+	receipt := &astratypes.Receipt{
+		Status:  astratypes.ReceiptStatusSuccessful,
 		GasUsed: gasUsed,
 	}
 	rosettaTx, rosettaError := FormatTransaction(tx, receipt, &ContractInfo{}, true)
@@ -170,7 +170,7 @@ func testFormatCrossShardSenderTransaction(
 	t *testing.T, gasLimit, gasUsed uint64, senderKey, receiverKey *ecdsa.PrivateKey,
 ) {
 	// Note that post EIP-155 epoch singer is tested in detailed tests.
-	signer := hmytypes.HomesteadSigner{}
+	signer := astratypes.HomesteadSigner{}
 	tx, err := helpers.CreateTestTransaction(
 		signer, 0, 1, 0, 1e18, gasPrice, big.NewInt(1), []byte("test"),
 	)
@@ -186,8 +186,8 @@ func testFormatCrossShardSenderTransaction(
 		t.Fatal(rosettaError)
 	}
 
-	receipt := &hmytypes.Receipt{
-		Status:  hmytypes.ReceiptStatusSuccessful,
+	receipt := &astratypes.Receipt{
+		Status:  astratypes.ReceiptStatusSuccessful,
 		GasUsed: gasUsed,
 	}
 	rosettaTx, rosettaError := FormatTransaction(tx, receipt, &ContractInfo{}, true)
@@ -221,7 +221,7 @@ func testFormatCrossShardSenderTransaction(
 }
 
 func TestFormatCrossShardReceiverTransaction(t *testing.T) {
-	signer := hmytypes.NewEIP155Signer(params.TestChainConfig.ChainID)
+	signer := astratypes.NewEIP155Signer(params.TestChainConfig.ChainID)
 	tx, err := helpers.CreateTestTransaction(
 		signer, 0, 1, 0, 1e18, gasPrice, big.NewInt(1), []byte{},
 	)
@@ -240,7 +240,7 @@ func TestFormatCrossShardReceiverTransaction(t *testing.T) {
 	if rosettaError != nil {
 		t.Fatal(rosettaError)
 	}
-	cxReceipt := &hmytypes.CXReceipt{
+	cxReceipt := &astratypes.CXReceipt{
 		TxHash:    tx.Hash(),
 		From:      senderAddr,
 		To:        tx.To(),

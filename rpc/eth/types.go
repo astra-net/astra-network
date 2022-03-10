@@ -8,7 +8,7 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/harmony-one/astra/core/types"
-	hmytypes "github.com/harmony-one/astra/core/types"
+	astratypes "github.com/harmony-one/astra/core/types"
 )
 
 // Block represents a basic block which is further amended by BlockWithTxHash or BlockWithFullTx
@@ -16,7 +16,7 @@ type Block struct {
 	Number           *hexutil.Big        `json:"number"`
 	Hash             common.Hash         `json:"hash"`
 	ParentHash       common.Hash         `json:"parentHash"`
-	Nonce            hmytypes.BlockNonce `json:"nonce"`
+	Nonce            astratypes.BlockNonce `json:"nonce"`
 	MixHash          common.Hash         `json:"mixHash"`
 	UncleHash        common.Hash         `json:"sha3Uncles"`
 	LogsBloom        ethtypes.Bloom      `json:"logsBloom"`
@@ -169,12 +169,12 @@ func newBlock(b *types.Block) *Block {
 		Number:           (*hexutil.Big)(head.Number()),
 		Hash:             b.Hash(),
 		ParentHash:       head.ParentHash(),
-		Nonce:            hmytypes.BlockNonce{}, // Legacy comment from hmy -> eth RPC porting: "Remove this because we don't have it in our header"
+		Nonce:            astratypes.BlockNonce{}, // Legacy comment from astra -> eth RPC porting: "Remove this because we don't have it in our header"
 		MixHash:          head.MixDigest(),
-		UncleHash:        hmytypes.CalcUncleHash(b.Uncles()),
+		UncleHash:        astratypes.CalcUncleHash(b.Uncles()),
 		LogsBloom:        head.Bloom(),
 		StateRoot:        head.Root(),
-		Difficulty:       (*hexutil.Big)(big.NewInt(0)), // Legacy comment from hmy -> eth RPC porting: "Remove this because we don't have it in our header"
+		Difficulty:       (*hexutil.Big)(big.NewInt(0)), // Legacy comment from astra -> eth RPC porting: "Remove this because we don't have it in our header"
 		ExtraData:        hexutil.Bytes(head.Extra()),
 		Size:             hexutil.Uint64(b.Size()),
 		GasLimit:         hexutil.Uint64(head.GasLimit()),

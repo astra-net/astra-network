@@ -1,4 +1,4 @@
-package hmy
+package astra
 
 import (
 	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
@@ -8,18 +8,18 @@ import (
 )
 
 // GetCurrentUtilityMetrics ..
-func (hmy *Astra) GetCurrentUtilityMetrics() (*network.UtilityMetric, error) {
-	return network.NewUtilityMetricSnapshot(hmy.BlockChain)
+func (astra *Astra) GetCurrentUtilityMetrics() (*network.UtilityMetric, error) {
+	return network.NewUtilityMetricSnapshot(astra.BlockChain)
 }
 
 // GetPeerInfo returns the peer info to the node, including blocked peer, connected peer, number of peers
-func (hmy *Astra) GetPeerInfo() commonRPC.NodePeerInfo {
+func (astra *Astra) GetPeerInfo() commonRPC.NodePeerInfo {
 
-	topics := hmy.NodeAPI.ListTopic()
+	topics := astra.NodeAPI.ListTopic()
 	p := make([]commonRPC.P, len(topics))
 
 	for i, t := range topics {
-		topicPeer := hmy.NodeAPI.ListPeer(t)
+		topicPeer := astra.NodeAPI.ListPeer(t)
 		p[i].Topic = t
 		p[i].Peers = make([]peer.ID, len(topicPeer))
 		copy(p[i].Peers, topicPeer)
@@ -27,7 +27,7 @@ func (hmy *Astra) GetPeerInfo() commonRPC.NodePeerInfo {
 
 	return commonRPC.NodePeerInfo{
 		PeerID:       nodeconfig.GetPeerID(),
-		BlockedPeers: hmy.NodeAPI.ListBlockedPeer(),
+		BlockedPeers: astra.NodeAPI.ListBlockedPeer(),
 		P:            p,
 	}
 }

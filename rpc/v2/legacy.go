@@ -5,26 +5,26 @@ import (
 	"math/big"
 
 	"github.com/harmony-one/astra/eth/rpc"
-	"github.com/harmony-one/astra/hmy"
+	"github.com/harmony-one/astra/astra"
 	internal_common "github.com/harmony-one/astra/internal/common"
 )
 
 // PublicLegacyService provides an API to access the Astra blockchain.
 // Services here are legacy methods, specific to the V1 RPC that can be deprecated in the future.
 type PublicLegacyService struct {
-	hmy *hmy.Astra
+	astra *astra.Astra
 }
 
 // NewPublicLegacyAPI creates a new API for the RPC interface
-func NewPublicLegacyAPI(hmy *hmy.Astra, namespace string) rpc.API {
+func NewPublicLegacyAPI(astra *astra.Astra, namespace string) rpc.API {
 	if namespace == "" {
-		namespace = "hmyv2"
+		namespace = "astrav2"
 	}
 
 	return rpc.API{
 		Namespace: namespace,
 		Version:   "1.0",
-		Service:   &PublicLegacyService{hmy},
+		Service:   &PublicLegacyService{astra},
 		Public:    true,
 	}
 }
@@ -38,7 +38,7 @@ func (s *PublicLegacyService) GetBalance(
 	if err != nil {
 		return nil, err
 	}
-	balance, err := s.hmy.GetBalance(ctx, addr, rpc.BlockNumber(-1))
+	balance, err := s.astra.GetBalance(ctx, addr, rpc.BlockNumber(-1))
 	if err != nil {
 		return nil, err
 	}

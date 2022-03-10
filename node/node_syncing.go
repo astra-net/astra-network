@@ -23,7 +23,7 @@ import (
 	"github.com/harmony-one/astra/api/service/synchronize"
 	"github.com/harmony-one/astra/core"
 	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/hmy/downloader"
+	"github.com/harmony-one/astra/astra/downloader"
 	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
 	"github.com/harmony-one/astra/internal/utils"
 	"github.com/harmony-one/astra/node/worker"
@@ -592,7 +592,7 @@ func init() {
 var (
 	dnsServerRequestCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "astra",
 			Subsystem: "dns_server",
 			Name:      "request_count",
 			Help:      "request count for each dns request",

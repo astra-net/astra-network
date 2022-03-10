@@ -19,7 +19,7 @@ import (
 var (
 	quorumNodes   = 100
 	msg           = "Testing"
-	hmy           = "Astra"
+	astra           = "Astra"
 	reg           = "Stakers"
 	basicDecider  Decider
 	maxAccountGen = int64(98765654323123134)
@@ -52,7 +52,7 @@ func generateRandomSlot() (shard.Slot, bls_core.SecretKey) {
 func setupBaseCase() (Decider, *TallyResult, shard.SlotList, map[string]secretKeyMap) {
 	slotList := shard.SlotList{}
 	sKeys := map[string]secretKeyMap{}
-	sKeys[hmy] = secretKeyMap{}
+	sKeys[astra] = secretKeyMap{}
 	sKeys[reg] = secretKeyMap{}
 	pubKeys := []bls.PublicKeyWrapper{}
 
@@ -60,7 +60,7 @@ func setupBaseCase() (Decider, *TallyResult, shard.SlotList, map[string]secretKe
 		newSlot, sKey := generateRandomSlot()
 		if i < 50 {
 			newSlot.EffectiveStake = nil
-			sKeys[hmy][newSlot.BLSPublicKey] = sKey
+			sKeys[astra][newSlot.BLSPublicKey] = sKey
 		} else {
 			sKeys[reg][newSlot.BLSPublicKey] = sKey
 		}
@@ -173,21 +173,21 @@ func TestEvenNodes(t *testing.T) {
 	}
 
 	// Sign all Astra Nodes
-	sign(stakedVote, sKeys[hmy], Prepare)
+	sign(stakedVote, sKeys[astra], Prepare)
 	achieved = stakedVote.IsQuorumAchieved(Prepare)
 	if !achieved {
 		t.Errorf("[IsQuorumAchieved] Phase: %s, QuorumAchieved: %s, Expected: true (All nodes = 100%%)",
 			Prepare, strconv.FormatBool(achieved))
 	}
 	// Commit
-	sign(stakedVote, sKeys[hmy], Commit)
+	sign(stakedVote, sKeys[astra], Commit)
 	achieved = stakedVote.IsQuorumAchieved(Commit)
 	if !achieved {
 		t.Errorf("[IsQuorumAchieved] Phase: %s, QuorumAchieved: %s, Expected: true (All nodes = 100%%)",
 			Commit, strconv.FormatBool(achieved))
 	}
 	// ViewChange
-	sign(stakedVote, sKeys[hmy], ViewChange)
+	sign(stakedVote, sKeys[astra], ViewChange)
 	achieved = stakedVote.IsQuorumAchieved(ViewChange)
 	if !achieved {
 		t.Errorf("[IsQuorumAchieved] Phase: %s, Got: %s, Expected: true (All nodes = 100%%)",

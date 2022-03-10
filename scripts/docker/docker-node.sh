@@ -120,7 +120,7 @@ docker run -it -d \
   -v $(realpath ${db_dir}/astra_db_1):/astra/astra_db_1 \
   -v $(realpath ${db_dir}/astra_db_2):/astra/astra_db_2 \
   -v $(realpath ${db_dir}/astra_db_3):/astra/astra_db_3 \
-  -v $(realpath keys):/astra/.hmy \
+  -v $(realpath keys):/astra/.astra \
   -v $(realpath logs):/astra/log \
   $DOCKER_IMAGE >/dev/null
 

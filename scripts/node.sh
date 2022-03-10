@@ -150,7 +150,7 @@ do
    v) color "32" "$progname version: $version"
       exit 0 ;;
    V) INSTALLED_VERSION=$(./astra version 2>&1)
-      RUNNING_VERSION=$(curl -s --request POST 'http://127.0.0.1:9500/' --header 'Content-Type: application/json' --data-raw '{ "jsonrpc": "2.0", "method": "hmyv2_getNodeMetadata", "params": [], "id": 1}' | grep -Eo '"version":"[^"]*"' | cut -c11- | tr -d \")
+      RUNNING_VERSION=$(curl -s --request POST 'http://127.0.0.1:9500/' --header 'Content-Type: application/json' --data-raw '{ "jsonrpc": "2.0", "method": "astrav2_getNodeMetadata", "params": [], "id": 1}' | grep -Eo '"version":"[^"]*"' | cut -c11- | tr -d \")
       echo "Binary  Version: $INSTALLED_VERSION"
       echo "Running Version: $RUNNING_VERSION"
       exit 0 ;;
@@ -168,8 +168,8 @@ color "37" "Latest Astra release is: $astra_rel."
 
 readonly wrapper_dir="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/staging/${astra_rel}"
 VALIDATOR="astra"
-BTCRELAY="hmy-btcrelay"
-ETHRELAY="hmy-ethrelay"
+BTCRELAY="astra-btcrelay"
+ETHRELAY="astra-ethrelay"
 mkdir -p "${wrapper_dir}"
 
 arch=$(uname -m)

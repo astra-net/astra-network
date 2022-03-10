@@ -9,18 +9,18 @@ import (
 	ethcommon "github.com/ethereum/go-ethereum/common"
 
 	"github.com/harmony-one/astra/core"
-	hmytypes "github.com/harmony-one/astra/core/types"
+	astratypes "github.com/harmony-one/astra/core/types"
 	"github.com/harmony-one/astra/rosetta/common"
 )
 
 // containsSideEffectTransaction checks if the block contains any side effect operations to report.
 func (s *BlockAPI) containsSideEffectTransaction(
-	ctx context.Context, blk *hmytypes.Block,
+	ctx context.Context, blk *astratypes.Block,
 ) bool {
 	if blk == nil {
 		return false
 	}
-	return s.hmy.IsCommitteeSelectionBlock(blk.Header()) || !s.hmy.IsStakingEpoch(blk.Epoch()) || blk.NumberU64() == 0
+	return s.astra.IsCommitteeSelectionBlock(blk.Header()) || !s.astra.IsStakingEpoch(blk.Epoch()) || blk.NumberU64() == 0
 }
 
 const (
@@ -64,7 +64,7 @@ func unpackSideEffectTransactionIdentifier(
 // getSideEffectTransaction returns the side effect transaction for a block if said block has one.
 // Side effects to reports are: genesis funds, undelegation payouts, permissioned-phase block rewards.
 func (s *BlockAPI) getSideEffectTransaction(
-	ctx context.Context, blk *hmytypes.Block,
+	ctx context.Context, blk *astratypes.Block,
 ) (*types.Transaction, *types.Error) {
 	if !s.containsSideEffectTransaction(ctx, blk) {
 		return nil, common.NewError(common.TransactionNotFoundError, map[string]interface{}{
@@ -84,7 +84,7 @@ func (s *BlockAPI) getSideEffectTransaction(
 
 	// Handle genesis funds
 	if blk.NumberU64() == 0 {
-		ops, rosettaError := GetSideEffectOperationsFromGenesisSpec(core.GetGenesisSpec(s.hmy.ShardID), startingOpIndex)
+		ops, rosettaError := GetSideEffectOperationsFromGenesisSpec(core.GetGenesisSpec(s.astra.ShardID), startingOpIndex)
 		if rosettaError != nil {
 			return nil, rosettaError
 		}
@@ -92,8 +92,8 @@ func (s *BlockAPI) getSideEffectTransaction(
 	}
 	// Handle block rewards for epoch < staking epoch (permissioned-phase block rewards)
 	// Note that block rewards don't start until the second block.
-	if !s.hmy.IsStakingEpoch(blk.Epoch()) && blk.NumberU64() > 1 {
-		rewards, err := s.hmy.GetPreStakingBlockRewards(ctx, blk)
+	if !s.astra.IsStakingEpoch(blk.Epoch()) && blk.NumberU64() > 1 {
+		rewards, err := s.astra.GetPreStakingBlockRewards(ctx, blk)
 		if err != nil {
 			return nil, common.NewError(common.CatchAllError, map[string]interface{}{
 				"message": err.Error(),
@@ -106,8 +106,8 @@ func (s *BlockAPI) getSideEffectTransaction(
 		updateStartingOpIndex(ops)
 	}
 	// Handle undelegation payout
-	if s.hmy.IsCommitteeSelectionBlock(blk.Header()) && s.hmy.IsPreStakingEpoch(blk.Epoch()) {
-		payouts, err := s.hmy.GetUndelegationPayouts(ctx, blk.Epoch())
+	if s.astra.IsCommitteeSelectionBlock(blk.Header()) && s.astra.IsPreStakingEpoch(blk.Epoch()) {
+		payouts, err := s.astra.GetUndelegationPayouts(ctx, blk.Epoch())
 		if err != nil {
 			return nil, common.NewError(common.CatchAllError, map[string]interface{}{
 				"message": err.Error(),
@@ -131,7 +131,7 @@ func (s *BlockAPI) sideEffectBlockTransaction(
 	ctx context.Context, request *types.BlockTransactionRequest,
 ) (*types.BlockTransactionResponse, *types.Error) {
 	// If no transaction info is found, check for special case transactions.
-	blk, rosettaError := getBlock(ctx, s.hmy, &types.PartialBlockIdentifier{Index: &request.BlockIdentifier.Index})
+	blk, rosettaError := getBlock(ctx, s.astra, &types.PartialBlockIdentifier{Index: &request.BlockIdentifier.Index})
 	if rosettaError != nil {
 		return nil, rosettaError
 	}

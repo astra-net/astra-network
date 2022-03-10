@@ -1,4 +1,4 @@
-package hmy
+package astra
 
 import (
 	"context"
@@ -11,10 +11,10 @@ import (
 )
 
 // SendTx ...
-func (hmy *Astra) SendTx(ctx context.Context, signedTx *types.Transaction) error {
-	tx, _, _, _ := rawdb.ReadTransaction(hmy.chainDb, signedTx.Hash())
+func (astra *Astra) SendTx(ctx context.Context, signedTx *types.Transaction) error {
+	tx, _, _, _ := rawdb.ReadTransaction(astra.chainDb, signedTx.Hash())
 	if tx == nil {
-		return hmy.NodeAPI.AddPendingTransaction(signedTx)
+		return astra.NodeAPI.AddPendingTransaction(signedTx)
 	}
 	return ErrFinalizedTransaction
 }
@@ -22,13 +22,13 @@ func (hmy *Astra) SendTx(ctx context.Context, signedTx *types.Transaction) error
 // ResendCx retrieve blockHash from txID and add blockHash to CxPool for resending
 // Note that cross shard txn is only for regular txns, not for staking txns, so the input txn hash
 // is expected to be regular txn hash
-func (hmy *Astra) ResendCx(ctx context.Context, txID common.Hash) (uint64, bool) {
-	blockHash, blockNum, index := hmy.BlockChain.ReadTxLookupEntry(txID)
+func (astra *Astra) ResendCx(ctx context.Context, txID common.Hash) (uint64, bool) {
+	blockHash, blockNum, index := astra.BlockChain.ReadTxLookupEntry(txID)
 	if blockHash == (common.Hash{}) {
 		return 0, false
 	}
 
-	blk := hmy.BlockChain.GetBlockByHash(blockHash)
+	blk := astra.BlockChain.GetBlockByHash(blockHash)
 	if blk == nil {
 		return 0, false
 	}
@@ -45,24 +45,24 @@ func (hmy *Astra) ResendCx(ctx context.Context, txID common.Hash) (uint64, bool)
 		return 0, false
 	}
 	entry := core.CxEntry{blockHash, tx.ToShardID()}
-	success := hmy.CxPool.Add(entry)
+	success := astra.CxPool.Add(entry)
 	return blockNum, success
 }
 
 // GetReceipts ...
-func (hmy *Astra) GetReceipts(ctx context.Context, hash common.Hash) (types.Receipts, error) {
-	return hmy.BlockChain.GetReceiptsByHash(hash), nil
+func (astra *Astra) GetReceipts(ctx context.Context, hash common.Hash) (types.Receipts, error) {
+	return astra.BlockChain.GetReceiptsByHash(hash), nil
 }
 
 // GetTransactionsHistory returns list of transactions hashes of address.
-func (hmy *Astra) GetTransactionsHistory(address, txType, order string) ([]common.Hash, error) {
-	return hmy.NodeAPI.GetTransactionsHistory(address, txType, order)
+func (astra *Astra) GetTransactionsHistory(address, txType, order string) ([]common.Hash, error) {
+	return astra.NodeAPI.GetTransactionsHistory(address, txType, order)
 }
 
 // GetAccountNonce returns the nonce value of the given address for the given block number
-func (hmy *Astra) GetAccountNonce(
+func (astra *Astra) GetAccountNonce(
 	ctx context.Context, address common.Address, blockNum rpc.BlockNumber) (uint64, error) {
-	state, _, err := hmy.StateAndHeaderByNumber(ctx, blockNum)
+	state, _, err := astra.StateAndHeaderByNumber(ctx, blockNum)
 	if state == nil || err != nil {
 		return 0, err
 	}
@@ -70,11 +70,11 @@ func (hmy *Astra) GetAccountNonce(
 }
 
 // GetTransactionsCount returns the number of regular transactions of address.
-func (hmy *Astra) GetTransactionsCount(address, txType string) (uint64, error) {
-	return hmy.NodeAPI.GetTransactionsCount(address, txType)
+func (astra *Astra) GetTransactionsCount(address, txType string) (uint64, error) {
+	return astra.NodeAPI.GetTransactionsCount(address, txType)
 }
 
 // GetCurrentTransactionErrorSink ..
-func (hmy *Astra) GetCurrentTransactionErrorSink() types.TransactionErrorReports {
-	return hmy.NodeAPI.ReportPlainErrorSink()
+func (astra *Astra) GetCurrentTransactionErrorSink() types.TransactionErrorReports {
+	return astra.NodeAPI.ReportPlainErrorSink()
 }

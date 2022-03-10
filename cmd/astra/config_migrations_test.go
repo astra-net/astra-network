@@ -17,7 +17,7 @@ Version = "1.0.2"
   KMSConfigFile = ""
   KMSConfigSrcType = "shared"
   KMSEnabled = false
-  KeyDir = "./.hmy/blskeys"
+  KeyDir = "./.astra/blskeys"
   KeyFiles = []
   MaxKeys = 10
   PassEnabled = true
@@ -55,7 +55,7 @@ Version = "1.0.2"
 
 [P2P]
   IP = "0.0.0.0"
-  KeyFile = "./.hmykey"
+  KeyFile = "./.astrakey"
   Port = 9000
 
 [Pprof]
@@ -66,7 +66,7 @@ Version = "1.0.2"
   DebugEnabled = false
 
 [TxPool]
-  BlacklistFile = "./.hmy/blacklist.txt"
+  BlacklistFile = "./.astra/blacklist.txt"
 
 [WS]
   Enabled = true
@@ -81,7 +81,7 @@ Version = "1.0.3"
   KMSConfigFile = ""
   KMSConfigSrcType = "shared"
   KMSEnabled = false
-  KeyDir = "./.hmy/blskeys"
+  KeyDir = "./.astra/blskeys"
   KeyFiles = []
   MaxKeys = 10
   PassEnabled = true
@@ -120,7 +120,7 @@ Version = "1.0.3"
 
 [P2P]
   IP = "0.0.0.0"
-  KeyFile = "./.hmykey"
+  KeyFile = "./.astrakey"
   Port = 9000
 
 [Pprof]
@@ -131,7 +131,7 @@ Version = "1.0.3"
   DebugEnabled = false
 
 [TxPool]
-  BlacklistFile = "./.hmy/blacklist.txt"
+  BlacklistFile = "./.astra/blacklist.txt"
 
 [WS]
   Enabled = true
@@ -146,7 +146,7 @@ Version = "1.0.4"
   KMSConfigFile = ""
   KMSConfigSrcType = "shared"
   KMSEnabled = false
-  KeyDir = "./.hmy/blskeys"
+  KeyDir = "./.astra/blskeys"
   KeyFiles = []
   MaxKeys = 10
   PassEnabled = true
@@ -185,7 +185,7 @@ Version = "1.0.4"
 
 [P2P]
   IP = "0.0.0.0"
-  KeyFile = "./.hmykey"
+  KeyFile = "./.astrakey"
   Port = 9000
 
 [Pprof]
@@ -208,7 +208,7 @@ Version = "1.0.4"
   MinPeers = 6
 
 [TxPool]
-  BlacklistFile = "./.hmy/blacklist.txt"
+  BlacklistFile = "./.astra/blacklist.txt"
 
 [WS]
   Enabled = true
@@ -223,7 +223,7 @@ Version = "1.0.4"
   KMSConfigFile = ""
   KMSConfigSrcType = "shared"
   KMSEnabled = false
-  KeyDir = "./.hmy/blskeys"
+  KeyDir = "./.astra/blskeys"
   KeyFiles = []
   MaxKeys = 10
   PassEnabled = true
@@ -262,7 +262,7 @@ Version = "1.0.4"
 
 [P2P]
   IP = "0.0.0.0"
-  KeyFile = "./.hmykey"
+  KeyFile = "./.astrakey"
   Port = 9000
 
 [Pprof]
@@ -292,7 +292,7 @@ Version = "1.0.4"
   CacheSize = 512
 
 [TxPool]
-  BlacklistFile = "./.hmy/blacklist.txt"
+  BlacklistFile = "./.astra/blacklist.txt"
 
 [WS]
   Enabled = true

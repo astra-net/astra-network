@@ -4,9 +4,9 @@ import (
 	"github.com/harmony-one/astra/consensus/quorum"
 	"github.com/harmony-one/astra/core/types"
 	"github.com/harmony-one/astra/eth/rpc"
-	"github.com/harmony-one/astra/hmy"
+	"github.com/harmony-one/astra/astra"
 	"github.com/harmony-one/astra/rosetta"
-	hmy_rpc "github.com/harmony-one/astra/rpc"
+	astra_rpc "github.com/harmony-one/astra/rpc"
 	rpc_common "github.com/harmony-one/astra/rpc/common"
 	"github.com/harmony-one/astra/rpc/filters"
 	"github.com/libp2p/go-libp2p-core/peer"
@@ -65,22 +65,22 @@ func (node *Node) ReportPlainErrorSink() types.TransactionErrorReports {
 
 // StartRPC start RPC service
 func (node *Node) StartRPC() error {
-	astra := hmy.New(node, node.TxPool, node.CxPool, node.Consensus.ShardID)
+	astra := astra.New(node, node.TxPool, node.CxPool, node.Consensus.ShardID)
 
 	// Gather all the possible APIs to surface
 	apis := node.APIs(astra)
 
-	return hmy_rpc.StartServers(astra, apis, node.NodeConfig.RPCServer)
+	return astra_rpc.StartServers(astra, apis, node.NodeConfig.RPCServer)
 }
 
 // StopRPC stop RPC service
 func (node *Node) StopRPC() error {
-	return hmy_rpc.StopServers()
+	return astra_rpc.StopServers()
 }
 
 // StartRosetta start rosetta service
 func (node *Node) StartRosetta() error {
-	astra := hmy.New(node, node.TxPool, node.CxPool, node.Consensus.ShardID)
+	astra := astra.New(node, node.TxPool, node.CxPool, node.Consensus.ShardID)
 	return rosetta.StartServers(astra, node.NodeConfig.RosettaServer, node.NodeConfig.RPCServer.RateLimiterEnabled, node.NodeConfig.RPCServer.RequestsPerSecond)
 }
 
@@ -91,14 +91,14 @@ func (node *Node) StopRosetta() error {
 
 // APIs return the collection of local RPC services.
 // NOTE, some of these services probably need to be moved to somewhere else.
-func (node *Node) APIs(astra *hmy.Astra) []rpc.API {
+func (node *Node) APIs(astra *astra.Astra) []rpc.API {
 	// Append all the local APIs and return
 	return []rpc.API{
-		hmy_rpc.NewPublicNetAPI(node.host, astra.ChainID, hmy_rpc.V1),
-		hmy_rpc.NewPublicNetAPI(node.host, astra.ChainID, hmy_rpc.V2),
-		hmy_rpc.NewPublicNetAPI(node.host, astra.ChainID, hmy_rpc.Eth),
-		hmy_rpc.NewPublicWeb3API(),
-		filters.NewPublicFilterAPI(astra, false, "hmy"),
+		astra_rpc.NewPublicNetAPI(node.host, astra.ChainID, astra_rpc.V1),
+		astra_rpc.NewPublicNetAPI(node.host, astra.ChainID, astra_rpc.V2),
+		astra_rpc.NewPublicNetAPI(node.host, astra.ChainID, astra_rpc.Eth),
+		astra_rpc.NewPublicWeb3API(),
+		filters.NewPublicFilterAPI(astra, false, "astra"),
 		filters.NewPublicFilterAPI(astra, false, "eth"),
 	}
 }
