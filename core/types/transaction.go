@@ -273,7 +273,7 @@ func (tx *Transaction) S() *big.Int {
 	return tx.data.S
 }
 
-// Value is the amount of ONE token transfered (in Atto)
+// Value is the amount of Astra token transfered (in Atto)
 func (tx *Transaction) Value() *big.Int {
 	return tx.data.Amount
 }

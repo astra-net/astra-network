@@ -10,7 +10,7 @@ import (
 	"github.com/harmony-one/astra/internal/utils"
 )
 
-const genesisString = "https://astra.one 'Open Consensus for 10B' 2019.06.01 $ONE"
+const genesisString = "https://astranetwork.com 'Gaming Chain' 2022.03.01 $Astra"
 
 // DeployAccount is the account used in genesis
 type DeployAccount struct {

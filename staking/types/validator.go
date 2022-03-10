@@ -9,13 +9,13 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
 	"github.com/harmony-one/astra/common/denominations"
 	"github.com/harmony-one/astra/consensus/votepower"
 	"github.com/harmony-one/astra/crypto/hash"
 	"github.com/harmony-one/astra/internal/genesis"
 	"github.com/harmony-one/astra/numeric"
 	"github.com/harmony-one/astra/staking/effective"
+	bls_core "github.com/harmony-one/bls/ffi/go/bls"
 	"github.com/pkg/errors"
 )
 
@@ -42,7 +42,7 @@ var (
 		"total delegation can not be bigger than max_total_delegation",
 	)
 	errMinSelfDelegationTooSmall = errors.New(
-		"min_self_delegation must be greater than or equal to 10,000 ONE",
+		"min_self_delegation must be greater than or equal to 10,000 Astra",
 	)
 	errInvalidMaxTotalDelegation = errors.New(
 		"max_total_delegation can not be less than min_self_delegation",
@@ -273,7 +273,7 @@ func (v *Validator) SanityCheck() error {
 		return errNilMaxTotalDelegation
 	}
 
-	// MinSelfDelegation must be >= 10000 ONE
+	// MinSelfDelegation must be >= 10000 Astra
 	if v.MinSelfDelegation.Cmp(minimumStake) < 0 {
 		return errors.Wrapf(
 			errMinSelfDelegationTooSmall,

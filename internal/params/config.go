@@ -361,11 +361,11 @@ type ChainConfig struct {
 	QuickUnlockEpoch *big.Int `json:"quick-unlock-epoch,omitempty"`
 
 	// FiveSecondsEpoch is the epoch when block time is reduced to 5 seconds
-	// and block rewards adjusted to 17.5 ONE/block
+	// and block rewards adjusted to 17.5 Astra/block
 	FiveSecondsEpoch *big.Int `json:"five-seconds-epoch,omitempty"`
 
 	// TwoSecondsEpoch is the epoch when block time is reduced to 2 seconds
-	// and block rewards adjusted to 7 ONE/block
+	// and block rewards adjusted to 7 Astra/block
 	TwoSecondsEpoch *big.Int `json:"two-seconds-epoch,omitempty"`
 
 	// SixtyPercentEpoch is the epoch when internal voting power reduced from 68% to 60%
@@ -385,7 +385,7 @@ type ChainConfig struct {
 	// PrevVRFEpoch is the epoch when previous VRF randomness can be fetched
 	PrevVRFEpoch *big.Int `json:"prev-vrf-epoch,omitempty"`
 
-	// MinDelegation100Epoch is the epoch when min delegation is reduced from 1000 ONE to 100 ONE
+	// MinDelegation100Epoch is the epoch when min delegation is reduced from 1000 Astra to 100 Astra
 	MinDelegation100Epoch *big.Int `json:"min-delegation-100-epoch,omitempty"`
 
 	// MinCommissionRateEpoch is the epoch when policy for minimum comission rate of 5% is started

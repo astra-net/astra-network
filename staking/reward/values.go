@@ -14,25 +14,25 @@ import (
 
 var (
 	// PreStakedBlocks is the block reward, to be split evenly among block signers in pre-staking era.
-	// 24 ONE per block
+	// 24 Astra per block
 	PreStakedBlocks = new(big.Int).Mul(big.NewInt(24), big.NewInt(denominations.One))
 	// StakedBlocks is the flat-rate block reward for epos staking launch.
-	// 28 ONE per block.
+	// 28 Astra per block.
 	StakedBlocks = numeric.NewDecFromBigInt(new(big.Int).Mul(
 		big.NewInt(28), big.NewInt(denominations.One),
 	))
 	// FiveSecStakedBlocks is the flat-rate block reward after epoch 230.
-	// 17.5 ONE per block
+	// 17.5 Astra per block
 	FiveSecStakedBlocks = numeric.NewDecFromBigInt(new(big.Int).Mul(
 		big.NewInt(17.5*denominations.Nano), big.NewInt(denominations.Nano),
 	))
 	// TwoSecStakedBlocks is the flat-rate block reward after epoch 360.
-	// 7 ONE per block
+	// 7 Astra per block
 	TwoSecStakedBlocks = numeric.NewDecFromBigInt(new(big.Int).Mul(
 		big.NewInt(7*denominations.Nano), big.NewInt(denominations.Nano),
 	))
 
-	// TotalInitialTokens is the total amount of tokens (in ONE) at block 0 of the network.
+	// TotalInitialTokens is the total amount of tokens (in One (^18)) at block 0 of the network.
 	// This should be set/change on the node's init according to the core.GenesisSpec.
 	TotalInitialTokens = numeric.Dec{Int: big.NewInt(0)}
 
@@ -122,7 +122,7 @@ func getTotalPreStakingNetworkRewards(id shardingconfig.NetworkID) *big.Int {
 	return totalRewards
 }
 
-// GetTotalTokens in the network for all shards in ONE.
+// GetTotalTokens in the network for all shards in Astra.
 // This can only be computed with beaconchain if in staking era.
 // If not in staking era, returns the rewards given out by the start of staking era.
 func GetTotalTokens(chain engine.ChainReader) (numeric.Dec, error) {
@@ -141,7 +141,7 @@ func GetTotalTokens(chain engine.ChainReader) (numeric.Dec, error) {
 	return GetTotalPreStakingTokens().Add(numeric.NewDecFromBigIntWithPrec(stakingRewards, 18)), nil
 }
 
-// GetTotalPreStakingTokens returns the total amount of tokens (in ONE) in the
+// GetTotalPreStakingTokens returns the total amount of tokens (in Astra) in the
 // network at the the last block of the pre-staking era (epoch < staking epoch).
 func GetTotalPreStakingTokens() numeric.Dec {
 	preStakingRewards := numeric.NewDecFromBigIntWithPrec(

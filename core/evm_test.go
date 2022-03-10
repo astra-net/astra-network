@@ -12,7 +12,6 @@ import (
 	"github.com/ethereum/go-ethereum/core/rawdb"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethdb"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
 	"github.com/harmony-one/astra/block"
 	blockfactory "github.com/harmony-one/astra/block/factory"
 	"github.com/harmony-one/astra/common/denominations"
@@ -25,6 +24,7 @@ import (
 	"github.com/harmony-one/astra/internal/params"
 	"github.com/harmony-one/astra/numeric"
 	staking "github.com/harmony-one/astra/staking/types"
+	bls_core "github.com/harmony-one/bls/ffi/go/bls"
 )
 
 func getTestEnvironment(testBankKey ecdsa.PrivateKey) (*BlockChain, *state.DB, *block.Header, ethdb.Database) {
@@ -400,7 +400,7 @@ func sampleDelegate(key ecdsa.PrivateKey) staking.Delegate {
 	return staking.Delegate{
 		DelegatorAddress: address,
 		ValidatorAddress: address,
-		// additional delegation of 1000 ONE
+		// additional delegation of 1000 Astra
 		Amount: new(big.Int).Mul(big.NewInt(denominations.One), big.NewInt(1000)),
 	}
 }
@@ -410,7 +410,7 @@ func sampleUndelegate(key ecdsa.PrivateKey) staking.Undelegate {
 	return staking.Undelegate{
 		DelegatorAddress: address,
 		ValidatorAddress: address,
-		// undelegate the delegation of 1000 ONE
+		// undelegate the delegation of 1000 Astra
 		Amount: new(big.Int).Mul(big.NewInt(denominations.One), big.NewInt(1000)),
 	}
 }

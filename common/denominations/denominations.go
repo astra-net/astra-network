@@ -1,6 +1,6 @@
 package denominations
 
-//ONE Units
+//Astra Units
 const (
 	Atto = 1
 	Nano = 1e9

@@ -371,7 +371,7 @@ func (node *Node) AddPendingReceipts(receipts *types.CXReceiptsProof) {
 	node.pendingCXReceipts[key] = receipts
 	utils.Logger().Info().
 		Int("totalPendingReceipts", len(node.pendingCXReceipts)).
-		Msg("Got ONE more receipt message")
+		Msg("Got one more receipt message")
 }
 
 type withError struct {

@@ -55,8 +55,8 @@ var errGenesisNoConfig = errors.New("genesis has no chain configuration")
 const (
 	// GenesisEpoch is the number of the genesis epoch.
 	GenesisEpoch = 0
-	// GenesisONEToken is the initial total number of ONE in the genesis block for mainnet.
-	GenesisONEToken = 12600000000
+	// GenesisAstraToken is the initial total number of Astra in the genesis block for mainnet.
+	GenesisAstraToken = 12600000000
 	// ContractDeployerInitFund is the initial fund for the contract deployer account in testnet/devnet.
 	ContractDeployerInitFund = 10000000000
 	// InitFreeFund is the initial fund for permissioned accounts for testnet/devnet/
@@ -64,8 +64,8 @@ const (
 )
 
 var (
-	// GenesisFund is the initial total number of ONE (in atto) in the genesis block for mainnet.
-	GenesisFund = new(big.Int).Mul(big.NewInt(GenesisONEToken), big.NewInt(denominations.One))
+	// GenesisFund is the initial total number of Astra (in atto) in the genesis block for mainnet.
+	GenesisFund = new(big.Int).Mul(big.NewInt(GenesisAstraToken), big.NewInt(denominations.One))
 )
 
 // Genesis specifies the header fields, state of a genesis block. It also defines hard
@@ -144,8 +144,8 @@ func NewGenesisSpec(netType nodeconfig.NetworkType, shardID uint32) *Genesis {
 		Alloc:     genesisAlloc,
 		ShardID:   shardID,
 		GasLimit:  gasLimit,
-		Timestamp: 1561734000, // GMT: Friday, June 28, 2019 3:00:00 PM. PST: Friday, June 28, 2019 8:00:00 AM
-		ExtraData: []byte("Astra for One and All. Open Consensus for 10B."),
+		Timestamp: 1646092800, // Tue Mar 01 2022 00:00:00 GMT+0000 (Coordinated Universal Time)
+		ExtraData: []byte("Astra - Gamers' Chain"),
 	}
 }
 

@@ -185,7 +185,7 @@ func AccumulateRewardsAndCountSigs(
 		}
 
 		// Following is commented because the new econ-model has a flat-rate block reward
-		// of 28 ONE per block assuming 4 shards and 8s block time:
+		// of 28 Astra per block assuming 4 shards and 8s block time:
 		//// TODO Use cached result in off-chain db instead of full computation
 		//_, percentageStaked, err := network.WhatPercentStakedNow(
 		//	beaconChain, header.Time().Int64(),

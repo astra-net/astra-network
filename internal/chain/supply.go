@@ -15,7 +15,7 @@ import (
 
 // Circulating supply calculation
 var (
-	// InaccessibleAddresses are a list of known eth addresses that cannot spend ONE tokens.
+	// InaccessibleAddresses are a list of known eth addresses that cannot spend Astra tokens.
 	InaccessibleAddresses = []common.Address{
 		// one10000000000000000000000000000dead5shlag
 		common.HexToAddress("0x7bDeF7Bdef7BDeF7BDEf7bDef7bdef7bdeF6E7AD"),
