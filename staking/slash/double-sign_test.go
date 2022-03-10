@@ -10,20 +10,20 @@ import (
 
 	"github.com/ethereum/go-ethereum/core/rawdb"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/harmony-one/astra/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
 	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	blockfactory "github.com/harmony-one/harmony/block/factory"
-	consensus_sig "github.com/harmony-one/harmony/consensus/signature"
-	"github.com/harmony-one/harmony/consensus/votepower"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/staking/effective"
-	staking "github.com/harmony-one/harmony/staking/types"
+	blockfactory "github.com/harmony-one/astra/block/factory"
+	consensus_sig "github.com/harmony-one/astra/consensus/signature"
+	"github.com/harmony-one/astra/consensus/votepower"
+	"github.com/harmony-one/astra/core/state"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/internal/params"
+	"github.com/harmony-one/astra/numeric"
+	"github.com/harmony-one/astra/shard"
+	"github.com/harmony-one/astra/staking/effective"
+	staking "github.com/harmony-one/astra/staking/types"
 )
 
 var (
@@ -745,10 +745,10 @@ func makeEmptyRecordWithSignerKey(pub bls.SerializedPublicKey) Record {
 
 func makeVotingPower(m map[bls.SerializedPublicKey]numeric.Dec) *votepower.Roster {
 	r := &votepower.Roster{
-		Voters: make(map[bls.SerializedPublicKey]*votepower.AccommodateHarmonyVote),
+		Voters: make(map[bls.SerializedPublicKey]*votepower.AccommodateAstraVote),
 	}
 	for pub, pct := range m {
-		r.Voters[pub] = &votepower.AccommodateHarmonyVote{
+		r.Voters[pub] = &votepower.AccommodateAstraVote{
 			PureStakedVote: votepower.PureStakedVote{GroupPercent: pct},
 		}
 	}
@@ -783,7 +783,7 @@ func makeVoteData(kp blsKeyPair, block *types.Block) Vote {
 }
 
 func makeTestAddress(item interface{}) common.Address {
-	s := fmt.Sprintf("harmony.one.%v", item)
+	s := fmt.Sprintf("astra.one.%v", item)
 	return common.BytesToAddress([]byte(s))
 }
 

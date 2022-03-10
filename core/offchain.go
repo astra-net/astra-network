@@ -5,20 +5,20 @@ import (
 	"math/big"
 	"sort"
 
-	"github.com/harmony-one/harmony/block"
+	"github.com/harmony-one/astra/block"
 
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
+	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/harmony/consensus/reward"
-	"github.com/harmony-one/harmony/core/rawdb"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/staking/slash"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/consensus/reward"
+	"github.com/harmony-one/astra/core/rawdb"
+	"github.com/harmony-one/astra/core/state"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/shard"
+	"github.com/harmony-one/astra/staking/slash"
+	staking "github.com/harmony-one/astra/staking/types"
 	"github.com/pkg/errors"
 )
 

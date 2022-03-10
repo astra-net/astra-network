@@ -6,21 +6,20 @@ import (
 	"encoding/json"
 	"math/big"
 
-	"github.com/harmony-one/harmony/crypto/bls"
-	"github.com/harmony-one/harmony/shard"
+	"github.com/harmony-one/astra/crypto/bls"
+	"github.com/harmony-one/astra/shard"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
 	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	consensus_sig "github.com/harmony-one/harmony/consensus/signature"
-	"github.com/harmony-one/harmony/consensus/votepower"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/crypto/hash"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/staking/effective"
-	staking "github.com/harmony-one/harmony/staking/types"
+	consensus_sig "github.com/harmony-one/astra/consensus/signature"
+	"github.com/harmony-one/astra/consensus/votepower"
+	"github.com/harmony-one/astra/core/state"
+	"github.com/harmony-one/astra/crypto/hash"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/numeric"
+	"github.com/harmony-one/astra/staking/effective"
+	staking "github.com/harmony-one/astra/staking/types"
 	"github.com/pkg/errors"
 )
 
@@ -126,8 +125,8 @@ var (
 // MarshalJSON ..
 func (r Record) MarshalJSON() ([]byte, error) {
 	reporter, offender :=
-		common2.MustAddressToBech32(r.Reporter),
-		common2.MustAddressToBech32(r.Evidence.Offender)
+		r.Reporter.Hex(),
+		r.Evidence.Offender.Hex()
 	return json.Marshal(struct {
 		Evidence         Evidence `json:"evidence"`
 		Beneficiary      string   `json:"beneficiary"`
@@ -488,7 +487,7 @@ func Apply(
 		if err != nil {
 			return nil, errors.Errorf(
 				"could not find validator %s",
-				common2.MustAddressToBech32(slash.Evidence.Offender),
+				slash.Evidence.Offender.Hex(),
 			)
 		}
 

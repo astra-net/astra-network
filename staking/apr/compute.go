@@ -3,15 +3,15 @@ package apr
 import (
 	"math/big"
 
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/shard"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/shard"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/block"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/numeric"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/block"
+	"github.com/harmony-one/astra/internal/params"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/numeric"
+	staking "github.com/harmony-one/astra/staking/types"
 	"github.com/pkg/errors"
 )
 

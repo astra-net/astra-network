@@ -30,14 +30,13 @@ import (
 	"github.com/ethereum/go-ethereum/log"
 	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/ethereum/go-ethereum/trie"
-	"github.com/harmony-one/harmony/core/types"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/staking"
-	"github.com/harmony-one/harmony/staking/effective"
-	stk "github.com/harmony-one/harmony/staking/types"
-	staketest "github.com/harmony-one/harmony/staking/types/test"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/numeric"
+	"github.com/harmony-one/astra/staking"
+	"github.com/harmony-one/astra/staking/effective"
+	stk "github.com/harmony-one/astra/staking/types"
+	staketest "github.com/harmony-one/astra/staking/types/test"
 	"github.com/pkg/errors"
 )
 
@@ -831,7 +830,7 @@ func (db *DB) ValidatorWrapper(
 		return nil, errors.Wrapf(
 			err,
 			"could not decode for %s",
-			common2.MustAddressToBech32(addr),
+			addr,
 		)
 	}
 	// populate cache because the validator is not in it

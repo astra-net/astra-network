@@ -29,7 +29,7 @@ RUN mkdir ~/bin && \
 
 RUN eval "$(~/bin/gimme ${GIMME_GO_VERSION})"
 
-RUN git clone https://github.com/harmony-one/harmony.git ${HMY_PATH}/harmony
+RUN git clone https://github.com/harmony-one/astra.git ${HMY_PATH}/astra
 
 RUN git clone https://github.com/harmony-one/bls.git ${HMY_PATH}/bls
 
@@ -58,7 +58,7 @@ RUN . ~/.bash_profile; \
 	go get -u golang.org/x/tools/...; \
 	go get -u honnef.co/go/tools/cmd/staticcheck/...
 
-WORKDIR ${HMY_PATH}/harmony
+WORKDIR ${HMY_PATH}/astra
 
 RUN scripts/install_build_tools.sh
 
@@ -68,9 +68,9 @@ RUN scripts/go_executable_build.sh -S
 
 RUN cd ${HMY_PATH}/go-sdk && make -j8 && cp hmy /root/bin
 
-ARG K1=Ax1tq4hy947c9gr8qzv06yxz4aeyhc9vn78al4rmu
-ARG K2=Ax1y5gmmzumajkm5mx3g2qsxtza2d3haq0zxyg47r
-ARG K3=Ax1qrqcfek6sc29sachs3glhs4zny72mlad76lqcp
+ARG K1=0x3b00aab412891853f2cc91a6957a66088f22437b
+ARG K2=0x415077f2efb732538683baf6479a94ed35b836b5
+ARG K3=0xef1c0d949efbd8baed211fad28a08c5cf96e989d
 
 ARG KS1=8d222cffa99eb1fb86c581d9dfe7d60dd40ec62aa29056b7ff48028385270541
 ARG KS2=da1800da5dedf02717696675c7a7e58383aff90b1014dfa1ab5b7bd1ce3ef535

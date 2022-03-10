@@ -2,9 +2,9 @@ package helpers
 
 import (
 	"github.com/harmony-one/bls/ffi/go/bls"
-	harmony_bls "github.com/harmony-one/harmony/crypto/bls"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	"github.com/harmony-one/harmony/p2p"
+	astra_bls "github.com/harmony-one/astra/crypto/bls"
+	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	"github.com/harmony-one/astra/p2p"
 	libp2p_crypto "github.com/libp2p/go-libp2p-crypto"
 	"github.com/pkg/errors"
 )
@@ -70,7 +70,7 @@ func GenerateHost(address string, port string) (p2p.Host, *bls.PublicKey, error)
 
 // GeneratePeer - test helper to generate a new peer
 func GeneratePeer(address string, port string) (p2p.Peer, error) {
-	peerPrivateKey := harmony_bls.RandPrivateKey()
+	peerPrivateKey := astra_bls.RandPrivateKey()
 	peerPublicKey := peerPrivateKey.GetPublicKey()
 	if peerPrivateKey == nil || peerPublicKey == nil {
 		return p2p.Peer{}, errors.New("failed to generate bls key for peer")

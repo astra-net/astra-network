@@ -5,19 +5,19 @@ import (
 
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/core/rawdb"
-	hmyTypes "github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/hmy"
-	internal_common "github.com/harmony-one/harmony/internal/common"
-	rosetta_common "github.com/harmony-one/harmony/rosetta/common"
+	"github.com/harmony-one/astra/core/rawdb"
+	hmyTypes "github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/hmy"
+	internal_common "github.com/harmony-one/astra/internal/common"
+	rosetta_common "github.com/harmony-one/astra/rosetta/common"
 )
 
 // SearchAPI implements the server.SearchAPIServicer interface.
 type SearchAPI struct {
-	hmy *hmy.Harmony
+	hmy *hmy.Astra
 }
 
-func NewSearchAPI(hmy *hmy.Harmony) *SearchAPI {
+func NewSearchAPI(hmy *hmy.Astra) *SearchAPI {
 	return &SearchAPI{hmy: hmy}
 }
 
@@ -49,17 +49,12 @@ func (s *SearchAPI) SearchTransactions(ctx context.Context, request *types.Searc
 	var filteredHash, rangeHash []common.Hash
 
 	if request.AccountIdentifier != nil {
-		ddr, err := internal_common.ParseAddr(request.AccountIdentifier.Address)
+		address, err := internal_common.ParseAddr(request.AccountIdentifier.Address)
 		if err != nil {
 			return nil, &rosetta_common.ErrCallParametersInvalid
 		}
 
-		address, err := internal_common.AddressToBech32(ddr)
-		if err != nil {
-			return nil, &rosetta_common.ErrCallParametersInvalid
-		}
-
-		histories, err := s.hmy.GetTransactionsHistory(address, "", "")
+		histories, err := s.hmy.GetTransactionsHistory(address.String(), "", "")
 		if err != nil {
 			return nil, rosetta_common.NewError(rosetta_common.CatchAllError, map[string]interface{}{
 				"message": err.Error(),

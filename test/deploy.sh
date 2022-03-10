@@ -82,6 +82,7 @@ function launch_localnet() {
 
     # Read config for i-th node form config file
     IFS=' ' read -r ip port mode bls_key shard <<<"${line}"
+    echo $bls_key
     args=("${base_args[@]}" --ip "${ip}" --port "${port}" --key "/tmp/${ip}-${port}.key" --db_dir "${ROOT}/db-${ip}-${port}" "--broadcast_invalid_tx=false")
     if [[ -z "$ip" || -z "$port" ]]; then
       echo "skip empty node"
@@ -125,7 +126,7 @@ function launch_localnet() {
     esac
 
     # Start the node
-    ${DRYRUN} "${ROOT}/bin/harmony" "${args[@]}" "${extra_args[@]}" 2>&1 | tee -a "${LOG_FILE}" &
+    ${DRYRUN} "${ROOT}/bin/astra" "${args[@]}" "${extra_args[@]}" 2>&1 | tee -a "${LOG_FILE}" &
   done <"${config}"
 }
 
@@ -147,7 +148,7 @@ USAGE: $ME [OPTIONS] config_file_name [extra args to node]
    -v             verbosity in log (default: $VERBOSE)
    -e             expose WS & HTTP ip (default: $EXPOSEAPIS)
 
-This script will build all the binaries and start harmony and based on the configuration file.
+This script will build all the binaries and start astra and based on the configuration file.
 
 EXAMPLES:
 

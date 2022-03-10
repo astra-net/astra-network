@@ -23,13 +23,13 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/harmony-one/harmony/block"
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/internal/utils"
+	"github.com/harmony-one/astra/block"
+	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/internal/utils"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/params"
-	"github.com/harmony-one/harmony/core/types"
+	"github.com/harmony-one/astra/core/types"
 )
 
 const sampleNumber = 3 // Number of transactions sampled in a block
@@ -53,7 +53,7 @@ type OracleBackend interface {
 // Oracle recommends gas prices based on the content of recent
 // blocks. Suitable for both light and full clients.
 type Oracle struct {
-	backend   *Harmony
+	backend   *Astra
 	lastHead  common.Hash
 	lastPrice *big.Int
 	maxPrice  *big.Int
@@ -66,7 +66,7 @@ type Oracle struct {
 
 // NewOracle returns a new gasprice oracle which can recommend suitable
 // gasprice for newly created transaction.
-func NewOracle(backend *Harmony, params GasPriceConfig) *Oracle {
+func NewOracle(backend *Astra, params GasPriceConfig) *Oracle {
 	blocks := params.Blocks
 	if blocks < 1 {
 		blocks = 1

@@ -3,8 +3,8 @@ package downloader
 import (
 	"time"
 
-	"github.com/harmony-one/harmony/core/types"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
+	"github.com/harmony-one/astra/core/types"
+	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
 )
 
 const (

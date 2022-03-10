@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	prom "github.com/harmony-one/harmony/api/service/prometheus"
+	prom "github.com/harmony-one/astra/api/service/prometheus"
 	"github.com/prometheus/client_golang/prometheus"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -16,19 +16,19 @@ import (
 	lru "github.com/hashicorp/golang-lru"
 	"github.com/pkg/errors"
 
-	"github.com/harmony-one/harmony/api/service"
-	"github.com/harmony-one/harmony/api/service/legacysync"
-	legdownloader "github.com/harmony-one/harmony/api/service/legacysync/downloader"
-	downloader_pb "github.com/harmony-one/harmony/api/service/legacysync/downloader/proto"
-	"github.com/harmony-one/harmony/api/service/synchronize"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/hmy/downloader"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/node/worker"
-	"github.com/harmony-one/harmony/p2p"
-	"github.com/harmony-one/harmony/shard"
+	"github.com/harmony-one/astra/api/service"
+	"github.com/harmony-one/astra/api/service/legacysync"
+	legdownloader "github.com/harmony-one/astra/api/service/legacysync/downloader"
+	downloader_pb "github.com/harmony-one/astra/api/service/legacysync/downloader/proto"
+	"github.com/harmony-one/astra/api/service/synchronize"
+	"github.com/harmony-one/astra/core"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/hmy/downloader"
+	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/node/worker"
+	"github.com/harmony-one/astra/p2p"
+	"github.com/harmony-one/astra/shard"
 )
 
 // Constants related to doing syncing.

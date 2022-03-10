@@ -3,8 +3,8 @@ package shard
 import (
 	"math/big"
 
-	shardingconfig "github.com/harmony-one/harmony/internal/configs/sharding"
-	"github.com/harmony-one/harmony/internal/utils"
+	shardingconfig "github.com/harmony-one/astra/internal/configs/sharding"
+	"github.com/harmony-one/astra/internal/utils"
 )
 
 const (
@@ -26,7 +26,7 @@ func ExternalSlotsAvailableForEpoch(epoch *big.Int) int {
 	instance := Schedule.InstanceForEpoch(epoch)
 	stakedSlots :=
 		(instance.NumNodesPerShard() -
-			instance.NumHarmonyOperatedNodesPerShard()) *
+			instance.NumAstraOperatedNodesPerShard()) *
 			int(instance.NumShards())
 	if stakedSlots == 0 {
 		utils.Logger().Debug().

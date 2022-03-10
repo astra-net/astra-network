@@ -22,8 +22,8 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/internal/params"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/internal/params"
 	"golang.org/x/crypto/sha3"
 )
 

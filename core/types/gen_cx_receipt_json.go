@@ -6,8 +6,8 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/block"
-	internal_common "github.com/harmony-one/harmony/internal/common"
+	"github.com/harmony-one/astra/block"
+	internal_common "github.com/harmony-one/astra/internal/common"
 )
 
 // MarshalJSON marshals as JSON.
@@ -26,18 +26,12 @@ func (r CXReceipt) MarshalJSON() ([]byte, error) {
 	enc.ShardID = r.ShardID
 	enc.ToShardID = r.ToShardID
 	enc.TxHash = r.TxHash
-	address, err := internal_common.AddressToBech32(r.From)
-	if err != nil {
-		return nil, err
-	}
+	address := r.From.String()
 	enc.From = address
 	if r.To == nil {
 		address = ""
 	} else {
-		address, err = internal_common.AddressToBech32(*r.To)
-	}
-	if err != nil {
-		return nil, err
+		address = r.To.String()
 	}
 	enc.To = address
 	return json.Marshal(&enc)
@@ -65,12 +59,12 @@ func (r *CXReceipt) UnmarshalJSON(input []byte) error {
 	if dec.From == "" {
 		return errors.New("missing required field 'from' for CXReceipt")
 	}
-	r.From, err = internal_common.Bech32ToAddress(dec.From)
+	r.From, err = internal_common.ParseAddr(dec.From)
 	if err != nil {
 		return err
 	}
 	r.ShardID = dec.ShardID
-	to, err := internal_common.Bech32ToAddress(dec.To)
+	to, err := internal_common.ParseAddr(dec.To)
 	if err != nil {
 		return err
 	}

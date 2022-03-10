@@ -5,12 +5,11 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/consensus/engine"
-	"github.com/harmony-one/harmony/consensus/reward"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/shard"
-	stakingReward "github.com/harmony-one/harmony/staking/reward"
+	"github.com/harmony-one/astra/consensus/engine"
+	"github.com/harmony-one/astra/consensus/reward"
+	"github.com/harmony-one/astra/numeric"
+	"github.com/harmony-one/astra/shard"
+	stakingReward "github.com/harmony-one/astra/staking/reward"
 	"github.com/pkg/errors"
 )
 
@@ -18,7 +17,7 @@ import (
 var (
 	// InaccessibleAddresses are a list of known eth addresses that cannot spend ONE tokens.
 	InaccessibleAddresses = []common.Address{
-		// Ax10000000000000000000000000000dead5shlag
+		// one10000000000000000000000000000dead5shlag
 		common.HexToAddress("0x7bDeF7Bdef7BDeF7BDEf7bDef7bdef7bdeF6E7AD"),
 	}
 )
@@ -112,11 +111,10 @@ func getAllInaccessibleAddresses(chain engine.ChainReader) ([]*InaccessibleAddre
 	accs := make([]*InaccessibleAddressInfo, 0, len(InaccessibleAddresses))
 	for _, addr := range InaccessibleAddresses {
 		nonce := state.GetNonce(addr)
-		oneAddr, _ := common2.AddressToBech32(addr)
 		balance := state.GetBalance(addr)
 		accs = append(accs, &InaccessibleAddressInfo{
 			EthAddress: addr,
-			Address:    oneAddr,
+			Address:    addr.String(),
 			Balance:    numeric.NewDecFromBigIntWithPrec(balance, numeric.Precision),
 			Nonce:      nonce,
 		})

@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/harmony-one/harmony/hmy/tracers"
+	"github.com/harmony-one/astra/hmy/tracers"
 
 	"github.com/coinbase/rosetta-sdk-go/types"
 	ethcommon "github.com/ethereum/go-ethereum/common"
 
-	hmytypes "github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/rosetta/common"
-	stakingTypes "github.com/harmony-one/harmony/staking/types"
+	hmytypes "github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/rosetta/common"
+	stakingTypes "github.com/harmony-one/astra/staking/types"
 )
 
 var (

@@ -212,8 +212,8 @@ func TestGetAllAddresses(t *testing.T) {
 	}
 }
 
-func makeAddresses(size int) []oneAddress {
-	var addrs []oneAddress
+func makeAddresses(size int) []addrStr {
+	var addrs []addrStr
 	for i := 0; i != size; i++ {
 		addrs = append(addrs, makeOneAddress(i))
 	}

@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 
 	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/harmony/multibls"
+	"github.com/harmony-one/astra/multibls"
 )
 
 // loadHelper defines the helper interface to load bls keys. Implemented by
@@ -27,9 +27,11 @@ type multiKeyLoader struct {
 func newMultiKeyLoader(keyFiles []string, decrypters []keyDecrypter) (*multiKeyLoader, error) {
 	dm := make(map[string]keyDecrypter)
 	for _, decrypter := range decrypters {
+		fmt.Println(decrypter.extension())
 		dm[decrypter.extension()] = decrypter
 	}
 	for _, keyFile := range keyFiles {
+		fmt.Println(keyFile)
 		ext := filepath.Ext(keyFile)
 		if _, supported := dm[ext]; !supported {
 			return nil, fmt.Errorf("unsupported key extension: %v", ext)

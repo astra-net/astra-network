@@ -3,9 +3,9 @@ package node
 import (
 	common2 "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/shard"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/shard"
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
 )

@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/harmony-one/harmony/internal/shardchain/leveldb_shard"
-	"github.com/harmony-one/harmony/internal/shardchain/local_cache"
+	"github.com/harmony-one/astra/internal/shardchain/leveldb_shard"
+	"github.com/harmony-one/astra/internal/shardchain/local_cache"
 
 	"github.com/ethereum/go-ethereum/core/rawdb"
 
@@ -15,8 +15,8 @@ import (
 )
 
 const (
-	LDBDirPrefix      = "harmony_db"
-	LDBShardDirPrefix = "harmony_sharddb"
+	LDBDirPrefix      = "astra_db"
+	LDBShardDirPrefix = "astra_sharddb"
 )
 
 // DBFactory is a blockchain database factory.

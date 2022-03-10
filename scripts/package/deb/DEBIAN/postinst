@@ -1,23 +1,23 @@
 #!/bin/sh
 
 after_install() {
-   mkdir -p /home/harmony/.hmy/blskeys
-   mkdir -p /home/harmony/.config/rclone
-   chown -R harmony.harmony /home/harmony
+   mkdir -p /home/astra/.hmy/blskeys
+   mkdir -p /home/astra/.config/rclone
+   chown -R astra.astra /home/astra
 
-   systemctl enable harmony
-   systemctl start harmony
+   systemctl enable astra
+   systemctl start astra
 }
 
 after_upgrade() {
-   systemctl enable harmony
-   systemctl restart harmony
+   systemctl enable astra
+   systemctl restart astra
 }
 
 
 # Setup system users and groups
-getent group harmony >/dev/null || addgroup --quiet --system harmony
-getent passwd harmony >/dev/null || adduser --quiet --system --ingroup harmony --gecos "harmony validator account" harmony
+getent group astra >/dev/null || addgroup --quiet --system astra
+getent passwd astra >/dev/null || adduser --quiet --system --ingroup astra --gecos "astra validator account" astra
 
 if [ "${1}" = "configure" -a -z "${2}" ] || \
    [ "${1}" = "abort-remove" ]

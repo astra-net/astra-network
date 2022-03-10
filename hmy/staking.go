@@ -7,20 +7,19 @@ import (
 	"sync"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/block"
-	"github.com/harmony-one/harmony/consensus/quorum"
-	"github.com/harmony-one/harmony/core/rawdb"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/internal/chain"
-	internalCommon "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/numeric"
-	commonRPC "github.com/harmony-one/harmony/rpc/common"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/shard/committee"
-	"github.com/harmony-one/harmony/staking/availability"
-	"github.com/harmony-one/harmony/staking/effective"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/block"
+	"github.com/harmony-one/astra/consensus/quorum"
+	"github.com/harmony-one/astra/core/rawdb"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/internal/chain"
+	"github.com/harmony-one/astra/numeric"
+	commonRPC "github.com/harmony-one/astra/rpc/common"
+	"github.com/harmony-one/astra/shard"
+	"github.com/harmony-one/astra/shard/committee"
+	"github.com/harmony-one/astra/staking/availability"
+	"github.com/harmony-one/astra/staking/effective"
+	staking "github.com/harmony-one/astra/staking/types"
 	"github.com/pkg/errors"
 )
 
@@ -29,7 +28,7 @@ var (
 	bigZero = big.NewInt(0)
 )
 
-func (hmy *Harmony) readAndUpdateRawStakes(
+func (hmy *Astra) readAndUpdateRawStakes(
 	epoch *big.Int,
 	decider quorum.Decider,
 	comm shard.Committee,
@@ -64,7 +63,7 @@ func (hmy *Harmony) readAndUpdateRawStakes(
 	return rawStakes
 }
 
-func (hmy *Harmony) getSuperCommittees() (*quorum.Transition, error) {
+func (hmy *Astra) getSuperCommittees() (*quorum.Transition, error) {
 	nowE := hmy.BlockChain.CurrentHeader().Epoch()
 
 	if hmy.BlockChain.CurrentHeader().IsLastBlockInEpoch() {
@@ -130,32 +129,32 @@ func (hmy *Harmony) getSuperCommittees() (*quorum.Transition, error) {
 }
 
 // IsStakingEpoch ...
-func (hmy *Harmony) IsStakingEpoch(epoch *big.Int) bool {
+func (hmy *Astra) IsStakingEpoch(epoch *big.Int) bool {
 	return hmy.BlockChain.Config().IsStaking(epoch)
 }
 
 // IsPreStakingEpoch ...
-func (hmy *Harmony) IsPreStakingEpoch(epoch *big.Int) bool {
+func (hmy *Astra) IsPreStakingEpoch(epoch *big.Int) bool {
 	return hmy.BlockChain.Config().IsPreStaking(epoch)
 }
 
 // IsNoEarlyUnlockEpoch ...
-func (hmy *Harmony) IsNoEarlyUnlockEpoch(epoch *big.Int) bool {
+func (hmy *Astra) IsNoEarlyUnlockEpoch(epoch *big.Int) bool {
 	return hmy.BlockChain.Config().IsNoEarlyUnlock(epoch)
 }
 
 // IsCommitteeSelectionBlock checks if the given block is the committee selection block
-func (hmy *Harmony) IsCommitteeSelectionBlock(header *block.Header) bool {
+func (hmy *Astra) IsCommitteeSelectionBlock(header *block.Header) bool {
 	return chain.IsCommitteeSelectionBlock(hmy.BlockChain, header)
 }
 
 // GetDelegationLockingPeriodInEpoch ...
-func (hmy *Harmony) GetDelegationLockingPeriodInEpoch(epoch *big.Int) int {
+func (hmy *Astra) GetDelegationLockingPeriodInEpoch(epoch *big.Int) int {
 	return chain.GetLockPeriodInEpoch(hmy.BlockChain, epoch)
 }
 
 // SendStakingTx adds a staking transaction
-func (hmy *Harmony) SendStakingTx(ctx context.Context, signedStakingTx *staking.StakingTransaction) error {
+func (hmy *Astra) SendStakingTx(ctx context.Context, signedStakingTx *staking.StakingTransaction) error {
 	stx, _, _, _ := rawdb.ReadStakingTransaction(hmy.chainDb, signedStakingTx.Hash())
 	if stx == nil {
 		return hmy.NodeAPI.AddPendingStakingTransaction(signedStakingTx)
@@ -164,17 +163,17 @@ func (hmy *Harmony) SendStakingTx(ctx context.Context, signedStakingTx *staking.
 }
 
 // GetStakingTransactionsHistory returns list of staking transactions hashes of address.
-func (hmy *Harmony) GetStakingTransactionsHistory(address, txType, order string) ([]common.Hash, error) {
+func (hmy *Astra) GetStakingTransactionsHistory(address, txType, order string) ([]common.Hash, error) {
 	return hmy.NodeAPI.GetStakingTransactionsHistory(address, txType, order)
 }
 
 // GetStakingTransactionsCount returns the number of staking transactions of address.
-func (hmy *Harmony) GetStakingTransactionsCount(address, txType string) (uint64, error) {
+func (hmy *Astra) GetStakingTransactionsCount(address, txType string) (uint64, error) {
 	return hmy.NodeAPI.GetStakingTransactionsCount(address, txType)
 }
 
 // GetSuperCommittees ..
-func (hmy *Harmony) GetSuperCommittees() (*quorum.Transition, error) {
+func (hmy *Astra) GetSuperCommittees() (*quorum.Transition, error) {
 	nowE := hmy.BlockChain.CurrentHeader().Epoch()
 	key := fmt.Sprintf("sc-%s", nowE.String())
 
@@ -192,7 +191,7 @@ func (hmy *Harmony) GetSuperCommittees() (*quorum.Transition, error) {
 }
 
 // GetValidators returns validators for a particular epoch.
-func (hmy *Harmony) GetValidators(epoch *big.Int) (*shard.Committee, error) {
+func (hmy *Astra) GetValidators(epoch *big.Int) (*shard.Committee, error) {
 	state, err := hmy.BlockChain.ReadShardState(epoch)
 	if err != nil {
 		return nil, err
@@ -206,7 +205,7 @@ func (hmy *Harmony) GetValidators(epoch *big.Int) (*shard.Committee, error) {
 }
 
 // GetValidatorSelfDelegation returns the amount of staking after applying all delegated stakes
-func (hmy *Harmony) GetValidatorSelfDelegation(addr common.Address) *big.Int {
+func (hmy *Astra) GetValidatorSelfDelegation(addr common.Address) *big.Int {
 	wrapper, err := hmy.BlockChain.ReadValidatorInformation(addr)
 	if err != nil || wrapper == nil {
 		return nil
@@ -218,13 +217,13 @@ func (hmy *Harmony) GetValidatorSelfDelegation(addr common.Address) *big.Int {
 }
 
 // GetElectedValidatorAddresses returns the address of elected validators for current epoch
-func (hmy *Harmony) GetElectedValidatorAddresses() []common.Address {
+func (hmy *Astra) GetElectedValidatorAddresses() []common.Address {
 	list, _ := hmy.BlockChain.ReadShardState(hmy.BlockChain.CurrentBlock().Epoch())
 	return list.StakedValidators().Addrs
 }
 
 // GetAllValidatorAddresses returns the up to date validator candidates for next epoch
-func (hmy *Harmony) GetAllValidatorAddresses() []common.Address {
+func (hmy *Astra) GetAllValidatorAddresses() []common.Address {
 	return hmy.BlockChain.ValidatorCandidates()
 }
 
@@ -233,7 +232,7 @@ var (
 	mapLock        = sync.Mutex{}
 )
 
-func (hmy *Harmony) getEpochSigning(epoch *big.Int, addr common.Address) (staking.EpochSigningEntry, error) {
+func (hmy *Astra) getEpochSigning(epoch *big.Int, addr common.Address) (staking.EpochSigningEntry, error) {
 	entry := staking.EpochSigningEntry{}
 	mapLock.Lock()
 	defer mapLock.Unlock()
@@ -278,14 +277,13 @@ func (hmy *Harmony) getEpochSigning(epoch *big.Int, addr common.Address) (stakin
 }
 
 // GetValidatorInformation returns the information of validator
-func (hmy *Harmony) GetValidatorInformation(
+func (hmy *Astra) GetValidatorInformation(
 	addr common.Address, block *types.Block,
 ) (*staking.ValidatorRPCEnhanced, error) {
 	bc := hmy.BlockChain
 	wrapper, err := bc.ReadValidatorInformationAtRoot(addr, block.Root())
 	if err != nil {
-		s, _ := internalCommon.AddressToBech32(addr)
-		return nil, errors.Wrapf(err, "not found address in current state %s", s)
+		return nil, errors.Wrapf(err, "not found address in current state %s", addr)
 	}
 
 	now := block.Epoch()
@@ -428,7 +426,7 @@ func (hmy *Harmony) GetValidatorInformation(
 }
 
 // GetMedianRawStakeSnapshot ..
-func (hmy *Harmony) GetMedianRawStakeSnapshot() (
+func (hmy *Astra) GetMedianRawStakeSnapshot() (
 	*committee.CompletedEPoSRound, error,
 ) {
 	blockNum := hmy.CurrentBlock().NumberU64()
@@ -453,7 +451,7 @@ func (hmy *Harmony) GetMedianRawStakeSnapshot() (
 }
 
 // GetDelegationsByValidator returns all delegation information of a validator
-func (hmy *Harmony) GetDelegationsByValidator(validator common.Address) []*staking.Delegation {
+func (hmy *Astra) GetDelegationsByValidator(validator common.Address) []*staking.Delegation {
 	wrapper, err := hmy.BlockChain.ReadValidatorInformation(validator)
 	if err != nil || wrapper == nil {
 		return nil
@@ -466,7 +464,7 @@ func (hmy *Harmony) GetDelegationsByValidator(validator common.Address) []*staki
 }
 
 // GetDelegationsByValidatorAtBlock returns all delegation information of a validator at the given block
-func (hmy *Harmony) GetDelegationsByValidatorAtBlock(
+func (hmy *Astra) GetDelegationsByValidatorAtBlock(
 	validator common.Address, block *types.Block,
 ) []*staking.Delegation {
 	wrapper, err := hmy.BlockChain.ReadValidatorInformationAtRoot(validator, block.Root())
@@ -481,7 +479,7 @@ func (hmy *Harmony) GetDelegationsByValidatorAtBlock(
 }
 
 // GetDelegationsByDelegator returns all delegation information of a delegator
-func (hmy *Harmony) GetDelegationsByDelegator(
+func (hmy *Astra) GetDelegationsByDelegator(
 	delegator common.Address,
 ) ([]common.Address, []*staking.Delegation) {
 	block := hmy.BlockChain.CurrentBlock()
@@ -489,7 +487,7 @@ func (hmy *Harmony) GetDelegationsByDelegator(
 }
 
 // GetDelegationsByDelegatorByBlock returns all delegation information of a delegator
-func (hmy *Harmony) GetDelegationsByDelegatorByBlock(
+func (hmy *Astra) GetDelegationsByDelegatorByBlock(
 	delegator common.Address, block *types.Block,
 ) ([]common.Address, []*staking.Delegation) {
 	addresses := []common.Address{}
@@ -548,7 +546,7 @@ func (u *UndelegationPayouts) SetPayoutByDelegatorAddrAndValidatorAddr(
 // Due to in-memory caching, it is possible to get undelegation payouts for a state / epoch
 // that has been pruned but have it be lost (and unable to recompute) after the node restarts.
 // This not a problem if a full (archival) DB is used.
-func (hmy *Harmony) GetUndelegationPayouts(
+func (hmy *Astra) GetUndelegationPayouts(
 	ctx context.Context, epoch *big.Int,
 ) (*UndelegationPayouts, error) {
 	if !hmy.IsPreStakingEpoch(epoch) {
@@ -588,7 +586,7 @@ func (hmy *Harmony) GetUndelegationPayouts(
 }
 
 // GetTotalStakingSnapshot ..
-func (hmy *Harmony) GetTotalStakingSnapshot() *big.Int {
+func (hmy *Astra) GetTotalStakingSnapshot() *big.Int {
 	if stake := hmy.totalStakeCache.pop(hmy.CurrentBlock().NumberU64()); stake != nil {
 		return stake
 	}
@@ -617,7 +615,7 @@ func (hmy *Harmony) GetTotalStakingSnapshot() *big.Int {
 }
 
 // GetCurrentStakingErrorSink ..
-func (hmy *Harmony) GetCurrentStakingErrorSink() types.TransactionErrorReports {
+func (hmy *Astra) GetCurrentStakingErrorSink() types.TransactionErrorReports {
 	return hmy.NodeAPI.ReportStakingErrorSink()
 }
 

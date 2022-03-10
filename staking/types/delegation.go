@@ -7,8 +7,7 @@ import (
 	"sort"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/crypto/hash"
-	common2 "github.com/harmony-one/harmony/internal/common"
+	"github.com/harmony-one/astra/crypto/hash"
 )
 
 var (
@@ -49,7 +48,7 @@ func (d Delegation) MarshalJSON() ([]byte, error) {
 		Amount           *big.Int      `json:"amount"`
 		Reward           *big.Int      `json:"reward"`
 		Undelegations    Undelegations `json:"undelegations"`
-	}{common2.MustAddressToBech32(d.DelegatorAddress), d.Amount,
+	}{d.DelegatorAddress.Hex(), d.Amount,
 		d.Reward, d.Undelegations,
 	})
 }

@@ -28,9 +28,9 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/harmony/accounts/abi"
-	"github.com/harmony-one/harmony/accounts/abi/bind"
-	"github.com/harmony-one/harmony/core/types"
+	"github.com/harmony-one/astra/accounts/abi"
+	"github.com/harmony-one/astra/accounts/abi/bind"
+	"github.com/harmony-one/astra/core/types"
 )
 
 type mockCaller struct {

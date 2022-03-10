@@ -7,16 +7,15 @@ import (
 	"math/big"
 	"sort"
 
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
+	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
 
-	"github.com/harmony-one/harmony/shard"
+	"github.com/harmony-one/astra/shard"
 
 	"github.com/ethereum/go-ethereum/common"
 	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/harmony/crypto/bls"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/numeric"
+	"github.com/harmony-one/astra/crypto/bls"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/numeric"
 	"github.com/pkg/errors"
 )
 
@@ -79,15 +78,15 @@ type PureStakedVote struct {
 	RawStake       numeric.Dec             `json:"raw-stake"`
 }
 
-// AccommodateHarmonyVote ..
-type AccommodateHarmonyVote struct {
+// AccommodateAstraVote ..
+type AccommodateAstraVote struct {
 	PureStakedVote
-	IsHarmonyNode  bool        `json:"-"`
+	IsAstraNode  bool        `json:"-"`
 	OverallPercent numeric.Dec `json:"overall-percent"`
 }
 
 // String ..
-func (v AccommodateHarmonyVote) String() string {
+func (v AccommodateAstraVote) String() string {
 	s, _ := json.Marshal(v)
 	return string(s)
 }
@@ -101,7 +100,7 @@ type topLevelRegistry struct {
 
 // Roster ..
 type Roster struct {
-	Voters map[bls.SerializedPublicKey]*AccommodateHarmonyVote
+	Voters map[bls.SerializedPublicKey]*AccommodateAstraVote
 	topLevelRegistry
 	ShardID      uint32
 	OrderedSlots []bls.SerializedPublicKey
@@ -114,7 +113,7 @@ func (r Roster) String() string {
 
 // VoteOnSubcomittee ..
 type VoteOnSubcomittee struct {
-	AccommodateHarmonyVote
+	AccommodateAstraVote
 	ShardID uint32
 }
 
@@ -127,7 +126,7 @@ func (v VoteOnSubcomittee) MarshalJSON() ([]byte, error) {
 		ShardID        uint32      `json:"shard-id"`
 	}{
 		v.PureStakedVote,
-		common2.MustAddressToBech32(v.EarningAccount),
+		v.EarningAccount.String(),
 		v.OverallPercent,
 		v.ShardID,
 	})
@@ -144,9 +143,9 @@ func AggregateRosters(
 
 	for _, roster := range rosters {
 		for _, voteCard := range roster.Voters {
-			if !voteCard.IsHarmonyNode {
+			if !voteCard.IsAstraNode {
 				voterID := VoteOnSubcomittee{
-					AccommodateHarmonyVote: *voteCard,
+					AccommodateAstraVote: *voteCard,
 					ShardID:                roster.ShardID,
 				}
 				result[voteCard.EarningAccount] = append(
@@ -178,21 +177,21 @@ func Compute(subComm *shard.Committee, epoch *big.Int) (*Roster, error) {
 	// TODO Check for duplicate BLS Keys
 	ourPercentage := numeric.ZeroDec()
 	theirPercentage := numeric.ZeroDec()
-	var lastStakedVoter *AccommodateHarmonyVote
+	var lastStakedVoter *AccommodateAstraVote
 
-	harmonyPercent := shard.Schedule.InstanceForEpoch(epoch).HarmonyVotePercent()
+	astraPercent := shard.Schedule.InstanceForEpoch(epoch).AstraVotePercent()
 	externalPercent := shard.Schedule.InstanceForEpoch(epoch).ExternalVotePercent()
 
 	// Testnet incident recovery
-	// Make harmony nodes having 70% voting power for epoch 73314
+	// Make astra nodes having 70% voting power for epoch 73314
 	if nodeconfig.GetDefaultConfig().GetNetworkType() == nodeconfig.Testnet && epoch.Cmp(big.NewInt(73305)) >= 0 &&
 		epoch.Cmp(big.NewInt(73490)) <= 0 {
-		harmonyPercent = numeric.MustNewDecFromStr("0.70")
+		astraPercent = numeric.MustNewDecFromStr("0.70")
 		externalPercent = numeric.MustNewDecFromStr("0.40") // Make sure consensus is always good.
 	}
 
 	for i := range staked {
-		member := AccommodateHarmonyVote{
+		member := AccommodateAstraVote{
 			PureStakedVote: PureStakedVote{
 				EarningAccount: staked[i].EcdsaAddress,
 				Identity:       staked[i].BLSPublicKey,
@@ -201,7 +200,7 @@ func Compute(subComm *shard.Committee, epoch *big.Int) (*Roster, error) {
 				RawStake:       numeric.ZeroDec(),
 			},
 			OverallPercent: numeric.ZeroDec(),
-			IsHarmonyNode:  false,
+			IsAstraNode:  false,
 		}
 
 		// Real Staker
@@ -212,9 +211,9 @@ func Compute(subComm *shard.Committee, epoch *big.Int) (*Roster, error) {
 			theirPercentage = theirPercentage.Add(member.OverallPercent)
 			lastStakedVoter = &member
 		} else { // Our node
-			member.IsHarmonyNode = true
-			member.OverallPercent = harmonyPercent.Quo(asDecHMYSlotCount)
-			member.GroupPercent = member.OverallPercent.Quo(harmonyPercent)
+			member.IsAstraNode = true
+			member.OverallPercent = astraPercent.Quo(asDecHMYSlotCount)
+			member.GroupPercent = member.OverallPercent.Quo(astraPercent)
 			ourPercentage = ourPercentage.Add(member.OverallPercent)
 		}
 
@@ -254,7 +253,7 @@ func Compute(subComm *shard.Committee, epoch *big.Int) (*Roster, error) {
 
 // NewRoster ..
 func NewRoster(shardID uint32) *Roster {
-	m := map[bls.SerializedPublicKey]*AccommodateHarmonyVote{}
+	m := map[bls.SerializedPublicKey]*AccommodateAstraVote{}
 	return &Roster{
 		Voters: m,
 		topLevelRegistry: topLevelRegistry{

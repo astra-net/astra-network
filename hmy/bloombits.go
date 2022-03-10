@@ -25,10 +25,10 @@ import (
 	"github.com/ethereum/go-ethereum/core/bloombits"
 	ethRawDB "github.com/ethereum/go-ethereum/core/rawdb"
 	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/harmony-one/harmony/block"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/rawdb"
-	"github.com/harmony-one/harmony/core/types"
+	"github.com/harmony-one/astra/block"
+	"github.com/harmony-one/astra/core"
+	"github.com/harmony-one/astra/core/rawdb"
+	"github.com/harmony-one/astra/core/types"
 )
 
 const (
@@ -51,7 +51,7 @@ const (
 
 // startBloomHandlers starts a batch of goroutines to accept bloom bit database
 // retrievals from possibly a range of filters and serving the data to satisfy.
-func (hmy *Harmony) startBloomHandlers(sectionSize uint64) {
+func (hmy *Astra) startBloomHandlers(sectionSize uint64) {
 	for i := 0; i < bloomServiceThreads; i++ {
 		go func() {
 			for {

@@ -10,9 +10,9 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
 	protobuf "github.com/golang/protobuf/proto"
-	"github.com/harmony-one/harmony/block"
-	"github.com/harmony-one/harmony/core/types"
-	syncpb "github.com/harmony-one/harmony/p2p/stream/protocols/sync/message"
+	"github.com/harmony-one/astra/block"
+	"github.com/harmony-one/astra/core/types"
+	syncpb "github.com/harmony-one/astra/p2p/stream/protocols/sync/message"
 )
 
 type testChainHelper struct{}

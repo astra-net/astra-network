@@ -6,11 +6,11 @@ import (
 
 	"github.com/coinbase/rosetta-sdk-go/server"
 	"github.com/coinbase/rosetta-sdk-go/types"
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/hmy"
-	internal_common "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/rosetta/common"
-	rpc2 "github.com/harmony-one/harmony/rpc"
+	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/hmy"
+	internal_common "github.com/harmony-one/astra/internal/common"
+	"github.com/harmony-one/astra/rosetta/common"
+	rpc2 "github.com/harmony-one/astra/rpc"
 	"github.com/pkg/errors"
 )
 
@@ -33,7 +33,7 @@ var CallMethod = []string{
 }
 
 type CallAPIService struct {
-	hmy                 *hmy.Harmony
+	hmy                 *hmy.Astra
 	publicContractAPI   rpc.API
 	publicStakingAPI    rpc.API
 	publicBlockChainAPI rpc.API
@@ -82,7 +82,7 @@ func (c *CallAPIService) Call(
 
 }
 
-func NewCallAPIService(hmy *hmy.Harmony, limiterEnable bool, rateLimit int) server.CallAPIServicer {
+func NewCallAPIService(hmy *hmy.Astra, limiterEnable bool, rateLimit int) server.CallAPIServicer {
 	return &CallAPIService{
 		hmy:                 hmy,
 		publicContractAPI:   rpc2.NewPublicContractAPI(hmy, rpc2.V2),
@@ -288,7 +288,7 @@ func (c *CallAPIService) getDelegationsByDelegatorByBlockNumber(
 		})
 	}
 
-	addr, err := internal_common.Bech32ToAddress(args.DelegatorAddr)
+	addr, err := internal_common.ParseAddr(args.DelegatorAddr)
 	if err != nil {
 		return nil, common.NewError(common.ErrCallParametersInvalid, map[string]interface{}{
 			"message": errors.WithMessage(err, "delegator address error").Error(),

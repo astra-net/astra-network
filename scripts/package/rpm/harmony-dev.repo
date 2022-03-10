@@ -1,6 +1,6 @@
-[harmony-dev]
+[astra-dev]
 name=Development Packages - $basearch
-baseurl=http://haochen-harmony-pub.s3.amazonaws.com/pub/yum/$basearch/
+baseurl=http://haochen-astra-pub.s3.amazonaws.com/pub/yum/$basearch/
 enabled=1
-gpgkey=https://raw.githubusercontent.com/harmony-one/harmony-open/master/harmony-release/harmony-pub.key
+gpgkey=https://raw.githubusercontent.com/harmony-one/astra-open/master/astra-release/astra-pub.key
 gpgcheck=1

@@ -4,14 +4,14 @@ import (
 	"context"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/rawdb"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/eth/rpc"
+	"github.com/harmony-one/astra/core"
+	"github.com/harmony-one/astra/core/rawdb"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/eth/rpc"
 )
 
 // SendTx ...
-func (hmy *Harmony) SendTx(ctx context.Context, signedTx *types.Transaction) error {
+func (hmy *Astra) SendTx(ctx context.Context, signedTx *types.Transaction) error {
 	tx, _, _, _ := rawdb.ReadTransaction(hmy.chainDb, signedTx.Hash())
 	if tx == nil {
 		return hmy.NodeAPI.AddPendingTransaction(signedTx)
@@ -22,7 +22,7 @@ func (hmy *Harmony) SendTx(ctx context.Context, signedTx *types.Transaction) err
 // ResendCx retrieve blockHash from txID and add blockHash to CxPool for resending
 // Note that cross shard txn is only for regular txns, not for staking txns, so the input txn hash
 // is expected to be regular txn hash
-func (hmy *Harmony) ResendCx(ctx context.Context, txID common.Hash) (uint64, bool) {
+func (hmy *Astra) ResendCx(ctx context.Context, txID common.Hash) (uint64, bool) {
 	blockHash, blockNum, index := hmy.BlockChain.ReadTxLookupEntry(txID)
 	if blockHash == (common.Hash{}) {
 		return 0, false
@@ -50,17 +50,17 @@ func (hmy *Harmony) ResendCx(ctx context.Context, txID common.Hash) (uint64, boo
 }
 
 // GetReceipts ...
-func (hmy *Harmony) GetReceipts(ctx context.Context, hash common.Hash) (types.Receipts, error) {
+func (hmy *Astra) GetReceipts(ctx context.Context, hash common.Hash) (types.Receipts, error) {
 	return hmy.BlockChain.GetReceiptsByHash(hash), nil
 }
 
 // GetTransactionsHistory returns list of transactions hashes of address.
-func (hmy *Harmony) GetTransactionsHistory(address, txType, order string) ([]common.Hash, error) {
+func (hmy *Astra) GetTransactionsHistory(address, txType, order string) ([]common.Hash, error) {
 	return hmy.NodeAPI.GetTransactionsHistory(address, txType, order)
 }
 
 // GetAccountNonce returns the nonce value of the given address for the given block number
-func (hmy *Harmony) GetAccountNonce(
+func (hmy *Astra) GetAccountNonce(
 	ctx context.Context, address common.Address, blockNum rpc.BlockNumber) (uint64, error) {
 	state, _, err := hmy.StateAndHeaderByNumber(ctx, blockNum)
 	if state == nil || err != nil {
@@ -70,11 +70,11 @@ func (hmy *Harmony) GetAccountNonce(
 }
 
 // GetTransactionsCount returns the number of regular transactions of address.
-func (hmy *Harmony) GetTransactionsCount(address, txType string) (uint64, error) {
+func (hmy *Astra) GetTransactionsCount(address, txType string) (uint64, error) {
 	return hmy.NodeAPI.GetTransactionsCount(address, txType)
 }
 
 // GetCurrentTransactionErrorSink ..
-func (hmy *Harmony) GetCurrentTransactionErrorSink() types.TransactionErrorReports {
+func (hmy *Astra) GetCurrentTransactionErrorSink() types.TransactionErrorReports {
 	return hmy.NodeAPI.ReportPlainErrorSink()
 }

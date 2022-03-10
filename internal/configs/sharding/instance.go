@@ -3,8 +3,8 @@ package shardingconfig
 import (
 	"math/big"
 
-	"github.com/harmony-one/harmony/internal/genesis"
-	"github.com/harmony-one/harmony/numeric"
+	"github.com/harmony-one/astra/internal/genesis"
+	"github.com/harmony-one/astra/numeric"
 	"github.com/pkg/errors"
 )
 
@@ -25,8 +25,8 @@ const (
 type instance struct {
 	numShards                       uint32
 	numNodesPerShard                int
-	numHarmonyOperatedNodesPerShard int
-	harmonyVotePercent              numeric.Dec
+	numAstraOperatedNodesPerShard int
+	astraVotePercent              numeric.Dec
 	externalVotePercent             numeric.Dec
 	hmyAccounts                     []genesis.DeployAccount
 	fnAccounts                      []genesis.DeployAccount
@@ -37,7 +37,7 @@ type instance struct {
 // NewInstance creates and validates a new sharding configuration based
 // upon given parameters.
 func NewInstance(
-	numShards uint32, numNodesPerShard, numHarmonyOperatedNodesPerShard int, harmonyVotePercent numeric.Dec,
+	numShards uint32, numNodesPerShard, numAstraOperatedNodesPerShard int, astraVotePercent numeric.Dec,
 	hmyAccounts []genesis.DeployAccount,
 	fnAccounts []genesis.DeployAccount,
 	reshardingEpoch []*big.Int, blocksE uint64,
@@ -52,32 +52,32 @@ func NewInstance(
 			"each shard must have at least one node %d", numNodesPerShard,
 		)
 	}
-	if numHarmonyOperatedNodesPerShard < 0 {
+	if numAstraOperatedNodesPerShard < 0 {
 		return nil, errors.Errorf(
-			"Harmony-operated nodes cannot be negative %d", numHarmonyOperatedNodesPerShard,
+			"Astra-operated nodes cannot be negative %d", numAstraOperatedNodesPerShard,
 		)
 	}
-	if numHarmonyOperatedNodesPerShard > numNodesPerShard {
+	if numAstraOperatedNodesPerShard > numNodesPerShard {
 		return nil, errors.Errorf(""+
-			"number of Harmony-operated nodes cannot exceed "+
+			"number of Astra-operated nodes cannot exceed "+
 			"overall number of nodes per shard %d %d",
-			numHarmonyOperatedNodesPerShard,
+			numAstraOperatedNodesPerShard,
 			numNodesPerShard,
 		)
 	}
-	if harmonyVotePercent.LT(numeric.ZeroDec()) ||
-		harmonyVotePercent.GT(numeric.OneDec()) {
+	if astraVotePercent.LT(numeric.ZeroDec()) ||
+		astraVotePercent.GT(numeric.OneDec()) {
 		return nil, errors.Errorf("" +
-			"total voting power of harmony nodes should be within [0, 1]",
+			"total voting power of astra nodes should be within [0, 1]",
 		)
 	}
 
 	return instance{
 		numShards:                       numShards,
 		numNodesPerShard:                numNodesPerShard,
-		numHarmonyOperatedNodesPerShard: numHarmonyOperatedNodesPerShard,
-		harmonyVotePercent:              harmonyVotePercent,
-		externalVotePercent:             numeric.OneDec().Sub(harmonyVotePercent),
+		numAstraOperatedNodesPerShard: numAstraOperatedNodesPerShard,
+		astraVotePercent:              astraVotePercent,
+		externalVotePercent:             numeric.OneDec().Sub(astraVotePercent),
 		hmyAccounts:                     hmyAccounts,
 		fnAccounts:                      fnAccounts,
 		reshardingEpoch:                 reshardingEpoch,
@@ -90,14 +90,14 @@ func NewInstance(
 // It is intended to be used for static initialization.
 func MustNewInstance(
 	numShards uint32,
-	numNodesPerShard, numHarmonyOperatedNodesPerShard int,
-	harmonyVotePercent numeric.Dec,
+	numNodesPerShard, numAstraOperatedNodesPerShard int,
+	astraVotePercent numeric.Dec,
 	hmyAccounts []genesis.DeployAccount,
 	fnAccounts []genesis.DeployAccount,
 	reshardingEpoch []*big.Int, blocksPerEpoch uint64,
 ) Instance {
 	sc, err := NewInstance(
-		numShards, numNodesPerShard, numHarmonyOperatedNodesPerShard, harmonyVotePercent,
+		numShards, numNodesPerShard, numAstraOperatedNodesPerShard, astraVotePercent,
 		hmyAccounts, fnAccounts, reshardingEpoch, blocksPerEpoch,
 	)
 	if err != nil {
@@ -116,9 +116,9 @@ func (sc instance) NumShards() uint32 {
 	return sc.numShards
 }
 
-// HarmonyVotePercent returns total percentage of voting power harmony nodes possess.
-func (sc instance) HarmonyVotePercent() numeric.Dec {
-	return sc.harmonyVotePercent
+// AstraVotePercent returns total percentage of voting power astra nodes possess.
+func (sc instance) AstraVotePercent() numeric.Dec {
+	return sc.astraVotePercent
 }
 
 // ExternalVotePercent returns total percentage of voting power external validators possess.
@@ -131,13 +131,13 @@ func (sc instance) NumNodesPerShard() int {
 	return sc.numNodesPerShard
 }
 
-// NumHarmonyOperatedNodesPerShard returns number of nodes in each shard
-// that are operated by Harmony.
-func (sc instance) NumHarmonyOperatedNodesPerShard() int {
-	return sc.numHarmonyOperatedNodesPerShard
+// NumAstraOperatedNodesPerShard returns number of nodes in each shard
+// that are operated by Astra.
+func (sc instance) NumAstraOperatedNodesPerShard() int {
+	return sc.numAstraOperatedNodesPerShard
 }
 
-// HmyAccounts returns the list of Harmony accounts
+// HmyAccounts returns the list of Astra accounts
 func (sc instance) HmyAccounts() []genesis.DeployAccount {
 	return sc.hmyAccounts
 }

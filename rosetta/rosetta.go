@@ -13,18 +13,18 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/server"
 	"github.com/coinbase/rosetta-sdk-go/types"
 
-	"github.com/harmony-one/harmony/hmy"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/rosetta/common"
-	"github.com/harmony-one/harmony/rosetta/services"
+	"github.com/harmony-one/astra/hmy"
+	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/rosetta/common"
+	"github.com/harmony-one/astra/rosetta/services"
 )
 
 var listener net.Listener
 
 // StartServers starts the rosetta http server
 // TODO (dm): optimize rosetta to use single flight & use extra caching type DB to avoid re-processing data
-func StartServers(hmy *hmy.Harmony, config nodeconfig.RosettaServerConfig, limiterEnable bool, rateLimit int) error {
+func StartServers(hmy *hmy.Astra, config nodeconfig.RosettaServerConfig, limiterEnable bool, rateLimit int) error {
 	if !config.HTTPEnabled {
 		utils.Logger().Info().Msg("Rosetta http server disabled...")
 		return nil
@@ -77,7 +77,7 @@ func newHTTPServer(handler http.Handler) *http.Server {
 	}
 }
 
-func getRouter(asserter *asserter.Asserter, hmy *hmy.Harmony, limiterEnable bool, rateLimit int) http.Handler {
+func getRouter(asserter *asserter.Asserter, hmy *hmy.Astra, limiterEnable bool, rateLimit int) http.Handler {
 	return server.NewRouter(
 		server.NewAccountAPIController(services.NewAccountAPI(hmy), asserter),
 		server.NewBlockAPIController(services.NewBlockAPI(hmy), asserter),

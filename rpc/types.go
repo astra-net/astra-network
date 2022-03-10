@@ -10,19 +10,19 @@ import (
 	"strings"
 	"time"
 
-	internal_common "github.com/harmony-one/harmony/internal/common"
+	internal_common "github.com/harmony-one/astra/internal/common"
 	"github.com/pkg/errors"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/common/math"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/harmony/block"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/shard"
+	"github.com/harmony-one/astra/block"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/numeric"
+	"github.com/harmony-one/astra/shard"
 	jsoniter "github.com/json-iterator/go"
 )
 

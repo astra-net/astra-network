@@ -5,11 +5,11 @@ import (
 	"testing"
 
 	common "github.com/ethereum/go-ethereum/common"
-	common2 "github.com/harmony-one/harmony/internal/common"
+	common2 "github.com/harmony-one/astra/internal/common"
 )
 
 var (
-	testAddr, _   = common2.Bech32ToAddress("Ax129r9pj3sk0re76f7zs3qz92rggmdgjhtwge62k")
+	testAddr, _   = common2.ParseAddr("0x514650ca30b3c79f693e14220115434236d44aeb")
 	delegatorAddr = common.Address(testAddr)
 	delegationAmt = big.NewInt(100000)
 	// create a new delegation:

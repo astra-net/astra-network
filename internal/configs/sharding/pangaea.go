@@ -3,10 +3,10 @@ package shardingconfig
 import (
 	"math/big"
 
-	"github.com/harmony-one/harmony/numeric"
+	"github.com/harmony-one/astra/numeric"
 
-	"github.com/harmony-one/harmony/internal/genesis"
-	"github.com/harmony-one/harmony/internal/params"
+	"github.com/harmony-one/astra/internal/genesis"
+	"github.com/harmony-one/astra/internal/params"
 )
 
 // PangaeaSchedule is the Pangaea sharding configuration schedule.
@@ -75,5 +75,5 @@ var pangaeaReshardingEpoch = []*big.Int{
 	params.PangaeaChainConfig.StakingEpoch,
 }
 
-var pangaeaV0 = MustNewInstance(4, 30, 30, numeric.OneDec(), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, pangaeaReshardingEpoch, PangaeaSchedule.BlocksPerEpoch())
-var pangaeaV1 = MustNewInstance(4, 110, 30, numeric.MustNewDecFromStr("0.68"), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, pangaeaReshardingEpoch, PangaeaSchedule.BlocksPerEpoch())
+var pangaeaV0 = MustNewInstance(4, 30, 30, numeric.OneDec(), genesis.TNAstraAccounts, genesis.TNFoundationalAccounts, pangaeaReshardingEpoch, PangaeaSchedule.BlocksPerEpoch())
+var pangaeaV1 = MustNewInstance(4, 110, 30, numeric.MustNewDecFromStr("0.68"), genesis.TNAstraAccounts, genesis.TNFoundationalAccounts, pangaeaReshardingEpoch, PangaeaSchedule.BlocksPerEpoch())

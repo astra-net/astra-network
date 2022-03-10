@@ -21,8 +21,8 @@ import (
 	"testing"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/internal/params"
+	"github.com/harmony-one/astra/core/state"
+	"github.com/harmony-one/astra/internal/params"
 )
 
 type dummyContractRef struct {

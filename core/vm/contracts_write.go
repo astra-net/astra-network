@@ -5,9 +5,9 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/staking"
-	stakingTypes "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/shard"
+	"github.com/harmony-one/astra/staking"
+	stakingTypes "github.com/harmony-one/astra/staking/types"
 )
 
 // WriteCapablePrecompiledContractsStaking lists out the write capable precompiled contracts

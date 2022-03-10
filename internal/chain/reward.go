@@ -7,25 +7,25 @@ import (
 	"sort"
 	"time"
 
-	"github.com/harmony-one/harmony/internal/params"
+	"github.com/harmony-one/astra/internal/params"
 	lru "github.com/hashicorp/golang-lru"
 
-	"github.com/harmony-one/harmony/numeric"
-	types2 "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/numeric"
+	types2 "github.com/harmony-one/astra/staking/types"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/harmony/block"
-	"github.com/harmony-one/harmony/consensus/engine"
-	"github.com/harmony-one/harmony/consensus/reward"
-	"github.com/harmony-one/harmony/consensus/votepower"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/staking/availability"
-	"github.com/harmony-one/harmony/staking/network"
-	stakingReward "github.com/harmony-one/harmony/staking/reward"
+	"github.com/harmony-one/astra/block"
+	"github.com/harmony-one/astra/consensus/engine"
+	"github.com/harmony-one/astra/consensus/reward"
+	"github.com/harmony-one/astra/consensus/votepower"
+	"github.com/harmony-one/astra/core/state"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/shard"
+	"github.com/harmony-one/astra/staking/availability"
+	"github.com/harmony-one/astra/staking/network"
+	stakingReward "github.com/harmony-one/astra/staking/reward"
 	"github.com/pkg/errors"
 )
 
@@ -519,7 +519,7 @@ func distributeRewardBeforeAggregateEpoch(bc engine.ChainReader, state *state.DB
 	allSignersShare := numeric.ZeroDec()
 	for j := range payable {
 		voter := votingPower.Voters[payable[j].BLSPublicKey]
-		if !voter.IsHarmonyNode {
+		if !voter.IsAstraNode {
 			voterShare := voter.OverallPercent
 			allSignersShare = allSignersShare.Add(voterShare)
 		}
@@ -527,7 +527,7 @@ func distributeRewardBeforeAggregateEpoch(bc engine.ChainReader, state *state.DB
 	for beaconMember := range payable {
 		blsKey := payable[beaconMember].BLSPublicKey
 		voter := votingPower.Voters[blsKey]
-		if !voter.IsHarmonyNode {
+		if !voter.IsAstraNode {
 			snapshot, err := bc.ReadValidatorSnapshot(voter.EarningAccount)
 			if err != nil {
 				return network.EmptyPayout, err
@@ -608,7 +608,7 @@ func processOneCrossLink(bc engine.ChainReader, state *state.DB, cxLink types.Cr
 	allSignersShare := numeric.ZeroDec()
 	for j := range payableSigners {
 		voter := votingPower.Voters[payableSigners[j].BLSPublicKey]
-		if !voter.IsHarmonyNode {
+		if !voter.IsAstraNode {
 			voterShare := voter.OverallPercent
 			allSignersShare = allSignersShare.Add(voterShare)
 		}
@@ -618,7 +618,7 @@ func processOneCrossLink(bc engine.ChainReader, state *state.DB, cxLink types.Cr
 	startTimeLocal = time.Now()
 	for j := range payableSigners {
 		voter := votingPower.Voters[payableSigners[j].BLSPublicKey]
-		if !voter.IsHarmonyNode && !voter.OverallPercent.IsZero() {
+		if !voter.IsAstraNode && !voter.OverallPercent.IsZero() {
 			due := defaultReward.Mul(
 				voter.OverallPercent.Quo(allSignersShare),
 			)

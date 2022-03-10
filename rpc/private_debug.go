@@ -3,19 +3,19 @@ package rpc
 import (
 	"context"
 
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/hmy"
+	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/hmy"
 )
 
 // PrivateDebugService Internal JSON RPC for debugging purpose
 type PrivateDebugService struct {
-	hmy     *hmy.Harmony
+	hmy     *hmy.Astra
 	version Version
 }
 
 // NewPrivateDebugAPI creates a new API for the RPC interface
 // TODO(dm): expose public via config
-func NewPrivateDebugAPI(hmy *hmy.Harmony, version Version) rpc.API {
+func NewPrivateDebugAPI(hmy *hmy.Astra, version Version) rpc.API {
 	return rpc.API{
 		Namespace: version.Namespace(),
 		Version:   APIVersion,
@@ -52,7 +52,7 @@ func (s *PrivateDebugService) GetConsensusPhase(
 	return s.hmy.NodeAPI.GetConsensusPhase()
 }
 
-// GetConfig get harmony config
+// GetConfig get astra config
 func (s *PrivateDebugService) GetConfig(
 	ctx context.Context,
 ) (StructuredResponse, error) {

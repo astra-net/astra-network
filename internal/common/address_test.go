@@ -23,32 +23,7 @@ import (
 	"reflect"
 	"strings"
 	"testing"
-
-	ethCommon "github.com/ethereum/go-ethereum/common"
 )
-
-func TestIsBech32Address(t *testing.T) {
-	tests := []struct {
-		str string
-		exp bool
-	}{
-		{"Ax1ay37rp2pc3kjarg7a322vu3sa8j9puahg679z3", true},
-		{"Ax1fdv7u7rll9epgcqv9xxh9lhwq427nsqldp8ua9", true},
-		{"tAx1fdv7u7rll9epgcqv9xxh9lhwq427nsqlr5wca5", true},
-		{"tAx1fdv7u7rll9epgcqv9xxh9lhwq427nsqlr5wca1", false},
-		{"xAx1fdv7u7rll9epgcqv9xxh9lhwq427nsqlr5wca5", false},
-		{"ne1fdv7u7rll9epgcqv9xxh9lhwq427nsqlr5wca5", false},
-		{"1Ax1fdv7u7rll9epgcqv9xxh9lhwq427nsqlr5wca5", false},
-		{"one2fdv7u7rll9epgcqv9xxh9lhwq427nsqlr5wca5", false},
-	}
-
-	for _, test := range tests {
-		if result := IsBech32Address(test.str); result != test.exp {
-			t.Errorf("IsBech32Address(%s) == %v; expected %v",
-				test.str, result, test.exp)
-		}
-	}
-}
 
 func TestHashJsonValidation(t *testing.T) {
 	var tests = []struct {
@@ -127,37 +102,16 @@ func TestAddressHexChecksum(t *testing.T) {
 		{"0x000000000000000000000000000000000000000a", "0x000000000000000000000000000000000000000A"},
 	}
 	for i, test := range tests {
-		output := HexToAddress(test.Input).Bech32()
-		if output != test.Output {
+		output := HexToAddress(test.Input)
+		if output.Hash().Hex() != test.Output {
 			t.Errorf("test #%d: failed to match when it should (%s != %s)", i, output, test.Output)
 		}
 	}
 }
 
-func BenchmarkAddressBech32(b *testing.B) {
-	testAddr := HexToAddress("0x5aaeb6053f3e94c9b9a09f33669435e7ef1beaed")
-	for n := 0; n < b.N; n++ {
-		testAddr.Bech32()
-	}
-}
-
-func TestAddressToBech32(t *testing.T) {
-	adr := ethCommon.HexToAddress("0x15a128e599b74842bccba860311efa92991bffb5")
-	if address, err := AddressToBech32(adr); err == nil {
-		if address != "Ax1zksj3evekayy90xt4psrz8h6j2v3hla4qwz4ur" {
-			t.Errorf("error on parseAddr")
-		}
-	}
-}
-
 func TestParseAddr(t *testing.T) {
-	adr := ethCommon.HexToAddress("0x15a128e599b74842bccba860311efa92991bffb5")
-	adr2, _ := ParseAddr("Ax1zksj3evekayy90xt4psrz8h6j2v3hla4qwz4ur")
-	if adr.Hex() != adr2.Hex() {
-		t.Errorf("error on ParseAddr")
-	}
 	// Parsing incorrect address
-	adr3, _ := ParseAddr("helloworldAx1zksj3evekayy90xt4psrz8h6j2v3hla4qwz4ufdfsrfasdfadfas")
+	adr3, _ := ParseAddr("helloworldone1zksj3evekayy90xt4psrz8h6j2v3hla4qwz4ufdfsrfasdfadfas")
 	if adr3.Hex() != "0x0000000000000000000000000000000000000000" {
 		t.Errorf("error on ParseAddr")
 	}

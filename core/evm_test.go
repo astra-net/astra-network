@@ -13,18 +13,18 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethdb"
 	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/harmony/block"
-	blockfactory "github.com/harmony-one/harmony/block/factory"
-	"github.com/harmony-one/harmony/common/denominations"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/core/vm"
-	"github.com/harmony-one/harmony/crypto/bls"
-	"github.com/harmony-one/harmony/crypto/hash"
-	chain2 "github.com/harmony-one/harmony/internal/chain"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/numeric"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/block"
+	blockfactory "github.com/harmony-one/astra/block/factory"
+	"github.com/harmony-one/astra/common/denominations"
+	"github.com/harmony-one/astra/core/state"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/core/vm"
+	"github.com/harmony-one/astra/crypto/bls"
+	"github.com/harmony-one/astra/crypto/hash"
+	chain2 "github.com/harmony-one/astra/internal/chain"
+	"github.com/harmony-one/astra/internal/params"
+	"github.com/harmony-one/astra/numeric"
+	staking "github.com/harmony-one/astra/staking/types"
 )
 
 func getTestEnvironment(testBankKey ecdsa.PrivateKey) (*BlockChain, *state.DB, *block.Header, ethdb.Database) {
@@ -381,7 +381,7 @@ func sampleEditValidator(key ecdsa.PrivateKey) staking.EditValidator {
 		Description: staking.Description{
 			Name:            "Alice",
 			Identity:        "alice",
-			Website:         "alice.harmony.one",
+			Website:         "alice.astra.one",
 			SecurityContact: "Bob",
 			Details:         "Don't mess with me!!!",
 		},

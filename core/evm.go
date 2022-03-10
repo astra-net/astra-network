@@ -25,14 +25,14 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/harmony/block"
-	consensus_engine "github.com/harmony-one/harmony/consensus/engine"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/core/vm"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/internal/utils"
-	staking "github.com/harmony-one/harmony/staking"
-	stakingTypes "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/block"
+	consensus_engine "github.com/harmony-one/astra/consensus/engine"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/core/vm"
+	"github.com/harmony-one/astra/internal/params"
+	"github.com/harmony-one/astra/internal/utils"
+	staking "github.com/harmony-one/astra/staking"
+	stakingTypes "github.com/harmony-one/astra/staking/types"
 )
 
 // ChainContext supports retrieving headers and consensus parameters from the

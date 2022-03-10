@@ -3,10 +3,10 @@ package common
 import (
 	"encoding/json"
 
-	harmonyconfig "github.com/harmony-one/harmony/internal/configs/harmony"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
+	astraconfig "github.com/harmony-one/astra/internal/configs/astra"
+	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
 
-	"github.com/harmony-one/harmony/internal/params"
+	"github.com/harmony-one/astra/internal/params"
 	"github.com/libp2p/go-libp2p-core/peer"
 )
 
@@ -85,7 +85,7 @@ type NodePeerInfo struct {
 }
 
 type Config struct {
-	HarmonyConfig harmonyconfig.HarmonyConfig
+	AstraConfig astraconfig.AstraConfig
 	NodeConfig    nodeconfig.ConfigType
 	ChainConfig   params.ChainConfig
 }

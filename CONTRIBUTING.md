@@ -1,4 +1,4 @@
-# Contributing To Harmony
+# Contributing To Astra
 
 ## Coding Guidelines
 
@@ -25,8 +25,8 @@ For exampple, a typical workflow is like the following.
 ```bash
 # assuming you are working on a fix of bug1, and use a local branch called "fixes_of_bug1".
 
-git clone https://github.com/harmony-one/harmony
-cd harmony
+git clone https://github.com/harmony-one/astra
+cd astra
 
 # create a local branch to keep track of the origin/master
 git branch fixes_of_bug1 origin/master

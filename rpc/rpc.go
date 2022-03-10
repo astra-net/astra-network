@@ -6,13 +6,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/hmy"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	"github.com/harmony-one/harmony/internal/utils"
-	eth "github.com/harmony-one/harmony/rpc/eth"
-	v1 "github.com/harmony-one/harmony/rpc/v1"
-	v2 "github.com/harmony-one/harmony/rpc/v2"
+	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/hmy"
+	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	"github.com/harmony-one/astra/internal/utils"
+	eth "github.com/harmony-one/astra/rpc/eth"
+	v1 "github.com/harmony-one/astra/rpc/v1"
+	v2 "github.com/harmony-one/astra/rpc/v2"
 )
 
 // Version enum
@@ -71,7 +71,7 @@ func (n Version) Namespace() string {
 }
 
 // StartServers starts the http & ws servers
-func StartServers(hmy *hmy.Harmony, apis []rpc.API, config nodeconfig.RPCServerConfig) error {
+func StartServers(hmy *hmy.Astra, apis []rpc.API, config nodeconfig.RPCServerConfig) error {
 	apis = append(apis, getAPIs(hmy, config.DebugEnabled, config.RateLimiterEnabled, config.RequestsPerSecond)...)
 	authApis := append(apis, getAuthAPIs(hmy, config.DebugEnabled, config.RateLimiterEnabled, config.RequestsPerSecond)...)
 
@@ -133,7 +133,7 @@ func StopServers() error {
 	return nil
 }
 
-func getAuthAPIs(hmy *hmy.Harmony, debugEnable bool, rateLimiterEnable bool, ratelimit int) []rpc.API {
+func getAuthAPIs(hmy *hmy.Astra, debugEnable bool, rateLimiterEnable bool, ratelimit int) []rpc.API {
 	return []rpc.API{
 		NewPublicTraceAPI(hmy, Debug), // Debug version means geth trace rpc
 		NewPublicTraceAPI(hmy, Trace), // Trace version means parity trace rpc
@@ -141,12 +141,12 @@ func getAuthAPIs(hmy *hmy.Harmony, debugEnable bool, rateLimiterEnable bool, rat
 }
 
 // getAPIs returns all the API methods for the RPC interface
-func getAPIs(hmy *hmy.Harmony, debugEnable bool, rateLimiterEnable bool, ratelimit int) []rpc.API {
+func getAPIs(hmy *hmy.Astra, debugEnable bool, rateLimiterEnable bool, ratelimit int) []rpc.API {
 	publicAPIs := []rpc.API{
 		// Public methods
-		NewPublicHarmonyAPI(hmy, V1),
-		NewPublicHarmonyAPI(hmy, V2),
-		NewPublicHarmonyAPI(hmy, Eth),
+		NewPublicAstraAPI(hmy, V1),
+		NewPublicAstraAPI(hmy, V2),
+		NewPublicAstraAPI(hmy, Eth),
 		NewPublicBlockchainAPI(hmy, V1, rateLimiterEnable, ratelimit),
 		NewPublicBlockchainAPI(hmy, V2, rateLimiterEnable, ratelimit),
 		NewPublicBlockchainAPI(hmy, Eth, rateLimiterEnable, ratelimit),

@@ -9,7 +9,7 @@ import (
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/harmony-one/harmony/eth/rpc"
+	"github.com/harmony-one/astra/eth/rpc"
 )
 
 // FilterCriteria represents a request to create a new filter.

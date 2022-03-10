@@ -12,12 +12,12 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/harmony-one/harmony/common/denominations"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/hmy"
-	hmyCommon "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/internal/utils"
+	"github.com/harmony-one/astra/common/denominations"
+	"github.com/harmony-one/astra/core"
+	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/hmy"
+	hmyCommon "github.com/harmony-one/astra/internal/common"
+	"github.com/harmony-one/astra/internal/utils"
 )
 
 const (
@@ -25,17 +25,17 @@ const (
 	defaultFromAddress = "0x0000000000000000000000000000000000000000"
 )
 
-// PublicContractService provides an API to access Harmony's contract services.
+// PublicContractService provides an API to access Astra's contract services.
 // It offers only methods that operate on public data that is freely available to anyone.
 type PublicContractService struct {
-	hmy     *hmy.Harmony
+	hmy     *hmy.Astra
 	version Version
 	// TEMP SOLUTION to rpc node spamming issue
 	limiterCall *rate.Limiter
 }
 
 // NewPublicContractAPI creates a new API for the RPC interface
-func NewPublicContractAPI(hmy *hmy.Harmony, version Version) rpc.API {
+func NewPublicContractAPI(hmy *hmy.Astra, version Version) rpc.API {
 	return rpc.API{
 		Namespace: version.Namespace(),
 		Version:   APIVersion,
@@ -144,7 +144,7 @@ func (s *PublicContractService) GetStorageAt(
 
 // DoEVMCall executes an EVM call
 func DoEVMCall(
-	ctx context.Context, hmy *hmy.Harmony, args CallArgs, blockNum rpc.BlockNumber,
+	ctx context.Context, hmy *hmy.Astra, args CallArgs, blockNum rpc.BlockNumber,
 	timeout time.Duration,
 ) (core.ExecutionResult, error) {
 	defer func(start time.Time) {

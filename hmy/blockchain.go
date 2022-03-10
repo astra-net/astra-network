@@ -8,35 +8,34 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/bloombits"
 	"github.com/ethereum/go-ethereum/event"
-	"github.com/harmony-one/harmony/block"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/rawdb"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/crypto/bls"
-	internal_bls "github.com/harmony-one/harmony/crypto/bls"
-	"github.com/harmony-one/harmony/eth/rpc"
-	internal_common "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/staking/availability"
-	stakingReward "github.com/harmony-one/harmony/staking/reward"
+	"github.com/harmony-one/astra/block"
+	"github.com/harmony-one/astra/core"
+	"github.com/harmony-one/astra/core/rawdb"
+	"github.com/harmony-one/astra/core/state"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/crypto/bls"
+	internal_bls "github.com/harmony-one/astra/crypto/bls"
+	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/internal/params"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/shard"
+	"github.com/harmony-one/astra/staking/availability"
+	stakingReward "github.com/harmony-one/astra/staking/reward"
 	"github.com/pkg/errors"
 )
 
 // ChainConfig ...
-func (hmy *Harmony) ChainConfig() *params.ChainConfig {
+func (hmy *Astra) ChainConfig() *params.ChainConfig {
 	return hmy.BlockChain.Config()
 }
 
 // GetShardState ...
-func (hmy *Harmony) GetShardState() (*shard.State, error) {
+func (hmy *Astra) GetShardState() (*shard.State, error) {
 	return hmy.BlockChain.ReadShardState(hmy.BlockChain.CurrentHeader().Epoch())
 }
 
 // GetBlockSigners ..
-func (hmy *Harmony) GetBlockSigners(
+func (hmy *Astra) GetBlockSigners(
 	ctx context.Context, blockNum rpc.BlockNumber,
 ) (shard.SlotList, *internal_bls.Mask, error) {
 	blk, err := hmy.BlockByNumber(ctx, blockNum)
@@ -86,7 +85,7 @@ type DetailedBlockSignerInfo struct {
 }
 
 // GetDetailedBlockSignerInfo fetches the block signer information for any non-genesis block
-func (hmy *Harmony) GetDetailedBlockSignerInfo(
+func (hmy *Astra) GetDetailedBlockSignerInfo(
 	ctx context.Context, blk *types.Block,
 ) (*DetailedBlockSignerInfo, error) {
 	parentBlk, err := hmy.BlockByNumber(ctx, rpc.BlockNumber(blk.NumberU64()-1))
@@ -112,7 +111,7 @@ type PreStakingBlockRewards map[common.Address]*big.Int
 
 // GetPreStakingBlockRewards for the given block number.
 // Calculated rewards are done exactly like chain.AccumulateRewardsAndCountSigs.
-func (hmy *Harmony) GetPreStakingBlockRewards(
+func (hmy *Astra) GetPreStakingBlockRewards(
 	ctx context.Context, blk *types.Block,
 ) (PreStakingBlockRewards, error) {
 	if hmy.IsStakingEpoch(blk.Epoch()) {
@@ -173,7 +172,7 @@ func (hmy *Harmony) GetPreStakingBlockRewards(
 }
 
 // GetLatestChainHeaders ..
-func (hmy *Harmony) GetLatestChainHeaders() *block.HeaderPair {
+func (hmy *Astra) GetLatestChainHeaders() *block.HeaderPair {
 	return &block.HeaderPair{
 		BeaconHeader: hmy.BeaconChain.CurrentHeader(),
 		ShardHeader:  hmy.BlockChain.CurrentHeader(),
@@ -181,7 +180,7 @@ func (hmy *Harmony) GetLatestChainHeaders() *block.HeaderPair {
 }
 
 // GetLastCrossLinks ..
-func (hmy *Harmony) GetLastCrossLinks() ([]*types.CrossLink, error) {
+func (hmy *Astra) GetLastCrossLinks() ([]*types.CrossLink, error) {
 	crossLinks := []*types.CrossLink{}
 	for i := uint32(1); i < shard.Schedule.InstanceForEpoch(hmy.CurrentBlock().Epoch()).NumShards(); i++ {
 		link, err := hmy.BlockChain.ReadShardLastCrossLink(i)
@@ -195,22 +194,22 @@ func (hmy *Harmony) GetLastCrossLinks() ([]*types.CrossLink, error) {
 }
 
 // CurrentBlock ...
-func (hmy *Harmony) CurrentBlock() *types.Block {
+func (hmy *Astra) CurrentBlock() *types.Block {
 	return types.NewBlockWithHeader(hmy.BlockChain.CurrentHeader())
 }
 
 // GetBlock ...
-func (hmy *Harmony) GetBlock(ctx context.Context, hash common.Hash) (*types.Block, error) {
+func (hmy *Astra) GetBlock(ctx context.Context, hash common.Hash) (*types.Block, error) {
 	return hmy.BlockChain.GetBlockByHash(hash), nil
 }
 
 // GetCurrentBadBlocks ..
-func (hmy *Harmony) GetCurrentBadBlocks() []core.BadBlock {
+func (hmy *Astra) GetCurrentBadBlocks() []core.BadBlock {
 	return hmy.BlockChain.BadBlocks()
 }
 
 // GetBalance returns balance of an given address.
-func (hmy *Harmony) GetBalance(ctx context.Context, address common.Address, blockNum rpc.BlockNumber) (*big.Int, error) {
+func (hmy *Astra) GetBalance(ctx context.Context, address common.Address, blockNum rpc.BlockNumber) (*big.Int, error) {
 	s, _, err := hmy.StateAndHeaderByNumber(ctx, blockNum)
 	if s == nil || err != nil {
 		return nil, err
@@ -219,7 +218,7 @@ func (hmy *Harmony) GetBalance(ctx context.Context, address common.Address, bloc
 }
 
 // BlockByNumber ...
-func (hmy *Harmony) BlockByNumber(ctx context.Context, blockNum rpc.BlockNumber) (*types.Block, error) {
+func (hmy *Astra) BlockByNumber(ctx context.Context, blockNum rpc.BlockNumber) (*types.Block, error) {
 	// Pending block is only known by the miner
 	if blockNum == rpc.PendingBlockNumber {
 		return nil, errors.New("not implemented")
@@ -232,7 +231,7 @@ func (hmy *Harmony) BlockByNumber(ctx context.Context, blockNum rpc.BlockNumber)
 }
 
 // HeaderByNumber ...
-func (hmy *Harmony) HeaderByNumber(ctx context.Context, blockNum rpc.BlockNumber) (*block.Header, error) {
+func (hmy *Astra) HeaderByNumber(ctx context.Context, blockNum rpc.BlockNumber) (*block.Header, error) {
 	// Pending block is only known by the miner
 	if blockNum == rpc.PendingBlockNumber {
 		return nil, errors.New("not implemented")
@@ -245,7 +244,7 @@ func (hmy *Harmony) HeaderByNumber(ctx context.Context, blockNum rpc.BlockNumber
 }
 
 // HeaderByHash ...
-func (hmy *Harmony) HeaderByHash(ctx context.Context, blockHash common.Hash) (*block.Header, error) {
+func (hmy *Astra) HeaderByHash(ctx context.Context, blockHash common.Hash) (*block.Header, error) {
 	header := hmy.BlockChain.GetHeaderByHash(blockHash)
 	if header == nil {
 		return nil, errors.New("Header is not found")
@@ -254,7 +253,7 @@ func (hmy *Harmony) HeaderByHash(ctx context.Context, blockHash common.Hash) (*b
 }
 
 // StateAndHeaderByNumber ...
-func (hmy *Harmony) StateAndHeaderByNumber(ctx context.Context, blockNum rpc.BlockNumber) (*state.DB, *block.Header, error) {
+func (hmy *Astra) StateAndHeaderByNumber(ctx context.Context, blockNum rpc.BlockNumber) (*state.DB, *block.Header, error) {
 	// Pending state is only known by the miner
 	if blockNum == rpc.PendingBlockNumber {
 		return nil, nil, errors.New("not implemented")
@@ -270,11 +269,11 @@ func (hmy *Harmony) StateAndHeaderByNumber(ctx context.Context, blockNum rpc.Blo
 
 // GetLeaderAddress returns the one address of the leader, given the coinbaseAddr.
 // Note that the coinbaseAddr is overloaded with the BLS pub key hash in staking era.
-func (hmy *Harmony) GetLeaderAddress(coinbaseAddr common.Address, epoch *big.Int) string {
+func (hmy *Astra) GetLeaderAddress(coinbaseAddr common.Address, epoch *big.Int) string {
 	if hmy.IsStakingEpoch(epoch) {
 		if leader, exists := hmy.leaderCache.Get(coinbaseAddr); exists {
-			bech32, _ := internal_common.AddressToBech32(leader.(common.Address))
-			return bech32
+			addr := leader.(common.Address).String()
+			return addr
 		}
 		committee, err := hmy.GetValidators(epoch)
 		if err != nil {
@@ -284,20 +283,20 @@ func (hmy *Harmony) GetLeaderAddress(coinbaseAddr common.Address, epoch *big.Int
 			addr := utils.GetAddressFromBLSPubKeyBytes(val.BLSPublicKey[:])
 			hmy.leaderCache.Add(addr, val.EcdsaAddress)
 			if addr == coinbaseAddr {
-				bech32, _ := internal_common.AddressToBech32(val.EcdsaAddress)
-				return bech32
+				addr := val.EcdsaAddress.String()
+				return addr
 			}
 		}
 		return "" // Did not find matching address
 	}
-	bech32, _ := internal_common.AddressToBech32(coinbaseAddr)
-	return bech32
+	addr := coinbaseAddr.String()
+	return addr
 }
 
 // Filter related APIs
 
 // GetLogs ...
-func (hmy *Harmony) GetLogs(ctx context.Context, blockHash common.Hash, isEth bool) ([][]*types.Log, error) {
+func (hmy *Astra) GetLogs(ctx context.Context, blockHash common.Hash, isEth bool) ([][]*types.Log, error) {
 	receipts := hmy.BlockChain.GetReceiptsByHash(blockHash)
 	if receipts == nil {
 		return nil, errors.New("Missing receipts")
@@ -328,42 +327,42 @@ func (hmy *Harmony) GetLogs(ctx context.Context, blockHash common.Hash, isEth bo
 }
 
 // ServiceFilter ...
-func (hmy *Harmony) ServiceFilter(ctx context.Context, session *bloombits.MatcherSession) {
+func (hmy *Astra) ServiceFilter(ctx context.Context, session *bloombits.MatcherSession) {
 	// TODO(dm): implement
 }
 
 // SubscribeNewTxsEvent subscribes new tx event.
-// TODO: this is not implemented or verified yet for harmony.
-func (hmy *Harmony) SubscribeNewTxsEvent(ch chan<- core.NewTxsEvent) event.Subscription {
+// TODO: this is not implemented or verified yet for astra.
+func (hmy *Astra) SubscribeNewTxsEvent(ch chan<- core.NewTxsEvent) event.Subscription {
 	return hmy.TxPool.SubscribeNewTxsEvent(ch)
 }
 
 // SubscribeChainEvent subscribes chain event.
-// TODO: this is not implemented or verified yet for harmony.
-func (hmy *Harmony) SubscribeChainEvent(ch chan<- core.ChainEvent) event.Subscription {
+// TODO: this is not implemented or verified yet for astra.
+func (hmy *Astra) SubscribeChainEvent(ch chan<- core.ChainEvent) event.Subscription {
 	return hmy.BlockChain.SubscribeChainEvent(ch)
 }
 
 // SubscribeChainHeadEvent subcribes chain head event.
-// TODO: this is not implemented or verified yet for harmony.
-func (hmy *Harmony) SubscribeChainHeadEvent(ch chan<- core.ChainHeadEvent) event.Subscription {
+// TODO: this is not implemented or verified yet for astra.
+func (hmy *Astra) SubscribeChainHeadEvent(ch chan<- core.ChainHeadEvent) event.Subscription {
 	return hmy.BlockChain.SubscribeChainHeadEvent(ch)
 }
 
 // SubscribeChainSideEvent subcribes chain side event.
-// TODO: this is not implemented or verified yet for harmony.
-func (hmy *Harmony) SubscribeChainSideEvent(ch chan<- core.ChainSideEvent) event.Subscription {
+// TODO: this is not implemented or verified yet for astra.
+func (hmy *Astra) SubscribeChainSideEvent(ch chan<- core.ChainSideEvent) event.Subscription {
 	return hmy.BlockChain.SubscribeChainSideEvent(ch)
 }
 
 // SubscribeRemovedLogsEvent subcribes removed logs event.
-// TODO: this is not implemented or verified yet for harmony.
-func (hmy *Harmony) SubscribeRemovedLogsEvent(ch chan<- core.RemovedLogsEvent) event.Subscription {
+// TODO: this is not implemented or verified yet for astra.
+func (hmy *Astra) SubscribeRemovedLogsEvent(ch chan<- core.RemovedLogsEvent) event.Subscription {
 	return hmy.BlockChain.SubscribeRemovedLogsEvent(ch)
 }
 
 // SubscribeLogsEvent subcribes log event.
-// TODO: this is not implemented or verified yet for harmony.
-func (hmy *Harmony) SubscribeLogsEvent(ch chan<- []*types.Log) event.Subscription {
+// TODO: this is not implemented or verified yet for astra.
+func (hmy *Astra) SubscribeLogsEvent(ch chan<- []*types.Log) event.Subscription {
 	return hmy.BlockChain.SubscribeLogsEvent(ch)
 }

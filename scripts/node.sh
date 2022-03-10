@@ -2,15 +2,15 @@
 
 set -eu
 
-# This script is used to download latest harmony node release
+# This script is used to download latest astra node release
 # And run the binary. Many codes are copied from prysm.sh (eth2 client).
 # Downloaded binaries is saved in staging/ directory
 # Use HARMONY_RELEASE to specify a specific release version
-# Example: HARMONY_RELEASE=v3.0.0 ./node.sh harmony
+# Example: HARMONY_RELEASE=v3.0.0 ./node.sh astra
 
 HARMONY_SIGNING_KEY=539910B02B5BAC637F6615C9799ACE3A9B83DF60
-DOWNLOAD_URL=https://github.com/harmony-one/harmony/releases/download
-HARMONY_PUB_KEY=https://harmony.one/releases/pgp_keys.asc
+DOWNLOAD_URL=https://github.com/harmony-one/astra/releases/download
+HARMONY_PUB_KEY=https://astra.one/releases/pgp_keys.asc
 version="v3 20201206.0"
 
 unset -f progname color usage print_usage get_version do_verify do_download
@@ -25,16 +25,16 @@ color() {
     printf '\033[%sm%s\033[0m\n' "$@"
 }
 
-# return the harmony release version
+# return the astra release version
 get_version() {
     if [[ -n ${HARMONY_RELEASE:-} ]]; then
         readonly reason="specified in \$HARMONY_RELEASE"
-        readonly harmony_rel="${HARMONY_RELEASE}"
+        readonly astra_rel="${HARMONY_RELEASE}"
     else
-        # Find the latest Harmony release available for download.
+        # Find the latest Astra release available for download.
         readonly reason="automatically selected latest available release"
-        harmony_rel=$(curl -f -s https://harmony.one/releases/latest) || (color "31" "Get latest version failed. You may manually download the binaries from Github release page. https://github.com/harmony-one/harmony/releases/" && exit 1)
-        readonly harmony_rel
+        astra_rel=$(curl -f -s https://astra.one/releases/latest) || (color "31" "Get latest version failed. You may manually download the binaries from Github release page. https://github.com/harmony-one/astra/releases/" && exit 1)
+        readonly astra_rel
     fi
 }
 
@@ -44,13 +44,13 @@ print_usage() {
 
 usage: ${progname} [OPTIONS] PROCESS [ARGS]
 
-PROCESS can be: validator/harmony, btcrelay, ethrelay
+PROCESS can be: validator/astra, btcrelay, ethrelay
 
 OPTIONS:
    -h             print this help and exit
    -d             download only (default: off)
    -v             print out the version of the node.sh
-   -V             print out the version of the Harmony binary
+   -V             print out the version of the Astra binary
 
 ARGS will be passed to the PROCESS.
 
@@ -71,7 +71,7 @@ usage() {
 failed_verification() {
     MSG=$(
         cat <<-END
-Failed to verify Harmony binary. Please erase downloads in the
+Failed to verify Astra binary. Please erase downloads in the
 staging directory and run this script again. Alternatively, you can use a
 A prior version by specifying environment variable HARMONY_RELEASE 
 with the specific version, as desired. Example: HARMONY_RELEASE=v2.4.0
@@ -116,7 +116,7 @@ do_verify() {
       gpg -u $HARMONY_SIGNING_KEY --verify "${binary}.sig" "$binary" || failed_verification
    )
 
-   color "32;1" "Verified ${binary} has been signed by Harmony."
+   color "32;1" "Verified ${binary} has been signed by Astra."
 }
 
 do_download() {
@@ -126,9 +126,9 @@ do_download() {
    if [[ ! -x "${wrapper_dir}/${binary}" ]]; then
       color "32" "Downloading ${binary} (${reason})"
 
-      curl -L "${DOWNLOAD_URL}/${harmony_rel}/${binary}" -o "${wrapper_dir}/${binary}"
-      curl --silent -L "${DOWNLOAD_URL}/${harmony_rel}/${binary}.sha256" -o "${wrapper_dir}/${binary}.sha256"
-      curl --silent -L "${DOWNLOAD_URL}/${harmony_rel}/${binary}.sig" -o "${wrapper_dir}/${binary}.sig"
+      curl -L "${DOWNLOAD_URL}/${astra_rel}/${binary}" -o "${wrapper_dir}/${binary}"
+      curl --silent -L "${DOWNLOAD_URL}/${astra_rel}/${binary}.sha256" -o "${wrapper_dir}/${binary}.sha256"
+      curl --silent -L "${DOWNLOAD_URL}/${astra_rel}/${binary}.sig" -o "${wrapper_dir}/${binary}.sig"
       chmod +x "${wrapper_dir}/${binary}"
    else
       color "37" "${binary} is up to date."
@@ -149,7 +149,7 @@ do
    d) download_only=true;;
    v) color "32" "$progname version: $version"
       exit 0 ;;
-   V) INSTALLED_VERSION=$(./harmony version 2>&1)
+   V) INSTALLED_VERSION=$(./astra version 2>&1)
       RUNNING_VERSION=$(curl -s --request POST 'http://127.0.0.1:9500/' --header 'Content-Type: application/json' --data-raw '{ "jsonrpc": "2.0", "method": "hmyv2_getNodeMetadata", "params": [], "id": 1}' | grep -Eo '"version":"[^"]*"' | cut -c11- | tr -d \")
       echo "Binary  Version: $INSTALLED_VERSION"
       echo "Running Version: $RUNNING_VERSION"
@@ -164,10 +164,10 @@ if [ "$#" -lt 1 ]; then
 fi
 
 get_version
-color "37" "Latest Harmony release is: $harmony_rel."
+color "37" "Latest Astra release is: $astra_rel."
 
-readonly wrapper_dir="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/staging/${harmony_rel}"
-VALIDATOR="harmony"
+readonly wrapper_dir="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/staging/${astra_rel}"
+VALIDATOR="astra"
 BTCRELAY="hmy-btcrelay"
 ETHRELAY="hmy-ethrelay"
 mkdir -p "${wrapper_dir}"
@@ -177,7 +177,7 @@ arch=${arch/x86_64/amd64}
 arch=${arch/aarch64/arm64}
 
 case "$1" in
-   validator|harmony)
+   validator|astra)
       readonly process=${VALIDATOR}
       ;;
    btcrelay)
@@ -199,7 +199,7 @@ if ${download_only}; then
    exit 0
 fi
 
-color "36" "Starting harmony $1 ${*:2}"
+color "36" "Starting astra $1 ${*:2}"
 
 exec -a "$0 ${process}" "./${process}" "${@:2}"
 

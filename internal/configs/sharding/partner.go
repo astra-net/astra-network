@@ -3,10 +3,10 @@ package shardingconfig
 import (
 	"math/big"
 
-	"github.com/harmony-one/harmony/numeric"
+	"github.com/harmony-one/astra/numeric"
 
-	"github.com/harmony-one/harmony/internal/genesis"
-	"github.com/harmony-one/harmony/internal/params"
+	"github.com/harmony-one/astra/internal/genesis"
+	"github.com/harmony-one/astra/internal/params"
 )
 
 // PartnerSchedule is the long-running public partner sharding
@@ -76,5 +76,5 @@ var partnerReshardingEpoch = []*big.Int{
 	params.PartnerChainConfig.StakingEpoch,
 }
 
-var partnerV0 = MustNewInstance(2, 5, 5, numeric.OneDec(), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, partnerReshardingEpoch, PartnerSchedule.BlocksPerEpoch())
-var partnerV1 = MustNewInstance(2, 5, 4, numeric.MustNewDecFromStr("0.9"), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, partnerReshardingEpoch, PartnerSchedule.BlocksPerEpoch())
+var partnerV0 = MustNewInstance(2, 5, 5, numeric.OneDec(), genesis.TNAstraAccounts, genesis.TNFoundationalAccounts, partnerReshardingEpoch, PartnerSchedule.BlocksPerEpoch())
+var partnerV1 = MustNewInstance(2, 5, 4, numeric.MustNewDecFromStr("0.9"), genesis.TNAstraAccounts, genesis.TNFoundationalAccounts, partnerReshardingEpoch, PartnerSchedule.BlocksPerEpoch())

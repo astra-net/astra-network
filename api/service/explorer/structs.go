@@ -11,14 +11,13 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	core2 "github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/types"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/internal/utils"
-	staking "github.com/harmony-one/harmony/staking/types"
+	core2 "github.com/harmony-one/astra/core"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/internal/utils"
+	staking "github.com/harmony-one/astra/staking/types"
 )
 
-type oneAddress string
+type addrStr string
 
 type (
 	// TxRecord is the data structure stored in explorer db for the a Transaction record
@@ -156,14 +155,10 @@ func GetTransaction(tx *types.Transaction, addressBlock *types.Block) (*Transact
 	gasFee = gasFee.Mul(tx.GasPrice(), new(big.Int).SetUint64(tx.GasLimit()))
 	to := ""
 	if msg.To() != nil {
-		if to, err = common2.AddressToBech32(*msg.To()); err != nil {
-			return nil, err
-		}
+		to = msg.To().String()
 	}
 	from := ""
-	if from, err = common2.AddressToBech32(msg.From()); err != nil {
-		return nil, err
-	}
+	from = msg.From().String()
 
 	return &Transaction{
 		ID:        tx.HashByType().Hex(),
@@ -236,15 +231,11 @@ func GetStakingTransaction(tx *staking.StakingTransaction, addressBlock *types.B
 
 	to := ""
 	if toAddress != nil {
-		if to, err = common2.AddressToBech32(*toAddress); err != nil {
-			return nil, err
-		}
+		to = toAddress.String()
 	}
 
 	from := ""
-	if from, err = common2.AddressToBech32(msg.From()); err != nil {
-		return nil, err
-	}
+	from = msg.From().String()
 
 	txn := Transaction{
 		ID:        tx.Hash().Hex(),

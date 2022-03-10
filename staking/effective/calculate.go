@@ -6,14 +6,13 @@ import (
 	"math/big"
 	"sort"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/harmony-one/astra/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/numeric"
+	"github.com/harmony-one/astra/numeric"
 )
 
-// medium.com/harmony-one/introducing-harmonys-effective-proof-of-stake-epos-2d39b4b8d58
+// medium.com/harmony-one/introducing-astras-effective-proof-of-stake-epos-2d39b4b8d58
 var (
 	two         = numeric.NewDecFromBigInt(big.NewInt(2))
 	c, _        = numeric.NewDecFromStr("0.15")
@@ -40,7 +39,7 @@ func (p SlotPurchase) MarshalJSON() ([]byte, error) {
 		RawStake  numeric.Dec `json:"raw-stake"`
 		EPoSStake numeric.Dec `json:"eposed-stake"`
 	}{
-		common2.MustAddressToBech32(p.Addr),
+		p.Addr.Hex(),
 		p.Key.Hex(),
 		p.RawStake,
 		p.EPoSStake,

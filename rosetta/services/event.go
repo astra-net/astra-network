@@ -4,16 +4,16 @@ import (
 	"context"
 
 	"github.com/coinbase/rosetta-sdk-go/types"
-	hmyTypes "github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/hmy"
+	hmyTypes "github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/hmy"
 )
 
 // EventAPI implements the server.EventsAPIServicer interface.
 type EventAPI struct {
-	hmy *hmy.Harmony
+	hmy *hmy.Astra
 }
 
-func NewEventAPI(hmy *hmy.Harmony) *EventAPI {
+func NewEventAPI(hmy *hmy.Astra) *EventAPI {
 	return &EventAPI{hmy: hmy}
 }
 

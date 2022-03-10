@@ -5,17 +5,17 @@ import (
 	"sync"
 	"time"
 
-	"github.com/harmony-one/harmony/internal/chain"
+	"github.com/harmony-one/astra/internal/chain"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/harmony-one/astra/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	msg_pb "github.com/harmony-one/harmony/api/proto/message"
-	"github.com/harmony-one/harmony/consensus/quorum"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/p2p"
-	"github.com/harmony-one/harmony/shard"
+	msg_pb "github.com/harmony-one/astra/api/proto/message"
+	"github.com/harmony-one/astra/consensus/quorum"
+	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/p2p"
+	"github.com/harmony-one/astra/shard"
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
 )
@@ -212,7 +212,7 @@ func (consensus *Consensus) getNextLeaderKey(viewID uint64) *bls.PublicKeyWrappe
 		Uint64("myCurBlockViewID", consensus.GetCurBlockViewID()).
 		Msg("[getNextLeaderKey] got leaderPubKey from coinbase")
 	// wasFound, next := consensus.Decider.NthNext(lastLeaderPubKey, gap)
-	// FIXME: rotate leader on harmony nodes only before fully externalization
+	// FIXME: rotate leader on astra nodes only before fully externalization
 	wasFound, next := consensus.Decider.NthNextHmy(
 		shard.Schedule.InstanceForEpoch(epoch),
 		lastLeaderPubKey,

@@ -6,14 +6,14 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/harmony-one/astra/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/crypto/hash"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/internal/genesis"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/staking/effective"
+	"github.com/harmony-one/astra/crypto/hash"
+	common2 "github.com/harmony-one/astra/internal/common"
+	"github.com/harmony-one/astra/internal/genesis"
+	"github.com/harmony-one/astra/numeric"
+	"github.com/harmony-one/astra/staking/effective"
 	"github.com/pkg/errors"
 )
 
@@ -22,7 +22,7 @@ var (
 	hmyBLSPub      bls.SerializedPublicKey
 
 	hmyBLSPubStr     = "c2962419d9999a87daa134f6d177f9ccabfe168a470587b13dd02ce91d1690a92170e5949d3dbdfc1b13fd7327dbef8c"
-	validatorAddr, _ = common2.Bech32ToAddress("Ax1pdv9lrdwl0rg5vglh4xtyrv3wjk3wsqket7zxy")
+	validatorAddr, _ = common2.ParseAddr("0x0b585f8daefbc68a311fbd4cb20d9174ad174016")
 )
 
 var (
@@ -47,17 +47,17 @@ var (
 var (
 	validDescription = Description{
 		Name:            "Jacky Wang",
-		Identity:        "jacky@harmony.one",
-		Website:         "harmony.one/jacky",
-		SecurityContact: "jacky@harmony.one",
+		Identity:        "jacky@astra.one",
+		Website:         "astra.one/jacky",
+		SecurityContact: "jacky@astra.one",
 		Details:         "Details of jacky",
 	}
 
 	invalidDescription = Description{
 		Name:            "thisisaverylonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglongname",
-		Identity:        "jacky@harmony.one",
-		Website:         "harmony.one/jacky",
-		SecurityContact: "jacky@harmony.one",
+		Identity:        "jacky@astra.one",
+		Website:         "astra.one/jacky",
+		SecurityContact: "jacky@astra.one",
 		Details:         "Details of jacky",
 	}
 
@@ -262,22 +262,22 @@ func TestUpdateDescription(t *testing.T) {
 			raw: Description{
 				Name:            "Wayne",
 				Identity:        "wen",
-				Website:         "harmony.one.wen",
+				Website:         "astra.one.wen",
 				SecurityContact: "wenSecurity",
 				Details:         "wenDetails",
 			},
 			update: Description{
 				Name:            "Jacky",
 				Identity:        "jw",
-				Website:         "harmony.one/jacky",
-				SecurityContact: "jacky@harmony.one",
+				Website:         "astra.one/jacky",
+				SecurityContact: "jacky@astra.one",
 				Details:         "Details of Jacky",
 			},
 			expect: Description{
 				Name:            "Jacky",
 				Identity:        "jw",
-				Website:         "harmony.one/jacky",
-				SecurityContact: "jacky@harmony.one",
+				Website:         "astra.one/jacky",
+				SecurityContact: "jacky@astra.one",
 				Details:         "Details of Jacky",
 			},
 		},
@@ -285,7 +285,7 @@ func TestUpdateDescription(t *testing.T) {
 			raw: Description{
 				Name:            "Wayne",
 				Identity:        "wen",
-				Website:         "harmony.one.wen",
+				Website:         "astra.one.wen",
 				SecurityContact: "wenSecurity",
 				Details:         "wenDetails",
 			},
@@ -293,7 +293,7 @@ func TestUpdateDescription(t *testing.T) {
 			expect: Description{
 				Name:            "Wayne",
 				Identity:        "wen",
-				Website:         "harmony.one.wen",
+				Website:         "astra.one.wen",
 				SecurityContact: "wenSecurity",
 				Details:         "wenDetails",
 			},
@@ -302,7 +302,7 @@ func TestUpdateDescription(t *testing.T) {
 			raw: Description{
 				Name:            "Wayne",
 				Identity:        "wen",
-				Website:         "harmony.one.wen",
+				Website:         "astra.one.wen",
 				SecurityContact: "wenSecurity",
 				Details:         "wenDetails",
 			},
@@ -312,7 +312,7 @@ func TestUpdateDescription(t *testing.T) {
 			expect: Description{
 				Name:            "Wayne",
 				Identity:        "wen",
-				Website:         "harmony.one.wen",
+				Website:         "astra.one.wen",
 				SecurityContact: "wenSecurity",
 				Details:         "new details",
 			},
@@ -321,7 +321,7 @@ func TestUpdateDescription(t *testing.T) {
 			raw: Description{
 				Name:            "Wayne",
 				Identity:        "wen",
-				Website:         "harmony.one.wen",
+				Website:         "astra.one.wen",
 				SecurityContact: "wenSecurity",
 				Details:         "wenDetails",
 			},
@@ -353,9 +353,9 @@ func TestDescription_EnsureLength(t *testing.T) {
 		{
 			desc: Description{
 				Name:            "Jacky Wang",
-				Identity:        "jacky@harmony.one",
-				Website:         "harmony.one/jacky",
-				SecurityContact: "jacky@harmony.one",
+				Identity:        "jacky@astra.one",
+				Website:         "astra.one/jacky",
+				SecurityContact: "jacky@astra.one",
 				Details:         "Details of jacky",
 			},
 			expErr: nil,
@@ -367,9 +367,9 @@ func TestDescription_EnsureLength(t *testing.T) {
 		{
 			desc: Description{
 				Name:            "thisisaverylonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglongname",
-				Identity:        "jacky@harmony.one",
-				Website:         "harmony.one/jacky",
-				SecurityContact: "jacky@harmony.one",
+				Identity:        "jacky@astra.one",
+				Website:         "astra.one/jacky",
+				SecurityContact: "jacky@astra.one",
 				Details:         "Details of jacky",
 			},
 			expErr: errors.New("exceed maximum name length"),
@@ -378,8 +378,8 @@ func TestDescription_EnsureLength(t *testing.T) {
 			desc: Description{
 				Name:            "Jacky Wang",
 				Identity:        "thisisaverylonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglongidentity",
-				Website:         "harmony.one/jacky",
-				SecurityContact: "jacky@harmony.one",
+				Website:         "astra.one/jacky",
+				SecurityContact: "jacky@astra.one",
 				Details:         "Details of jacky",
 			},
 			expErr: errors.New("exceed Maximum Length identity"),
@@ -387,9 +387,9 @@ func TestDescription_EnsureLength(t *testing.T) {
 		{
 			desc: Description{
 				Name:            "Jacky Wang",
-				Identity:        "jacky@harmony.one",
+				Identity:        "jacky@astra.one",
 				Website:         "thisisaverylonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglongwebsite",
-				SecurityContact: "jacky@harmony.one",
+				SecurityContact: "jacky@astra.one",
 				Details:         "Details of jacky",
 			},
 			expErr: errors.New("exceed Maximum Length website"),
@@ -397,8 +397,8 @@ func TestDescription_EnsureLength(t *testing.T) {
 		{
 			desc: Description{
 				Name:            "Jacky Wang",
-				Identity:        "jacky@harmony.one",
-				Website:         "harmony.one/jacky",
+				Identity:        "jacky@astra.one",
+				Website:         "astra.one/jacky",
 				SecurityContact: "thisisaverylonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglongcontact",
 				Details:         "Details of jacky",
 			},
@@ -407,9 +407,9 @@ func TestDescription_EnsureLength(t *testing.T) {
 		{
 			desc: Description{
 				Name:            "Jacky Wang",
-				Identity:        "jacky@harmony.one",
-				Website:         "harmony.one/jacky",
-				SecurityContact: "jacky@harmony.one",
+				Identity:        "jacky@astra.one",
+				Website:         "astra.one/jacky",
+				SecurityContact: "jacky@astra.one",
 				Details:         "thisisaverylonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglongdetail",
 			},
 			expErr: errors.New("exceed Maximum Length for details"),
@@ -454,7 +454,7 @@ func TestVerifyBLSKeys(t *testing.T) {
 	}
 }
 
-func TestContainsHarmonyBLSKeys(t *testing.T) {
+func TestContainsAstraBLSKeys(t *testing.T) {
 	pairs := makeBLSPubSigPairs(10)
 	tests := []struct {
 		pubIndexes    []int
@@ -474,7 +474,7 @@ func TestContainsHarmonyBLSKeys(t *testing.T) {
 		dPubs := getPubsFromPairs(pairs, test.deployIndexes)
 		das := makeDeployAccountsFromBLSPubs(dPubs)
 
-		err := containsHarmonyBLSKeys(pubs, das, big.NewInt(0))
+		err := containsAstraBLSKeys(pubs, das, big.NewInt(0))
 		if assErr := assertError(err, test.expErr); assErr != nil {
 			t.Errorf("Test %v: %v", i, assErr)
 		}
@@ -533,9 +533,9 @@ func TestUpdateValidatorFromEditMsg(t *testing.T) {
 			// update Description.Name
 			editValidator: EditValidator{
 				ValidatorAddress: validatorAddr,
-				Description:      Description{Name: "jacky@harmony.one"},
+				Description:      Description{Name: "jacky@astra.one"},
 			},
-			editExpValidator: func(v *Validator) { v.Name = "jacky@harmony.one" },
+			editExpValidator: func(v *Validator) { v.Name = "jacky@astra.one" },
 		},
 		{
 			// Update CommissionRate
@@ -741,7 +741,7 @@ func makeValidValidator() Validator {
 	d := Description{
 		Name:     "Wayne",
 		Identity: "wen",
-		Website:  "harmony.one.wen",
+		Website:  "astra.one.wen",
 		Details:  "best",
 	}
 	v := Validator{

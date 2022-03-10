@@ -8,10 +8,10 @@ import (
 
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/block"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/eth/rpc"
-	hmy_rpc "github.com/harmony-one/harmony/rpc"
+	"github.com/harmony-one/astra/block"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/eth/rpc"
+	hmy_rpc "github.com/harmony-one/astra/rpc"
 )
 
 var (

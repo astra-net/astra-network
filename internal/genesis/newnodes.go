@@ -2,14 +2,14 @@ package genesis
 
 // NewNodeAccounts are the accounts for the new node
 var NewNodeAccounts = [...]DeployAccount{
-	{Index: "0", Address: "Ax1pevmwe74uax00v57lxlv8kjvgqkn2lrv843nt9", BLSPublicKey: "92fa832056e71ea833e24a7e877e2f371ca645cf338a4cb93c2ced40d8d6676eaf15dac642f22c238d58fed279f34700"},
-	{Index: "1", Address: "Ax1p74d4qwzq0r5etrcv7r004pggaaqf0uu273jdl", BLSPublicKey: "d1ac9bbf790e347cbe5e6fb9145f5ffd93e335452f94829df6376c6924fbceea4b96ac8c29778e7b06a92e25bd06f892"},
-	{Index: "2", Address: "Ax1plfz300maxksezvwng87utn0kq04jmcd4jx4c8", BLSPublicKey: "0a4d8c3168072ac82604103b3ca5efd038ae38c6062f303b08a24152b8c58d1ff3b578521f80a386bcfa2ad6c680ba14"},
-	{Index: "3", Address: "Ax1zgllsvfn8cnx95qvvz3vgmm3jcsy2phf4wj7hm", BLSPublicKey: "a31b122157b1d6d958a184361299396b3b72a3cdcd20eb5e07e18bc03034fa1a8ddbd2e0f9e3ed68cd412b7b673c0094"},
-	{Index: "4", Address: "Ax1zfq8w55g6rhfw4vr52nsygqx2ww6mv658l4r5y", BLSPublicKey: "1aeaebce1a8a8aabb64877491a392f63682b3e2a223d1d3c7c5ef8d5b33e5e700543d5c9d8017c8520e6d7193f496f05"},
-	{Index: "5", Address: "Ax1zfacedclk7pn3k00lermk5wzatfej5mct4hh5r", BLSPublicKey: "3ec3dd79bd1a8e27d0fa927bbf0f425ce564a962389a723924f071fc7802bc5924d848980595cd584e3588a6d3e0a191"},
-	{Index: "6", Address: "Ax1zsdsurc9wwdhk7zx2n5h86dez3j8824ef59clr", BLSPublicKey: "f2f085fb9258e47601db4c3b87f9d603b7557b57e1c4e0361f86f42070b45bca09d69276c4717846589b3a99481eed80"},
-	{Index: "7", Address: "Ax1zjfwh58vl42tfss3kd7g3yd6xjfu2ggqsg2ecs", BLSPublicKey: "01c91a20ec490e2e6663a3c5ce04e57b991998f8967453535360de66e14dca797aa5fd270cc6d3dbc31d684d2622af05"},
-	{Index: "8", Address: "Ax1z5c2q3vjl8pm7p4vvpz9yhcgjdld8rkmu9uwdh", BLSPublicKey: "fe3f52d068bb83211b3e804a29f27699f9388d2dd0fcbf91353e4dd68da69636046a24fd5912f8dd5e97388577fd388a"},
-	{Index: "9", Address: "Ax1u24h3m8ny5yyfpv40vjen4fme72ye09gn5mr9q", BLSPublicKey: "c02e49e1395c6fbbabf0d619d872f74774d34ddec83553cf7f687da593253d072d5d050b3b4a3005304e504781847999"},
+	{Index: "0", Address: "0xa5ae3e368ac3f808284591e8e7cc499d3a63ee4f", BLSPublicKey: "78ceaec011b2ce66f49510bab4bd24ccc1e3db92f5ae92a9d4530dc9cb754111f1b248fed1f097ffff34caef801b9a98"},
+	{Index: "1", Address: "0x0c02f90a771728395e5e9556bfa08349d21af322", BLSPublicKey: "86c23e1d097989ddba6f689065f4b8430b819e1880efbbc3db52428e4ac066f3ecae67d3c1c50962fb929a7487332f08"},
+	{Index: "2", Address: "0xa21d0ae1fe1f86eeb4dcb84ff13a8f05832f305e", BLSPublicKey: "b5ede317bfdaf9ee13c93f06eefe7b48486b4dfb029e30a0c751b7d8274a1875e651d8d0e4866dcb95968bf2f8b7e703"},
+	{Index: "3", Address: "0x90acbe3c24149171a1c316d5b51b7371a0ee807a", BLSPublicKey: "98c022a6ee287d648ccf95b2f26e400c650ddfeab7222c23f28af734c5f1213f948aa8334b6d4c818dc689b87df17707"},
+	{Index: "4", Address: "0x8cd2162d534b1ea6b9c0351e0e593c5efe5dabd3", BLSPublicKey: "919e4076d75767b204162c5100c75af8dfc91cfcfd3e42f48b902669510224bc505b4b245663241684ffae3b5f9f4284"},
+	{Index: "5", Address: "0x7c3024736c9aa65adb35dbdb4233679ec73b0a24", BLSPublicKey: "ac696a52c10c4dc67fc63001e4593262fb0fad0bbf9ff329a05e56d7bb2296d8476fdc3db3bbaf3c5f3ae75385477a85"},
+	{Index: "6", Address: "0x3cc21a33a1a8f71af2b93d9d25dcfd7b20488ca6", BLSPublicKey: "b307d4ce5926f0f43499c0fb3159ee24d4b89ef93e8e8bf6909842be29899efc00fe600f7fdd3640c63266b173924713"},
+	{Index: "7", Address: "0xd0e802ec2e95bdbda80a1e744722c5ab2b86a6a3", BLSPublicKey: "5055bcfb8947e0328bbb7941854271ebc59835d930702aedbdc689db6f4518f8a68b85a1003029e71e255c929a51e214"},
+	{Index: "8", Address: "0x1290f7786f8ca45384b4d02a95d69316426453ff", BLSPublicKey: "55125b3e55096c13e96b0191dcd897df8d0a0095bd4f39d9dddb828892e53bf64a769ede60e0916ab255711b963c9c06"},
+	{Index: "9", Address: "0x5a1a5c74b570ffb91eb5db3575d532dffeb8e9fa", BLSPublicKey: "e014a47d4e06d12574fe0ec3cb91c7cd5cbb83a9823f2a9c4022726fef606d0f63da1690d1702374e824e8fcdf1f4103"},
 }

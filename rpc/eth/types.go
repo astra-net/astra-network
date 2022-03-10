@@ -7,8 +7,8 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
-	"github.com/harmony-one/harmony/core/types"
-	hmytypes "github.com/harmony-one/harmony/core/types"
+	"github.com/harmony-one/astra/core/types"
+	hmytypes "github.com/harmony-one/astra/core/types"
 )
 
 // Block represents a basic block which is further amended by BlockWithTxHash or BlockWithFullTx
@@ -72,7 +72,7 @@ type Transaction struct {
 
 // NewTransaction returns a transaction that will serialize to the RPC
 // representation, with the given location metadata set (if available).
-// Note that all txs on Harmony are replay protected (post EIP155 epoch).
+// Note that all txs on Astra are replay protected (post EIP155 epoch).
 func NewTransaction(
 	tx *types.EthTransaction, blockHash common.Hash,
 	blockNumber uint64, timestamp uint64, index uint64,

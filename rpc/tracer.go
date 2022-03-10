@@ -25,11 +25,11 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/rawdb"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/hmy"
+	"github.com/harmony-one/astra/core"
+	"github.com/harmony-one/astra/core/rawdb"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/hmy"
 )
 
 const (
@@ -48,15 +48,15 @@ var (
 	ErrNotAvailable = errors.New("RPC not available yet")
 )
 
-// PublicTracerService provides an API to access Harmony's staking services.
+// PublicTracerService provides an API to access Astra's staking services.
 // It offers only methods that operate on public data that is freely available to anyone.
 type PublicTracerService struct {
-	hmy     *hmy.Harmony
+	hmy     *hmy.Astra
 	version Version
 }
 
 // NewPublicTraceAPI creates a new API for the RPC interface
-func NewPublicTraceAPI(hmy *hmy.Harmony, version Version) rpc.API {
+func NewPublicTraceAPI(hmy *hmy.Astra, version Version) rpc.API {
 	var service interface{} = &PublicTracerService{hmy, version}
 	if version == Trace {
 		service = &PublicParityTracerService{service.(*PublicTracerService)}

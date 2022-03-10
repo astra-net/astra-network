@@ -7,7 +7,7 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/rs/zerolog"
 
-	"github.com/harmony-one/harmony/shard"
+	"github.com/harmony-one/astra/shard"
 )
 
 // Header defines the block header interface.
@@ -107,7 +107,7 @@ type Header interface {
 
 	// MixDigest is the mixhash.
 	//
-	// This field is a remnant from Ethereum, and Harmony does not use it and always
+	// This field is a remnant from Ethereum, and Astra does not use it and always
 	// zeroes it out.
 	MixDigest() common.Hash
 

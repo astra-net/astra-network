@@ -7,24 +7,24 @@ import (
 	"sync"
 	"time"
 
-	"github.com/harmony-one/harmony/hmy/tracers"
+	"github.com/harmony-one/astra/hmy/tracers"
 
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/state"
-	coreTypes "github.com/harmony-one/harmony/core/types"
+	"github.com/harmony-one/astra/core"
+	"github.com/harmony-one/astra/core/state"
+	coreTypes "github.com/harmony-one/astra/core/types"
 
 	"github.com/coinbase/rosetta-sdk-go/server"
 	"github.com/coinbase/rosetta-sdk-go/types"
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	lru "github.com/hashicorp/golang-lru"
 
-	"github.com/harmony-one/harmony/core/rawdb"
-	hmytypes "github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/core/vm"
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/hmy"
-	"github.com/harmony-one/harmony/rosetta/common"
-	stakingTypes "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/core/rawdb"
+	hmytypes "github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/core/vm"
+	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/hmy"
+	"github.com/harmony-one/astra/rosetta/common"
+	stakingTypes "github.com/harmony-one/astra/staking/types"
 )
 
 const (
@@ -34,12 +34,12 @@ const (
 
 // BlockAPI implements the server.BlockAPIServicer interface.
 type BlockAPI struct {
-	hmy          *hmy.Harmony
+	hmy          *hmy.Astra
 	txTraceCache *lru.Cache
 }
 
 // NewBlockAPI creates a new instance of a BlockAPI.
-func NewBlockAPI(hmy *hmy.Harmony) server.BlockAPIServicer {
+func NewBlockAPI(hmy *hmy.Astra) server.BlockAPIServicer {
 	traceCache, _ := lru.New(txTraceCacheSize)
 	return &BlockAPI{
 		hmy:          hmy,
@@ -205,7 +205,7 @@ func (s *BlockAPI) BlockTransaction(
 	return &types.BlockTransactionResponse{Transaction: transaction}, nil
 }
 
-// transactionInfo stores all related information for any transaction on the Harmony chain
+// transactionInfo stores all related information for any transaction on the Astra chain
 // Note that some elements can be nil if not applicable
 type transactionInfo struct {
 	tx        hmytypes.PoolTransaction
@@ -375,7 +375,7 @@ func (s *BlockAPI) getTransactionTrace(
 
 // getBlock ..
 func getBlock(
-	ctx context.Context, hmy *hmy.Harmony, blockID *types.PartialBlockIdentifier,
+	ctx context.Context, hmy *hmy.Astra, blockID *types.PartialBlockIdentifier,
 ) (blk *hmytypes.Block, rosettaError *types.Error) {
 	var err error
 	if blockID.Hash != nil {

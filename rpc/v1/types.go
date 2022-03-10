@@ -10,10 +10,9 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/crypto/bls"
-	internal_common "github.com/harmony-one/harmony/internal/common"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/crypto/bls"
+	staking "github.com/harmony-one/astra/staking/types"
 )
 
 // BlockWithTxHash represents a block that will serialize to the RPC representation of a block
@@ -233,17 +232,11 @@ func NewCxReceipt(cx *types.CXReceipt, blockHash common.Hash, blockNumber uint64
 		result.BlockNumber = (*hexutil.Big)(new(big.Int).SetUint64(blockNumber))
 	}
 
-	fromAddr, err := internal_common.AddressToBech32(cx.From)
-	if err != nil {
-		return nil, err
-	}
 	toAddr := ""
 	if cx.To != nil {
-		if toAddr, err = internal_common.AddressToBech32(*cx.To); err != nil {
-			return nil, err
-		}
+		toAddr = cx.To.Hex()
 	}
-	result.From = fromAddr
+	result.From = cx.From.Hex()
 	result.To = toAddr
 
 	return result, nil
@@ -251,7 +244,7 @@ func NewCxReceipt(cx *types.CXReceipt, blockHash common.Hash, blockNumber uint64
 
 // NewTransaction returns a transaction that will serialize to the RPC
 // representation, with the given location metadata set (if available).
-// Note that all txs on Harmony are replay protected (post EIP155 epoch).
+// Note that all txs on Astra are replay protected (post EIP155 epoch).
 func NewTransaction(
 	tx *types.Transaction, blockHash common.Hash,
 	blockNumber uint64, timestamp uint64, index uint64,
@@ -283,17 +276,12 @@ func NewTransaction(
 		result.TransactionIndex = hexutil.Uint(index)
 	}
 
-	fromAddr, err := internal_common.AddressToBech32(from)
-	if err != nil {
-		return nil, err
-	}
+	fromAddr := from
 	toAddr := ""
 
 	if tx.To() != nil {
-		if toAddr, err = internal_common.AddressToBech32(*tx.To()); err != nil {
-			return nil, err
-		}
-		result.From = fromAddr
+		toAddr = tx.To().Hex()
+		result.From = fromAddr.Hex()
 	} else {
 		result.From = strings.ToLower(from.Hex())
 	}
@@ -334,14 +322,8 @@ func NewTxReceipt(
 		receiver = ""
 	} else {
 		// Handle response type for regular transaction
-		sender, err = internal_common.AddressToBech32(senderAddr)
-		if err != nil {
-			return nil, err
-		}
-		receiver, err = internal_common.AddressToBech32(*tx.To())
-		if err != nil {
-			return nil, err
-		}
+		sender = senderAddr.Hex()
+		receiver = tx.To().Hex()
 	}
 
 	// Declare receipt
@@ -382,10 +364,7 @@ func NewStakingTxReceipt(
 	if err != nil {
 		return nil, err
 	}
-	sender, err := internal_common.AddressToBech32(senderAddr)
-	if err != nil {
-		return nil, err
-	}
+	sender := senderAddr.Hex()
 
 	// Declare receipt
 	txReceipt := &StakingTxReceipt{
@@ -437,10 +416,7 @@ func NewStakingTransaction(tx *staking.StakingTransaction, blockHash common.Hash
 		if !ok {
 			return nil, fmt.Errorf("could not decode staking message")
 		}
-		validatorAddress, err := internal_common.AddressToBech32(msg.ValidatorAddress)
-		if err != nil {
-			return nil, err
-		}
+		validatorAddress := msg.ValidatorAddress.Hex()
 		rpcMsg = &CreateValidatorMsg{
 			ValidatorAddress:   validatorAddress,
 			CommissionRate:     (*hexutil.Big)(msg.CommissionRates.Rate.Int),
@@ -465,10 +441,7 @@ func NewStakingTransaction(tx *staking.StakingTransaction, blockHash common.Hash
 		if !ok {
 			return nil, fmt.Errorf("could not decode staking message")
 		}
-		validatorAddress, err := internal_common.AddressToBech32(msg.ValidatorAddress)
-		if err != nil {
-			return nil, err
-		}
+		validatorAddress := msg.ValidatorAddress.Hex()
 		// Edit validators txs need not have commission rates to edit
 		commissionRate := &hexutil.Big{}
 		if msg.CommissionRate != nil {
@@ -496,10 +469,7 @@ func NewStakingTransaction(tx *staking.StakingTransaction, blockHash common.Hash
 		if !ok {
 			return nil, fmt.Errorf("could not decode staking message")
 		}
-		delegatorAddress, err := internal_common.AddressToBech32(msg.DelegatorAddress)
-		if err != nil {
-			return nil, err
-		}
+		delegatorAddress := msg.DelegatorAddress.Hex()
 		rpcMsg = &CollectRewardsMsg{DelegatorAddress: delegatorAddress}
 	case staking.DirectiveDelegate:
 		rawMsg, err := staking.RLPDecodeStakeMsg(tx.Data(), staking.DirectiveDelegate)
@@ -510,14 +480,8 @@ func NewStakingTransaction(tx *staking.StakingTransaction, blockHash common.Hash
 		if !ok {
 			return nil, fmt.Errorf("could not decode staking message")
 		}
-		delegatorAddress, err := internal_common.AddressToBech32(msg.DelegatorAddress)
-		if err != nil {
-			return nil, err
-		}
-		validatorAddress, err := internal_common.AddressToBech32(msg.ValidatorAddress)
-		if err != nil {
-			return nil, err
-		}
+		delegatorAddress := msg.DelegatorAddress.Hex()
+		validatorAddress := msg.ValidatorAddress.Hex()
 		rpcMsg = &DelegateMsg{
 			DelegatorAddress: delegatorAddress,
 			ValidatorAddress: validatorAddress,
@@ -532,14 +496,8 @@ func NewStakingTransaction(tx *staking.StakingTransaction, blockHash common.Hash
 		if !ok {
 			return nil, fmt.Errorf("could not decode staking message")
 		}
-		delegatorAddress, err := internal_common.AddressToBech32(msg.DelegatorAddress)
-		if err != nil {
-			return nil, err
-		}
-		validatorAddress, err := internal_common.AddressToBech32(msg.ValidatorAddress)
-		if err != nil {
-			return nil, err
-		}
+		delegatorAddress := msg.DelegatorAddress.Hex()
+		validatorAddress := msg.ValidatorAddress.Hex()
 		rpcMsg = &UndelegateMsg{
 			DelegatorAddress: delegatorAddress,
 			ValidatorAddress: validatorAddress,
@@ -565,10 +523,7 @@ func NewStakingTransaction(tx *staking.StakingTransaction, blockHash common.Hash
 		result.TransactionIndex = hexutil.Uint(index)
 	}
 
-	fromAddr, err := internal_common.AddressToBech32(from)
-	if err != nil {
-		return nil, err
-	}
+	fromAddr := from.Hex()
 	result.From = fromAddr
 
 	return result, nil

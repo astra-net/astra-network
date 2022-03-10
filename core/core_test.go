@@ -4,10 +4,10 @@ import (
 	"math/big"
 	"testing"
 
-	blockfactory "github.com/harmony-one/harmony/block/factory"
-	"github.com/harmony-one/harmony/core/types"
-	shardingconfig "github.com/harmony-one/harmony/internal/configs/sharding"
-	"github.com/harmony-one/harmony/shard"
+	blockfactory "github.com/harmony-one/astra/block/factory"
+	"github.com/harmony-one/astra/core/types"
+	shardingconfig "github.com/harmony-one/astra/internal/configs/sharding"
+	"github.com/harmony-one/astra/shard"
 )
 
 func TestIsEpochBlock(t *testing.T) {

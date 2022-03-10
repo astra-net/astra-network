@@ -4,19 +4,19 @@ import (
 	"context"
 	"math/big"
 
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/hmy"
-	internal_common "github.com/harmony-one/harmony/internal/common"
+	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/hmy"
+	internal_common "github.com/harmony-one/astra/internal/common"
 )
 
-// PublicLegacyService provides an API to access the Harmony blockchain.
+// PublicLegacyService provides an API to access the Astra blockchain.
 // Services here are legacy methods, specific to the V1 RPC that can be deprecated in the future.
 type PublicLegacyService struct {
-	hmy *hmy.Harmony
+	hmy *hmy.Astra
 }
 
 // NewPublicLegacyAPI creates a new API for the RPC interface
-func NewPublicLegacyAPI(hmy *hmy.Harmony, namespace string) rpc.API {
+func NewPublicLegacyAPI(hmy *hmy.Astra, namespace string) rpc.API {
 	if namespace == "" {
 		namespace = "hmyv2"
 	}

@@ -25,7 +25,7 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/core/vm"
+	"github.com/harmony-one/astra/core/vm"
 )
 
 type action struct {

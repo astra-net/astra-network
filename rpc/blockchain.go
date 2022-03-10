@@ -18,27 +18,27 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"golang.org/x/time/rate"
 
-	"github.com/harmony-one/harmony/core/types"
-	internal_bls "github.com/harmony-one/harmony/crypto/bls"
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/hmy"
-	"github.com/harmony-one/harmony/internal/chain"
-	internal_common "github.com/harmony-one/harmony/internal/common"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/numeric"
-	rpc_common "github.com/harmony-one/harmony/rpc/common"
-	eth "github.com/harmony-one/harmony/rpc/eth"
-	v1 "github.com/harmony-one/harmony/rpc/v1"
-	v2 "github.com/harmony-one/harmony/rpc/v2"
-	"github.com/harmony-one/harmony/shard"
-	stakingReward "github.com/harmony-one/harmony/staking/reward"
+	"github.com/harmony-one/astra/core/types"
+	internal_bls "github.com/harmony-one/astra/crypto/bls"
+	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/hmy"
+	"github.com/harmony-one/astra/internal/chain"
+	internal_common "github.com/harmony-one/astra/internal/common"
+	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/numeric"
+	rpc_common "github.com/harmony-one/astra/rpc/common"
+	eth "github.com/harmony-one/astra/rpc/eth"
+	v1 "github.com/harmony-one/astra/rpc/v1"
+	v2 "github.com/harmony-one/astra/rpc/v2"
+	"github.com/harmony-one/astra/shard"
+	stakingReward "github.com/harmony-one/astra/staking/reward"
 )
 
-// PublicBlockchainService provides an API to access the Harmony blockchain.
+// PublicBlockchainService provides an API to access the Astra blockchain.
 // It offers only methods that operate on public data that is freely available to anyone.
 type PublicBlockchainService struct {
-	hmy             *hmy.Harmony
+	hmy             *hmy.Astra
 	version         Version
 	limiter         *rate.Limiter
 	rpcBlockFactory rpc_common.BlockFactory
@@ -55,7 +55,7 @@ const (
 )
 
 // NewPublicBlockchainAPI creates a new API for the RPC interface
-func NewPublicBlockchainAPI(hmy *hmy.Harmony, version Version, limiterEnable bool, limit int) rpc.API {
+func NewPublicBlockchainAPI(hmy *hmy.Astra, version Version, limiterEnable bool, limit int) rpc.API {
 	var limiter *rate.Limiter
 	if limiterEnable {
 		limiter = rate.NewLimiter(rate.Limit(limit), limit)
@@ -472,7 +472,7 @@ func (s *PublicBlockchainService) GetSignedBlocks(
 			}
 		}
 	} else {
-		ethAddr, err := internal_common.Bech32ToAddress(address)
+		ethAddr, err := internal_common.ParseAddr(address)
 		if err != nil {
 			return nil, err
 		}
@@ -1088,7 +1088,7 @@ func (s *PublicBlockchainService) GetFullHeader(
 	return response, nil
 }
 
-func isBlockGreaterThanLatest(hmy *hmy.Harmony, blockNum rpc.BlockNumber) bool {
+func isBlockGreaterThanLatest(hmy *hmy.Astra, blockNum rpc.BlockNumber) bool {
 	// rpc.BlockNumber is int64 (latest = -1. pending = -2) and currentBlockNum is uint64.
 	if blockNum == rpc.PendingBlockNumber {
 		return true
@@ -1117,7 +1117,7 @@ type (
 	// rpc_common.BlockDataProvider
 	bcServiceHelper struct {
 		version Version
-		hmy     *hmy.Harmony
+		hmy     *hmy.Astra
 		cache   *bcServiceCache
 	}
 
@@ -1240,7 +1240,7 @@ func (helper *bcServiceHelper) getSignerData(bn uint64) (*signerData, error) {
 	return sd, nil
 }
 
-func getSignerData(hmy *hmy.Harmony, number uint64) (*signerData, error) {
+func getSignerData(hmy *hmy.Astra, number uint64) (*signerData, error) {
 	slots, mask, err := hmy.GetBlockSigners(context.Background(), rpc.BlockNumber(number))
 	if err != nil {
 		return nil, err
@@ -1248,13 +1248,13 @@ func getSignerData(hmy *hmy.Harmony, number uint64) (*signerData, error) {
 	signers := make([]string, 0, len(slots))
 	blsSigners := make([]string, 0, len(slots))
 	for _, validator := range slots {
-		oneAddress, err := internal_common.AddressToBech32(validator.EcdsaAddress)
+		address := validator.EcdsaAddress
 		if err != nil {
 			return nil, err
 		}
 		if ok, err := mask.KeyEnabled(validator.BLSPublicKey); err == nil && ok {
 			blsSigners = append(blsSigners, validator.BLSPublicKey.Hex())
-			signers = append(signers, oneAddress)
+			signers = append(signers, address.Hex())
 		}
 	}
 	return &signerData{

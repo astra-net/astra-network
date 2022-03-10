@@ -11,22 +11,22 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/libp2p/go-libp2p-core/peer"
 
-	"github.com/harmony-one/harmony/block"
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/hmy"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	"github.com/harmony-one/harmony/rosetta/common"
-	commonRPC "github.com/harmony-one/harmony/rpc/common"
-	"github.com/harmony-one/harmony/shard"
+	"github.com/harmony-one/astra/block"
+	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/hmy"
+	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	"github.com/harmony-one/astra/rosetta/common"
+	commonRPC "github.com/harmony-one/astra/rpc/common"
+	"github.com/harmony-one/astra/shard"
 )
 
 // NetworkAPI implements the server.NetworkAPIServicer interface.
 type NetworkAPI struct {
-	hmy *hmy.Harmony
+	hmy *hmy.Astra
 }
 
 // NewNetworkAPI creates a new instance of a NetworkAPI.
-func NewNetworkAPI(hmy *hmy.Harmony) server.NetworkAPIServicer {
+func NewNetworkAPI(hmy *hmy.Astra) server.NetworkAPIServicer {
 	return &NetworkAPI{
 		hmy: hmy,
 	}

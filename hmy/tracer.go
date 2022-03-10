@@ -33,13 +33,13 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/common/math"
 	"github.com/ethereum/go-ethereum/trie"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/core/vm"
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/hmy/tracers"
-	"github.com/harmony-one/harmony/internal/utils"
+	"github.com/harmony-one/astra/core"
+	"github.com/harmony-one/astra/core/state"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/core/vm"
+	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/hmy/tracers"
+	"github.com/harmony-one/astra/internal/utils"
 )
 
 const (
@@ -103,7 +103,7 @@ type txTraceTask struct {
 // TraceChain configures a new tracer according to the provided configuration, and
 // executes all the transactions contained within. The return value will be one item
 // per transaction, dependent on the requested tracer.
-func (hmy *Harmony) TraceChain(ctx context.Context, start, end *types.Block, config *TraceConfig) (*rpc.Subscription, error) {
+func (hmy *Astra) TraceChain(ctx context.Context, start, end *types.Block, config *TraceConfig) (*rpc.Subscription, error) {
 	// Tracing a chain is a **long** operation, only do with subscriptions
 	notifier, supported := rpc.NotifierFromContext(ctx)
 	if !supported {
@@ -182,7 +182,7 @@ func (hmy *Harmony) TraceChain(ctx context.Context, start, end *types.Block, con
 						utils.Logger().Warn().Msg("Tracing failed")
 						break
 					}
-					// EIP 158/161 (Spurious Dragon) does not apply to Harmony
+					// EIP 158/161 (Spurious Dragon) does not apply to Astra
 					task.statedb.Finalise(true)
 					task.results[i] = &TxTraceResult{Result: res}
 				}
@@ -345,7 +345,7 @@ func (hmy *Harmony) TraceChain(ctx context.Context, start, end *types.Block, con
 }
 
 // same as TraceBlock, but only use 1 thread
-func (hmy *Harmony) traceBlockNoThread(ctx context.Context, block *types.Block, config *TraceConfig) ([]*TxTraceResult, error) {
+func (hmy *Astra) traceBlockNoThread(ctx context.Context, block *types.Block, config *TraceConfig) ([]*TxTraceResult, error) {
 	// Create the parent state database
 	if err := hmy.BlockChain.Engine().VerifyHeader(hmy.BlockChain, block.Header(), true); err != nil {
 		return nil, err
@@ -412,7 +412,7 @@ traceLoop:
 // TraceBlock configures a new tracer according to the provided configuration, and
 // executes all the transactions contained within. The return value will be one item
 // per transaction, dependent on the requested tracer.
-func (hmy *Harmony) TraceBlock(ctx context.Context, block *types.Block, config *TraceConfig) ([]*TxTraceResult, error) {
+func (hmy *Astra) TraceBlock(ctx context.Context, block *types.Block, config *TraceConfig) ([]*TxTraceResult, error) {
 	select {
 	case <-ctx.Done():
 		return nil, errors.New("canceled!")
@@ -514,7 +514,7 @@ func (hmy *Harmony) TraceBlock(ctx context.Context, block *types.Block, config *
 // standardTraceBlockToFile configures a new tracer which uses standard JSON output,
 // and traces either a full block or an individual transaction. The return value will
 // be one filename per transaction traced.
-func (hmy *Harmony) standardTraceBlockToFile(ctx context.Context, block *types.Block, config *StdTraceConfig) ([]string, error) {
+func (hmy *Astra) standardTraceBlockToFile(ctx context.Context, block *types.Block, config *StdTraceConfig) ([]string, error) {
 	// If we're tracing a single transaction, make sure it's present
 	if config != nil && config.TxHash != (common.Hash{}) {
 		if !containsTx(block, config.TxHash) {
@@ -628,7 +628,7 @@ func containsTx(block *types.Block, hash common.Hash) bool {
 // ComputeStateDB retrieves the state database associated with a certain block.
 // If no state is locally available for the given block, a number of blocks are
 // attempted to be reexecuted to generate the desired state.
-func (hmy *Harmony) ComputeStateDB(block *types.Block, reexec uint64) (*state.DB, error) {
+func (hmy *Astra) ComputeStateDB(block *types.Block, reexec uint64) (*state.DB, error) {
 	// If we have the state fully available, use that
 	statedb, err := hmy.BlockChain.StateAt(block.Root())
 	if err == nil {
@@ -708,7 +708,7 @@ func (hmy *Harmony) ComputeStateDB(block *types.Block, reexec uint64) (*state.DB
 // executes the given message in the provided environment. The return value will
 // be tracer dependent.
 // NOTE: Only support default StructLogger tracer
-func (hmy *Harmony) TraceTx(ctx context.Context, message core.Message, vmctx vm.Context, statedb *state.DB, config *TraceConfig) (interface{}, error) {
+func (hmy *Astra) TraceTx(ctx context.Context, message core.Message, vmctx vm.Context, statedb *state.DB, config *TraceConfig) (interface{}, error) {
 	// Assemble the structured logger or the JavaScript tracer
 	var (
 		tracer vm.Tracer
@@ -778,7 +778,7 @@ func (hmy *Harmony) TraceTx(ctx context.Context, message core.Message, vmctx vm.
 }
 
 // ComputeTxEnv returns the execution environment of a certain transaction.
-func (hmy *Harmony) ComputeTxEnv(block *types.Block, txIndex int, reexec uint64) (core.Message, vm.Context, *state.DB, error) {
+func (hmy *Astra) ComputeTxEnv(block *types.Block, txIndex int, reexec uint64) (core.Message, vm.Context, *state.DB, error) {
 	// Create the parent state database
 	parent := hmy.BlockChain.GetBlock(block.ParentHash(), block.NumberU64()-1)
 	if parent == nil {
@@ -821,7 +821,7 @@ func (hmy *Harmony) ComputeTxEnv(block *types.Block, txIndex int, reexec uint64)
 }
 
 // ComputeTxEnvEachBlockWithoutApply returns the execution environment of a certain transaction.
-func (hmy *Harmony) ComputeTxEnvEachBlockWithoutApply(block *types.Block, reexec uint64, cb func(int, *types.Transaction, core.Message, vm.Context, *state.DB) bool) error {
+func (hmy *Astra) ComputeTxEnvEachBlockWithoutApply(block *types.Block, reexec uint64, cb func(int, *types.Transaction, core.Message, vm.Context, *state.DB) bool) error {
 	// Create the parent state database
 	parent := hmy.BlockChain.GetBlock(block.ParentHash(), block.NumberU64()-1)
 	if parent == nil {

@@ -6,18 +6,18 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/harmony-one/harmony/crypto/bls"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/numeric"
+	"github.com/harmony-one/astra/crypto/bls"
+	common2 "github.com/harmony-one/astra/internal/common"
+	"github.com/harmony-one/astra/numeric"
 
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/pkg/errors"
 
-	hmyTypes "github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/rosetta/common"
-	stakingTypes "github.com/harmony-one/harmony/staking/types"
+	hmyTypes "github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/rosetta/common"
+	stakingTypes "github.com/harmony-one/astra/staking/types"
 )
 
 const (
@@ -96,7 +96,7 @@ func unpackWrappedTransactionFromString(
 					"message": err,
 				})
 			}
-			validatorAddr, err := common2.Bech32ToAddress(createValidatorMsg.ValidatorAddress)
+			validatorAddr, err := common2.ParseAddr(createValidatorMsg.ValidatorAddress)
 			if err != nil {
 				return nil, nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
 					"message": err,
@@ -140,7 +140,7 @@ func unpackWrappedTransactionFromString(
 					"message": err,
 				})
 			}
-			validatorAddr, err := common2.Bech32ToAddress(editValidatorMsg.ValidatorAddress)
+			validatorAddr, err := common2.ParseAddr(editValidatorMsg.ValidatorAddress)
 			if err != nil {
 				return nil, nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
 					"message": err,
@@ -173,13 +173,13 @@ func unpackWrappedTransactionFromString(
 					"message": err,
 				})
 			}
-			validatorAddr, err := common2.Bech32ToAddress(delegateMsg.ValidatorAddress)
+			validatorAddr, err := common2.ParseAddr(delegateMsg.ValidatorAddress)
 			if err != nil {
 				return nil, nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
 					"message": err,
 				})
 			}
-			delegatorAddr, err := common2.Bech32ToAddress(delegateMsg.DelegatorAddress)
+			delegatorAddr, err := common2.ParseAddr(delegateMsg.DelegatorAddress)
 			if err != nil {
 				return nil, nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
 					"message": err,
@@ -201,13 +201,13 @@ func unpackWrappedTransactionFromString(
 					"message": err,
 				})
 			}
-			validatorAddr, err := common2.Bech32ToAddress(undelegateMsg.ValidatorAddress)
+			validatorAddr, err := common2.ParseAddr(undelegateMsg.ValidatorAddress)
 			if err != nil {
 				return nil, nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
 					"message": err,
 				})
 			}
-			delegatorAddr, err := common2.Bech32ToAddress(undelegateMsg.DelegatorAddress)
+			delegatorAddr, err := common2.ParseAddr(undelegateMsg.DelegatorAddress)
 			if err != nil {
 				return nil, nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
 					"message": err,
@@ -229,7 +229,7 @@ func unpackWrappedTransactionFromString(
 					"message": err,
 				})
 			}
-			delegatorAddr, err := common2.Bech32ToAddress(collectRewardsMsg.DelegatorAddress)
+			delegatorAddr, err := common2.ParseAddr(collectRewardsMsg.DelegatorAddress)
 			if err != nil {
 				return nil, nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
 					"message": err,

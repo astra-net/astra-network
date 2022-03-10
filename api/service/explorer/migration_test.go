@@ -66,7 +66,7 @@ func (f *migrationDBFactory) makeDB(numAddr int) database {
 	return db
 }
 
-func (f *migrationDBFactory) newAddress() oneAddress {
+func (f *migrationDBFactory) newAddress() addrStr {
 	f.curAddrIndex++
 	return makeOneAddress(f.curAddrIndex)
 }

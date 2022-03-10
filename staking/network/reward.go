@@ -4,13 +4,13 @@ import (
 	"errors"
 	"math/big"
 
-	"github.com/harmony-one/harmony/common/denominations"
-	"github.com/harmony-one/harmony/consensus/engine"
-	"github.com/harmony-one/harmony/consensus/reward"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/shard"
-	stakingReward "github.com/harmony-one/harmony/staking/reward"
+	"github.com/harmony-one/astra/common/denominations"
+	"github.com/harmony-one/astra/consensus/engine"
+	"github.com/harmony-one/astra/consensus/reward"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/numeric"
+	"github.com/harmony-one/astra/shard"
+	stakingReward "github.com/harmony-one/astra/staking/reward"
 )
 
 var (

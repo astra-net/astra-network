@@ -6,24 +6,24 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/harmony-one/astra/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
 	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	numeric "github.com/harmony-one/harmony/numeric"
+	common2 "github.com/harmony-one/astra/internal/common"
+	numeric "github.com/harmony-one/astra/numeric"
 )
 
 // for testing purpose
 var (
-	testAccount    = "Ax1pdv9lrdwl0rg5vglh4xtyrv3wjk3wsqket7zxy"
+	testAccount    = "0x0b585f8daefbc68a311fbd4cb20d9174ad174016"
 	testBLSPubKey  = "65f55eb3052f9e9f632b2923be594ba77c55543f5c58ee1454b9cfd658d25e06373b0f7d42a19c84768139ea294f6204"
 	testBLSPubKey2 = "40379eed79ed82bebfb4310894fd33b6a3f8413a78dc4d43b98d0adc9ef69f3285df05eaab9f2ce5f7227f8cb920e809"
 )
 
 func createDelegate() (*StakingTransaction, error) {
-	dAddr, _ := common2.Bech32ToAddress(testAccount)
-	vAddr, _ := common2.Bech32ToAddress(testAccount)
+	dAddr, _ := common2.ParseAddr(testAccount)
+	vAddr, _ := common2.ParseAddr(testAccount)
 	stakePayloadMaker := func() (Directive, interface{}) {
 		return DirectiveDelegate, Delegate{
 			DelegatorAddress: dAddr,
@@ -36,7 +36,7 @@ func createDelegate() (*StakingTransaction, error) {
 }
 
 func CreateTestNewTransaction() (*StakingTransaction, error) {
-	dAddr, _ := common2.Bech32ToAddress(testAccount)
+	dAddr, _ := common2.ParseAddr(testAccount)
 
 	stakePayloadMaker := func() (Directive, interface{}) {
 		p := &bls_core.PublicKey{}

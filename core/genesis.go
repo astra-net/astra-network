@@ -33,18 +33,18 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethdb"
 	"github.com/ethereum/go-ethereum/rlp"
-	blockfactory "github.com/harmony-one/harmony/block/factory"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/staking/slash"
+	blockfactory "github.com/harmony-one/astra/block/factory"
+	"github.com/harmony-one/astra/internal/params"
+	"github.com/harmony-one/astra/staking/slash"
 
-	"github.com/harmony-one/harmony/common/denominations"
-	"github.com/harmony-one/harmony/core/rawdb"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/core/types"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	shardingconfig "github.com/harmony-one/harmony/internal/configs/sharding"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/shard"
+	"github.com/harmony-one/astra/common/denominations"
+	"github.com/harmony-one/astra/core/rawdb"
+	"github.com/harmony-one/astra/core/state"
+	"github.com/harmony-one/astra/core/types"
+	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	shardingconfig "github.com/harmony-one/astra/internal/configs/sharding"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/shard"
 )
 
 // no go:generate gencodec -type Genesis -field-override genesisSpecMarshaling -out gen_genesis.go
@@ -145,7 +145,7 @@ func NewGenesisSpec(netType nodeconfig.NetworkType, shardID uint32) *Genesis {
 		ShardID:   shardID,
 		GasLimit:  gasLimit,
 		Timestamp: 1561734000, // GMT: Friday, June 28, 2019 3:00:00 PM. PST: Friday, June 28, 2019 8:00:00 AM
-		ExtraData: []byte("Harmony for One and All. Open Consensus for 10B."),
+		ExtraData: []byte("Astra for One and All. Open Consensus for 10B."),
 	}
 }
 

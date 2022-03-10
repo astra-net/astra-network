@@ -1,9 +1,9 @@
 package common
 
 import (
-	"github.com/harmony-one/harmony/consensus/quorum"
-	"github.com/harmony-one/harmony/crypto/bls"
-	"github.com/harmony-one/harmony/numeric"
+	"github.com/harmony-one/astra/consensus/quorum"
+	"github.com/harmony-one/astra/crypto/bls"
+	"github.com/harmony-one/astra/numeric"
 )
 
 type setRawStakeHack interface {

@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/rlp"
-	harmonyconfig "github.com/harmony-one/harmony/internal/configs/harmony"
+	astraconfig "github.com/harmony-one/astra/internal/configs/astra"
 
 	"github.com/ethereum/go-ethereum/common"
 	protobuf "github.com/golang/protobuf/proto"
@@ -24,31 +24,30 @@ import (
 	"github.com/rcrowley/go-metrics"
 	"golang.org/x/sync/semaphore"
 
-	"github.com/harmony-one/harmony/api/proto"
-	msg_pb "github.com/harmony-one/harmony/api/proto/message"
-	proto_node "github.com/harmony-one/harmony/api/proto/node"
-	"github.com/harmony-one/harmony/api/service"
-	"github.com/harmony-one/harmony/api/service/legacysync"
-	"github.com/harmony-one/harmony/api/service/legacysync/downloader"
-	"github.com/harmony-one/harmony/consensus"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/rawdb"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/crypto/bls"
-	"github.com/harmony-one/harmony/internal/chain"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/internal/shardchain"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/node/worker"
-	"github.com/harmony-one/harmony/p2p"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/shard/committee"
-	"github.com/harmony-one/harmony/staking/reward"
-	"github.com/harmony-one/harmony/staking/slash"
-	staking "github.com/harmony-one/harmony/staking/types"
-	"github.com/harmony-one/harmony/webhooks"
+	"github.com/harmony-one/astra/api/proto"
+	msg_pb "github.com/harmony-one/astra/api/proto/message"
+	proto_node "github.com/harmony-one/astra/api/proto/node"
+	"github.com/harmony-one/astra/api/service"
+	"github.com/harmony-one/astra/api/service/legacysync"
+	"github.com/harmony-one/astra/api/service/legacysync/downloader"
+	"github.com/harmony-one/astra/consensus"
+	"github.com/harmony-one/astra/core"
+	"github.com/harmony-one/astra/core/rawdb"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/crypto/bls"
+	"github.com/harmony-one/astra/internal/chain"
+	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	"github.com/harmony-one/astra/internal/params"
+	"github.com/harmony-one/astra/internal/shardchain"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/node/worker"
+	"github.com/harmony-one/astra/p2p"
+	"github.com/harmony-one/astra/shard"
+	"github.com/harmony-one/astra/shard/committee"
+	"github.com/harmony-one/astra/staking/reward"
+	"github.com/harmony-one/astra/staking/slash"
+	staking "github.com/harmony-one/astra/staking/types"
+	"github.com/harmony-one/astra/webhooks"
 )
 
 const (
@@ -106,7 +105,7 @@ type Node struct {
 	ContractAddresses            []common.Address
 	// Channel to notify consensus service to really start consensus
 	startConsensus chan struct{}
-	HarmonyConfig  *harmonyconfig.HarmonyConfig
+	AstraConfig  *astraconfig.AstraConfig
 	// node configuration, including group ID, shard ID, etc
 	NodeConfig *nodeconfig.ConfigType
 	// Chain configuration.
@@ -156,7 +155,7 @@ func (node *Node) Beaconchain() *core.BlockChain {
 		utils.Logger().Error().Err(err).Msg("cannot get beaconchain")
 	}
 	// only available in validator node and shard 1-3
-	isEnablePruneBeaconChain := node.HarmonyConfig != nil && node.HarmonyConfig.General.EnablePruneBeaconChain
+	isEnablePruneBeaconChain := node.AstraConfig != nil && node.AstraConfig.General.EnablePruneBeaconChain
 	isNotBeaconChainValidator := node.NodeConfig.Role() == nodeconfig.Validator && node.NodeConfig.ShardID != shard.BeaconChainShardID
 	if isEnablePruneBeaconChain && isNotBeaconChainValidator {
 		bc.EnablePruneBeaconChainFeature()
@@ -967,18 +966,18 @@ func New(
 	chainDBFactory shardchain.DBFactory,
 	blacklist map[common.Address]struct{},
 	isArchival map[uint32]bool,
-	harmonyconfig *harmonyconfig.HarmonyConfig,
+	astraconfig *astraconfig.AstraConfig,
 ) *Node {
 	node := Node{}
 	node.unixTimeAtNodeStart = time.Now().Unix()
 	node.TransactionErrorSink = types.NewTransactionErrorSink()
-	// Get the node config that's created in the harmony.go program.
+	// Get the node config that's created in the astra.go program.
 	if consensusObj != nil {
 		node.NodeConfig = nodeconfig.GetShardConfig(consensusObj.ShardID)
 	} else {
 		node.NodeConfig = nodeconfig.GetDefaultConfig()
 	}
-	node.HarmonyConfig = harmonyconfig
+	node.AstraConfig = astraconfig
 
 	copy(node.syncID[:], GenerateRandomString(SyncIDLength))
 	if host != nil {
@@ -1034,8 +1033,8 @@ func New(
 			txPoolConfig.PriceLimit = 1e9
 			txPoolConfig.PriceBump = 10
 		}
-		if harmonyconfig != nil {
-			txPoolConfig.AccountSlots = harmonyconfig.TxPool.AccountSlots
+		if astraconfig != nil {
+			txPoolConfig.AccountSlots = astraconfig.TxPool.AccountSlots
 		}
 
 		txPoolConfig.Blacklist = blacklist
@@ -1321,7 +1320,7 @@ func (node *Node) populateSelfAddresses(epoch *big.Int) {
 			Int64("epoch", epoch.Int64()).
 			Uint32("shard-id", shardID).
 			Str("bls-key", blsStr).
-			Str("address", common2.MustAddressToBech32(*addr)).
+			Str("address", addr.String()).
 			Msg("[PopulateSelfAddresses]")
 	}
 }

@@ -4,19 +4,18 @@ import (
 	"encoding/json"
 	"math/big"
 
-	"github.com/harmony-one/harmony/crypto/bls"
-	"github.com/harmony-one/harmony/shard"
+	"github.com/harmony-one/astra/crypto/bls"
+	"github.com/harmony-one/astra/shard"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
 	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/harmony/common/denominations"
-	"github.com/harmony-one/harmony/consensus/votepower"
-	"github.com/harmony-one/harmony/crypto/hash"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/internal/genesis"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/staking/effective"
+	"github.com/harmony-one/astra/common/denominations"
+	"github.com/harmony-one/astra/consensus/votepower"
+	"github.com/harmony-one/astra/crypto/hash"
+	"github.com/harmony-one/astra/internal/genesis"
+	"github.com/harmony-one/astra/numeric"
+	"github.com/harmony-one/astra/staking/effective"
 	"github.com/pkg/errors"
 )
 
@@ -177,7 +176,7 @@ func (w ValidatorWrapper) MarshalJSON() ([]byte, error) {
 		Delegations Delegations `json:"delegations"`
 	}{
 		w.Validator,
-		common2.MustAddressToBech32(w.Address),
+		w.Address.Hex(),
 		w.Delegations,
 	})
 }
@@ -501,13 +500,13 @@ func VerifyBLSKey(pubKey *bls.SerializedPublicKey, pubKeySig *bls.SerializedSign
 	return nil
 }
 
-func containsHarmonyBLSKeys(
+func containsAstraBLSKeys(
 	blsKeys []bls.SerializedPublicKey,
 	hmyAccounts []genesis.DeployAccount,
 	epoch *big.Int,
 ) error {
 	for i := range blsKeys {
-		if err := matchesHarmonyBLSKey(
+		if err := matchesAstraBLSKey(
 			&blsKeys[i], hmyAccounts, epoch,
 		); err != nil {
 			return err
@@ -516,7 +515,7 @@ func containsHarmonyBLSKeys(
 	return nil
 }
 
-func matchesHarmonyBLSKey(
+func matchesAstraBLSKey(
 	blsKey *bls.SerializedPublicKey,
 	hmyAccounts []genesis.DeployAccount,
 	epoch *big.Int,
@@ -558,7 +557,7 @@ func CreateValidatorFromNewMsg(
 	pubKeys := append(val.SlotPubKeys[0:0], val.SlotPubKeys...)
 
 	instance := shard.Schedule.InstanceForEpoch(epoch)
-	if err := containsHarmonyBLSKeys(
+	if err := containsAstraBLSKeys(
 		pubKeys, instance.HmyAccounts(), epoch,
 	); err != nil {
 		return nil, err
@@ -634,7 +633,7 @@ func UpdateValidatorFromEditMsg(validator *Validator, edit *EditValidator, epoch
 		}
 		if !found {
 			instance := shard.Schedule.InstanceForEpoch(epoch)
-			if err := matchesHarmonyBLSKey(
+			if err := matchesAstraBLSKey(
 				edit.SlotKeyToAdd, instance.HmyAccounts(), epoch,
 			); err != nil {
 				return err

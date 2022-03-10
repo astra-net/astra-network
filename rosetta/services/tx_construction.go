@@ -7,14 +7,14 @@ import (
 
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/harmony-one/harmony/crypto/bls"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/numeric"
-	types2 "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/crypto/bls"
+	common2 "github.com/harmony-one/astra/internal/common"
+	"github.com/harmony-one/astra/numeric"
+	types2 "github.com/harmony-one/astra/staking/types"
 	"github.com/pkg/errors"
 
-	hmyTypes "github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/rosetta/common"
+	hmyTypes "github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/rosetta/common"
 )
 
 // TransactionMetadata contains all (optional) information for a transaction.
@@ -175,7 +175,7 @@ func constructCreateValidatorTransaction(
 	components *OperationComponents, metadata *ConstructMetadata,
 ) (hmyTypes.PoolTransaction, *types.Error) {
 	createValidatorMsg := components.StakingMessage.(common.CreateValidatorOperationMetadata)
-	validatorAddr, err := common2.Bech32ToAddress(createValidatorMsg.ValidatorAddress)
+	validatorAddr, err := common2.ParseAddr(createValidatorMsg.ValidatorAddress)
 	if err != nil {
 		return nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
 			"message": errors.WithMessage(err, "convert validator address error").Error(),
@@ -242,7 +242,7 @@ func constructEditValidatorTransaction(
 	components *OperationComponents, metadata *ConstructMetadata,
 ) (hmyTypes.PoolTransaction, *types.Error) {
 	editValidatorMsg := components.StakingMessage.(common.EditValidatorOperationMetadata)
-	validatorAddr, err := common2.Bech32ToAddress(editValidatorMsg.ValidatorAddress)
+	validatorAddr, err := common2.ParseAddr(editValidatorMsg.ValidatorAddress)
 	if err != nil {
 		return nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
 			"message": errors.WithMessage(err, "convert validator address error").Error(),
@@ -309,13 +309,13 @@ func constructDelegateTransaction(
 	components *OperationComponents, metadata *ConstructMetadata,
 ) (hmyTypes.PoolTransaction, *types.Error) {
 	delegaterMsg := components.StakingMessage.(common.DelegateOperationMetadata)
-	delegatorAddr, err := common2.Bech32ToAddress(delegaterMsg.DelegatorAddress)
+	delegatorAddr, err := common2.ParseAddr(delegaterMsg.DelegatorAddress)
 	if err != nil {
 		return nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
 			"message": errors.WithMessage(err, "convert delegator address error").Error(),
 		})
 	}
-	validatorAddr, err := common2.Bech32ToAddress(delegaterMsg.ValidatorAddress)
+	validatorAddr, err := common2.ParseAddr(delegaterMsg.ValidatorAddress)
 	if err != nil {
 		return nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
 			"message": errors.WithMessage(err, "convert validator address error").Error(),
@@ -344,13 +344,13 @@ func constructUndelegateTransaction(
 	components *OperationComponents, metadata *ConstructMetadata,
 ) (hmyTypes.PoolTransaction, *types.Error) {
 	undelegaterMsg := components.StakingMessage.(common.UndelegateOperationMetadata)
-	delegatorAddr, err := common2.Bech32ToAddress(undelegaterMsg.DelegatorAddress)
+	delegatorAddr, err := common2.ParseAddr(undelegaterMsg.DelegatorAddress)
 	if err != nil {
 		return nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
 			"message": errors.WithMessage(err, "convert delegator address error").Error(),
 		})
 	}
-	validatorAddr, err := common2.Bech32ToAddress(undelegaterMsg.ValidatorAddress)
+	validatorAddr, err := common2.ParseAddr(undelegaterMsg.ValidatorAddress)
 	if err != nil {
 		return nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
 			"message": errors.WithMessage(err, "convert validator address error").Error(),
@@ -379,7 +379,7 @@ func constructCollectRewardsTransaction(
 	components *OperationComponents, metadata *ConstructMetadata,
 ) (hmyTypes.PoolTransaction, *types.Error) {
 	collectRewardsMsg := components.StakingMessage.(common.CollectRewardsMetadata)
-	delegatorAddr, err := common2.Bech32ToAddress(collectRewardsMsg.DelegatorAddress)
+	delegatorAddr, err := common2.ParseAddr(collectRewardsMsg.DelegatorAddress)
 	if err != nil {
 		return nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
 			"message": errors.WithMessage(err, "convert delegator address error").Error(),

@@ -12,23 +12,23 @@ RUN mkdir -p $HMY_PATH
 
 WORKDIR $HMY_PATH
 
-RUN git clone https://github.com/harmony-one/harmony.git && \
+RUN git clone https://github.com/harmony-one/astra.git && \
     git clone https://github.com/harmony-one/bls.git && \
     git clone https://github.com/harmony-one/mcl.git
 
-WORKDIR $HMY_PATH/harmony
+WORKDIR $HMY_PATH/astra
 
 RUN go mod download
 
 RUN go mod tidy
 
 RUN make linux_static && \
-    cp ./bin/harmony /root/harmony && \
+    cp ./bin/astra /root/astra && \
     cp ./rosetta/infra/run.sh /root/run.sh && \
     cp ./rosetta/infra/rclone.conf /root/rclone.conf
 
-RUN cp ./rosetta/infra/harmony-pstn.conf /root/harmony-pstn.conf && \
-    cp ./rosetta/infra/harmony-mainnet.conf /root/harmony-mainnet.conf && \
+RUN cp ./rosetta/infra/astra-pstn.conf /root/astra-pstn.conf && \
+    cp ./rosetta/infra/astra-mainnet.conf /root/astra-mainnet.conf && \
     cp ./.hmy/rosetta_local_fix.csv /root/rosetta_local_fix.csv
 
 # Execution
@@ -40,11 +40,11 @@ RUN apt update -y && \
 
 WORKDIR /root
 
-COPY --from=build /root/harmony /root/harmony
+COPY --from=build /root/astra /root/astra
 COPY --from=build /root/run.sh /root/run.sh
 COPY --from=build /root/rclone.conf /root/.config/rclone/rclone.conf
-COPY --from=build /root/harmony-pstn.conf /root/harmony-pstn.conf
-COPY --from=build /root/harmony-mainnet.conf /root/harmony-mainnet.conf
+COPY --from=build /root/astra-pstn.conf /root/astra-pstn.conf
+COPY --from=build /root/astra-mainnet.conf /root/astra-mainnet.conf
 COPY --from=build /root/rosetta_local_fix.csv /root/rosetta_local_fix.csv
 
 EXPOSE 9500/tcp

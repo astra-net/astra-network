@@ -7,13 +7,12 @@ import (
 	"math/big"
 	"sort"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/harmony-one/astra/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/harmony/crypto/hash"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/numeric"
+	"github.com/harmony-one/astra/crypto/hash"
+	"github.com/harmony-one/astra/numeric"
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/sha3"
 )
@@ -240,7 +239,7 @@ func (ss *State) MarshalJSON() ([]byte, error) {
 			n := ss.Shards[i].Slots[j]
 			dump[i].NodeList[j].BLSPublicKey = n.BLSPublicKey
 			dump[i].NodeList[j].EffectiveStake = n.EffectiveStake
-			dump[i].NodeList[j].EcdsaAddress = common2.MustAddressToBech32(n.EcdsaAddress)
+			dump[i].NodeList[j].EcdsaAddress = n.EcdsaAddress.Hex()
 		}
 	}
 	return json.Marshal(dump)
@@ -425,7 +424,7 @@ func (n Slot) String() string {
 		total = n.EffectiveStake.String()
 	}
 	return "ECDSA: " +
-		common2.MustAddressToBech32(n.EcdsaAddress) +
+		n.EcdsaAddress.Hex() +
 		", BLS: " +
 		hex.EncodeToString(n.BLSPublicKey[:]) +
 		", EffectiveStake: " +

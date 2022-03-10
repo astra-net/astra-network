@@ -6,10 +6,10 @@ import (
 
 	protobuf "github.com/golang/protobuf/proto"
 	libbls "github.com/harmony-one/bls/ffi/go/bls"
-	msg_pb "github.com/harmony-one/harmony/api/proto/message"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/crypto/bls"
-	"github.com/harmony-one/harmony/crypto/hash"
+	msg_pb "github.com/harmony-one/astra/api/proto/message"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/crypto/bls"
+	"github.com/harmony-one/astra/crypto/hash"
 	"github.com/pkg/errors"
 )
 

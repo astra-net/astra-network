@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/harmony/multibls"
+	"github.com/harmony-one/astra/multibls"
 )
 
 // LoadKeys load all BLS keys with the given config. If loading keys from files, the

@@ -3,7 +3,7 @@ package service
 import (
 	"fmt"
 
-	"github.com/harmony-one/harmony/internal/utils"
+	"github.com/harmony-one/astra/internal/utils"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
 )

@@ -11,19 +11,19 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/harmony-one/harmony/core/types"
+	"github.com/harmony-one/astra/core/types"
 
 	ethCommon "github.com/ethereum/go-ethereum/common"
 	"github.com/gorilla/mux"
-	msg_pb "github.com/harmony-one/harmony/api/proto/message"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/hmy"
-	"github.com/harmony-one/harmony/internal/chain"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/p2p"
-	stakingReward "github.com/harmony-one/harmony/staking/reward"
+	msg_pb "github.com/harmony-one/astra/api/proto/message"
+	"github.com/harmony-one/astra/core"
+	"github.com/harmony-one/astra/hmy"
+	"github.com/harmony-one/astra/internal/chain"
+	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/numeric"
+	"github.com/harmony-one/astra/p2p"
+	stakingReward "github.com/harmony-one/astra/staking/reward"
 )
 
 // Constants for explorer service.
@@ -166,7 +166,7 @@ func (s *Service) GetAddresses(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	data.Addresses, err = s.storage.GetAddresses(size, oneAddress(prefix))
+	data.Addresses, err = s.storage.GetAddresses(size, addrStr(prefix))
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		utils.Logger().Warn().Err(err).Msg("wasn't able to fetch addresses from storage")

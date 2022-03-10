@@ -24,16 +24,15 @@ import (
 	"math/big"
 	"sync/atomic"
 
-	"github.com/harmony-one/harmony/internal/params"
+	"github.com/harmony-one/astra/internal/params"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/rlp"
 
-	"github.com/harmony-one/harmony/crypto/hash"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/crypto/hash"
+	staking "github.com/harmony-one/astra/staking/types"
 )
 
 // no go:generate gencodec -type txdata -field-override txdataMarshaling -out gen_tx_json.go
@@ -63,7 +62,7 @@ var StakingTypeMap = map[staking.Directive]TransactionType{staking.DirectiveCrea
 	staking.DirectiveEditValidator: StakeEditVal, staking.DirectiveDelegate: Delegate,
 	staking.DirectiveUndelegate: Undelegate, staking.DirectiveCollectRewards: CollectRewards}
 
-// InternalTransaction defines the common interface for harmony and ethereum transactions.
+// InternalTransaction defines the common interface for astra and ethereum transactions.
 type InternalTransaction interface {
 	CoreTransaction
 
@@ -747,7 +746,7 @@ type BlockTxsCounts map[common.Address]uint64
 func (btc BlockTxsCounts) String() string {
 	ret := "{ "
 	for sender, numTxs := range btc {
-		ret += fmt.Sprintf("%s:%d,", common2.MustAddressToBech32(sender), numTxs)
+		ret += fmt.Sprintf("%s:%d,", sender, numTxs)
 	}
 	ret += " }"
 	return ret

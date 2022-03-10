@@ -8,10 +8,10 @@ SRC=
 
 # destination of the bucket to host the repo
 declare -A TARGET
-TARGET[rpm.dev]="haochen-harmony-pub/pub/yum"
-TARGET[deb.dev]="haochen-harmony-pub/pub/repo"
-TARGET[rpm.prod]="pub.harmony.one/release/package/yum"
-TARGET[deb.prod]="pub.harmony.one/release/package/apt"
+TARGET[rpm.dev]="haochen-astra-pub/pub/yum"
+TARGET[deb.dev]="haochen-astra-pub/pub/repo"
+TARGET[rpm.prod]="pub.astra.one/release/package/yum"
+TARGET[deb.prod]="pub.astra.one/release/package/apt"
 
 function usage() {
    cat<<-EOT
@@ -69,13 +69,13 @@ function publish_rpm() {
 }
 
 function publish_deb() {
-   if aptly repo show harmony-$PROFILE > /dev/null; then
-      aptly repo add harmony-$PROFILE $SRC
-      aptly publish update bionic s3:harmony-$PROFILE:
+   if aptly repo show astra-$PROFILE > /dev/null; then
+      aptly repo add astra-$PROFILE $SRC
+      aptly publish update bionic s3:astra-$PROFILE:
    else
-      aptly repo create -distribution=bionic -component=main harmony-$PROFILE
-      aptly repo add harmony-$PROFILE $SRC
-      aptly publish repo harmony-$PROFILE s3:harmony-$PROFILE:
+      aptly repo create -distribution=bionic -component=main astra-$PROFILE
+      aptly repo add astra-$PROFILE $SRC
+      aptly publish repo astra-$PROFILE s3:astra-$PROFILE:
    fi
 }
 

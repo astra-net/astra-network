@@ -1,22 +1,22 @@
 # Introduction
-This document introduces the Harmony's package release using standard packaging system, RPM and Deb packages.
+This document introduces the Astra's package release using standard packaging system, RPM and Deb packages.
 
 Standard packaging system has many benefits, like extensive tooling, documentation, portability, and complete design to handle different situation.
 
 # Package Content
 The RPM/Deb packages will install the following files/binary in your system.
-* /usr/sbin/harmony
-* /usr/sbin/harmony-setup.sh
-* /usr/sbin/harmony-rclone.sh
-* /etc/harmony/harmony.conf
-* /etc/harmony/rclone.conf
-* /etc/systemd/system/harmony.service
-* /etc/sysctl.d/99-harmony.conf
+* /usr/sbin/astra
+* /usr/sbin/astra-setup.sh
+* /usr/sbin/astra-rclone.sh
+* /etc/astra/astra.conf
+* /etc/astra/rclone.conf
+* /etc/systemd/system/astra.service
+* /etc/sysctl.d/99-astra.conf
 
-The package will create `harmony` group and `harmony` user on your system.
-The harmony process will be run as `harmony` user.
-The default blockchain DBs are stored in `/home/harmony/harmony_db_?` directory.
-The configuration of harmony process is in `/etc/harmony/harmony.conf`.
+The package will create `astra` group and `astra` user on your system.
+The astra process will be run as `astra` user.
+The default blockchain DBs are stored in `/home/astra/astra_db_?` directory.
+The configuration of astra process is in `/etc/astra/astra.conf`.
 
 # Package Manager
 Please take sometime to learn about the package managers used on Fedora/Debian based distributions.
@@ -24,7 +24,7 @@ There are many other package managers can be used to manage rpm/deb packages lik
 or [Yum]<https://www.redhat.com/sysadmin/how-manage-packages>
 
 # Setup customized repo
-You just need to do the setup of harmony repo once on a new host.
+You just need to do the setup of astra repo once on a new host.
 **TODO**: the repo in this document are for development/testing purpose only.
 
 Official production repo will be different.
@@ -33,18 +33,18 @@ Official production repo will be different.
 RPM is for Redhat/Fedora based Linux distributions, such as Amazon Linux and CentOS.
 
 ```bash
-# do the following once to add the harmony development repo
-curl -LsSf http://haochen-harmony-pub.s3.amazonaws.com/pub/yum/harmony-dev.repo | sudo tee -a /etc/yum.repos.d/harmony-dev.repo
-sudo rpm --import https://raw.githubusercontent.com/harmony-one/harmony-open/master/harmony-release/harmony-pub.key
+# do the following once to add the astra development repo
+curl -LsSf http://haochen-astra-pub.s3.amazonaws.com/pub/yum/astra-dev.repo | sudo tee -a /etc/yum.repos.d/astra-dev.repo
+sudo rpm --import https://raw.githubusercontent.com/harmony-one/astra-open/master/astra-release/astra-pub.key
 ```
 
 ## Deb Package
 Deb is supported on Debian based Linux distributions, such as Ubuntu, MX Linux.
 
 ```bash
-# do the following once to add the harmony development repo
-curl -LsSf https://raw.githubusercontent.com/harmony-one/harmony-open/master/harmony-release/harmony-pub.key | sudo apt-key add
-echo "deb http://haochen-harmony-pub.s3.amazonaws.com/pub/repo bionic main" | sudo tee -a /etc/apt/sources.list
+# do the following once to add the astra development repo
+curl -LsSf https://raw.githubusercontent.com/harmony-one/astra-open/master/astra-release/astra-pub.key | sudo apt-key add
+echo "deb http://haochen-astra-pub.s3.amazonaws.com/pub/repo bionic main" | sudo tee -a /etc/apt/sources.list
 
 ```
 
@@ -53,24 +53,24 @@ echo "deb http://haochen-harmony-pub.s3.amazonaws.com/pub/repo bionic main" | su
 ```
 # debian/ubuntu
 sudo apt-get update
-sudo apt-get install harmony
+sudo apt-get install astra
 
 # fedora/amazon linux
-sudo yum install harmony
+sudo yum install astra
 ```
 ## configure/start
 ```
-# dpkg-reconfigure harmony (TODO)
-sudo systemctl start harmony
+# dpkg-reconfigure astra (TODO)
+sudo systemctl start astra
 ```
 
 ## uninstall
 ```
 # debian/ubuntu
-sudo apt-get remove harmony
+sudo apt-get remove astra
 
 # fedora/amazon linux
-sudo yum remove harmony
+sudo yum remove astra
 ```
 
 ## upgrade
@@ -103,35 +103,35 @@ sudo rpm -ivh rclone-v1.52.3-linux-amd64.rpm
 ## do rclone
 ```bash
 # validator runs on shard1
-sudo -u harmony harmony-rclone.sh /home/harmony 0
-sudo -u harmony harmony-rclone.sh /home/harmony 1
+sudo -u astra astra-rclone.sh /home/astra 0
+sudo -u astra astra-rclone.sh /home/astra 1
 
 # explorer node
-sudo -u harmony harmony-rclone.sh -a /home/harmony 0
+sudo -u astra astra-rclone.sh -a /home/astra 0
 ```
 
 # Setup explorer (non-validating) node
-To setup an explorer node (non-validating) node, please run the `harmony-setup.sh` at first.
+To setup an explorer node (non-validating) node, please run the `astra-setup.sh` at first.
 
 ```bash
-sudo /usr/sbin/harmony-setup.sh -t explorer -s 0
+sudo /usr/sbin/astra-setup.sh -t explorer -s 0
 ```
 to setup the node as an explorer node w/o blskey setup.
 
 # Setup new validator
-Please copy your blskey to `/home/harmony/.hmy/blskeys` directory, and start the node.
-The default configuration is for validators on mainnet. No need to run `harmony-setup.sh` script.
+Please copy your blskey to `/home/astra/.hmy/blskeys` directory, and start the node.
+The default configuration is for validators on mainnet. No need to run `astra-setup.sh` script.
 
 # Start/stop node
-* `systemctl start harmony` to start node
-* `systemctl stop harmony` to stop node
-* `systemctl status harmony` to check status of node
+* `systemctl start astra` to start node
+* `systemctl stop astra` to stop node
+* `systemctl status astra` to check status of node
 
 # Change node configuration
-The node configuration file is in `/etc/harmony/harmony.conf`.  Please edit the file as you needed.
+The node configuration file is in `/etc/astra/astra.conf`.  Please edit the file as you needed.
 ```bash
-sudo vim /etc/harmony/harmony.conf
+sudo vim /etc/astra/astra.conf
 ```
 
 # Support
-Please open new github issues in https://github.com/harmony-one/harmony/issues.
+Please open new github issues in https://github.com/harmony-one/astra/issues.

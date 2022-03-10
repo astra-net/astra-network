@@ -10,11 +10,11 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	hmytypes "github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/rosetta/common"
-	stakingTypes "github.com/harmony-one/harmony/staking/types"
-	"github.com/harmony-one/harmony/test/helpers"
+	hmytypes "github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/internal/params"
+	"github.com/harmony-one/astra/rosetta/common"
+	stakingTypes "github.com/harmony-one/astra/staking/types"
+	"github.com/harmony-one/astra/test/helpers"
 )
 
 func assertNativeOperationTypeUniquenessInvariant(operations []*types.Operation) error {
@@ -33,7 +33,7 @@ func assertNativeOperationTypeUniquenessInvariant(operations []*types.Operation)
 	return nil
 }
 
-// Note that this test only checks the general format of each type transaction on Harmony.
+// Note that this test only checks the general format of each type transaction on Astra.
 // The detailed operation checks for each type of transaction is done in separate unit tests.
 func TestFormatTransactionIntegration(t *testing.T) {
 	gasLimit := uint64(1e18)

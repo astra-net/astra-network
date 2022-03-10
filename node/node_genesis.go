@@ -5,10 +5,10 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/shard/committee"
+	"github.com/harmony-one/astra/core"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/shard"
+	"github.com/harmony-one/astra/shard/committee"
 )
 
 // genesisInitializer is a shardchain.DBInitializer adapter.

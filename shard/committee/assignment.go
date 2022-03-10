@@ -4,23 +4,23 @@ import (
 	"encoding/json"
 	"math/big"
 
-	"github.com/harmony-one/harmony/core/state"
+	"github.com/harmony-one/astra/core/state"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/harmony-one/astra/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
 	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/harmony/block"
-	"github.com/harmony-one/harmony/core/types"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	shardingconfig "github.com/harmony-one/harmony/internal/configs/sharding"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/staking/availability"
-	"github.com/harmony-one/harmony/staking/effective"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/block"
+	"github.com/harmony-one/astra/core/types"
+	common2 "github.com/harmony-one/astra/internal/common"
+	shardingconfig "github.com/harmony-one/astra/internal/configs/sharding"
+	"github.com/harmony-one/astra/internal/params"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/numeric"
+	"github.com/harmony-one/astra/shard"
+	"github.com/harmony-one/astra/staking/availability"
+	"github.com/harmony-one/astra/staking/effective"
+	staking "github.com/harmony-one/astra/staking/types"
 	"github.com/pkg/errors"
 )
 
@@ -79,7 +79,7 @@ func (p CandidateOrder) MarshalJSON() ([]byte, error) {
 	}{
 		p.SlotOrder,
 		p.StakePerKey,
-		common2.MustAddressToBech32(p.Validator),
+		p.Validator.Hex(),
 	})
 }
 
@@ -137,7 +137,7 @@ func prepareOrders(
 	essentials := map[common.Address]*effective.SlotOrder{}
 	totalStaked, tempZero := big.NewInt(0), numeric.ZeroDec()
 
-	// Avoid duplicate BLS keys as harmony nodes
+	// Avoid duplicate BLS keys as astra nodes
 	instance := shard.Schedule.InstanceForEpoch(stakedReader.CurrentBlock().Epoch())
 	for _, account := range instance.HmyAccounts() {
 		pub := &bls_core.PublicKey{}
@@ -271,7 +271,7 @@ var (
 // This is the shard state computation logic before staking epoch.
 func preStakingEnabledCommittee(s shardingconfig.Instance) (*shard.State, error) {
 	shardNum := int(s.NumShards())
-	shardHarmonyNodes := s.NumHarmonyOperatedNodesPerShard()
+	shardAstraNodes := s.NumAstraOperatedNodesPerShard()
 	shardSize := s.NumNodesPerShard()
 	hmyAccounts := s.HmyAccounts()
 	fnAccounts := s.FnAccounts()
@@ -279,7 +279,7 @@ func preStakingEnabledCommittee(s shardingconfig.Instance) (*shard.State, error)
 	// Shard state needs to be sorted by shard ID
 	for i := 0; i < shardNum; i++ {
 		com := shard.Committee{ShardID: uint32(i)}
-		for j := 0; j < shardHarmonyNodes; j++ {
+		for j := 0; j < shardAstraNodes; j++ {
 			index := i + j*shardNum // The initial account to use for genesis nodes
 			pub := &bls_core.PublicKey{}
 			pub.DeserializeHexStr(hmyAccounts[index].BLSPublicKey)
@@ -298,8 +298,8 @@ func preStakingEnabledCommittee(s shardingconfig.Instance) (*shard.State, error)
 			com.Slots = append(com.Slots, curNodeID)
 		}
 		// add FN runner's key
-		for j := shardHarmonyNodes; j < shardSize; j++ {
-			index := i + (j-shardHarmonyNodes)*shardNum
+		for j := shardAstraNodes; j < shardSize; j++ {
+			index := i + (j-shardAstraNodes)*shardNum
 			pub := &bls_core.PublicKey{}
 			pub.DeserializeHexStr(fnAccounts[index].BLSPublicKey)
 			pubKey := bls.SerializedPublicKey{}
@@ -328,11 +328,11 @@ func eposStakedCommittee(
 	shardState := &shard.State{}
 	shardState.Shards = make([]shard.Committee, shardCount)
 	hAccounts := s.HmyAccounts()
-	shardHarmonyNodes := s.NumHarmonyOperatedNodesPerShard()
+	shardAstraNodes := s.NumAstraOperatedNodesPerShard()
 
 	for i := 0; i < shardCount; i++ {
 		shardState.Shards[i] = shard.Committee{uint32(i), shard.SlotList{}}
-		for j := 0; j < shardHarmonyNodes; j++ {
+		for j := 0; j < shardAstraNodes; j++ {
 			index := i + j*shardCount
 			pub := &bls_core.PublicKey{}
 			if err := pub.DeserializeHexStr(hAccounts[index].BLSPublicKey); err != nil {
@@ -355,7 +355,7 @@ func eposStakedCommittee(
 		}
 	}
 
-	// TODO(audit): make sure external validator BLS key are also not duplicate to Harmony's keys
+	// TODO(audit): make sure external validator BLS key are also not duplicate to Astra's keys
 	completedEPoSRound, err := NewEPoSRound(epoch, stakerReader, stakerReader.Config().IsEPoSBound35(epoch))
 
 	if err != nil {

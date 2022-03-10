@@ -1,4 +1,4 @@
-// Package shardingconfig defines types and utilities that deal with Harmony
+// Package shardingconfig defines types and utilities that deal with Astra
 // sharding configuration schedule.
 package shardingconfig
 
@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/harmony-one/harmony/numeric"
+	"github.com/harmony-one/astra/numeric"
 
-	"github.com/harmony-one/harmony/internal/genesis"
+	"github.com/harmony-one/astra/internal/genesis"
 )
 
 // Schedule returns the sharding configuration instance for the given
@@ -48,17 +48,17 @@ type Instance interface {
 	// NumNodesPerShard returns number of nodes in each shard.
 	NumNodesPerShard() int
 
-	// NumHarmonyOperatedNodesPerShard returns number of nodes in each shard
-	// that are operated by Harmony.
-	NumHarmonyOperatedNodesPerShard() int
+	// NumAstraOperatedNodesPerShard returns number of nodes in each shard
+	// that are operated by Astra.
+	NumAstraOperatedNodesPerShard() int
 
-	// HarmonyVotePercent returns total percentage of voting power harmony nodes possess.
-	HarmonyVotePercent() numeric.Dec
+	// AstraVotePercent returns total percentage of voting power astra nodes possess.
+	AstraVotePercent() numeric.Dec
 
 	// ExternalVotePercent returns total percentage of voting power external validators possess.
 	ExternalVotePercent() numeric.Dec
 
-	// HmyAccounts returns a list of Harmony accounts
+	// HmyAccounts returns a list of Astra accounts
 	HmyAccounts() []genesis.DeployAccount
 
 	// FnAccounts returns a list of Foundational node accounts

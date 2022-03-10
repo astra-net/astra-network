@@ -3,22 +3,21 @@ package services
 import (
 	"math/big"
 
-	"github.com/harmony-one/harmony/hmy/tracers"
+	"github.com/harmony-one/astra/hmy/tracers"
 
-	"github.com/harmony-one/harmony/internal/bech32"
-	internalCommon "github.com/harmony-one/harmony/internal/common"
+	internalCommon "github.com/harmony-one/astra/internal/common"
 
 	"github.com/coinbase/rosetta-sdk-go/types"
 	ethcommon "github.com/ethereum/go-ethereum/common"
 
-	"github.com/harmony-one/harmony/core"
-	hmytypes "github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/hmy"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/rosetta/common"
-	rpcV2 "github.com/harmony-one/harmony/rpc/v2"
-	"github.com/harmony-one/harmony/staking"
-	stakingTypes "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/core"
+	hmytypes "github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/hmy"
+	"github.com/harmony-one/astra/internal/params"
+	"github.com/harmony-one/astra/rosetta/common"
+	rpcV2 "github.com/harmony-one/astra/rpc/v2"
+	"github.com/harmony-one/astra/staking"
+	stakingTypes "github.com/harmony-one/astra/staking/types"
 )
 
 const (
@@ -239,11 +238,6 @@ func getDelegateOperationForSubAccount(tx *stakingTypes.StakingTransaction, rece
 		if len(log.Data) > ethcommon.AddressLength && log.Address == stkMsg.DelegatorAddress {
 			// add undelegated transaction
 			subAccount := log.Data[:ethcommon.AddressLength]
-			address := internalCommon.BytesToAddress(subAccount)
-			b32Address, err := bech32.ConvertAndEncode(internalCommon.Bech32AddressHRP, address.Bytes())
-			if err != nil {
-				return nil
-			}
 
 			deductedAmt := new(big.Int).SetBytes(log.Data[ethcommon.AddressLength:])
 			delegateAmt = stkMsg.Amount
@@ -262,7 +256,7 @@ func getDelegateOperationForSubAccount(tx *stakingTypes.StakingTransaction, rece
 				Account: &types.AccountIdentifier{
 					Address: delegateOperation.Account.Address,
 					SubAccount: &types.SubAccountIdentifier{
-						Address: b32Address,
+						Address: internalCommon.BytesToHash(subAccount).Hex(),
 						Metadata: map[string]interface{}{
 							SubAccountMetadataKey: UnDelegation,
 						},
@@ -345,7 +339,7 @@ func GetSideEffectOperationsFromGenesisSpec(
 	)
 }
 
-// GetTransactionStatus for any valid harmony transaction given its receipt.
+// GetTransactionStatus for any valid astra transaction given its receipt.
 func GetTransactionStatus(tx hmytypes.PoolTransaction, receipt *hmytypes.Receipt) *string {
 	if _, ok := tx.(*hmytypes.Transaction); ok {
 		status := common.SuccessOperationStatus.Status

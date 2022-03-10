@@ -10,12 +10,11 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/harmony-one/abool"
-	"github.com/harmony-one/harmony/core"
-	core2 "github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/types"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/internal/utils"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/core"
+	core2 "github.com/harmony-one/astra/core"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/internal/utils"
+	staking "github.com/harmony-one/astra/staking/types"
 	"github.com/rs/zerolog"
 )
 
@@ -84,7 +83,7 @@ func (s *storage) DumpCatchupBlock(b *types.Block) {
 	s.tm.AddCatchupTask(b)
 }
 
-func (s *storage) GetAddresses(size int, startAddress oneAddress) ([]string, error) {
+func (s *storage) GetAddresses(size int, startAddress addrStr) ([]string, error) {
 	if !s.available.IsSet() {
 		return nil, ErrExplorerNotReady
 	}
@@ -103,14 +102,14 @@ func (s *storage) GetNormalTxsByAddress(addr string) ([]common.Hash, []TxType, e
 	if !s.available.IsSet() {
 		return nil, nil, ErrExplorerNotReady
 	}
-	return getNormalTxnHashesByAccount(s.db, oneAddress(addr))
+	return getNormalTxnHashesByAccount(s.db, addrStr(addr))
 }
 
 func (s *storage) GetStakingTxsByAddress(addr string) ([]common.Hash, []TxType, error) {
 	if !s.available.IsSet() {
 		return nil, nil, ErrExplorerNotReady
 	}
-	return getStakingTxnHashesByAccount(s.db, oneAddress(addr))
+	return getStakingTxnHashesByAccount(s.db, addrStr(addr))
 }
 
 func (s *storage) run() {
@@ -284,7 +283,7 @@ func (bc *blockComputer) computeBlock(b *types.Block) (*blockResult, error) {
 
 func (bc *blockComputer) computeNormalTx(btc batch, b *types.Block, tx *types.Transaction) {
 	ethFrom, _ := tx.SenderAddress()
-	from := ethToOneAddress(ethFrom)
+	from := addrStr(ethFrom.Hex())
 
 	_ = writeAddressEntry(btc, from)
 
@@ -298,7 +297,7 @@ func (bc *blockComputer) computeNormalTx(btc batch, b *types.Block, tx *types.Tr
 
 	ethTo := tx.To()
 	if ethTo != nil { // Skip for contract creation
-		to := ethToOneAddress(*ethTo)
+		to := addrStr(ethTo.Hex())
 		_ = writeAddressEntry(btc, to)
 		_ = writeNormalTxnIndex(btc, normalTxnIndex{
 			addr:        to,
@@ -315,7 +314,7 @@ func (bc *blockComputer) computeNormalTx(btc batch, b *types.Block, tx *types.Tr
 
 func (bc *blockComputer) computeStakingTx(btc batch, b *types.Block, tx *staking.StakingTransaction) {
 	ethFrom, _ := tx.SenderAddress()
-	from := ethToOneAddress(ethFrom)
+	from := addrStr(ethFrom.Hex())
 	_ = writeAddressEntry(btc, from)
 	_, bn, index := bc.bc.ReadTxLookupEntry(tx.Hash())
 	_ = writeStakingTxnIndex(btc, stakingTxnIndex{
@@ -332,19 +331,14 @@ func (bc *blockComputer) computeStakingTx(btc batch, b *types.Block, tx *staking
 	if ethTo == (common.Address{}) {
 		return
 	}
-	to := ethToOneAddress(ethTo)
-	_ = writeAddressEntry(btc, to)
+	to := ethTo
+	_ = writeAddressEntry(btc, addrStr(to.Hex()))
 	_ = writeStakingTxnIndex(btc, stakingTxnIndex{
-		addr:        to,
+		addr:        addrStr(to.Hex()),
 		blockNumber: bn,
 		txnIndex:    index,
 		txnHash:     tx.Hash(),
 	}, txReceived)
-}
-
-func ethToOneAddress(ethAddr common.Address) oneAddress {
-	raw, _ := common2.AddressToBech32(ethAddr)
-	return oneAddress(raw)
 }
 
 func toFromStakingTx(tx *staking.StakingTransaction, addressBlock *types.Block) (common.Address, error) {

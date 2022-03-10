@@ -4,41 +4,40 @@ import (
 	"context"
 	"fmt"
 	"math/big"
-	"strings"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/pkg/errors"
 
-	"github.com/harmony-one/harmony/accounts/abi"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/rawdb"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/core/vm"
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/hmy"
-	internal_common "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/internal/utils"
-	eth "github.com/harmony-one/harmony/rpc/eth"
-	v1 "github.com/harmony-one/harmony/rpc/v1"
-	v2 "github.com/harmony-one/harmony/rpc/v2"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/accounts/abi"
+	"github.com/harmony-one/astra/core"
+	"github.com/harmony-one/astra/core/rawdb"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/core/vm"
+	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/hmy"
+	internal_common "github.com/harmony-one/astra/internal/common"
+	"github.com/harmony-one/astra/internal/params"
+	"github.com/harmony-one/astra/internal/utils"
+	eth "github.com/harmony-one/astra/rpc/eth"
+	v1 "github.com/harmony-one/astra/rpc/v1"
+	v2 "github.com/harmony-one/astra/rpc/v2"
+	staking "github.com/harmony-one/astra/staking/types"
 )
 
 const (
 	defaultPageSize = uint32(100)
 )
 
-// PublicTransactionService provides an API to access Harmony's transaction service.
+// PublicTransactionService provides an API to access Astra's transaction service.
 // It offers only methods that operate on public data that is freely available to anyone.
 type PublicTransactionService struct {
-	hmy     *hmy.Harmony
+	hmy     *hmy.Astra
 	version Version
 }
 
 // NewPublicTransactionAPI creates a new API for the RPC interface
-func NewPublicTransactionAPI(hmy *hmy.Harmony, version Version) rpc.API {
+func NewPublicTransactionAPI(hmy *hmy.Astra, version Version) rpc.API {
 	return rpc.API{
 		Namespace: version.Namespace(),
 		Version:   APIVersion,
@@ -123,17 +122,12 @@ func (s *PublicTransactionService) GetTransactionsCount(
 	timer := DoMetricRPCRequest(GetTransactionsCount)
 	defer DoRPCRequestDuration(GetTransactionsCount, timer)
 
-	if !strings.HasPrefix(address, "Ax1") {
-		// Handle hex address
-		addr, err := internal_common.ParseAddr(address)
-		if err != nil {
-			return 0, err
-		}
-		address, err = internal_common.AddressToBech32(addr)
-		if err != nil {
-			return 0, err
-		}
+	// Handle hex address
+	addr, err := internal_common.ParseAddr(address)
+	if err != nil {
+		return 0, err
 	}
+	address = addr.Hex()
 
 	// Response output is the same for all versions
 	return s.hmy.GetTransactionsCount(address, txType)
@@ -146,17 +140,12 @@ func (s *PublicTransactionService) GetStakingTransactionsCount(
 	timer := DoMetricRPCRequest(GetStakingTransactionsCount)
 	defer DoRPCRequestDuration(GetStakingTransactionsCount, timer)
 
-	if !strings.HasPrefix(address, "Ax1") {
-		// Handle hex address
-		addr, err := internal_common.ParseAddr(address)
-		if err != nil {
-			return 0, err
-		}
-		address, err = internal_common.AddressToBech32(addr)
-		if err != nil {
-			return 0, err
-		}
+	// Handle hex address
+	addr, err := internal_common.ParseAddr(address)
+	if err != nil {
+		return 0, err
 	}
+	address = addr.Hex()
 
 	// Response output is the same for all versions
 	return s.hmy.GetStakingTransactionsCount(address, txType)
@@ -316,20 +305,12 @@ func (s *PublicTransactionService) GetTransactionsHistory(
 	var address string
 	var result []common.Hash
 	var err error
-	if strings.HasPrefix(args.Address, "Ax1") {
-		address = args.Address
-	} else {
-		addr, err := internal_common.ParseAddr(args.Address)
-		if err != nil {
-			DoMetricRPCQueryInfo(GetTransactionsHistory, FailedNumber)
-			return nil, err
-		}
-		address, err = internal_common.AddressToBech32(addr)
-		if err != nil {
-			DoMetricRPCQueryInfo(GetTransactionsHistory, FailedNumber)
-			return nil, err
-		}
+	addr, err := internal_common.ParseAddr(args.Address)
+	if err != nil {
+		DoMetricRPCQueryInfo(GetTransactionsHistory, FailedNumber)
+		return nil, err
 	}
+	address = addr.Hex()
 	hashes, err := s.hmy.GetTransactionsHistory(address, args.TxType, args.Order)
 	if err != nil {
 		DoMetricRPCQueryInfo(GetTransactionsHistory, FailedNumber)
@@ -370,24 +351,12 @@ func (s *PublicTransactionService) GetStakingTransactionsHistory(
 	var address string
 	var result []common.Hash
 	var err error
-	if strings.HasPrefix(args.Address, "Ax1") {
-		address = args.Address
-	} else {
-		addr, err := internal_common.ParseAddr(args.Address)
-		if err != nil {
-			DoMetricRPCQueryInfo(GetStakingTransactionsHistory, FailedNumber)
-			return nil, err
-		}
-		address, err = internal_common.AddressToBech32(addr)
-		if err != nil {
-			utils.Logger().Debug().
-				Err(err).
-				Msgf("%v error at %v", LogTag, "GetStakingTransactionsHistory")
-			// Legacy behavior is to not return RPC errors
-			DoMetricRPCQueryInfo(GetStakingTransactionsHistory, FailedNumber)
-			return nil, nil
-		}
+	addr, err := internal_common.ParseAddr(args.Address)
+	if err != nil {
+		DoMetricRPCQueryInfo(GetStakingTransactionsHistory, FailedNumber)
+		return nil, err
 	}
+	address = addr.Hex()
 	hashes, err := s.hmy.GetStakingTransactionsHistory(address, args.TxType, args.Order)
 	if err != nil {
 		utils.Logger().Debug().
@@ -836,7 +805,7 @@ func returnHashesWithPagination(hashes []common.Hash, pageIndex uint32, pageSize
 }
 
 // EstimateGas - estimate gas cost for a given operation
-func EstimateGas(ctx context.Context, hmy *hmy.Harmony, args CallArgs, gasCap *big.Int) (uint64, error) {
+func EstimateGas(ctx context.Context, hmy *hmy.Astra, args CallArgs, gasCap *big.Int) (uint64, error) {
 	// Binary search the gas requirement, as it may be higher than the amount used
 	var (
 		lo  uint64 = params.TxGas - 1

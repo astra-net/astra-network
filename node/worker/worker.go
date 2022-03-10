@@ -7,29 +7,28 @@ import (
 	"sort"
 	"time"
 
-	"github.com/harmony-one/harmony/consensus/reward"
+	"github.com/harmony-one/astra/consensus/reward"
 
-	"github.com/harmony-one/harmony/consensus"
+	"github.com/harmony-one/astra/consensus"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/harmony-one/astra/crypto/bls"
 
-	"github.com/harmony-one/harmony/crypto/hash"
+	"github.com/harmony-one/astra/crypto/hash"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/harmony/block"
-	blockfactory "github.com/harmony-one/harmony/block/factory"
-	consensus_engine "github.com/harmony-one/harmony/consensus/engine"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/core/vm"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/staking/slash"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/block"
+	blockfactory "github.com/harmony-one/astra/block/factory"
+	consensus_engine "github.com/harmony-one/astra/consensus/engine"
+	"github.com/harmony-one/astra/core"
+	"github.com/harmony-one/astra/core/state"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/core/vm"
+	"github.com/harmony-one/astra/internal/params"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/shard"
+	"github.com/harmony-one/astra/staking/slash"
+	staking "github.com/harmony-one/astra/staking/types"
 	"github.com/pkg/errors"
 )
 
@@ -104,7 +103,7 @@ func (w *Worker) CommitSortedTransactions(
 		w.current.state.Prepare(tx.Hash(), common.Hash{}, len(w.current.txs))
 		err := w.commitTransaction(tx, coinbase)
 
-		sender, _ := common2.AddressToBech32(from)
+		sender := from.String()
 		switch err {
 		case core.ErrGasLimitReached:
 			// Pop the current out-of-gas transaction without shifting in the next from the account

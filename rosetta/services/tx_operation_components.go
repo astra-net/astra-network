@@ -4,11 +4,9 @@ import (
 	"fmt"
 	"math/big"
 
-	common2 "github.com/harmony-one/harmony/internal/common"
-
 	"github.com/coinbase/rosetta-sdk-go/types"
 
-	"github.com/harmony-one/harmony/rosetta/common"
+	"github.com/harmony-one/astra/rosetta/common"
 	"github.com/pkg/errors"
 )
 
@@ -259,9 +257,9 @@ func getCreateValidatorOperationComponents(
 			"message": errors.WithMessage(err, "invalid metadata").Error(),
 		})
 	}
-	if metadata.ValidatorAddress == "" || !common2.IsBech32Address(metadata.ValidatorAddress) {
+	if metadata.ValidatorAddress == ""  {
 		return nil, common.NewError(common.InvalidStakingConstructionError, map[string]interface{}{
-			"message": "validator address must not be empty or wrong format",
+			"message": "validator address must not be empty",
 		})
 	}
 	if metadata.CommissionRate == nil || metadata.MaxCommissionRate == nil || metadata.MaxChangeRate == nil {
@@ -287,8 +285,8 @@ func getCreateValidatorOperationComponents(
 	}
 
 	// slot public key would be add into
-	// https://github.com/harmony-one/harmony/blob/3a8125666817149eaf9cea7870735e26cfe49c87/rosetta/services/tx_construction.go#L16
-	// see https://github.com/harmony-one/harmony/issues/3431
+	// https://github.com/harmony-one/astra/blob/3a8125666817149eaf9cea7870735e26cfe49c87/rosetta/services/tx_construction.go#L16
+	// see https://github.com/harmony-one/astra/issues/3431
 
 	components := &OperationComponents{
 		Type:           operation.Type,
@@ -320,9 +318,9 @@ func getEditValidatorOperationComponents(
 			"message": errors.WithMessage(err, "invalid metadata").Error(),
 		})
 	}
-	if metadata.ValidatorAddress == "" || !common2.IsBech32Address(metadata.ValidatorAddress) {
+	if metadata.ValidatorAddress == "" {
 		return nil, common.NewError(common.InvalidStakingConstructionError, map[string]interface{}{
-			"message": "validator address must not be empty or wrong format",
+			"message": "validator address must not be empty",
 		})
 	}
 	if metadata.CommissionRate == nil || metadata.MinSelfDelegation == nil || metadata.MaxTotalDelegation == nil {

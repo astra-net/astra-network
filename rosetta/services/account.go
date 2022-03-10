@@ -5,22 +5,22 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/harmony-one/harmony/core/vm"
+	"github.com/harmony-one/astra/core/vm"
 
 	"github.com/coinbase/rosetta-sdk-go/server"
 	"github.com/coinbase/rosetta-sdk-go/types"
 	ethCommon "github.com/ethereum/go-ethereum/common"
 
-	hmyTypes "github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/hmy"
-	internalCommon "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/rosetta/common"
+	hmyTypes "github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/hmy"
+	internalCommon "github.com/harmony-one/astra/internal/common"
+	"github.com/harmony-one/astra/rosetta/common"
 )
 
 // AccountAPI implements the server.AccountAPIServicer interface.
 type AccountAPI struct {
-	hmy *hmy.Harmony
+	hmy *hmy.Astra
 }
 
 func (s *AccountAPI) AccountCoins(ctx context.Context, request *types.AccountCoinsRequest) (*types.AccountCoinsResponse, *types.Error) {
@@ -28,7 +28,7 @@ func (s *AccountAPI) AccountCoins(ctx context.Context, request *types.AccountCoi
 }
 
 // NewAccountAPI creates a new instance of a BlockAPI.
-func NewAccountAPI(hmy *hmy.Harmony) server.AccountAPIServicer {
+func NewAccountAPI(hmy *hmy.Astra) server.AccountAPIServicer {
 	return &AccountAPI{
 		hmy: hmy,
 	}
@@ -111,7 +111,7 @@ func (s *AccountAPI) getStakingBalance(
 		validatorAddr := subAccount.Address
 		validators, delegations := s.hmy.GetDelegationsByDelegatorByBlock(addr, block)
 		for index, validator := range validators {
-			if validatorAddr == internalCommon.MustAddressToBech32(validator) {
+			if validatorAddr == validator.String() {
 				balance = new(big.Int).Add(balance, delegations[index].Amount)
 			}
 		}
@@ -119,7 +119,7 @@ func (s *AccountAPI) getStakingBalance(
 		validatorAddr := subAccount.Address
 		validators, delegations := s.hmy.GetDelegationsByDelegatorByBlock(addr, block)
 		for index, validator := range validators {
-			if validatorAddr == internalCommon.MustAddressToBech32(validator) {
+			if validatorAddr == validator.String() {
 				undelegations := delegations[index].Undelegations
 				for _, undelegate := range undelegations {
 					balance = new(big.Int).Add(balance, undelegate.Amount)
@@ -144,12 +144,6 @@ type AccountMetadata struct {
 func newAccountIdentifier(
 	address ethCommon.Address,
 ) (*types.AccountIdentifier, *types.Error) {
-	b32Address, err := internalCommon.AddressToBech32(address)
-	if err != nil {
-		return nil, common.NewError(common.SanityCheckError, map[string]interface{}{
-			"message": err.Error(),
-		})
-	}
 	metadata, err := types.MarshalMap(AccountMetadata{Address: address.String()})
 	if err != nil {
 		return nil, common.NewError(common.CatchAllError, map[string]interface{}{
@@ -158,7 +152,7 @@ func newAccountIdentifier(
 	}
 
 	return &types.AccountIdentifier{
-		Address:  b32Address,
+		Address:  address.String(),
 		Metadata: metadata,
 	}, nil
 }
@@ -169,12 +163,6 @@ func newRosettaAccountIdentifier(address *vm.RosettaLogAddressItem) (*types.Acco
 		return nil, nil
 	}
 
-	b32Address, err := internalCommon.AddressToBech32(*address.Account)
-	if err != nil {
-		return nil, common.NewError(common.SanityCheckError, map[string]interface{}{
-			"message": err.Error(),
-		})
-	}
 	metadata, err := types.MarshalMap(AccountMetadata{Address: address.Account.String()})
 	if err != nil {
 		return nil, common.NewError(common.CatchAllError, map[string]interface{}{
@@ -183,12 +171,11 @@ func newRosettaAccountIdentifier(address *vm.RosettaLogAddressItem) (*types.Acco
 	}
 
 	ai := &types.AccountIdentifier{
-		Address:  b32Address,
+		Address:  address.Account.Hex(),
 		Metadata: metadata,
 	}
 
 	if address.SubAccount != nil {
-		b32Address, err := internalCommon.AddressToBech32(*address.SubAccount)
 		if err != nil {
 			return nil, common.NewError(common.SanityCheckError, map[string]interface{}{
 				"message": err.Error(),
@@ -196,7 +183,7 @@ func newRosettaAccountIdentifier(address *vm.RosettaLogAddressItem) (*types.Acco
 		}
 
 		ai.SubAccount = &types.SubAccountIdentifier{
-			Address:  b32Address,
+			Address:  address.SubAccount.Hex(),
 			Metadata: address.Metadata,
 		}
 	}
@@ -207,14 +194,8 @@ func newRosettaAccountIdentifier(address *vm.RosettaLogAddressItem) (*types.Acco
 func newSubAccountIdentifier(
 	address ethCommon.Address, metadata map[string]interface{},
 ) (*types.SubAccountIdentifier, *types.Error) {
-	b32Address, err := internalCommon.AddressToBech32(address)
-	if err != nil {
-		return nil, common.NewError(common.SanityCheckError, map[string]interface{}{
-			"message": err.Error(),
-		})
-	}
 	return &types.SubAccountIdentifier{
-		Address:  b32Address,
+		Address:  address.Hex(),
 		Metadata: metadata,
 	}, nil
 }
@@ -243,5 +224,5 @@ func getAddress(
 	if identifier == nil {
 		return ethCommon.Address{}, fmt.Errorf("identifier cannot be nil")
 	}
-	return internalCommon.Bech32ToAddress(identifier.Address)
+	return internalCommon.ParseAddr(identifier.Address)
 }

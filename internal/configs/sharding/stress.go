@@ -3,10 +3,10 @@ package shardingconfig
 import (
 	"math/big"
 
-	"github.com/harmony-one/harmony/numeric"
+	"github.com/harmony-one/astra/numeric"
 
-	"github.com/harmony-one/harmony/internal/genesis"
-	"github.com/harmony-one/harmony/internal/params"
+	"github.com/harmony-one/astra/internal/genesis"
+	"github.com/harmony-one/astra/internal/params"
 )
 
 // StressNetSchedule is the long-running public stressNet sharding
@@ -78,6 +78,6 @@ var stressnetReshardingEpoch = []*big.Int{
 	params.StressnetChainConfig.StakingEpoch,
 }
 
-var stressnetV0 = MustNewInstance(2, 10, 10, numeric.OneDec(), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, stressnetReshardingEpoch, StressNetSchedule.BlocksPerEpoch())
-var stressnetV1 = MustNewInstance(2, 30, 10, numeric.MustNewDecFromStr("0.9"), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, stressnetReshardingEpoch, StressNetSchedule.BlocksPerEpoch())
-var stressnetV2 = MustNewInstance(2, 30, 10, numeric.MustNewDecFromStr("0.6"), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, stressnetReshardingEpoch, StressNetSchedule.BlocksPerEpoch())
+var stressnetV0 = MustNewInstance(2, 10, 10, numeric.OneDec(), genesis.TNAstraAccounts, genesis.TNFoundationalAccounts, stressnetReshardingEpoch, StressNetSchedule.BlocksPerEpoch())
+var stressnetV1 = MustNewInstance(2, 30, 10, numeric.MustNewDecFromStr("0.9"), genesis.TNAstraAccounts, genesis.TNFoundationalAccounts, stressnetReshardingEpoch, StressNetSchedule.BlocksPerEpoch())
+var stressnetV2 = MustNewInstance(2, 30, 10, numeric.MustNewDecFromStr("0.6"), genesis.TNAstraAccounts, genesis.TNFoundationalAccounts, stressnetReshardingEpoch, StressNetSchedule.BlocksPerEpoch())

@@ -12,7 +12,6 @@ import (
 	"testing"
 
 	"github.com/ethereum/go-ethereum/common"
-	common2 "github.com/harmony-one/harmony/internal/common"
 
 	"github.com/syndtr/goleveldb/leveldb"
 )
@@ -92,7 +91,7 @@ func prepareTestLvlDB(db database) error {
 
 func tempTestDir(t *testing.T, index int) string {
 	tempDir := os.TempDir()
-	testDir := path.Join(tempDir, "harmony", "explorer_db", t.Name(), strconv.Itoa(index))
+	testDir := path.Join(tempDir, "astra", "explorer_db", t.Name(), strconv.Itoa(index))
 	os.RemoveAll(testDir)
 	return testDir
 }
@@ -237,12 +236,8 @@ func makeTestTxHash(index int) common.Hash {
 	return h
 }
 
-func makeOneAddress(index int) oneAddress {
+func makeOneAddress(index int) addrStr {
 	var raw common.Address
 	binary.LittleEndian.PutUint64(raw[:], uint64(index))
-	oneAddr, err := common2.AddressToBech32(raw)
-	if err != nil {
-		panic(err)
-	}
-	return oneAddress(oneAddr)
+	return addrStr(raw.Hex())
 }

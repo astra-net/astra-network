@@ -32,15 +32,15 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/harmony/block"
-	blockfactory "github.com/harmony-one/harmony/block/factory"
-	v0 "github.com/harmony-one/harmony/block/v0"
-	v1 "github.com/harmony-one/harmony/block/v1"
-	v2 "github.com/harmony-one/harmony/block/v2"
-	v3 "github.com/harmony-one/harmony/block/v3"
-	"github.com/harmony-one/harmony/crypto/hash"
-	"github.com/harmony-one/harmony/internal/utils"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/block"
+	blockfactory "github.com/harmony-one/astra/block/factory"
+	v0 "github.com/harmony-one/astra/block/v0"
+	v1 "github.com/harmony-one/astra/block/v1"
+	v2 "github.com/harmony-one/astra/block/v2"
+	v3 "github.com/harmony-one/astra/block/v3"
+	"github.com/harmony-one/astra/crypto/hash"
+	"github.com/harmony-one/astra/internal/utils"
+	staking "github.com/harmony-one/astra/staking/types"
 	"github.com/harmony-one/taggedrlp"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
@@ -205,7 +205,7 @@ func init() {
 	BodyRegistry.MustRegister(blockV2, new(BodyV2))
 }
 
-// Block represents an entire block in the Harmony blockchain.
+// Block represents an entire block in the Astra blockchain.
 type Block struct {
 	header              *block.Header
 	uncles              []*block.Header

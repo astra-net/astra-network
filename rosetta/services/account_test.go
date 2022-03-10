@@ -8,7 +8,6 @@ import (
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	internalCommon "github.com/harmony-one/harmony/internal/common"
 )
 
 func TestNewAccountIdentifier(t *testing.T) {
@@ -17,17 +16,13 @@ func TestNewAccountIdentifier(t *testing.T) {
 		t.Fatalf(err.Error())
 	}
 	addr := crypto.PubkeyToAddress(key.PublicKey)
-	b32Addr, err := internalCommon.AddressToBech32(addr)
-	if err != nil {
-		t.Fatalf(err.Error())
-	}
 	metadata, err := types.MarshalMap(AccountMetadata{Address: addr.String()})
 	if err != nil {
 		t.Fatalf(err.Error())
 	}
 
 	referenceAccID := &types.AccountIdentifier{
-		Address:  b32Addr,
+		Address:  addr.String(),
 		Metadata: metadata,
 	}
 	testAccID, rosettaError := newAccountIdentifier(addr)
@@ -45,12 +40,11 @@ func TestGetAddress(t *testing.T) {
 		t.Fatalf(err.Error())
 	}
 	addr := crypto.PubkeyToAddress(key.PublicKey)
-	b32Addr, err := internalCommon.AddressToBech32(addr)
 	if err != nil {
 		t.Fatalf(err.Error())
 	}
 	testAccID := &types.AccountIdentifier{
-		Address: b32Addr,
+		Address: addr.String(),
 	}
 
 	testAddr, err := getAddress(testAccID)

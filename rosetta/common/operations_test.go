@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/coinbase/rosetta-sdk-go/types"
-	staking "github.com/harmony-one/harmony/staking/types"
+	staking "github.com/harmony-one/astra/staking/types"
 )
 
 // WARNING: Careful for client side dependencies when changing operation status!
@@ -85,7 +85,7 @@ func TestStakingOperationTypes(t *testing.T) {
 
 func TestCreateValidatorOperationMetadata_UnmarshalFromInterface(t *testing.T) {
 	data := map[string]interface{}{
-		"validatorAddress":   "Ax1pdv9lrdwl0rg5vglh4xtyrv3wjk3wsqket7zxy",
+		"validatorAddress":   "one1pdv9lrdwl0rg5vglh4xtyrv3wjk3wsqket7zxy",
 		"commissionRate":     100000000000000000,
 		"maxCommissionRate":  900000000000000000,
 		"maxChangeRate":      50000000000000000,
@@ -93,7 +93,7 @@ func TestCreateValidatorOperationMetadata_UnmarshalFromInterface(t *testing.T) {
 		"maxTotalDelegation": 3000,
 		"amount":             100,
 		"name":               "Alice",
-		"website":            "alice.harmony.one",
+		"website":            "alice.astra.one",
 		"identity":           "alice",
 		"securityContact":    "Bob",
 		"details":            "Don't mess with me!!!",
@@ -103,7 +103,7 @@ func TestCreateValidatorOperationMetadata_UnmarshalFromInterface(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if s.ValidatorAddress != "Ax1pdv9lrdwl0rg5vglh4xtyrv3wjk3wsqket7zxy" {
+	if s.ValidatorAddress != "one1pdv9lrdwl0rg5vglh4xtyrv3wjk3wsqket7zxy" {
 		t.Fatal("wrong validator address")
 	}
 	if s.CommissionRate.Cmp(new(big.Int).SetInt64(100000000000000000)) != 0 {
@@ -127,7 +127,7 @@ func TestCreateValidatorOperationMetadata_UnmarshalFromInterface(t *testing.T) {
 	if s.Name != "Alice" {
 		t.Fatal("wrong name")
 	}
-	if s.Website != "alice.harmony.one" {
+	if s.Website != "alice.astra.one" {
 		t.Fatal("wrong website")
 	}
 	if s.Identity != "alice" {
@@ -143,12 +143,12 @@ func TestCreateValidatorOperationMetadata_UnmarshalFromInterface(t *testing.T) {
 
 func TestEditValidatorOperationMetadata_UnmarshalFromInterface(t *testing.T) {
 	data := map[string]interface{}{
-		"validatorAddress":   "Ax1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9",
+		"validatorAddress":   "one1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9",
 		"commissionRate":     100000000000000000,
 		"minSelfDelegation":  10,
 		"maxTotalDelegation": 3000,
 		"name":               "Alice",
-		"website":            "alice.harmony.one",
+		"website":            "alice.astra.one",
 		"identity":           "alice",
 		"securityContact":    "Bob",
 		"details":            "Don't mess with me!!!",
@@ -158,7 +158,7 @@ func TestEditValidatorOperationMetadata_UnmarshalFromInterface(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if s.ValidatorAddress != "Ax1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9" {
+	if s.ValidatorAddress != "one1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9" {
 		t.Fatal("wrong validator address")
 	}
 	if s.CommissionRate.Cmp(new(big.Int).SetInt64(100000000000000000)) != 0 {
@@ -173,7 +173,7 @@ func TestEditValidatorOperationMetadata_UnmarshalFromInterface(t *testing.T) {
 	if s.Name != "Alice" {
 		t.Fatal("wrong name")
 	}
-	if s.Website != "alice.harmony.one" {
+	if s.Website != "alice.astra.one" {
 		t.Fatal("wrong website")
 	}
 	if s.Identity != "alice" {
@@ -189,8 +189,8 @@ func TestEditValidatorOperationMetadata_UnmarshalFromInterface(t *testing.T) {
 
 func TestDelegateOperationMetadata_UnmarshalFromInterface(t *testing.T) {
 	data := map[string]interface{}{
-		"validatorAddress": "Ax1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9",
-		"delegatorAddress": "Ax1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9",
+		"validatorAddress": "one1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9",
+		"delegatorAddress": "one1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9",
 		"amount":           20000,
 	}
 	s := DelegateOperationMetadata{}
@@ -198,10 +198,10 @@ func TestDelegateOperationMetadata_UnmarshalFromInterface(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if s.ValidatorAddress != "Ax1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9" {
+	if s.ValidatorAddress != "one1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9" {
 		t.Fatal("wrong validator address")
 	}
-	if s.DelegatorAddress != "Ax1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9" {
+	if s.DelegatorAddress != "one1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9" {
 		t.Fatal("wrong delegator address")
 	}
 	if s.Amount.Cmp(new(big.Int).SetInt64(20000)) != 0 {
@@ -211,8 +211,8 @@ func TestDelegateOperationMetadata_UnmarshalFromInterface(t *testing.T) {
 
 func TestUndelegateOperationMetadata_UnmarshalFromInterface(t *testing.T) {
 	data := map[string]interface{}{
-		"validatorAddress": "Ax1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9",
-		"delegatorAddress": "Ax1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9",
+		"validatorAddress": "one1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9",
+		"delegatorAddress": "one1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9",
 		"amount":           20000,
 	}
 	s := UndelegateOperationMetadata{}
@@ -220,10 +220,10 @@ func TestUndelegateOperationMetadata_UnmarshalFromInterface(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if s.ValidatorAddress != "Ax1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9" {
+	if s.ValidatorAddress != "one1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9" {
 		t.Fatal("wrong validator address")
 	}
-	if s.DelegatorAddress != "Ax1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9" {
+	if s.DelegatorAddress != "one1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9" {
 		t.Fatal("wrong delegator address")
 	}
 	if s.Amount.Cmp(new(big.Int).SetInt64(20000)) != 0 {

@@ -6,19 +6,18 @@ import (
 	"math/big"
 	"sort"
 
-	"github.com/harmony-one/harmony/staking/availability"
+	"github.com/harmony-one/astra/staking/availability"
 
-	"github.com/harmony-one/harmony/internal/params"
+	"github.com/harmony-one/astra/internal/params"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/harmony-one/astra/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/common/denominations"
-	"github.com/harmony-one/harmony/core/vm"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/staking/effective"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/common/denominations"
+	"github.com/harmony-one/astra/core/vm"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/staking/effective"
+	staking "github.com/harmony-one/astra/staking/types"
 	"github.com/pkg/errors"
 )
 
@@ -96,7 +95,7 @@ func VerifyAndCreateValidatorFromMsg(
 	}
 	if stateDB.IsValidator(msg.ValidatorAddress) {
 		return nil, errors.Wrapf(
-			errValidatorExist, common2.MustAddressToBech32(msg.ValidatorAddress),
+			errValidatorExist, msg.ValidatorAddress.String(),
 		)
 	}
 	if err := checkDuplicateFields(

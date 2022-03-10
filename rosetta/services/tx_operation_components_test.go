@@ -6,9 +6,9 @@ import (
 
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/harmony-one/harmony/crypto/bls"
-	internalCommon "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/rosetta/common"
+	"github.com/harmony-one/astra/crypto/bls"
+	internalCommon "github.com/harmony-one/astra/internal/common"
+	"github.com/harmony-one/astra/rosetta/common"
 )
 
 func TestGetContractCreationOperationComponents(t *testing.T) {
@@ -498,7 +498,6 @@ func TestCreateValidatorOperationComponents(t *testing.T) {
 	}
 	validatorKey := internalCommon.MustGeneratePrivateKey()
 	validatorAddr := crypto.PubkeyToAddress(validatorKey.PublicKey)
-	validatorBech32Addr, _ := internalCommon.AddressToBech32(validatorAddr)
 	blsKey := bls.RandPrivateKey()
 	var serializedPubKey bls.SerializedPublicKey
 	copy(serializedPubKey[:], blsKey.GetPublicKey().Serialize())
@@ -511,7 +510,7 @@ func TestCreateValidatorOperationComponents(t *testing.T) {
 		Type:    common.CreateValidatorOperation,
 		Account: refFrom,
 		Metadata: map[string]interface{}{
-			"validatorAddress":   validatorBech32Addr,
+			"validatorAddress":   validatorAddr,
 			"commissionRate":     new(big.Int).SetInt64(10),
 			"maxCommissionRate":  new(big.Int).SetInt64(90),
 			"maxChangeRate":      new(big.Int).SetInt64(2),
@@ -641,7 +640,6 @@ func TestEditValidatorOperationComponents(t *testing.T) {
 	}
 	validatorKey := internalCommon.MustGeneratePrivateKey()
 	validatorAddr := crypto.PubkeyToAddress(validatorKey.PublicKey)
-	validatorBech32Addr, _ := internalCommon.AddressToBech32(validatorAddr)
 
 	// test valid operations
 	refOperations := &types.Operation{
@@ -651,7 +649,7 @@ func TestEditValidatorOperationComponents(t *testing.T) {
 		Type:    common.EditValidatorOperation,
 		Account: refFrom,
 		Metadata: map[string]interface{}{
-			"validatorAddress":   validatorBech32Addr,
+			"validatorAddress":   validatorAddr,
 			"commissionRate":     new(big.Int).SetInt64(10),
 			"minSelfDelegation":  new(big.Int).SetInt64(10000),
 			"maxTotalDelegation": new(big.Int).SetInt64(10000000),
@@ -767,13 +765,12 @@ func TestEditValidatorOperationComponents(t *testing.T) {
 func TestDelegateOperationComponents(t *testing.T) {
 	refFromKey := internalCommon.MustGeneratePrivateKey()
 	delegatorAddr := crypto.PubkeyToAddress(refFromKey.PublicKey)
-	delegatorBech32Addr, _ := internalCommon.AddressToBech32(delegatorAddr)
 	refFrom, rosettaError := newAccountIdentifier(crypto.PubkeyToAddress(refFromKey.PublicKey))
 	if rosettaError != nil {
 		t.Fatal(rosettaError)
 	}
 	validatorKey := internalCommon.MustGeneratePrivateKey()
-	validatorAddr, _ := internalCommon.AddressToBech32(crypto.PubkeyToAddress(validatorKey.PublicKey))
+	validatorAddr :=crypto.PubkeyToAddress(validatorKey.PublicKey)
 
 	// test valid operations
 	refOperations := &types.Operation{
@@ -783,7 +780,7 @@ func TestDelegateOperationComponents(t *testing.T) {
 		Type:    common.DelegateOperation,
 		Account: refFrom,
 		Metadata: map[string]interface{}{
-			"delegatorAddress": delegatorBech32Addr,
+			"delegatorAddress": delegatorAddr,
 			"validatorAddress": validatorAddr,
 			"amount":           new(big.Int).SetInt64(100),
 		},
@@ -887,13 +884,12 @@ func TestDelegateOperationComponents(t *testing.T) {
 func TestUndelegateOperationComponents(t *testing.T) {
 	refFromKey := internalCommon.MustGeneratePrivateKey()
 	delegatorAddr := crypto.PubkeyToAddress(refFromKey.PublicKey)
-	delegatorBech32Addr, _ := internalCommon.AddressToBech32(delegatorAddr)
 	refFrom, rosettaError := newAccountIdentifier(crypto.PubkeyToAddress(refFromKey.PublicKey))
 	if rosettaError != nil {
 		t.Fatal(rosettaError)
 	}
 	validatorKey := internalCommon.MustGeneratePrivateKey()
-	validatorAddr, _ := internalCommon.AddressToBech32(crypto.PubkeyToAddress(validatorKey.PublicKey))
+	validatorAddr := crypto.PubkeyToAddress(validatorKey.PublicKey)
 
 	// test valid operations
 	refOperations := &types.Operation{
@@ -903,7 +899,7 @@ func TestUndelegateOperationComponents(t *testing.T) {
 		Type:    common.UndelegateOperation,
 		Account: refFrom,
 		Metadata: map[string]interface{}{
-			"delegatorAddress": delegatorBech32Addr,
+			"delegatorAddress": delegatorAddr,
 			"validatorAddress": validatorAddr,
 			"amount":           new(big.Int).SetInt64(100),
 		},
@@ -1008,7 +1004,7 @@ func TestCollectRewardsOperationComponents(t *testing.T) {
 	refFromKey := internalCommon.MustGeneratePrivateKey()
 	validatorAddr := crypto.PubkeyToAddress(refFromKey.PublicKey)
 	refFrom, rosettaError := newAccountIdentifier(validatorAddr)
-	delegatorBech32Addr, _ := internalCommon.AddressToBech32(validatorAddr)
+	delegatorAddr := validatorAddr
 	if rosettaError != nil {
 		t.Fatal(rosettaError)
 	}
@@ -1020,7 +1016,7 @@ func TestCollectRewardsOperationComponents(t *testing.T) {
 		Type:    common.EditValidatorOperation,
 		Account: refFrom,
 		Metadata: map[string]interface{}{
-			"delegatorAddress": delegatorBech32Addr,
+			"delegatorAddress": delegatorAddr,
 		},
 	}
 

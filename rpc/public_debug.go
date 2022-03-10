@@ -4,19 +4,19 @@ import (
 	"context"
 
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/hmy"
-	"github.com/harmony-one/harmony/internal/utils"
+	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/hmy"
+	"github.com/harmony-one/astra/internal/utils"
 )
 
 // PublicDebugService Internal JSON RPC for debugging purpose
 type PublicDebugService struct {
-	hmy     *hmy.Harmony
+	hmy     *hmy.Astra
 	version Version
 }
 
 // NewPublicDebugAPI creates a new API for the RPC interface
-func NewPublicDebugAPI(hmy *hmy.Harmony, version Version) rpc.API {
+func NewPublicDebugAPI(hmy *hmy.Astra, version Version) rpc.API {
 	return rpc.API{
 		Namespace: version.Namespace(),
 		Version:   APIVersion,

@@ -7,19 +7,19 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/server"
 	"github.com/coinbase/rosetta-sdk-go/types"
 	ethCommon "github.com/ethereum/go-ethereum/common"
-	hmyTypes "github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/hmy"
-	"github.com/harmony-one/harmony/rosetta/common"
-	"github.com/harmony-one/harmony/staking"
+	hmyTypes "github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/hmy"
+	"github.com/harmony-one/astra/rosetta/common"
+	"github.com/harmony-one/astra/staking"
 )
 
 // MempoolAPI implements the server.MempoolAPIServicer interface
 type MempoolAPI struct {
-	hmy *hmy.Harmony
+	hmy *hmy.Astra
 }
 
 // NewMempoolAPI creates a new instance of MempoolAPI
-func NewMempoolAPI(hmy *hmy.Harmony) server.MempoolAPIServicer {
+func NewMempoolAPI(hmy *hmy.Astra) server.MempoolAPIServicer {
 	return &MempoolAPI{
 		hmy: hmy,
 	}

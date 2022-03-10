@@ -23,9 +23,9 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/internal/params"
-	stakingTypes "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/internal/params"
+	stakingTypes "github.com/harmony-one/astra/staking/types"
 )
 
 // emptyCodeHash is used by create to ensure deployment is disallowed to already

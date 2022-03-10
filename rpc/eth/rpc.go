@@ -4,18 +4,18 @@ import (
 	"context"
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/hmy"
-	internal_common "github.com/harmony-one/harmony/internal/common"
+	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/hmy"
+	internal_common "github.com/harmony-one/astra/internal/common"
 )
 
-// PublicEthService provides an API to access to the Eth endpoints for the Harmony blockchain.
+// PublicEthService provides an API to access to the Eth endpoints for the Astra blockchain.
 type PublicEthService struct {
-	hmy *hmy.Harmony
+	hmy *hmy.Astra
 }
 
 // NewPublicEthService creates a new API for the RPC interface
-func NewPublicEthService(hmy *hmy.Harmony, namespace string) rpc.API {
+func NewPublicEthService(hmy *hmy.Astra, namespace string) rpc.API {
 	if namespace == "" {
 		namespace = "eth"
 	}

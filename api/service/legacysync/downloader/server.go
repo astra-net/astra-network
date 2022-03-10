@@ -5,8 +5,8 @@ import (
 	"net"
 	"strconv"
 
-	pb "github.com/harmony-one/harmony/api/service/legacysync/downloader/proto"
-	"github.com/harmony-one/harmony/internal/utils"
+	pb "github.com/harmony-one/astra/api/service/legacysync/downloader/proto"
+	"github.com/harmony-one/astra/internal/utils"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/peer"

@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/numeric"
+	"github.com/harmony-one/astra/internal/params"
+	"github.com/harmony-one/astra/numeric"
 
-	"github.com/harmony-one/harmony/internal/genesis"
+	"github.com/harmony-one/astra/internal/genesis"
 )
 
 // LocalnetSchedule is the local testnet sharding
@@ -141,10 +141,10 @@ var (
 	localnetReshardingEpoch = []*big.Int{
 		big.NewInt(0), big.NewInt(localnetV1Epoch), params.LocalnetChainConfig.StakingEpoch, params.LocalnetChainConfig.TwoSecondsEpoch,
 	}
-	// Number of shards, how many slots on each , how many slots owned by Harmony
-	localnetV0   = MustNewInstance(2, 7, 5, numeric.OneDec(), genesis.LocalHarmonyAccounts, genesis.LocalFnAccounts, localnetReshardingEpoch, LocalnetSchedule.BlocksPerEpochOld())
-	localnetV1   = MustNewInstance(2, 8, 5, numeric.OneDec(), genesis.LocalHarmonyAccountsV1, genesis.LocalFnAccountsV1, localnetReshardingEpoch, LocalnetSchedule.BlocksPerEpochOld())
-	localnetV2   = MustNewInstance(2, 9, 6, numeric.MustNewDecFromStr("0.68"), genesis.LocalHarmonyAccountsV2, genesis.LocalFnAccountsV2, localnetReshardingEpoch, LocalnetSchedule.BlocksPerEpochOld())
-	localnetV3   = MustNewInstance(2, 9, 6, numeric.MustNewDecFromStr("0.68"), genesis.LocalHarmonyAccountsV2, genesis.LocalFnAccountsV2, localnetReshardingEpoch, LocalnetSchedule.BlocksPerEpoch())
-	localnetV3_1 = MustNewInstance(2, 9, 6, numeric.MustNewDecFromStr("0.68"), genesis.LocalHarmonyAccountsV2, genesis.LocalFnAccountsV2, localnetReshardingEpoch, LocalnetSchedule.BlocksPerEpoch())
+	// Number of shards, how many slots on each , how many slots owned by Astra
+	localnetV0   = MustNewInstance(2, 7, 5, numeric.OneDec(), genesis.LocalAstraAccounts, genesis.LocalFnAccounts, localnetReshardingEpoch, LocalnetSchedule.BlocksPerEpochOld())
+	localnetV1   = MustNewInstance(2, 8, 5, numeric.OneDec(), genesis.LocalAstraAccountsV1, genesis.LocalFnAccountsV1, localnetReshardingEpoch, LocalnetSchedule.BlocksPerEpochOld())
+	localnetV2   = MustNewInstance(2, 9, 6, numeric.MustNewDecFromStr("0.68"), genesis.LocalAstraAccountsV2, genesis.LocalFnAccountsV2, localnetReshardingEpoch, LocalnetSchedule.BlocksPerEpochOld())
+	localnetV3   = MustNewInstance(2, 9, 6, numeric.MustNewDecFromStr("0.68"), genesis.LocalAstraAccountsV2, genesis.LocalFnAccountsV2, localnetReshardingEpoch, LocalnetSchedule.BlocksPerEpoch())
+	localnetV3_1 = MustNewInstance(2, 9, 6, numeric.MustNewDecFromStr("0.68"), genesis.LocalAstraAccountsV2, genesis.LocalFnAccountsV2, localnetReshardingEpoch, LocalnetSchedule.BlocksPerEpoch())
 )

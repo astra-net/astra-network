@@ -1,14 +1,14 @@
 package node
 
 import (
-	"github.com/harmony-one/harmony/consensus/quorum"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/hmy"
-	"github.com/harmony-one/harmony/rosetta"
-	hmy_rpc "github.com/harmony-one/harmony/rpc"
-	rpc_common "github.com/harmony-one/harmony/rpc/common"
-	"github.com/harmony-one/harmony/rpc/filters"
+	"github.com/harmony-one/astra/consensus/quorum"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/hmy"
+	"github.com/harmony-one/astra/rosetta"
+	hmy_rpc "github.com/harmony-one/astra/rpc"
+	rpc_common "github.com/harmony-one/astra/rpc/common"
+	"github.com/harmony-one/astra/rpc/filters"
 	"github.com/libp2p/go-libp2p-core/peer"
 )
 
@@ -65,12 +65,12 @@ func (node *Node) ReportPlainErrorSink() types.TransactionErrorReports {
 
 // StartRPC start RPC service
 func (node *Node) StartRPC() error {
-	harmony := hmy.New(node, node.TxPool, node.CxPool, node.Consensus.ShardID)
+	astra := hmy.New(node, node.TxPool, node.CxPool, node.Consensus.ShardID)
 
 	// Gather all the possible APIs to surface
-	apis := node.APIs(harmony)
+	apis := node.APIs(astra)
 
-	return hmy_rpc.StartServers(harmony, apis, node.NodeConfig.RPCServer)
+	return hmy_rpc.StartServers(astra, apis, node.NodeConfig.RPCServer)
 }
 
 // StopRPC stop RPC service
@@ -80,8 +80,8 @@ func (node *Node) StopRPC() error {
 
 // StartRosetta start rosetta service
 func (node *Node) StartRosetta() error {
-	harmony := hmy.New(node, node.TxPool, node.CxPool, node.Consensus.ShardID)
-	return rosetta.StartServers(harmony, node.NodeConfig.RosettaServer, node.NodeConfig.RPCServer.RateLimiterEnabled, node.NodeConfig.RPCServer.RequestsPerSecond)
+	astra := hmy.New(node, node.TxPool, node.CxPool, node.Consensus.ShardID)
+	return rosetta.StartServers(astra, node.NodeConfig.RosettaServer, node.NodeConfig.RPCServer.RateLimiterEnabled, node.NodeConfig.RPCServer.RequestsPerSecond)
 }
 
 // StopRosetta stops rosetta service
@@ -91,15 +91,15 @@ func (node *Node) StopRosetta() error {
 
 // APIs return the collection of local RPC services.
 // NOTE, some of these services probably need to be moved to somewhere else.
-func (node *Node) APIs(harmony *hmy.Harmony) []rpc.API {
+func (node *Node) APIs(astra *hmy.Astra) []rpc.API {
 	// Append all the local APIs and return
 	return []rpc.API{
-		hmy_rpc.NewPublicNetAPI(node.host, harmony.ChainID, hmy_rpc.V1),
-		hmy_rpc.NewPublicNetAPI(node.host, harmony.ChainID, hmy_rpc.V2),
-		hmy_rpc.NewPublicNetAPI(node.host, harmony.ChainID, hmy_rpc.Eth),
+		hmy_rpc.NewPublicNetAPI(node.host, astra.ChainID, hmy_rpc.V1),
+		hmy_rpc.NewPublicNetAPI(node.host, astra.ChainID, hmy_rpc.V2),
+		hmy_rpc.NewPublicNetAPI(node.host, astra.ChainID, hmy_rpc.Eth),
 		hmy_rpc.NewPublicWeb3API(),
-		filters.NewPublicFilterAPI(harmony, false, "hmy"),
-		filters.NewPublicFilterAPI(harmony, false, "eth"),
+		filters.NewPublicFilterAPI(astra, false, "hmy"),
+		filters.NewPublicFilterAPI(astra, false, "eth"),
 	}
 }
 
@@ -158,7 +158,7 @@ func (node *Node) SetNodeBackupMode(isBackup bool) bool {
 
 func (node *Node) GetConfig() rpc_common.Config {
 	return rpc_common.Config{
-		HarmonyConfig: *node.HarmonyConfig,
+		AstraConfig: *node.AstraConfig,
 		NodeConfig:    *node.NodeConfig,
 		ChainConfig:   node.chainConfig,
 	}

@@ -3,13 +3,13 @@ package node
 import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	proto_node "github.com/harmony-one/harmony/api/proto/node"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/types"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/p2p"
-	"github.com/harmony-one/harmony/shard"
+	proto_node "github.com/harmony-one/astra/api/proto/node"
+	"github.com/harmony-one/astra/core"
+	"github.com/harmony-one/astra/core/types"
+	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/p2p"
+	"github.com/harmony-one/astra/shard"
 	"github.com/pkg/errors"
 )
 

@@ -3,8 +3,8 @@ package downloader
 import (
 	"time"
 
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/internal/utils"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/internal/utils"
 	"github.com/rs/zerolog"
 )
 

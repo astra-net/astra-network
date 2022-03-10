@@ -10,11 +10,11 @@ import (
 	ethCommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	"github.com/harmony-one/harmony/common/denominations"
-	hmyTypes "github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/hmy"
-	"github.com/harmony-one/harmony/rosetta/common"
-	stakingTypes "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/common/denominations"
+	hmyTypes "github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/hmy"
+	"github.com/harmony-one/astra/rosetta/common"
+	stakingTypes "github.com/harmony-one/astra/staking/types"
 )
 
 const (
@@ -24,13 +24,13 @@ const (
 
 // ConstructAPI implements the server.ConstructAPIServicer interface.
 type ConstructAPI struct {
-	hmy           *hmy.Harmony
+	hmy           *hmy.Astra
 	signer        hmyTypes.Signer
 	stakingSigner stakingTypes.Signer
 }
 
 // NewConstructionAPI creates a new instance of a ConstructAPI.
-func NewConstructionAPI(hmy *hmy.Harmony) server.ConstructionAPIServicer {
+func NewConstructionAPI(hmy *hmy.Astra) server.ConstructionAPIServicer {
 	return &ConstructAPI{
 		hmy:           hmy,
 		signer:        hmyTypes.NewEIP155Signer(new(big.Int).SetUint64(hmy.ChainID)),

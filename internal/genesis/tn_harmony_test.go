@@ -2,8 +2,8 @@ package genesis
 
 import "testing"
 
-func TestTNHarmonyAccounts(t *testing.T) {
-	testDeployAccounts(t, TNHarmonyAccounts)
+func TestTNAstraAccounts(t *testing.T) {
+	testDeployAccounts(t, TNAstraAccounts)
 }
 
 func TestTNFoundationalAccounts(t *testing.T) {

@@ -3,9 +3,9 @@ package shardingconfig
 import (
 	"math/big"
 
-	"github.com/harmony-one/harmony/internal/genesis"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/numeric"
+	"github.com/harmony-one/astra/internal/genesis"
+	"github.com/harmony-one/astra/internal/params"
+	"github.com/harmony-one/astra/numeric"
 )
 
 // TestnetSchedule is the long-running public testnet sharding
@@ -114,8 +114,8 @@ var testnetReshardingEpoch = []*big.Int{
 	params.TestnetChainConfig.TwoSecondsEpoch,
 }
 
-var testnetV0 = MustNewInstance(4, 16, 15, numeric.OneDec(), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpochOld())
-var testnetV1 = MustNewInstance(4, 20, 15, numeric.MustNewDecFromStr("0.90"), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpochOld())
-var testnetV2 = MustNewInstance(4, 30, 8, numeric.MustNewDecFromStr("0.90"), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpochOld())
-var testnetV3 = MustNewInstance(4, 30, 8, numeric.MustNewDecFromStr("0.90"), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpoch())
-var testnetV3_1 = MustNewInstance(4, 30, 8, numeric.MustNewDecFromStr("0.60"), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpoch())
+var testnetV0 = MustNewInstance(4, 16, 15, numeric.OneDec(), genesis.TNAstraAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpochOld())
+var testnetV1 = MustNewInstance(4, 20, 15, numeric.MustNewDecFromStr("0.90"), genesis.TNAstraAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpochOld())
+var testnetV2 = MustNewInstance(4, 30, 8, numeric.MustNewDecFromStr("0.90"), genesis.TNAstraAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpochOld())
+var testnetV3 = MustNewInstance(4, 30, 8, numeric.MustNewDecFromStr("0.90"), genesis.TNAstraAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpoch())
+var testnetV3_1 = MustNewInstance(4, 30, 8, numeric.MustNewDecFromStr("0.60"), genesis.TNAstraAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpoch())

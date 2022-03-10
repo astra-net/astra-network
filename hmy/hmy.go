@@ -10,16 +10,16 @@ import (
 	"github.com/ethereum/go-ethereum/ethdb"
 	"github.com/ethereum/go-ethereum/event"
 	"github.com/ethereum/go-ethereum/params"
-	"github.com/harmony-one/harmony/api/proto"
-	"github.com/harmony-one/harmony/block"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/core/vm"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	commonRPC "github.com/harmony-one/harmony/rpc/common"
-	"github.com/harmony-one/harmony/shard"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/api/proto"
+	"github.com/harmony-one/astra/block"
+	"github.com/harmony-one/astra/core"
+	"github.com/harmony-one/astra/core/state"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/core/vm"
+	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	commonRPC "github.com/harmony-one/astra/rpc/common"
+	"github.com/harmony-one/astra/shard"
+	staking "github.com/harmony-one/astra/staking/types"
 	lru "github.com/hashicorp/golang-lru"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/pkg/errors"
@@ -41,10 +41,10 @@ var (
 	ErrFinalizedTransaction = errors.New("transaction already finalized")
 )
 
-// Harmony implements the Harmony full node service.
-type Harmony struct {
+// Astra implements the Astra full node service.
+type Astra struct {
 	// Channel for shutting down the service
-	ShutdownChan  chan bool                      // Channel for shutting down the Harmony
+	ShutdownChan  chan bool                      // Channel for shutting down the Astra
 	BloomRequests chan chan *bloombits.Retrieval // Channel receiving bloom data retrieval requests
 	BlockChain    *core.BlockChain
 	BeaconChain   *core.BlockChain
@@ -116,11 +116,11 @@ type NodeAPI interface {
 	GetLastSigningPower() (float64, error)
 }
 
-// New creates a new Harmony object (including the
-// initialisation of the common Harmony object)
+// New creates a new Astra object (including the
+// initialisation of the common Astra object)
 func New(
 	nodeAPI NodeAPI, txPool *core.TxPool, cxPool *core.CxPool, shardID uint32,
-) *Harmony {
+) *Astra {
 	chainDb := nodeAPI.Blockchain().ChainDb()
 	leaderCache, _ := lru.New(leaderCacheSize)
 	undelegationPayoutsCache, _ := lru.New(undelegationPayoutsCacheSize)
@@ -129,7 +129,7 @@ func New(
 	bloomIndexer := NewBloomIndexer(chainDb, params.BloomBitsBlocks, params.BloomConfirms)
 	bloomIndexer.Start(nodeAPI.Blockchain())
 
-	backend := &Harmony{
+	backend := &Astra{
 		ShutdownChan:                make(chan bool),
 		BloomRequests:               make(chan chan *bloombits.Retrieval),
 		BloomIndexer:                bloomIndexer,
@@ -162,7 +162,7 @@ func New(
 }
 
 // SingleFlightRequest ..
-func (hmy *Harmony) SingleFlightRequest(
+func (hmy *Astra) SingleFlightRequest(
 	key string,
 	fn func() (interface{}, error),
 ) (interface{}, error) {
@@ -171,22 +171,22 @@ func (hmy *Harmony) SingleFlightRequest(
 }
 
 // SingleFlightForgetKey ...
-func (hmy *Harmony) SingleFlightForgetKey(key string) {
+func (hmy *Astra) SingleFlightForgetKey(key string) {
 	hmy.group.Forget(key)
 }
 
 // ProtocolVersion ...
-func (hmy *Harmony) ProtocolVersion() int {
+func (hmy *Astra) ProtocolVersion() int {
 	return proto.ProtocolVersion
 }
 
 // IsLeader exposes if node is currently leader
-func (hmy *Harmony) IsLeader() bool {
+func (hmy *Astra) IsLeader() bool {
 	return hmy.NodeAPI.IsCurrentlyLeader()
 }
 
 // GetNodeMetadata ..
-func (hmy *Harmony) GetNodeMetadata() commonRPC.NodeMetadata {
+func (hmy *Astra) GetNodeMetadata() commonRPC.NodeMetadata {
 	header := hmy.CurrentBlock().Header()
 	cfg := nodeconfig.GetShardConfig(header.ShardID())
 	var blockEpoch *uint64
@@ -232,25 +232,25 @@ func (hmy *Harmony) GetNodeMetadata() commonRPC.NodeMetadata {
 }
 
 // GetEVM returns a new EVM entity
-func (hmy *Harmony) GetEVM(ctx context.Context, msg core.Message, state *state.DB, header *block.Header) (*vm.EVM, error) {
+func (hmy *Astra) GetEVM(ctx context.Context, msg core.Message, state *state.DB, header *block.Header) (*vm.EVM, error) {
 	state.SetBalance(msg.From(), math.MaxBig256)
 	vmCtx := core.NewEVMContext(msg, header, hmy.BlockChain, nil)
 	return vm.NewEVM(vmCtx, state, hmy.BlockChain.Config(), *hmy.BlockChain.GetVMConfig()), nil
 }
 
 // ChainDb ..
-func (hmy *Harmony) ChainDb() ethdb.Database {
+func (hmy *Astra) ChainDb() ethdb.Database {
 	return hmy.chainDb
 }
 
 // EventMux ..
-func (hmy *Harmony) EventMux() *event.TypeMux {
+func (hmy *Astra) EventMux() *event.TypeMux {
 	return hmy.eventMux
 }
 
 // BloomStatus ...
-// TODO: this is not implemented or verified yet for harmony.
-func (hmy *Harmony) BloomStatus() (uint64, uint64) {
+// TODO: this is not implemented or verified yet for astra.
+func (hmy *Astra) BloomStatus() (uint64, uint64) {
 	sections, _, _ := hmy.BloomIndexer.Sections()
 	return BloomBitsBlocks, sections
 }

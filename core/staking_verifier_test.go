@@ -7,23 +7,23 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/harmony-one/harmony/internal/params"
+	"github.com/harmony-one/astra/internal/params"
 
 	"github.com/ethereum/go-ethereum/core/rawdb"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/harmony-one/astra/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/block"
-	consensus_engine "github.com/harmony-one/harmony/consensus/engine"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/core/vm"
-	"github.com/harmony-one/harmony/crypto/hash"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/staking/effective"
-	staking "github.com/harmony-one/harmony/staking/types"
-	staketest "github.com/harmony-one/harmony/staking/types/test"
+	"github.com/harmony-one/astra/block"
+	consensus_engine "github.com/harmony-one/astra/consensus/engine"
+	"github.com/harmony-one/astra/core/state"
+	"github.com/harmony-one/astra/core/vm"
+	"github.com/harmony-one/astra/crypto/hash"
+	"github.com/harmony-one/astra/numeric"
+	"github.com/harmony-one/astra/shard"
+	"github.com/harmony-one/astra/staking/effective"
+	staking "github.com/harmony-one/astra/staking/types"
+	staketest "github.com/harmony-one/astra/staking/types/test"
 )
 
 const (

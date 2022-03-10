@@ -2,7 +2,7 @@ package consensus
 
 import (
 	"github.com/ethereum/go-ethereum/event"
-	"github.com/harmony-one/harmony/core/types"
+	"github.com/harmony-one/astra/core/types"
 	"github.com/pkg/errors"
 )
 

@@ -4,14 +4,14 @@ The black list is a newline delimited file of wallet addresses. It can also supp
 
 ## Default Location
 
-By default, the harmony binary looks for the file `./.hmy/blaklist.txt`.
+By default, the astra binary looks for the file `./.hmy/blaklist.txt`.
 
 ## Example File
 
 ```
-Ax1spshr72utf6rwxseaz339j09ed8p6f8ke370zj
-Ax1uyshu2jgv8w465yc8kkny36thlt2wvel89tcmg  # This is a comment
-Ax1r4zyyjqrulf935a479sgqlpa78kz7zlcg2jfen
+0xef1c0d949efbd8baed211fad28a08c5cf96e989d
+0x3b00aab412891853f2cc91a6957a66088f22437b  # This is a comment
+0xafdd04699c52635b059a4b914f61253b0b0093ad
 
 ```
 

@@ -6,13 +6,13 @@ import (
 	"testing"
 
 	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	harmony_bls "github.com/harmony-one/harmony/crypto/bls"
-	shardingconfig "github.com/harmony-one/harmony/internal/configs/sharding"
-	"github.com/harmony-one/harmony/shard"
+	astra_bls "github.com/harmony-one/astra/crypto/bls"
+	shardingconfig "github.com/harmony-one/astra/internal/configs/sharding"
+	"github.com/harmony-one/astra/shard"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/harmony-one/astra/crypto/bls"
 )
 
 func TestPhaseStrings(t *testing.T) {
@@ -54,11 +54,11 @@ func TestAddingQuoromParticipants(t *testing.T) {
 
 	assert.Equal(t, int64(0), decider.ParticipantsCount())
 
-	blsKeys := []harmony_bls.PublicKeyWrapper{}
+	blsKeys := []astra_bls.PublicKeyWrapper{}
 	keyCount := int64(5)
 	for i := int64(0); i < keyCount; i++ {
-		blsKey := harmony_bls.RandPrivateKey()
-		wrapper := harmony_bls.PublicKeyWrapper{Object: blsKey.GetPublicKey()}
+		blsKey := astra_bls.RandPrivateKey()
+		wrapper := astra_bls.PublicKeyWrapper{Object: blsKey.GetPublicKey()}
 		wrapper.Bytes.FromLibBLSPublicKey(wrapper.Object)
 		blsKeys = append(blsKeys, wrapper)
 	}
@@ -233,7 +233,7 @@ func TestAddNewVote(test *testing.T) {
 		}
 	}
 
-	// aggregate sig from all of 3 harmony nodes
+	// aggregate sig from all of 3 astra nodes
 	decider.AddNewVote(Prepare,
 		[]*bls.PublicKeyWrapper{&pubKeys[0], &pubKeys[1], &pubKeys[2]},
 		aggSig,
@@ -242,10 +242,10 @@ func TestAddNewVote(test *testing.T) {
 		viewID)
 
 	if !decider.IsQuorumAchieved(Prepare) {
-		test.Error("quorum should have been achieved with harmony nodes")
+		test.Error("quorum should have been achieved with astra nodes")
 	}
 	if decider.SignersCount(Prepare) != 3 {
-		test.Errorf("signers are incorrect for harmony nodes signing with aggregate sig: have %d, expect %d", decider.SignersCount(Prepare), 3)
+		test.Errorf("signers are incorrect for astra nodes signing with aggregate sig: have %d, expect %d", decider.SignersCount(Prepare), 3)
 	}
 
 	decider.ResetPrepareAndCommitVotes()
@@ -271,7 +271,7 @@ func TestAddNewVote(test *testing.T) {
 		test.Fatal("quorum shouldn't have been achieved with external nodes")
 	}
 	if decider.SignersCount(Prepare) != 0 {
-		test.Errorf("signers are incorrect for harmony nodes signing with aggregate sig: have %d, expect %d", decider.SignersCount(Prepare), 0)
+		test.Errorf("signers are incorrect for astra nodes signing with aggregate sig: have %d, expect %d", decider.SignersCount(Prepare), 0)
 	}
 
 	decider.ResetPrepareAndCommitVotes()
@@ -290,7 +290,7 @@ func TestAddNewVote(test *testing.T) {
 		test.Fatal("quorum shouldn't have been achieved with only one key signing")
 	}
 	if decider.SignersCount(Prepare) != 1 {
-		test.Errorf("signers are incorrect for harmony nodes signing with aggregate sig: have %d, expect %d", decider.SignersCount(Prepare), 1)
+		test.Errorf("signers are incorrect for astra nodes signing with aggregate sig: have %d, expect %d", decider.SignersCount(Prepare), 1)
 	}
 }
 
@@ -338,7 +338,7 @@ func TestAddNewVoteAggregateSig(test *testing.T) {
 		}
 	}
 
-	// aggregate sig from all of 2 harmony nodes
+	// aggregate sig from all of 2 astra nodes
 	decider.AddNewVote(Prepare,
 		[]*bls.PublicKeyWrapper{&pubKeys[0], &pubKeys[1]},
 		aggSig,
@@ -347,10 +347,10 @@ func TestAddNewVoteAggregateSig(test *testing.T) {
 		viewID)
 
 	if decider.IsQuorumAchieved(Prepare) {
-		test.Error("quorum should not have been achieved with 2 harmony nodes")
+		test.Error("quorum should not have been achieved with 2 astra nodes")
 	}
 	if decider.SignersCount(Prepare) != 2 {
-		test.Errorf("signers are incorrect for harmony nodes signing with aggregate sig: have %d, expect %d", decider.SignersCount(Prepare), 2)
+		test.Errorf("signers are incorrect for astra nodes signing with aggregate sig: have %d, expect %d", decider.SignersCount(Prepare), 2)
 	}
 	// aggregate sig from all of 2 external nodes
 
@@ -368,10 +368,10 @@ func TestAddNewVoteAggregateSig(test *testing.T) {
 		viewID)
 
 	if !decider.IsQuorumAchieved(Prepare) {
-		test.Error("quorum should have been achieved with 2 harmony nodes")
+		test.Error("quorum should have been achieved with 2 astra nodes")
 	}
 	if decider.SignersCount(Prepare) != 4 {
-		test.Errorf("signers are incorrect for harmony nodes signing with aggregate sig: have %d, expect %d", decider.SignersCount(Prepare), 4)
+		test.Errorf("signers are incorrect for astra nodes signing with aggregate sig: have %d, expect %d", decider.SignersCount(Prepare), 4)
 	}
 }
 
@@ -422,7 +422,7 @@ func TestAddNewVoteInvalidAggregateSig(test *testing.T) {
 		}
 	}
 
-	// aggregate sig from all of 2 harmony nodes
+	// aggregate sig from all of 2 astra nodes
 	decider.AddNewVote(Prepare,
 		[]*bls.PublicKeyWrapper{&pubKeys[0], &pubKeys[1]},
 		aggSig,
@@ -431,10 +431,10 @@ func TestAddNewVoteInvalidAggregateSig(test *testing.T) {
 		viewID)
 
 	if decider.IsQuorumAchieved(Prepare) {
-		test.Error("quorum should not have been achieved with 2 harmony nodes")
+		test.Error("quorum should not have been achieved with 2 astra nodes")
 	}
 	if decider.SignersCount(Prepare) != 2 {
-		test.Errorf("signers are incorrect for harmony nodes signing with aggregate sig: have %d, expect %d", decider.SignersCount(Prepare), 2)
+		test.Errorf("signers are incorrect for astra nodes signing with aggregate sig: have %d, expect %d", decider.SignersCount(Prepare), 2)
 	}
 
 	aggSig = &bls_core.Sign{}
@@ -455,7 +455,7 @@ func TestAddNewVoteInvalidAggregateSig(test *testing.T) {
 		test.Error(err, "expect no error")
 	}
 	if decider.SignersCount(Prepare) != 4 {
-		test.Errorf("signers are incorrect for harmony nodes signing with aggregate sig: have %d, expect %d", decider.SignersCount(Prepare), 4)
+		test.Errorf("signers are incorrect for astra nodes signing with aggregate sig: have %d, expect %d", decider.SignersCount(Prepare), 4)
 	}
 
 	// Aggregate Vote should only contain sig from 0, 1, 3, 4
@@ -479,7 +479,7 @@ func TestAddNewVoteInvalidAggregateSig(test *testing.T) {
 		test.Error(err, "expect error due to already submitted votes")
 	}
 	if decider.SignersCount(Prepare) != 4 {
-		test.Errorf("signers are incorrect for harmony nodes signing with aggregate sig: have %d, expect %d", decider.SignersCount(Prepare), 4)
+		test.Errorf("signers are incorrect for astra nodes signing with aggregate sig: have %d, expect %d", decider.SignersCount(Prepare), 4)
 	}
 
 	_, err = decider.AddNewVote(Prepare,
@@ -493,7 +493,7 @@ func TestAddNewVoteInvalidAggregateSig(test *testing.T) {
 		test.Error(err, "expect error due to duplicate keys in aggregated votes")
 	}
 	if decider.SignersCount(Prepare) != 4 {
-		test.Errorf("signers are incorrect for harmony nodes signing with aggregate sig: have %d, expect %d", decider.SignersCount(Prepare), 4)
+		test.Errorf("signers are incorrect for astra nodes signing with aggregate sig: have %d, expect %d", decider.SignersCount(Prepare), 4)
 	}
 }
 

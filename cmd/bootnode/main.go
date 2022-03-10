@@ -12,8 +12,8 @@ import (
 	net "github.com/libp2p/go-libp2p-core/network"
 	ma "github.com/multiformats/go-multiaddr"
 
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/p2p"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/p2p"
 )
 
 // ConnLogger ..
@@ -85,7 +85,7 @@ var (
 )
 
 func printVersion(me string) {
-	fmt.Fprintf(os.Stderr, "Harmony (C) 2019. %v, version %v-%v (%v %v)\n", path.Base(me), version, commit, builtBy, builtAt)
+	fmt.Fprintf(os.Stderr, "Astra (C) 2019. %v, version %v-%v (%v %v)\n", path.Base(me), version, commit, builtBy, builtAt)
 	os.Exit(0)
 }
 

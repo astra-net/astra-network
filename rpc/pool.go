@@ -13,23 +13,22 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/hmy"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	"github.com/harmony-one/harmony/internal/utils"
-	eth "github.com/harmony-one/harmony/rpc/eth"
-	v1 "github.com/harmony-one/harmony/rpc/v1"
-	v2 "github.com/harmony-one/harmony/rpc/v2"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/core"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/hmy"
+	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	"github.com/harmony-one/astra/internal/utils"
+	eth "github.com/harmony-one/astra/rpc/eth"
+	v1 "github.com/harmony-one/astra/rpc/v1"
+	v2 "github.com/harmony-one/astra/rpc/v2"
+	staking "github.com/harmony-one/astra/staking/types"
 )
 
-// PublicPoolService provides an API to access the Harmony node's transaction pool.
+// PublicPoolService provides an API to access the Astra node's transaction pool.
 // It offers only methods that operate on public data that is freely available to anyone.
 type PublicPoolService struct {
-	hmy     *hmy.Harmony
+	hmy     *hmy.Astra
 	version Version
 
 	// TEMP SOLUTION to rpc node spamming issue
@@ -37,7 +36,7 @@ type PublicPoolService struct {
 }
 
 // NewPublicPoolAPI creates a new API for the RPC interface
-func NewPublicPoolAPI(hmy *hmy.Harmony, version Version) rpc.API {
+func NewPublicPoolAPI(hmy *hmy.Astra, version Version) rpc.API {
 	return rpc.API{
 		Namespace: version.Namespace(),
 		Version:   APIVersion,
@@ -121,7 +120,7 @@ func (s *PublicPoolService) SendRawTransaction(
 		utils.Logger().Info().
 			Str("fullhash", tx.Hash().Hex()).
 			Str("hashByType", tx.HashByType().Hex()).
-			Str("contract", common2.MustAddressToBech32(addr)).
+			Str("contract", addr.Hex()).
 			Msg("Submitted contract creation")
 	} else {
 		utils.Logger().Info().

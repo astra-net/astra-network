@@ -7,10 +7,10 @@ import (
 	"strings"
 
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/harmony-one/harmony/internal/utils"
+	"github.com/harmony-one/astra/internal/utils"
 )
 
-const genesisString = "https://harmony.one 'Open Consensus for 10B' 2019.06.01 $ONE"
+const genesisString = "https://astra.one 'Open Consensus for 10B' 2019.06.01 $ONE"
 
 // DeployAccount is the account used in genesis
 type DeployAccount struct {

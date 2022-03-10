@@ -10,10 +10,10 @@ import (
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
 
-	msg_pb "github.com/harmony-one/harmony/api/proto/message"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/crypto/bls"
-	bls_cosi "github.com/harmony-one/harmony/crypto/bls"
+	msg_pb "github.com/harmony-one/astra/api/proto/message"
+	"github.com/harmony-one/astra/core/types"
+	"github.com/harmony-one/astra/crypto/bls"
+	bls_cosi "github.com/harmony-one/astra/crypto/bls"
 )
 
 // FBFTMessage is the record of pbft messages received by a node during FBFT process

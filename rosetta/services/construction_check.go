@@ -11,11 +11,11 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/pkg/errors"
 
-	"github.com/harmony-one/harmony/core/vm"
-	ethRpc "github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/rosetta/common"
-	"github.com/harmony-one/harmony/rpc"
+	"github.com/harmony-one/astra/core/vm"
+	ethRpc "github.com/harmony-one/astra/eth/rpc"
+	"github.com/harmony-one/astra/internal/params"
+	"github.com/harmony-one/astra/rosetta/common"
+	"github.com/harmony-one/astra/rpc"
 )
 
 // ConstructMetadataOptions is constructed by ConstructionPreprocess for ConstructionMetadata options

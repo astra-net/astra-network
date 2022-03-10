@@ -8,30 +8,30 @@ import (
 
 	"github.com/ethereum/go-ethereum/core/rawdb"
 
-	msg_pb "github.com/harmony-one/harmony/api/proto/message"
-	"github.com/harmony-one/harmony/crypto/bls"
+	msg_pb "github.com/harmony-one/astra/api/proto/message"
+	"github.com/harmony-one/astra/crypto/bls"
 
-	blockfactory "github.com/harmony-one/harmony/block/factory"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/internal/utils"
+	blockfactory "github.com/harmony-one/astra/block/factory"
+	"github.com/harmony-one/astra/internal/params"
+	"github.com/harmony-one/astra/internal/utils"
 
 	common2 "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/core/vm"
-	"github.com/harmony-one/harmony/crypto/hash"
-	"github.com/harmony-one/harmony/internal/chain"
-	"github.com/harmony-one/harmony/internal/common"
+	"github.com/harmony-one/astra/core"
+	"github.com/harmony-one/astra/core/state"
+	"github.com/harmony-one/astra/core/vm"
+	"github.com/harmony-one/astra/crypto/hash"
+	"github.com/harmony-one/astra/internal/chain"
+	"github.com/harmony-one/astra/internal/common"
 
 	protobuf "github.com/golang/protobuf/proto"
-	"github.com/harmony-one/harmony/numeric"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/harmony-one/astra/numeric"
+	staking "github.com/harmony-one/astra/staking/types"
 )
 
 var (
-	validatorAddress = common2.Address(common.MustBech32ToAddress("Ax1pdv9lrdwl0rg5vglh4xtyrv3wjk3wsqket7zxy"))
+	validatorAddress, _ = common.ParseAddr("0x0b585f8daefbc68a311fbd4cb20d9174ad174016")
 
 	testBLSPubKey    = "30b2c38b1316da91e068ac3bd8751c0901ef6c02a1d58bc712104918302c6ed03d5894671d0c816dad2b4d303320f202"
 	testBLSPrvKey    = "c6d7603520311f7a4e6aac0b26701fc433b75b38df504cd416ef2b900cd66205"

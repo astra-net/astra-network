@@ -5,31 +5,31 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/core/types"
+	"github.com/harmony-one/astra/core/types"
 )
 
 // GetPoolStats returns the number of pending and queued transactions
-func (hmy *Harmony) GetPoolStats() (pendingCount, queuedCount int) {
+func (hmy *Astra) GetPoolStats() (pendingCount, queuedCount int) {
 	return hmy.TxPool.Stats()
 }
 
 // GetPoolNonce ...
-func (hmy *Harmony) GetPoolNonce(ctx context.Context, addr common.Address) (uint64, error) {
+func (hmy *Astra) GetPoolNonce(ctx context.Context, addr common.Address) (uint64, error) {
 	return hmy.TxPool.State().GetNonce(addr), nil
 }
 
 // GetPoolTransaction ...
-func (hmy *Harmony) GetPoolTransaction(hash common.Hash) types.PoolTransaction {
+func (hmy *Astra) GetPoolTransaction(hash common.Hash) types.PoolTransaction {
 	return hmy.TxPool.Get(hash)
 }
 
 // GetPendingCXReceipts ..
-func (hmy *Harmony) GetPendingCXReceipts() []*types.CXReceiptsProof {
+func (hmy *Astra) GetPendingCXReceipts() []*types.CXReceiptsProof {
 	return hmy.NodeAPI.PendingCXReceipts()
 }
 
 // GetPoolTransactions returns pool transactions.
-func (hmy *Harmony) GetPoolTransactions() (types.PoolTransactions, error) {
+func (hmy *Astra) GetPoolTransactions() (types.PoolTransactions, error) {
 	pending, err := hmy.TxPool.Pending()
 	if err != nil {
 		return nil, err
@@ -48,6 +48,6 @@ func (hmy *Harmony) GetPoolTransactions() (types.PoolTransactions, error) {
 	return txs, nil
 }
 
-func (hmy *Harmony) SuggestPrice(ctx context.Context) (*big.Int, error) {
+func (hmy *Astra) SuggestPrice(ctx context.Context) (*big.Int, error) {
 	return hmy.gpo.SuggestPrice(ctx)
 }

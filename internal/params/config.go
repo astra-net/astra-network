@@ -67,7 +67,7 @@ var (
 		StakingPrecompileEpoch:     big.NewInt(871), // Around Tue Feb 11 2022
 	}
 
-	// TestnetChainConfig contains the chain parameters to run a node on the harmony test network.
+	// TestnetChainConfig contains the chain parameters to run a node on the astra test network.
 	TestnetChainConfig = &ChainConfig{
 		ChainID:                    TestnetChainID,
 		EthCompatibleChainID:       EthTestnetShard0ChainID,

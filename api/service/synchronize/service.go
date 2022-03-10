@@ -1,9 +1,9 @@
 package synchronize
 
 import (
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/hmy/downloader"
-	"github.com/harmony-one/harmony/p2p"
+	"github.com/harmony-one/astra/core"
+	"github.com/harmony-one/astra/hmy/downloader"
+	"github.com/harmony-one/astra/p2p"
 )
 
 // Service is simply a adapter of Downloaders, which support block synchronization

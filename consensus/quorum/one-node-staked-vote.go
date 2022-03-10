@@ -5,19 +5,18 @@ import (
 	"encoding/json"
 	"math/big"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/harmony-one/astra/crypto/bls"
 
-	"github.com/harmony-one/harmony/internal/utils"
+	"github.com/harmony-one/astra/internal/utils"
 
 	"github.com/ethereum/go-ethereum/common"
 	bls_core "github.com/harmony-one/bls/ffi/go/bls"
 	"github.com/pkg/errors"
 
-	"github.com/harmony-one/harmony/consensus/votepower"
-	bls_cosi "github.com/harmony-one/harmony/crypto/bls"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/shard"
+	"github.com/harmony-one/astra/consensus/votepower"
+	bls_cosi "github.com/harmony-one/astra/crypto/bls"
+	"github.com/harmony-one/astra/numeric"
+	"github.com/harmony-one/astra/shard"
 )
 
 var (
@@ -75,8 +74,8 @@ func (v *stakedVoteWeight) AddNewVote(
 		} else {
 			// Aggregated signature should not contain signatures from keys belonging to different accounts,
 			// to avoid malicious node catching other people's signatures and merge with their own to cause problems.
-			// Harmony nodes are excluded from this rule.
-			if bytes.Compare(signerAddr.Bytes(), voter.EarningAccount[:]) != 0 && !voter.IsHarmonyNode {
+			// Astra nodes are excluded from this rule.
+			if bytes.Compare(signerAddr.Bytes(), voter.EarningAccount[:]) != 0 && !voter.IsAstraNode {
 				return nil, errors.Errorf("Multiple signer accounts used in multi-sig: %x, %x", signerAddr.Bytes(), voter.EarningAccount)
 			}
 		}
@@ -244,7 +243,7 @@ func (v *stakedVoteWeight) SetRawStake(key bls.SerializedPublicKey, d numeric.De
 func (v *stakedVoteWeight) MarshalJSON() ([]byte, error) {
 	voterCount := len(v.roster.Voters)
 	type u struct {
-		IsHarmony      bool   `json:"is-harmony-slot"`
+		IsAstra      bool   `json:"is-astra-slot"`
 		EarningAccount string `json:"earning-account"`
 		Identity       string `json:"bls-public-key"`
 		RawPercent     string `json:"voting-power-unnormalized"`
@@ -272,15 +271,15 @@ func (v *stakedVoteWeight) MarshalJSON() ([]byte, error) {
 		identity := slot
 		voter := v.roster.Voters[slot]
 		member := u{
-			voter.IsHarmonyNode,
-			common2.MustAddressToBech32(voter.EarningAccount),
+			voter.IsAstraNode,
+			voter.EarningAccount.String(),
 			identity.Hex(),
 			voter.GroupPercent.String(),
 			voter.OverallPercent.String(),
 			"",
 			"",
 		}
-		if !voter.IsHarmonyNode {
+		if !voter.IsAstraNode {
 			externalCount++
 			member.EffectiveStake = voter.EffectiveStake.String()
 			member.RawStake = voter.RawStake.String()

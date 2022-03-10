@@ -7,11 +7,11 @@ function usage() {
 
    cat<<-EOT
 $MSG
-This script will rclone the harmony db to datadir/archive directory.
+This script will rclone the astra db to datadir/archive directory.
 
 Usage: $ME [options] datadir shard
 
-datadir:    the root directory of the harmony db (default: /home/harmony)
+datadir:    the root directory of the astra db (default: /home/astra)
 shard:      the shard number to sync (valid value: 0,1,2,3)
 
 Options:
@@ -25,7 +25,7 @@ EOT
 
 CLEAN=false
 FOLDER=mainnet.min
-CONFIG=/etc/harmony/rclone.conf
+CONFIG=/etc/astra/rclone.conf
 
 while getopts ":hca" opt; do
    case $opt in
@@ -55,11 +55,11 @@ esac
 
 mkdir -p "${DATADIR}/archive"
 
-rclone --config "${CONFIG}" sync -vvv "hmy:pub.harmony.one/${FOLDER}/harmony_db_${SHARD}" "${DATADIR}/archive/harmony_db_${SHARD}" > "${DATADIR}/archive/archive-${SHARD}.log" 2>&1
+rclone --config "${CONFIG}" sync -vvv "hmy:pub.astra.one/${FOLDER}/astra_db_${SHARD}" "${DATADIR}/archive/astra_db_${SHARD}" > "${DATADIR}/archive/archive-${SHARD}.log" 2>&1
 
-[ -d "${DATADIR}/harmony_db_${SHARD}" ] && mv -f "${DATADIR}/harmony_db_${SHARD}" "${DATADIR}/archive/harmony_db_${SHARD}.bak"
-mv -f "${DATADIR}/archive/harmony_db_${SHARD}" "${DATADIR}/harmony_db_${SHARD}"
+[ -d "${DATADIR}/astra_db_${SHARD}" ] && mv -f "${DATADIR}/astra_db_${SHARD}" "${DATADIR}/archive/astra_db_${SHARD}.bak"
+mv -f "${DATADIR}/archive/astra_db_${SHARD}" "${DATADIR}/astra_db_${SHARD}"
 
 if $CLEAN; then
-   rm -rf "${DATADIR}/archive/harmony_db_${SHARD}.bak"
+   rm -rf "${DATADIR}/archive/astra_db_${SHARD}.bak"
 fi

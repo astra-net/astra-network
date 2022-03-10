@@ -4,10 +4,10 @@ import (
 	"sort"
 	"time"
 
-	shardingconfig "github.com/harmony-one/harmony/internal/configs/sharding"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/shard"
+	shardingconfig "github.com/harmony-one/astra/internal/configs/sharding"
+	"github.com/harmony-one/astra/internal/utils"
+	"github.com/harmony-one/astra/numeric"
+	"github.com/harmony-one/astra/shard"
 )
 
 type pair struct {
@@ -17,7 +17,7 @@ type pair struct {
 
 var (
 
-	// schedule is the Token Release Schedule of Harmony
+	// schedule is the Token Release Schedule of Astra
 	releasePlan = map[int64]numeric.Dec{
 		//2019
 		mustParse("2019-May-31"): numeric.MustNewDecFromStr("0.242864761904762"),

@@ -17,7 +17,7 @@ const (
 	LegAddressPrefix = "ad_"
 	CheckpointPrefix = "dc"
 
-	oneAddrByteLen = 41 // byte size of string "Ax1..."
+	addrByteLen = 42 // byte size of string "0x..."
 )
 
 // Common schema
@@ -80,7 +80,7 @@ var (
 // bPool is the sync pool for reusing the memory for allocating db keys
 var bPool = buffer.NewPool()
 
-func getAddressKey(addr oneAddress) []byte {
+func getAddressKey(addr addrStr) []byte {
 	b := bPool.Get()
 	defer b.Free()
 
@@ -89,26 +89,26 @@ func getAddressKey(addr oneAddress) []byte {
 	return b.Bytes()
 }
 
-func getAddressFromAddressKey(key []byte) (oneAddress, error) {
-	if len(key) < len(addrPrefix)+oneAddrByteLen {
+func getAddressFromAddressKey(key []byte) (addrStr, error) {
+	if len(key) < len(addrPrefix)+addrByteLen {
 		return "", errors.New("address key size unexpected")
 	}
-	addrBytes := key[len(addrPrefix) : len(addrPrefix)+oneAddrByteLen]
-	return oneAddress(addrBytes), nil
+	addrBytes := key[len(addrPrefix) : len(addrPrefix)+addrByteLen]
+	return addrStr(addrBytes), nil
 }
 
-func writeAddressEntry(db databaseWriter, addr oneAddress) error {
+func writeAddressEntry(db databaseWriter, addr addrStr) error {
 	key := getAddressKey(addr)
 	return db.Put(key, []byte{})
 }
 
-func isAddressWritten(db databaseReader, addr oneAddress) (bool, error) {
+func isAddressWritten(db databaseReader, addr addrStr) (bool, error) {
 	key := getAddressKey(addr)
 	return db.Has(key)
 }
 
-func getAllAddresses(db databaseReader) ([]oneAddress, error) {
-	var addrs []oneAddress
+func getAllAddresses(db databaseReader) ([]addrStr, error) {
+	var addrs []addrStr
 	it := db.NewPrefixIterator(addrPrefix)
 	defer it.Release()
 	for it.Next() {
@@ -121,8 +121,8 @@ func getAllAddresses(db databaseReader) ([]oneAddress, error) {
 	return addrs, nil
 }
 
-func getAddressesInRange(db databaseReader, start oneAddress, size int) ([]oneAddress, error) {
-	var addrs []oneAddress
+func getAddressesInRange(db databaseReader, start addrStr, size int) ([]addrStr, error) {
+	var addrs []addrStr
 	startKey := getAddressKey(start)
 	it := db.NewSizedIterator(startKey, size)
 	defer it.Release()
@@ -173,7 +173,7 @@ func writeTxn(db databaseWriter, txHash common.Hash, tx *TxRecord) error {
 // The key of the entry in db is a combination of txnPrefix, account address, block
 // number of the transaction, transaction index in the block, and transaction hash
 type normalTxnIndex struct {
-	addr        oneAddress
+	addr        addrStr
 	blockNumber uint64
 	txnIndex    uint64
 	txnHash     common.Hash
@@ -191,7 +191,7 @@ func (index normalTxnIndex) key() []byte {
 	return b.Bytes()
 }
 
-func normalTxnIndexPrefixByAddr(addr oneAddress) []byte {
+func normalTxnIndexPrefixByAddr(addr addrStr) []byte {
 	b := bPool.Get()
 	defer b.Free()
 
@@ -201,7 +201,7 @@ func normalTxnIndexPrefixByAddr(addr oneAddress) []byte {
 }
 
 func txnHashFromNormalTxnIndexKey(key []byte) (common.Hash, error) {
-	txStart := len(addrNormalTxnIndexPrefix) + oneAddrByteLen + 8 + 8
+	txStart := len(addrNormalTxnIndexPrefix) + addrByteLen + 8 + 8
 	expSize := txStart + common.HashLength
 	if len(key) < expSize {
 		return common.Hash{}, errors.New("unexpected key size")
@@ -211,7 +211,7 @@ func txnHashFromNormalTxnIndexKey(key []byte) (common.Hash, error) {
 	return txHash, nil
 }
 
-func getNormalTxnHashesByAccount(db databaseReader, addr oneAddress) ([]common.Hash, []TxType, error) {
+func getNormalTxnHashesByAccount(db databaseReader, addr addrStr) ([]common.Hash, []TxType, error) {
 	var (
 		txHashes []common.Hash
 		tts      []TxType
@@ -241,7 +241,7 @@ func writeNormalTxnIndex(db databaseWriter, entry normalTxnIndex, tt TxType) err
 }
 
 type stakingTxnIndex struct {
-	addr        oneAddress
+	addr        addrStr
 	blockNumber uint64
 	txnIndex    uint64
 	txnHash     common.Hash
@@ -259,7 +259,7 @@ func (index stakingTxnIndex) key() []byte {
 	return b.Bytes()
 }
 
-func stakingTxnIndexPrefixByAddr(addr oneAddress) []byte {
+func stakingTxnIndexPrefixByAddr(addr addrStr) []byte {
 	b := bPool.Get()
 	defer b.Free()
 
@@ -269,7 +269,7 @@ func stakingTxnIndexPrefixByAddr(addr oneAddress) []byte {
 }
 
 func txnHashFromStakingTxnIndexKey(key []byte) (common.Hash, error) {
-	txStart := len(addrStakingTxnIndexPrefix) + oneAddrByteLen + 8 + 8
+	txStart := len(addrStakingTxnIndexPrefix) + addrByteLen + 8 + 8
 	expSize := txStart + common.HashLength
 	if len(key) < expSize {
 		return common.Hash{}, errors.New("unexpected key size")
@@ -279,7 +279,7 @@ func txnHashFromStakingTxnIndexKey(key []byte) (common.Hash, error) {
 	return txHash, nil
 }
 
-func getStakingTxnHashesByAccount(db databaseReader, addr oneAddress) ([]common.Hash, []TxType, error) {
+func getStakingTxnHashesByAccount(db databaseReader, addr addrStr) ([]common.Hash, []TxType, error) {
 	var (
 		txHashes []common.Hash
 		tts      []TxType
@@ -324,6 +324,6 @@ func forEachAtPrefix(db databaseReader, prefix []byte, f func(key, val []byte) e
 // Legacy Schema
 
 // LegGetAddressKey ...
-func LegGetAddressKey(address oneAddress) []byte {
+func LegGetAddressKey(address addrStr) []byte {
 	return []byte(fmt.Sprintf("%s%s", LegAddressPrefix, address))
 }

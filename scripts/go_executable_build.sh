@@ -3,12 +3,12 @@
 export GO111MODULE=on
 
 declare -A SRC
-SRC[harmony]=./cmd/harmony
+SRC[astra]=./cmd/astra
 SRC[bootnode]=./cmd/bootnode
 
 BINDIR=bin
 BUCKET=unique-bucket-bin
-PUBBUCKET=pub.harmony.one
+PUBBUCKET=pub.astra.one
 REL=
 GOOS=linux
 GOARCH=$(uname -m)
@@ -72,7 +72,7 @@ ACTION:
    upload      upload binaries to s3
    release     upload binaries to release bucket
 
-   harmony|bootnode|
+   astra|bootnode|
                only build the specified binary
 
 EXAMPLES:
@@ -120,14 +120,14 @@ function build_only
             fi
          fi
          if [ "$(uname -s)" == "Linux" ]; then
-            if [ $bin = harmony ]; then
+            if [ $bin = astra ]; then
                $BINDIR/$bin version || $BINDIR/$bin version
             else
                $BINDIR/$bin --version || $BINDIR/$bin version
             fi
          fi
          if [ "$(uname -s)" == "Darwin" -a "$GOOS" == "darwin" -a -e $BINDIR/$bin ]; then
-            if [ $bin = harmony ]; then
+            if [ $bin = astra ]; then
                $BINDIR/$bin version || $BINDIR/$bin version
             else
                $BINDIR/$bin --version || $BINDIR/$bin version
@@ -282,6 +282,6 @@ case "$ACTION" in
    "build") build_only ;;
    "upload") upload ;;
    "release") release ;;
-   "harmony"|"bootnode") build_only $ACTION ;;
+   "astra"|"bootnode") build_only $ACTION ;;
    *) usage ;;
 esac
