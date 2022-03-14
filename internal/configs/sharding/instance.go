@@ -23,15 +23,15 @@ const (
 )
 
 type instance struct {
-	numShards                       uint32
-	numNodesPerShard                int
+	numShards                     uint32
+	numNodesPerShard              int
 	numAstraOperatedNodesPerShard int
 	astraVotePercent              numeric.Dec
-	externalVotePercent             numeric.Dec
-	astraAccounts                     []genesis.DeployAccount
-	fnAccounts                      []genesis.DeployAccount
-	reshardingEpoch                 []*big.Int
-	blocksPerEpoch                  uint64
+	externalVotePercent           numeric.Dec
+	astraAccounts                 []genesis.DeployAccount
+	fnAccounts                    []genesis.DeployAccount
+	reshardingEpoch               []*big.Int
+	blocksPerEpoch                uint64
 }
 
 // NewInstance creates and validates a new sharding configuration based
@@ -73,15 +73,15 @@ func NewInstance(
 	}
 
 	return instance{
-		numShards:                       numShards,
-		numNodesPerShard:                numNodesPerShard,
+		numShards:                     numShards,
+		numNodesPerShard:              numNodesPerShard,
 		numAstraOperatedNodesPerShard: numAstraOperatedNodesPerShard,
 		astraVotePercent:              astraVotePercent,
-		externalVotePercent:             numeric.OneDec().Sub(astraVotePercent),
-		astraAccounts:                     astraAccounts,
-		fnAccounts:                      fnAccounts,
-		reshardingEpoch:                 reshardingEpoch,
-		blocksPerEpoch:                  blocksE,
+		externalVotePercent:           numeric.OneDec().Sub(astraVotePercent),
+		astraAccounts:                 astraAccounts,
+		fnAccounts:                    fnAccounts,
+		reshardingEpoch:               reshardingEpoch,
+		blocksPerEpoch:                blocksE,
 	}, nil
 }
 
@@ -137,8 +137,8 @@ func (sc instance) NumAstraOperatedNodesPerShard() int {
 	return sc.numAstraOperatedNodesPerShard
 }
 
-// HmyAccounts returns the list of Astra accounts
-func (sc instance) HmyAccounts() []genesis.DeployAccount {
+// AstraAccounts returns the list of Astra accounts
+func (sc instance) AstraAccounts() []genesis.DeployAccount {
 	return sc.astraAccounts
 }
 

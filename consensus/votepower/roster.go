@@ -12,10 +12,10 @@ import (
 	"github.com/harmony-one/astra/shard"
 
 	"github.com/ethereum/go-ethereum/common"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
 	"github.com/harmony-one/astra/crypto/bls"
 	"github.com/harmony-one/astra/internal/utils"
 	"github.com/harmony-one/astra/numeric"
+	bls_core "github.com/harmony-one/bls/ffi/go/bls"
 	"github.com/pkg/errors"
 )
 
@@ -81,7 +81,7 @@ type PureStakedVote struct {
 // AccommodateAstraVote ..
 type AccommodateAstraVote struct {
 	PureStakedVote
-	IsAstraNode  bool        `json:"-"`
+	IsAstraNode    bool        `json:"-"`
 	OverallPercent numeric.Dec `json:"overall-percent"`
 }
 
@@ -95,7 +95,7 @@ type topLevelRegistry struct {
 	OurVotingPowerTotalPercentage   numeric.Dec
 	TheirVotingPowerTotalPercentage numeric.Dec
 	TotalEffectiveStake             numeric.Dec
-	HMYSlotCount                    int64
+	ASTRASlotCount                  int64
 }
 
 // Roster ..
@@ -146,7 +146,7 @@ func AggregateRosters(
 			if !voteCard.IsAstraNode {
 				voterID := VoteOnSubcomittee{
 					AccommodateAstraVote: *voteCard,
-					ShardID:                roster.ShardID,
+					ShardID:              roster.ShardID,
 				}
 				result[voteCard.EarningAccount] = append(
 					result[voteCard.EarningAccount], voterID,
@@ -169,11 +169,11 @@ func Compute(subComm *shard.Committee, epoch *big.Int) (*Roster, error) {
 		if e := staked[i].EffectiveStake; e != nil {
 			roster.TotalEffectiveStake = roster.TotalEffectiveStake.Add(*e)
 		} else {
-			roster.HMYSlotCount++
+			roster.ASTRASlotCount++
 		}
 	}
 
-	asDecHMYSlotCount := numeric.NewDec(roster.HMYSlotCount)
+	asDecASTRASlotCount := numeric.NewDec(roster.ASTRASlotCount)
 	// TODO Check for duplicate BLS Keys
 	ourPercentage := numeric.ZeroDec()
 	theirPercentage := numeric.ZeroDec()
@@ -200,7 +200,7 @@ func Compute(subComm *shard.Committee, epoch *big.Int) (*Roster, error) {
 				RawStake:       numeric.ZeroDec(),
 			},
 			OverallPercent: numeric.ZeroDec(),
-			IsAstraNode:  false,
+			IsAstraNode:    false,
 		}
 
 		// Real Staker
@@ -212,7 +212,7 @@ func Compute(subComm *shard.Committee, epoch *big.Int) (*Roster, error) {
 			lastStakedVoter = &member
 		} else { // Our node
 			member.IsAstraNode = true
-			member.OverallPercent = astraPercent.Quo(asDecHMYSlotCount)
+			member.OverallPercent = astraPercent.Quo(asDecASTRASlotCount)
 			member.GroupPercent = member.OverallPercent.Quo(astraPercent)
 			ourPercentage = ourPercentage.Add(member.OverallPercent)
 		}

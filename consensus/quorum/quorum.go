@@ -7,13 +7,13 @@ import (
 	"github.com/harmony-one/astra/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
 	"github.com/harmony-one/astra/consensus/votepower"
 	bls_cosi "github.com/harmony-one/astra/crypto/bls"
 	shardingconfig "github.com/harmony-one/astra/internal/configs/sharding"
 	"github.com/harmony-one/astra/multibls"
 	"github.com/harmony-one/astra/numeric"
 	"github.com/harmony-one/astra/shard"
+	bls_core "github.com/harmony-one/bls/ffi/go/bls"
 	"github.com/pkg/errors"
 )
 
@@ -74,7 +74,7 @@ type ParticipantTracker interface {
 	IndexOf(bls.SerializedPublicKey) int
 	ParticipantsCount() int64
 	NthNext(*bls.PublicKeyWrapper, int) (bool, *bls.PublicKeyWrapper)
-	NthNextHmy(shardingconfig.Instance, *bls.PublicKeyWrapper, int) (bool, *bls.PublicKeyWrapper)
+	NthNextAstra(shardingconfig.Instance, *bls.PublicKeyWrapper, int) (bool, *bls.PublicKeyWrapper)
 	FirstParticipant(shardingconfig.Instance) *bls.PublicKeyWrapper
 	UpdateParticipants(pubKeys []bls.PublicKeyWrapper)
 }
@@ -229,8 +229,8 @@ func (s *cIdentities) NthNext(pubKey *bls.PublicKeyWrapper, next int) (bool, *bl
 	return found, &s.publicKeys[idx]
 }
 
-// NthNextHmy return the Nth next pubkey of Astra nodes, next can be negative number
-func (s *cIdentities) NthNextHmy(instance shardingconfig.Instance, pubKey *bls.PublicKeyWrapper, next int) (bool, *bls.PublicKeyWrapper) {
+// NthNextAstra return the Nth next pubkey of Astra nodes, next can be negative number
+func (s *cIdentities) NthNextAstra(instance shardingconfig.Instance, pubKey *bls.PublicKeyWrapper, next int) (bool, *bls.PublicKeyWrapper) {
 	found := false
 
 	idx := s.IndexOf(pubKey.Bytes)

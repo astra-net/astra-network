@@ -16,7 +16,7 @@ import (
 type testCfgOpt func(config *astraconfig.AstraConfig)
 
 func makeTestConfig(nt nodeconfig.NetworkType, opt testCfgOpt) astraconfig.AstraConfig {
-	cfg := getDefaultHmyConfigCopy(nt)
+	cfg := getDefaultAstraConfigCopy(nt)
 	if opt != nil {
 		opt(&cfg)
 	}
@@ -119,7 +119,7 @@ Version = "1.0.4"
 	if err != nil {
 		t.Fatal(err)
 	}
-	defConf := getDefaultHmyConfigCopy(nodeconfig.Mainnet)
+	defConf := getDefaultAstraConfigCopy(nodeconfig.Mainnet)
 	if config.HTTP.RosettaEnabled {
 		t.Errorf("Expected rosetta http server to be disabled when loading old config")
 	}

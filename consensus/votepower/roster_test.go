@@ -10,15 +10,15 @@ import (
 	shardingconfig "github.com/harmony-one/astra/internal/configs/sharding"
 
 	"github.com/ethereum/go-ethereum/common"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
 	"github.com/harmony-one/astra/numeric"
 	"github.com/harmony-one/astra/shard"
+	bls_core "github.com/harmony-one/bls/ffi/go/bls"
 )
 
 var (
 	slotList      shard.SlotList
 	totalStake    numeric.Dec
-	astraNodes  = 10
+	astraNodes    = 10
 	stakedNodes   = 10
 	maxAccountGen = int64(98765654323123134)
 	accountGen    = rand.New(rand.NewSource(1337))
@@ -59,9 +59,9 @@ func TestCompute(t *testing.T) {
 	expectedRoster := NewRoster(shard.BeaconChainShardID)
 	// Calculated when generated
 	expectedRoster.TotalEffectiveStake = totalStake
-	expectedRoster.HMYSlotCount = int64(astraNodes)
+	expectedRoster.ASTRASlotCount = int64(astraNodes)
 
-	asDecHMYSlotCount := numeric.NewDec(expectedRoster.HMYSlotCount)
+	asDecASTRASlotCount := numeric.NewDec(expectedRoster.ASTRASlotCount)
 	ourPercentage := numeric.ZeroDec()
 	theirPercentage := numeric.ZeroDec()
 
@@ -75,7 +75,7 @@ func TestCompute(t *testing.T) {
 				EffectiveStake: numeric.ZeroDec(),
 			},
 			OverallPercent: numeric.ZeroDec(),
-			IsAstraNode:  false,
+			IsAstraNode:    false,
 		}
 
 		// Real Staker
@@ -88,7 +88,7 @@ func TestCompute(t *testing.T) {
 			theirPercentage = theirPercentage.Add(member.OverallPercent)
 		} else { // Our node
 			member.IsAstraNode = true
-			member.OverallPercent = astraPercent.Quo(asDecHMYSlotCount)
+			member.OverallPercent = astraPercent.Quo(asDecASTRASlotCount)
 			member.GroupPercent = member.OverallPercent.Quo(astraPercent)
 			ourPercentage = ourPercentage.Add(member.OverallPercent)
 		}
@@ -137,7 +137,7 @@ func compareRosters(a, b *Roster, t *testing.T) bool {
 	return a.OurVotingPowerTotalPercentage.Equal(b.OurVotingPowerTotalPercentage) &&
 		a.TheirVotingPowerTotalPercentage.Equal(b.TheirVotingPowerTotalPercentage) &&
 		a.TotalEffectiveStake.Equal(b.TotalEffectiveStake) &&
-		a.HMYSlotCount == b.HMYSlotCount && voterMatch
+		a.ASTRASlotCount == b.ASTRASlotCount && voterMatch
 }
 
 func compareStakedVoter(a, b *AccommodateAstraVote) bool {

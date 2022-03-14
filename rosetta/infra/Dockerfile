@@ -7,16 +7,16 @@ RUN apt update -y && \
 
 ENV GOPATH=/root/go
 ENV GO111MODULE=on
-ENV HMY_PATH=${GOPATH}/src/github.com/harmony-one
-RUN mkdir -p $HMY_PATH
+ENV ASTRA_PATH=${GOPATH}/src/github.com/harmony-one
+RUN mkdir -p $ASTRA_PATH
 
-WORKDIR $HMY_PATH
+WORKDIR $ASTRA_PATH
 
 RUN git clone https://github.com/harmony-one/astra.git && \
     git clone https://github.com/harmony-one/bls.git && \
     git clone https://github.com/harmony-one/mcl.git
 
-WORKDIR $HMY_PATH/astra
+WORKDIR $ASTRA_PATH/astra
 
 RUN go mod download
 

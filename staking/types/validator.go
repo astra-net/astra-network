@@ -558,7 +558,7 @@ func CreateValidatorFromNewMsg(
 
 	instance := shard.Schedule.InstanceForEpoch(epoch)
 	if err := containsAstraBLSKeys(
-		pubKeys, instance.HmyAccounts(), epoch,
+		pubKeys, instance.AstraAccounts(), epoch,
 	); err != nil {
 		return nil, err
 	}
@@ -634,7 +634,7 @@ func UpdateValidatorFromEditMsg(validator *Validator, edit *EditValidator, epoch
 		if !found {
 			instance := shard.Schedule.InstanceForEpoch(epoch)
 			if err := matchesAstraBLSKey(
-				edit.SlotKeyToAdd, instance.HmyAccounts(), epoch,
+				edit.SlotKeyToAdd, instance.AstraAccounts(), epoch,
 			); err != nil {
 				return err
 			}

@@ -31,10 +31,10 @@ const (
 	mainnetV2_1Epoch = 208 // open slots increase from 320 - 480
 	mainnetV2_2Epoch = 231 // open slots increase from 480 - 640
 
-	// FIXME: MainNetHTTPPattern is the http pattern for mainnet.
-	MainNetHTTPPattern = "https://api.s%d.t.hmny.io"
-	// FIXME: MainNetWSPattern is the websocket pattern for mainnet.
-	MainNetWSPattern = "wss://ws.s%d.t.hmny.io"
+	// MainNetHTTPPattern is the http pattern for mainnet.
+	MainNetHTTPPattern = "https://api.s%d.t.astranetwork.com"
+	// MainNetWSPattern is the websocket pattern for mainnet.
+	MainNetWSPattern = "wss://ws.s%d.t.astranetwork.com"
 )
 
 var (

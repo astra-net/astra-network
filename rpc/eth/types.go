@@ -13,26 +13,26 @@ import (
 
 // Block represents a basic block which is further amended by BlockWithTxHash or BlockWithFullTx
 type Block struct {
-	Number           *hexutil.Big        `json:"number"`
-	Hash             common.Hash         `json:"hash"`
-	ParentHash       common.Hash         `json:"parentHash"`
+	Number           *hexutil.Big          `json:"number"`
+	Hash             common.Hash           `json:"hash"`
+	ParentHash       common.Hash           `json:"parentHash"`
 	Nonce            astratypes.BlockNonce `json:"nonce"`
-	MixHash          common.Hash         `json:"mixHash"`
-	UncleHash        common.Hash         `json:"sha3Uncles"`
-	LogsBloom        ethtypes.Bloom      `json:"logsBloom"`
-	StateRoot        common.Hash         `json:"stateRoot"`
-	Miner            common.Address      `json:"miner"`
-	Difficulty       *hexutil.Big        `json:"difficulty"`
-	ExtraData        hexutil.Bytes       `json:"extraData"`
-	Size             hexutil.Uint64      `json:"size"`
-	GasLimit         hexutil.Uint64      `json:"gasLimit"`
-	GasUsed          hexutil.Uint64      `json:"gasUsed"`
-	VRF              common.Hash         `json:"vrf"`
-	VRFProof         hexutil.Bytes       `json:"vrfProof"`
-	Timestamp        hexutil.Uint64      `json:"timestamp"`
-	TransactionsRoot common.Hash         `json:"transactionsRoot"`
-	ReceiptsRoot     common.Hash         `json:"receiptsRoot"`
-	Uncles           []common.Hash       `json:"uncles"`
+	MixHash          common.Hash           `json:"mixHash"`
+	UncleHash        common.Hash           `json:"sha3Uncles"`
+	LogsBloom        ethtypes.Bloom        `json:"logsBloom"`
+	StateRoot        common.Hash           `json:"stateRoot"`
+	Miner            common.Address        `json:"miner"`
+	Difficulty       *hexutil.Big          `json:"difficulty"`
+	ExtraData        hexutil.Bytes         `json:"extraData"`
+	Size             hexutil.Uint64        `json:"size"`
+	GasLimit         hexutil.Uint64        `json:"gasLimit"`
+	GasUsed          hexutil.Uint64        `json:"gasUsed"`
+	VRF              common.Hash           `json:"vrf"`
+	VRFProof         hexutil.Bytes         `json:"vrfProof"`
+	Timestamp        hexutil.Uint64        `json:"timestamp"`
+	TransactionsRoot common.Hash           `json:"transactionsRoot"`
+	ReceiptsRoot     common.Hash           `json:"receiptsRoot"`
+	Uncles           []common.Hash         `json:"uncles"`
 }
 
 // BlockWithTxHash represents a block that will serialize to the RPC representation of a block
@@ -82,7 +82,7 @@ func NewTransaction(
 	if tx.IsEthCompatible() {
 		from, err = tx.SenderAddress()
 	} else {
-		from, err = tx.ConvertToHmy().SenderAddress()
+		from, err = tx.ConvertToAstra().SenderAddress()
 	}
 	if err != nil {
 		return nil, err

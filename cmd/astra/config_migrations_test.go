@@ -302,8 +302,8 @@ Version = "1.0.4"
 )
 
 func Test_migrateConf(t *testing.T) {
-	defConf := getDefaultHmyConfigCopy(nodeconfig.Mainnet)
-	legacyDefConf := getDefaultHmyConfigCopy(nodeconfig.Mainnet)
+	defConf := getDefaultAstraConfigCopy(nodeconfig.Mainnet)
+	legacyDefConf := getDefaultAstraConfigCopy(nodeconfig.Mainnet)
 	// Versions prior to 1.0.3 use different BootNodes
 	legacyDefConf.Network.BootNodes = []string{
 		"/ip4/100.26.90.187/tcp/9874/p2p/Qmdfjtk6hPoyrH1zVD9PEH4zfWLo38dP2mDvvKXfh3tnEv",

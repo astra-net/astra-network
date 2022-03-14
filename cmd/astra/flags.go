@@ -163,13 +163,13 @@ var (
 	newDevnetFlags = []cli.Flag{
 		devnetNumShardsFlag,
 		devnetShardSizeFlag,
-		devnetHmyNodeSizeFlag,
+		devnetAstraNodeSizeFlag,
 	}
 
 	legacyDevnetFlags = []cli.Flag{
 		legacyDevnetNumShardsFlag,
 		legacyDevnetShardSizeFlag,
-		legacyDevnetHmyNodeSizeFlag,
+		legacyDevnetAstraNodeSizeFlag,
 	}
 
 	revertFlags = append(newRevertFlags, legacyRevertFlags...)
@@ -1247,10 +1247,10 @@ var (
 		DefValue: defaultDevnetConfig.ShardSize,
 		Hidden:   true,
 	}
-	devnetHmyNodeSizeFlag = cli.IntFlag{
+	devnetAstraNodeSizeFlag = cli.IntFlag{
 		Name:     "devnet.astra-node-size",
 		Usage:    "number of Astra-operated nodes per shard for devnet (negative means equal to --devnet.shard-size)",
-		DefValue: defaultDevnetConfig.HmyNodeSize,
+		DefValue: defaultDevnetConfig.AstraNodeSize,
 		Hidden:   true,
 	}
 	legacyDevnetNumShardsFlag = cli.IntFlag{
@@ -1265,10 +1265,10 @@ var (
 		DefValue:   defaultDevnetConfig.ShardSize,
 		Deprecated: "use --devnet.shard-size",
 	}
-	legacyDevnetHmyNodeSizeFlag = cli.IntFlag{
+	legacyDevnetAstraNodeSizeFlag = cli.IntFlag{
 		Name:       "dn_astra_size",
 		Usage:      "number of Astra-operated nodes per shard for -network_type=devnet; negative means equal to -dn_shard_size",
-		DefValue:   defaultDevnetConfig.HmyNodeSize,
+		DefValue:   defaultDevnetConfig.AstraNodeSize,
 		Deprecated: "use --devnet.astra-node-size",
 	}
 )
@@ -1286,8 +1286,8 @@ func applyDevnetFlags(cmd *cobra.Command, config *astraconfig.AstraConfig) {
 		if cli.IsFlagChanged(cmd, devnetShardSizeFlag) {
 			config.Devnet.ShardSize = cli.GetIntFlagValue(cmd, devnetShardSizeFlag)
 		}
-		if cli.IsFlagChanged(cmd, devnetHmyNodeSizeFlag) {
-			config.Devnet.HmyNodeSize = cli.GetIntFlagValue(cmd, devnetHmyNodeSizeFlag)
+		if cli.IsFlagChanged(cmd, devnetAstraNodeSizeFlag) {
+			config.Devnet.AstraNodeSize = cli.GetIntFlagValue(cmd, devnetAstraNodeSizeFlag)
 		}
 	}
 	if cli.HasFlagsChanged(cmd, legacyDevnetFlags) {
@@ -1297,14 +1297,14 @@ func applyDevnetFlags(cmd *cobra.Command, config *astraconfig.AstraConfig) {
 		if cli.IsFlagChanged(cmd, legacyDevnetShardSizeFlag) {
 			config.Devnet.ShardSize = cli.GetIntFlagValue(cmd, legacyDevnetShardSizeFlag)
 		}
-		if cli.IsFlagChanged(cmd, legacyDevnetHmyNodeSizeFlag) {
-			config.Devnet.HmyNodeSize = cli.GetIntFlagValue(cmd, legacyDevnetHmyNodeSizeFlag)
+		if cli.IsFlagChanged(cmd, legacyDevnetAstraNodeSizeFlag) {
+			config.Devnet.AstraNodeSize = cli.GetIntFlagValue(cmd, legacyDevnetAstraNodeSizeFlag)
 		}
 	}
 
 	if config.Devnet != nil {
-		if config.Devnet.HmyNodeSize < 0 || config.Devnet.HmyNodeSize > config.Devnet.ShardSize {
-			config.Devnet.HmyNodeSize = config.Devnet.ShardSize
+		if config.Devnet.AstraNodeSize < 0 || config.Devnet.AstraNodeSize > config.Devnet.ShardSize {
+			config.Devnet.AstraNodeSize = config.Devnet.ShardSize
 		}
 	}
 }

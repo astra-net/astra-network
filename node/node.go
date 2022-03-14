@@ -105,7 +105,7 @@ type Node struct {
 	ContractAddresses            []common.Address
 	// Channel to notify consensus service to really start consensus
 	startConsensus chan struct{}
-	AstraConfig  *astraconfig.AstraConfig
+	AstraConfig    *astraconfig.AstraConfig
 	// node configuration, including group ID, shard ID, etc
 	NodeConfig *nodeconfig.ConfigType
 	// Chain configuration.
@@ -603,7 +603,7 @@ func (node *Node) validateShardBoundMessage(
 }
 
 var (
-	errMsgHadNoHMYPayLoadAssumption      = errors.New("did not have sufficient size for astra msg")
+	errMsgHadNoASTRAPayLoadAssumption    = errors.New("did not have sufficient size for astra msg")
 	errConsensusMessageOnUnexpectedTopic = errors.New("received consensus on wrong topic")
 )
 

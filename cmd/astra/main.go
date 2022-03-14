@@ -31,12 +31,12 @@ import (
 	"github.com/harmony-one/astra/api/service/pprof"
 	"github.com/harmony-one/astra/api/service/prometheus"
 	"github.com/harmony-one/astra/api/service/synchronize"
+	"github.com/harmony-one/astra/astra/downloader"
 	"github.com/harmony-one/astra/common/fdlimit"
 	"github.com/harmony-one/astra/common/ntp"
 	"github.com/harmony-one/astra/consensus"
 	"github.com/harmony-one/astra/consensus/quorum"
 	"github.com/harmony-one/astra/core"
-	"github.com/harmony-one/astra/astra/downloader"
 	"github.com/harmony-one/astra/internal/cli"
 	"github.com/harmony-one/astra/internal/common"
 	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
@@ -180,7 +180,7 @@ func getAstraConfig(cmd *cobra.Command) (astraconfig.AstraConfig, error) {
 		config, migratedFrom, err = loadAstraConfig(configFile)
 	} else {
 		nt := getNetworkType(cmd)
-		config = getDefaultHmyConfigCopy(nt)
+		config = getDefaultAstraConfigCopy(nt)
 		isUsingDefault = true
 	}
 	if err != nil {
@@ -390,8 +390,8 @@ func setupNodeAndRun(hc astraconfig.AstraConfig) {
 	if hc.Log.VerbosePrints.Config {
 		utils.Logger().Info().Interface("config", rpc_common.Config{
 			AstraConfig: hc,
-			NodeConfig:    *nodeConfig,
-			ChainConfig:   *currentNode.Blockchain().Config(),
+			NodeConfig:  *nodeConfig,
+			ChainConfig: *currentNode.Blockchain().Config(),
 		}).Msg("verbose prints config")
 	}
 
@@ -485,7 +485,7 @@ func nodeconfigSetShardSchedule(config astraconfig.AstraConfig) {
 		}
 
 		devnetConfig, err := shardingconfig.NewInstance(
-			uint32(dnConfig.NumShards), dnConfig.ShardSize, dnConfig.HmyNodeSize, numeric.OneDec(), genesis.AstraAccounts, genesis.FoundationalNodeAccounts, nil, shardingconfig.VLBPE)
+			uint32(dnConfig.NumShards), dnConfig.ShardSize, dnConfig.AstraNodeSize, numeric.OneDec(), genesis.AstraAccounts, genesis.FoundationalNodeAccounts, nil, shardingconfig.VLBPE)
 		if err != nil {
 			_, _ = fmt.Fprintf(os.Stderr, "ERROR invalid devnet sharding config: %s",
 				err)

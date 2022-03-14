@@ -167,7 +167,7 @@ var updateConfigCmd = &cobra.Command{
 
 func dumpConfig(cmd *cobra.Command, args []string) {
 	nt := getNetworkType(cmd)
-	config := getDefaultHmyConfigCopy(nt)
+	config := getDefaultAstraConfigCopy(nt)
 
 	if err := writeAstraConfigToFile(config, args[0]); err != nil {
 		fmt.Println(err)

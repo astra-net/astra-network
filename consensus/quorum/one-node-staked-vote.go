@@ -243,7 +243,7 @@ func (v *stakedVoteWeight) SetRawStake(key bls.SerializedPublicKey, d numeric.De
 func (v *stakedVoteWeight) MarshalJSON() ([]byte, error) {
 	voterCount := len(v.roster.Voters)
 	type u struct {
-		IsAstra      bool   `json:"is-astra-slot"`
+		IsAstra        bool   `json:"is-astra-slot"`
 		EarningAccount string `json:"earning-account"`
 		Identity       string `json:"bls-public-key"`
 		RawPercent     string `json:"voting-power-unnormalized"`
@@ -257,7 +257,7 @@ func (v *stakedVoteWeight) MarshalJSON() ([]byte, error) {
 		Count               int    `json:"count"`
 		Externals           int    `json:"external-validator-slot-count"`
 		Participants        []u    `json:"committee-members"`
-		HmyVotingPower      string `json:"astra-voting-power"`
+		AstraVotingPower    string `json:"astra-voting-power"`
 		StakedVotingPower   string `json:"staked-voting-power"`
 		TotalRawStake       string `json:"total-raw-stake"`
 		TotalEffectiveStake string `json:"total-effective-stake"`

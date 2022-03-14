@@ -145,8 +145,8 @@ func TestBallotResult(t *testing.T) {
 
 func TestIncrementValidatorSigningCounts(t *testing.T) {
 	tests := []struct {
-		numHmySlots, numUserSlots int
-		verified                  []int
+		numAstraSlots, numUserSlots int
+		verified                    []int
 	}{
 		{1, 0, []int{0}},
 		{0, 1, []int{0}},
@@ -154,7 +154,7 @@ func TestIncrementValidatorSigningCounts(t *testing.T) {
 		{10, 6, []int{1, 3, 5, 7, 9, 11, 13, 15}},
 	}
 	for _, test := range tests {
-		ctx, err := makeIncStateTestCtx(test.numHmySlots, test.numUserSlots, test.verified)
+		ctx, err := makeIncStateTestCtx(test.numAstraSlots, test.numUserSlots, test.verified)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -347,21 +347,21 @@ type incStateTestCtx struct {
 	// to the expected behaviour of the address.
 	//  typeIncSigned - 0: increase both toSign and signed
 	//  typeIncMissing - 1: increase to sign
-	//  typeIncHmyNode - 2: keep the code field unchanged
+	//  typeIncAstraNode - 2: keep the code field unchanged
 	computedSlotMap map[common.Address]int
 }
 
 const (
 	typeIncSigned = iota
 	typeIncMissing
-	typeIncHmyNode
+	typeIncAstraNode
 )
 
 // makeIncStateTestCtx create and initialize the test context for TestIncrementValidatorSigningCounts
-func makeIncStateTestCtx(numHmySlots, numUserSlots int, verified []int) (*incStateTestCtx, error) {
-	cmt := makeTestMixedCommittee(numHmySlots, numUserSlots, 0)
+func makeIncStateTestCtx(numAstraSlots, numUserSlots int, verified []int) (*incStateTestCtx, error) {
+	cmt := makeTestMixedCommittee(numAstraSlots, numUserSlots, 0)
 	staked := cmt.StakedValidators()
-	bitmap, _ := indexesToBitMap(verified, numUserSlots+numHmySlots)
+	bitmap, _ := indexesToBitMap(verified, numUserSlots+numAstraSlots)
 	signers, missing, err := BlockSigners(bitmap, cmt)
 	if err != nil {
 		return nil, err
@@ -403,7 +403,7 @@ func (ctx *incStateTestCtx) computeSlotMaps() {
 	}
 	for _, slot := range ctx.cmt.Slots {
 		if slot.EffectiveStake == nil {
-			ctx.computedSlotMap[slot.EcdsaAddress] = typeIncHmyNode
+			ctx.computedSlotMap[slot.EcdsaAddress] = typeIncAstraNode
 		}
 	}
 }
@@ -421,8 +421,8 @@ func (ctx *incStateTestCtx) checkAddrIncStateByType(addr common.Address, typeInc
 		if err = ctx.checkWrapperChangeByAddr(addr, checkIncWrapperMissing); err != nil {
 			err = fmt.Errorf("missing address %s: %v", addr, err)
 		}
-	case typeIncHmyNode:
-		if err = ctx.checkHmyNodeStateChangeByAddr(addr); err != nil {
+	case typeIncAstraNode:
+		if err = ctx.checkAstraNodeStateChangeByAddr(addr); err != nil {
 			err = fmt.Errorf("astra node address %s: %v", addr, err)
 		}
 	default:
@@ -431,9 +431,9 @@ func (ctx *incStateTestCtx) checkAddrIncStateByType(addr common.Address, typeInc
 	return err
 }
 
-// checkHmyNodeStateChangeByAddr checks the state change for astra nodes. Since astra nodes does not
+// checkAstraNodeStateChangeByAddr checks the state change for astra nodes. Since astra nodes does not
 // have wrapper, it is supposed to be unchanged in code field
-func (ctx *incStateTestCtx) checkHmyNodeStateChangeByAddr(addr common.Address) error {
+func (ctx *incStateTestCtx) checkAstraNodeStateChangeByAddr(addr common.Address) error {
 	snapCode := ctx.snapState.GetCode(addr)
 	curCode := ctx.state.GetCode(addr)
 	if !reflect.DeepEqual(snapCode, curCode) {
@@ -665,7 +665,7 @@ func makeTestShardState(numShards, numSlots int) *shard.State {
 func makeTestCommittee(n int, shardID uint32) *shard.Committee {
 	slots := make(shard.SlotList, 0, n)
 	for i := 0; i != n; i++ {
-		slots = append(slots, makeHmySlot(i, shardID))
+		slots = append(slots, makeAstraSlot(i, shardID))
 	}
 	return &shard.Committee{
 		ShardID: shardID,
@@ -673,7 +673,7 @@ func makeTestCommittee(n int, shardID uint32) *shard.Committee {
 	}
 }
 
-func makeHmySlot(seed int, shardID uint32) shard.Slot {
+func makeAstraSlot(seed int, shardID uint32) shard.Slot {
 	addr := common.BigToAddress(new(big.Int).SetInt64(int64(seed) + int64(shardID*1000000)))
 	var blsKey bls.SerializedPublicKey
 	copy(blsKey[:], bls.RandPrivateKey().GetPublicKey().Serialize())
@@ -687,12 +687,12 @@ func makeHmySlot(seed int, shardID uint32) shard.Slot {
 const testStake = int64(100000000000)
 
 // makeTestMixedCommittee makes a committee with both astra nodes and user nodes
-func makeTestMixedCommittee(numHmySlots, numUserSlots int, shardID uint32) *shard.Committee {
-	slots := make(shard.SlotList, 0, numHmySlots+numUserSlots)
-	for i := 0; i != numHmySlots; i++ {
-		slots = append(slots, makeHmySlot(i, shardID))
+func makeTestMixedCommittee(numAstraSlots, numUserSlots int, shardID uint32) *shard.Committee {
+	slots := make(shard.SlotList, 0, numAstraSlots+numUserSlots)
+	for i := 0; i != numAstraSlots; i++ {
+		slots = append(slots, makeAstraSlot(i, shardID))
 	}
-	for i := numHmySlots; i != numHmySlots+numUserSlots; i++ {
+	for i := numAstraSlots; i != numAstraSlots+numUserSlots; i++ {
 		slots = append(slots, makeUserSlot(i, shardID))
 	}
 	return &shard.Committee{
@@ -702,7 +702,7 @@ func makeTestMixedCommittee(numHmySlots, numUserSlots int, shardID uint32) *shar
 }
 
 func makeUserSlot(seed int, shardID uint32) shard.Slot {
-	slot := makeHmySlot(seed, shardID)
+	slot := makeAstraSlot(seed, shardID)
 	stake := numeric.NewDec(testStake)
 	slot.EffectiveStake = &stake
 	return slot

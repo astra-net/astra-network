@@ -1064,18 +1064,18 @@ func TestDevnetFlags(t *testing.T) {
 			args: []string{"--devnet.num-shard", "3", "--devnet.shard-size", "100",
 				"--devnet.astra-node-size", "60"},
 			expConfig: &astraconfig.DevnetConfig{
-				NumShards:   3,
-				ShardSize:   100,
-				HmyNodeSize: 60,
+				NumShards:     3,
+				ShardSize:     100,
+				AstraNodeSize: 60,
 			},
 		},
 		{
 			args: []string{"--dn_num_shards", "3", "--dn_shard_size", "100", "--dn_astra_size",
 				"60"},
 			expConfig: &astraconfig.DevnetConfig{
-				NumShards:   3,
-				ShardSize:   100,
-				HmyNodeSize: 60,
+				NumShards:     3,
+				ShardSize:     100,
+				AstraNodeSize: 60,
 			},
 		},
 	}
@@ -1308,7 +1308,7 @@ type flagTestSuite struct {
 func newFlagTestSuite(t *testing.T, flags []cli.Flag, applyFlags func(*cobra.Command, *astraconfig.AstraConfig)) *flagTestSuite {
 	cli.SetParseErrorHandle(func(err error) { t.Fatal(err) })
 
-	ts := &flagTestSuite{hc: getDefaultHmyConfigCopy(defNetworkType)}
+	ts := &flagTestSuite{hc: getDefaultAstraConfigCopy(defNetworkType)}
 	ts.cmd = makeTestCommand(func(cmd *cobra.Command, args []string) {
 		applyFlags(cmd, &ts.hc)
 	})

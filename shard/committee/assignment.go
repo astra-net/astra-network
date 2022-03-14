@@ -9,7 +9,6 @@ import (
 	"github.com/harmony-one/astra/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
 	"github.com/harmony-one/astra/block"
 	"github.com/harmony-one/astra/core/types"
 	common2 "github.com/harmony-one/astra/internal/common"
@@ -21,6 +20,7 @@ import (
 	"github.com/harmony-one/astra/staking/availability"
 	"github.com/harmony-one/astra/staking/effective"
 	staking "github.com/harmony-one/astra/staking/types"
+	bls_core "github.com/harmony-one/bls/ffi/go/bls"
 	"github.com/pkg/errors"
 )
 
@@ -139,7 +139,7 @@ func prepareOrders(
 
 	// Avoid duplicate BLS keys as astra nodes
 	instance := shard.Schedule.InstanceForEpoch(stakedReader.CurrentBlock().Epoch())
-	for _, account := range instance.HmyAccounts() {
+	for _, account := range instance.AstraAccounts() {
 		pub := &bls_core.PublicKey{}
 		if err := pub.DeserializeHexStr(account.BLSPublicKey); err != nil {
 			continue
@@ -273,7 +273,7 @@ func preStakingEnabledCommittee(s shardingconfig.Instance) (*shard.State, error)
 	shardNum := int(s.NumShards())
 	shardAstraNodes := s.NumAstraOperatedNodesPerShard()
 	shardSize := s.NumNodesPerShard()
-	astraAccounts := s.HmyAccounts()
+	astraAccounts := s.AstraAccounts()
 	fnAccounts := s.FnAccounts()
 	shardState := &shard.State{}
 	// Shard state needs to be sorted by shard ID
@@ -327,7 +327,7 @@ func eposStakedCommittee(
 	shardCount := int(s.NumShards())
 	shardState := &shard.State{}
 	shardState.Shards = make([]shard.Committee, shardCount)
-	hAccounts := s.HmyAccounts()
+	hAccounts := s.AstraAccounts()
 	shardAstraNodes := s.NumAstraOperatedNodesPerShard()
 
 	for i := 0; i < shardCount; i++ {

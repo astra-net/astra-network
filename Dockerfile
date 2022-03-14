@@ -7,10 +7,10 @@ SHELL ["/bin/bash", "-c"]
 
 ENV GOPATH=/root/go
 ENV GO111MODULE=on
-ENV HMY_PATH=${GOPATH}/src/github.com/harmony-one
+ENV ASTRA_PATH=${GOPATH}/src/github.com/harmony-one
 ENV OPENSSL_DIR=/usr/lib/ssl
-ENV MCL_DIR=${HMY_PATH}/mcl
-ENV BLS_DIR=${HMY_PATH}/bls
+ENV MCL_DIR=${ASTRA_PATH}/mcl
+ENV BLS_DIR=${ASTRA_PATH}/bls
 ENV CGO_CFLAGS="-I${BLS_DIR}/include -I${MCL_DIR}/include"
 ENV CGO_LDFLAGS="-L${BLS_DIR}/lib"
 ENV LD_LIBRARY_PATH=${BLS_DIR}/lib:${MCL_DIR}/lib
@@ -29,15 +29,15 @@ RUN mkdir ~/bin && \
 
 RUN eval "$(~/bin/gimme ${GIMME_GO_VERSION})"
 
-RUN git clone https://github.com/harmony-one/astra.git ${HMY_PATH}/astra
+RUN git clone https://github.com/harmony-one/astra.git ${ASTRA_PATH}/astra
 
-RUN git clone https://github.com/harmony-one/bls.git ${HMY_PATH}/bls
+RUN git clone https://github.com/harmony-one/bls.git ${ASTRA_PATH}/bls
 
-RUN git clone https://github.com/harmony-one/mcl.git ${HMY_PATH}/mcl
+RUN git clone https://github.com/harmony-one/mcl.git ${ASTRA_PATH}/mcl
 
-RUN git clone https://github.com/harmony-one/go-sdk.git ${HMY_PATH}/go-sdk
+RUN git clone https://github.com/harmony-one/go-sdk.git ${ASTRA_PATH}/go-sdk
 
-RUN cd ${HMY_PATH}/bls && make -j8 BLS_SWAP_G=1
+RUN cd ${ASTRA_PATH}/bls && make -j8 BLS_SWAP_G=1
 
 RUN touch /root/.bash_profile && \
 	gimme ${GIMME_GO_VERSION} >> /root/.bash_profile && \
@@ -58,7 +58,7 @@ RUN . ~/.bash_profile; \
 	go get -u golang.org/x/tools/...; \
 	go get -u honnef.co/go/tools/cmd/staticcheck/...
 
-WORKDIR ${HMY_PATH}/astra
+WORKDIR ${ASTRA_PATH}/astra
 
 RUN scripts/install_build_tools.sh
 
@@ -66,7 +66,7 @@ RUN go mod tidy
 
 RUN scripts/go_executable_build.sh -S
 
-RUN cd ${HMY_PATH}/go-sdk && make -j8 && cp astra /root/bin
+RUN cd ${ASTRA_PATH}/go-sdk && make -j8 && cp astra /root/bin
 
 ARG K1=0x3b00aab412891853f2cc91a6957a66088f22437b
 ARG K2=0x415077f2efb732538683baf6479a94ed35b836b5

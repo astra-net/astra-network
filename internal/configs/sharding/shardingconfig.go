@@ -58,8 +58,8 @@ type Instance interface {
 	// ExternalVotePercent returns total percentage of voting power external validators possess.
 	ExternalVotePercent() numeric.Dec
 
-	// HmyAccounts returns a list of Astra accounts
-	HmyAccounts() []genesis.DeployAccount
+	// AstraAccounts returns a list of Astra accounts
+	AstraAccounts() []genesis.DeployAccount
 
 	// FnAccounts returns a list of Foundational node accounts
 	FnAccounts() []genesis.DeployAccount

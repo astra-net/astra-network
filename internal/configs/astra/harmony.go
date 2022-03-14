@@ -170,9 +170,9 @@ type RpcOptConfig struct {
 }
 
 type DevnetConfig struct {
-	NumShards   int
-	ShardSize   int
-	HmyNodeSize int
+	NumShards     int
+	ShardSize     int
+	AstraNodeSize int
 }
 
 // TODO: make `revert` to a separate command

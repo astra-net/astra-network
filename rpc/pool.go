@@ -13,10 +13,10 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/harmony-one/astra/astra"
 	"github.com/harmony-one/astra/core"
 	"github.com/harmony-one/astra/core/types"
 	"github.com/harmony-one/astra/eth/rpc"
-	"github.com/harmony-one/astra/astra"
 	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
 	"github.com/harmony-one/astra/internal/utils"
 	eth "github.com/harmony-one/astra/rpc/eth"
@@ -28,7 +28,7 @@ import (
 // PublicPoolService provides an API to access the Astra node's transaction pool.
 // It offers only methods that operate on public data that is freely available to anyone.
 type PublicPoolService struct {
-	astra     *astra.Astra
+	astra   *astra.Astra
 	version Version
 
 	// TEMP SOLUTION to rpc node spamming issue
@@ -84,7 +84,7 @@ func (s *PublicPoolService) SendRawTransaction(
 			return common.Hash{}, err
 		}
 		txHash = ethTx.Hash()
-		tx = ethTx.ConvertToHmy()
+		tx = ethTx.ConvertToAstra()
 	} else {
 		tx = new(types.Transaction)
 		if err := rlp.DecodeBytes(encodedTx, tx); err != nil {

@@ -102,9 +102,9 @@ var defaultSysConfig = astraconfig.SysConfig{
 }
 
 var defaultDevnetConfig = astraconfig.DevnetConfig{
-	NumShards:   2,
-	ShardSize:   10,
-	HmyNodeSize: 10,
+	NumShards:     2,
+	ShardSize:     10,
+	AstraNodeSize: 10,
 }
 
 var defaultRevertConfig = astraconfig.RevertConfig{
@@ -185,7 +185,7 @@ const (
 	defaultBroadcastInvalidTx = false
 )
 
-func getDefaultHmyConfigCopy(nt nodeconfig.NetworkType) astraconfig.AstraConfig {
+func getDefaultAstraConfigCopy(nt nodeconfig.NetworkType) astraconfig.AstraConfig {
 	config := defaultConfig
 
 	config.Network = getDefaultNetworkConfig(nt)

@@ -47,7 +47,7 @@ bc_config.json
 db/
 
 # harmony node keystore
-.hmykey
+.astrakey
 
 # staking keystore
 .stakingkey
@@ -68,7 +68,7 @@ node_modules/
 test/.bnkey
 
 # exported keys
-.hmy/*.key
+.astra/*.key
 
 # blspass
 blspass.txt
@@ -90,7 +90,7 @@ harmony_db_*
 explorer_storage_*
 
 # local blskeys for testing
-.hmy/blskeys
+.astra/blskeys
 
 # pprof profiles
 profiles/*.pb.gz
