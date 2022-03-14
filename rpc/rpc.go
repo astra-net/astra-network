@@ -169,13 +169,20 @@ func getAPIs(astra *astra.Astra, debugEnable bool, rateLimiterEnable bool, ratel
 		v2.NewPublicLegacyAPI(astra, "astrav2"),
 	}
 
+	publicDebugAPIs := []rpc.API{
+		//Public debug API
+		NewPublicDebugAPI(hmy, V1),
+		NewPublicDebugAPI(hmy, V2),
+	}
+
 	privateAPIs := []rpc.API{
 		NewPrivateDebugAPI(astra, V1),
 		NewPrivateDebugAPI(astra, V2),
 	}
 
 	if debugEnable {
-		return append(publicAPIs, privateAPIs...)
+		apis := append(publicAPIs, publicDebugAPIs...)
+		return append(apis, privateAPIs...)
 	}
 	return publicAPIs
 }
