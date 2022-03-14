@@ -138,7 +138,7 @@ func TestAstraFlags(t *testing.T) {
 					IP:         "0.0.0.0",
 					Port:       9900,
 					EnablePush: true,
-					Gateway:    "https://gateway.astra.one",
+					Gateway:    "https://gateway.astranetwork.com",
 				},
 				Sync: defaultMainnetSyncConfig,
 				ShardData: astraconfig.ShardDataConfig{

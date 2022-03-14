@@ -19,9 +19,9 @@ import (
 
 var (
 	blsPubSigPairs = makeBLSPubSigPairs(5)
-	astraBLSPub      bls.SerializedPublicKey
+	astraBLSPub    bls.SerializedPublicKey
 
-	astraBLSPubStr     = "c2962419d9999a87daa134f6d177f9ccabfe168a470587b13dd02ce91d1690a92170e5949d3dbdfc1b13fd7327dbef8c"
+	astraBLSPubStr   = "c2962419d9999a87daa134f6d177f9ccabfe168a470587b13dd02ce91d1690a92170e5949d3dbdfc1b13fd7327dbef8c"
 	validatorAddr, _ = common2.ParseAddr("0x0b585f8daefbc68a311fbd4cb20d9174ad174016")
 )
 
@@ -47,17 +47,17 @@ var (
 var (
 	validDescription = Description{
 		Name:            "Jacky Wang",
-		Identity:        "jacky@astra.one",
-		Website:         "astra.one/jacky",
-		SecurityContact: "jacky@astra.one",
+		Identity:        "jacky@astranetwork.com",
+		Website:         "astranetwork.com/jacky",
+		SecurityContact: "jacky@astranetwork.com",
 		Details:         "Details of jacky",
 	}
 
 	invalidDescription = Description{
 		Name:            "thisisaverylonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglongname",
-		Identity:        "jacky@astra.one",
-		Website:         "astra.one/jacky",
-		SecurityContact: "jacky@astra.one",
+		Identity:        "jacky@astranetwork.com",
+		Website:         "astranetwork.com/jacky",
+		SecurityContact: "jacky@astranetwork.com",
 		Details:         "Details of jacky",
 	}
 
@@ -262,22 +262,22 @@ func TestUpdateDescription(t *testing.T) {
 			raw: Description{
 				Name:            "Wayne",
 				Identity:        "wen",
-				Website:         "astra.one.wen",
+				Website:         "astranetwork.com.wen",
 				SecurityContact: "wenSecurity",
 				Details:         "wenDetails",
 			},
 			update: Description{
 				Name:            "Jacky",
 				Identity:        "jw",
-				Website:         "astra.one/jacky",
-				SecurityContact: "jacky@astra.one",
+				Website:         "astranetwork.com/jacky",
+				SecurityContact: "jacky@astranetwork.com",
 				Details:         "Details of Jacky",
 			},
 			expect: Description{
 				Name:            "Jacky",
 				Identity:        "jw",
-				Website:         "astra.one/jacky",
-				SecurityContact: "jacky@astra.one",
+				Website:         "astranetwork.com/jacky",
+				SecurityContact: "jacky@astranetwork.com",
 				Details:         "Details of Jacky",
 			},
 		},
@@ -285,7 +285,7 @@ func TestUpdateDescription(t *testing.T) {
 			raw: Description{
 				Name:            "Wayne",
 				Identity:        "wen",
-				Website:         "astra.one.wen",
+				Website:         "astranetwork.com.wen",
 				SecurityContact: "wenSecurity",
 				Details:         "wenDetails",
 			},
@@ -293,7 +293,7 @@ func TestUpdateDescription(t *testing.T) {
 			expect: Description{
 				Name:            "Wayne",
 				Identity:        "wen",
-				Website:         "astra.one.wen",
+				Website:         "astranetwork.com.wen",
 				SecurityContact: "wenSecurity",
 				Details:         "wenDetails",
 			},
@@ -302,7 +302,7 @@ func TestUpdateDescription(t *testing.T) {
 			raw: Description{
 				Name:            "Wayne",
 				Identity:        "wen",
-				Website:         "astra.one.wen",
+				Website:         "astranetwork.com.wen",
 				SecurityContact: "wenSecurity",
 				Details:         "wenDetails",
 			},
@@ -312,7 +312,7 @@ func TestUpdateDescription(t *testing.T) {
 			expect: Description{
 				Name:            "Wayne",
 				Identity:        "wen",
-				Website:         "astra.one.wen",
+				Website:         "astranetwork.com.wen",
 				SecurityContact: "wenSecurity",
 				Details:         "new details",
 			},
@@ -321,7 +321,7 @@ func TestUpdateDescription(t *testing.T) {
 			raw: Description{
 				Name:            "Wayne",
 				Identity:        "wen",
-				Website:         "astra.one.wen",
+				Website:         "astranetwork.com.wen",
 				SecurityContact: "wenSecurity",
 				Details:         "wenDetails",
 			},
@@ -353,9 +353,9 @@ func TestDescription_EnsureLength(t *testing.T) {
 		{
 			desc: Description{
 				Name:            "Jacky Wang",
-				Identity:        "jacky@astra.one",
-				Website:         "astra.one/jacky",
-				SecurityContact: "jacky@astra.one",
+				Identity:        "jacky@astranetwork.com",
+				Website:         "astranetwork.com/jacky",
+				SecurityContact: "jacky@astranetwork.com",
 				Details:         "Details of jacky",
 			},
 			expErr: nil,
@@ -367,9 +367,9 @@ func TestDescription_EnsureLength(t *testing.T) {
 		{
 			desc: Description{
 				Name:            "thisisaverylonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglongname",
-				Identity:        "jacky@astra.one",
-				Website:         "astra.one/jacky",
-				SecurityContact: "jacky@astra.one",
+				Identity:        "jacky@astranetwork.com",
+				Website:         "astranetwork.com/jacky",
+				SecurityContact: "jacky@astranetwork.com",
 				Details:         "Details of jacky",
 			},
 			expErr: errors.New("exceed maximum name length"),
@@ -378,8 +378,8 @@ func TestDescription_EnsureLength(t *testing.T) {
 			desc: Description{
 				Name:            "Jacky Wang",
 				Identity:        "thisisaverylonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglongidentity",
-				Website:         "astra.one/jacky",
-				SecurityContact: "jacky@astra.one",
+				Website:         "astranetwork.com/jacky",
+				SecurityContact: "jacky@astranetwork.com",
 				Details:         "Details of jacky",
 			},
 			expErr: errors.New("exceed Maximum Length identity"),
@@ -387,9 +387,9 @@ func TestDescription_EnsureLength(t *testing.T) {
 		{
 			desc: Description{
 				Name:            "Jacky Wang",
-				Identity:        "jacky@astra.one",
+				Identity:        "jacky@astranetwork.com",
 				Website:         "thisisaverylonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglongwebsite",
-				SecurityContact: "jacky@astra.one",
+				SecurityContact: "jacky@astranetwork.com",
 				Details:         "Details of jacky",
 			},
 			expErr: errors.New("exceed Maximum Length website"),
@@ -397,8 +397,8 @@ func TestDescription_EnsureLength(t *testing.T) {
 		{
 			desc: Description{
 				Name:            "Jacky Wang",
-				Identity:        "jacky@astra.one",
-				Website:         "astra.one/jacky",
+				Identity:        "jacky@astranetwork.com",
+				Website:         "astranetwork.com/jacky",
 				SecurityContact: "thisisaverylonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglongcontact",
 				Details:         "Details of jacky",
 			},
@@ -407,9 +407,9 @@ func TestDescription_EnsureLength(t *testing.T) {
 		{
 			desc: Description{
 				Name:            "Jacky Wang",
-				Identity:        "jacky@astra.one",
-				Website:         "astra.one/jacky",
-				SecurityContact: "jacky@astra.one",
+				Identity:        "jacky@astranetwork.com",
+				Website:         "astranetwork.com/jacky",
+				SecurityContact: "jacky@astranetwork.com",
 				Details:         "thisisaverylonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglongdetail",
 			},
 			expErr: errors.New("exceed Maximum Length for details"),
@@ -533,9 +533,9 @@ func TestUpdateValidatorFromEditMsg(t *testing.T) {
 			// update Description.Name
 			editValidator: EditValidator{
 				ValidatorAddress: validatorAddr,
-				Description:      Description{Name: "jacky@astra.one"},
+				Description:      Description{Name: "jacky@astranetwork.com"},
 			},
-			editExpValidator: func(v *Validator) { v.Name = "jacky@astra.one" },
+			editExpValidator: func(v *Validator) { v.Name = "jacky@astranetwork.com" },
 		},
 		{
 			// Update CommissionRate
@@ -741,7 +741,7 @@ func makeValidValidator() Validator {
 	d := Description{
 		Name:     "Wayne",
 		Identity: "wen",
-		Website:  "astra.one.wen",
+		Website:  "astranetwork.com.wen",
 		Details:  "best",
 	}
 	v := Validator{

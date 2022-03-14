@@ -1,16 +1,17 @@
 ---
 name: Bounty
-about: Bounty ticket for Harmony
+about: Bounty ticket for Astra
 title: "[Bounty]"
 labels: help wanted
-assignees: ''
-
+assignees: ""
 ---
 
 # About The Bounty
+
 https://github.com/harmony-one/harmony-open/blob/master/README.md
 
 # Category
+
 - [ ] bug
 - [ ] feature
 - [ ] document
@@ -20,9 +21,11 @@ https://github.com/harmony-one/harmony-open/blob/master/README.md
 # Description
 
 # T-shirt Size
+
 <!-- XS, S, M, L, XL, XXL -->
 
 # Time Estimation
 
 # Explore All Bounties
+
 https://gitcoin.co/profile/harmony-one

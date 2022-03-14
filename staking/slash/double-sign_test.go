@@ -13,7 +13,6 @@ import (
 	"github.com/harmony-one/astra/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
 	blockfactory "github.com/harmony-one/astra/block/factory"
 	consensus_sig "github.com/harmony-one/astra/consensus/signature"
 	"github.com/harmony-one/astra/consensus/votepower"
@@ -24,6 +23,7 @@ import (
 	"github.com/harmony-one/astra/shard"
 	"github.com/harmony-one/astra/staking/effective"
 	staking "github.com/harmony-one/astra/staking/types"
+	bls_core "github.com/harmony-one/bls/ffi/go/bls"
 )
 
 var (
@@ -783,7 +783,7 @@ func makeVoteData(kp blsKeyPair, block *types.Block) Vote {
 }
 
 func makeTestAddress(item interface{}) common.Address {
-	s := fmt.Sprintf("astra.one.%v", item)
+	s := fmt.Sprintf("astranetwork.com.%v", item)
 	return common.BytesToAddress([]byte(s))
 }
 

@@ -1,6 +1,6 @@
 Consensus package includes the Astra BFT consensus protocol code, which uses BLS-based
 multi-signature to cosign the new block. The details are
-in Astra's new [consensus protocol design](https://talk.astra.one/t/bls-based-practical-bft-consensus/131).
+in Astra's new [consensus protocol design](https://talk.astranetwork.com/t/bls-based-practical-bft-consensus/131).
 
 ## Introduction to Astra BFT with BLS signatures
 

@@ -55,7 +55,7 @@ esac
 
 mkdir -p "${DATADIR}/archive"
 
-rclone --config "${CONFIG}" sync -vvv "astra:pub.astra.one/${FOLDER}/astra_db_${SHARD}" "${DATADIR}/archive/astra_db_${SHARD}" > "${DATADIR}/archive/archive-${SHARD}.log" 2>&1
+rclone --config "${CONFIG}" sync -vvv "astra:pub.astranetwork.com/${FOLDER}/astra_db_${SHARD}" "${DATADIR}/archive/astra_db_${SHARD}" > "${DATADIR}/archive/archive-${SHARD}.log" 2>&1
 
 [ -d "${DATADIR}/astra_db_${SHARD}" ] && mv -f "${DATADIR}/astra_db_${SHARD}" "${DATADIR}/archive/astra_db_${SHARD}.bak"
 mv -f "${DATADIR}/archive/astra_db_${SHARD}" "${DATADIR}/astra_db_${SHARD}"

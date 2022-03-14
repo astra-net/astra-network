@@ -10,8 +10,8 @@ SRC=
 declare -A TARGET
 TARGET[rpm.dev]="haochen-astra-pub/pub/yum"
 TARGET[deb.dev]="haochen-astra-pub/pub/repo"
-TARGET[rpm.prod]="pub.astra.one/release/package/yum"
-TARGET[deb.prod]="pub.astra.one/release/package/apt"
+TARGET[rpm.prod]="pub.astranetwork.com/release/package/yum"
+TARGET[deb.prod]="pub.astranetwork.com/release/package/apt"
 
 function usage() {
    cat<<-EOT

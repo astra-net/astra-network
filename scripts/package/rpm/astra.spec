@@ -11,7 +11,7 @@ Release:	{{ REL }}
 Summary:	astra blockchain validator node program
 
 License:	MIT
-URL:		https://astra.one
+URL:		https://astranetwork.com
 Source0:	%{name}-%{version}.tar
 BuildArch: x86_64
 Packager: Leo Chen <leo@hamrony.one>

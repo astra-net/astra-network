@@ -93,7 +93,7 @@ func TestCreateValidatorOperationMetadata_UnmarshalFromInterface(t *testing.T) {
 		"maxTotalDelegation": 3000,
 		"amount":             100,
 		"name":               "Alice",
-		"website":            "alice.astra.one",
+		"website":            "alice.astranetwork.com",
 		"identity":           "alice",
 		"securityContact":    "Bob",
 		"details":            "Don't mess with me!!!",
@@ -127,7 +127,7 @@ func TestCreateValidatorOperationMetadata_UnmarshalFromInterface(t *testing.T) {
 	if s.Name != "Alice" {
 		t.Fatal("wrong name")
 	}
-	if s.Website != "alice.astra.one" {
+	if s.Website != "alice.astranetwork.com" {
 		t.Fatal("wrong website")
 	}
 	if s.Identity != "alice" {
@@ -148,7 +148,7 @@ func TestEditValidatorOperationMetadata_UnmarshalFromInterface(t *testing.T) {
 		"minSelfDelegation":  10,
 		"maxTotalDelegation": 3000,
 		"name":               "Alice",
-		"website":            "alice.astra.one",
+		"website":            "alice.astranetwork.com",
 		"identity":           "alice",
 		"securityContact":    "Bob",
 		"details":            "Don't mess with me!!!",
@@ -173,7 +173,7 @@ func TestEditValidatorOperationMetadata_UnmarshalFromInterface(t *testing.T) {
 	if s.Name != "Alice" {
 		t.Fatal("wrong name")
 	}
-	if s.Website != "alice.astra.one" {
+	if s.Website != "alice.astranetwork.com" {
 		t.Fatal("wrong website")
 	}
 	if s.Identity != "alice" {

@@ -381,7 +381,7 @@ func sampleEditValidator(key ecdsa.PrivateKey) staking.EditValidator {
 		Description: staking.Description{
 			Name:            "Alice",
 			Identity:        "alice",
-			Website:         "alice.astra.one",
+			Website:         "alice.astranetwork.com",
 			SecurityContact: "Bob",
 			Details:         "Don't mess with me!!!",
 		},

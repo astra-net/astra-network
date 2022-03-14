@@ -8,7 +8,7 @@ SRC[bootnode]=./cmd/bootnode
 
 BINDIR=bin
 BUCKET=unique-bucket-bin
-PUBBUCKET=pub.astra.one
+PUBBUCKET=pub.astranetwork.com
 REL=
 GOOS=linux
 GOARCH=$(uname -m)

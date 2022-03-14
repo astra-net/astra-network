@@ -142,7 +142,7 @@ func (w *Worker) CommitTransactions(
 		w.current.gasPool = new(core.GasPool).AddGas(w.current.header.GasLimit())
 	}
 
-	// HARMONY TXNS
+	// ASTRA TXNS
 	normalTxns := types.NewTransactionsByPriceAndNonce(w.current.signer, w.current.ethSigner, pendingNormal)
 
 	w.CommitSortedTransactions(normalTxns, coinbase)

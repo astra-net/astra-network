@@ -128,7 +128,7 @@ var defaultPrometheusConfig = astraconfig.PrometheusConfig{
 	IP:         "0.0.0.0",
 	Port:       9900,
 	EnablePush: false,
-	Gateway:    "https://gateway.astra.one",
+	Gateway:    "https://gateway.astranetwork.com",
 }
 
 var (

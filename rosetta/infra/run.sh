@@ -7,18 +7,18 @@ LOGS="$DATA/logs"
 BASE_ARGS=(--http.ip "0.0.0.0" --ws.ip "0.0.0.0" --http.rosetta --node_type "explorer" --datadir "$DATA" --log.dir "$LOGS")
 DATA_NAME="${DATA_NAME:=astra_db_0}"
 
-MAINNET_22816573_SNAPSHOT="release:pub.harmony.one/mainnet.min.22816573/harmony_sharddb_0"
+MAINNET_22816573_SNAPSHOT="release:pub.astranetwork.com/mainnet.min.22816573/astra_sharddb_0"
 
 case "$NETWORK" in
 mainnet)
-  CONFIG_PATH="-c /root/harmony-mainnet.conf"
+  CONFIG_PATH="-c /root/astra-mainnet.conf"
   ;;
 mainnet-22816573)
-  CONFIG_PATH="-c /root/harmony-mainnet.conf"
+  CONFIG_PATH="-c /root/astra-mainnet.conf"
   rclone -P -L sync $MAINNET_22816573_SNAPSHOT $DATA/$DATA_NAME --transfers=64
   ;;
 testnet)
-  CONFIG_PATH="-c /root/harmony-pstn.conf"
+  CONFIG_PATH="-c /root/astra-pstn.conf"
   ;;
 *)
   echo "unknown network"

@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/harmony-one/astra/eth/rpc"
 	"github.com/harmony-one/astra/astra"
+	"github.com/harmony-one/astra/eth/rpc"
 	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
 	"github.com/harmony-one/astra/internal/utils"
 	eth "github.com/harmony-one/astra/rpc/eth"
@@ -171,8 +171,8 @@ func getAPIs(astra *astra.Astra, debugEnable bool, rateLimiterEnable bool, ratel
 
 	publicDebugAPIs := []rpc.API{
 		//Public debug API
-		NewPublicDebugAPI(hmy, V1),
-		NewPublicDebugAPI(hmy, V2),
+		NewPublicDebugAPI(astra, V1),
+		NewPublicDebugAPI(astra, V2),
 	}
 
 	privateAPIs := []rpc.API{

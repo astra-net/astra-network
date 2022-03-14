@@ -475,7 +475,7 @@ func stakingCreateValidatorTransaction(key *ecdsa.PrivateKey) (*stakingTypes.Sta
 			Description: stakingTypes.Description{
 				Name:            "Alice",
 				Identity:        "alice",
-				Website:         "alice.astra.one",
+				Website:         "alice.astranetwork.com",
 				SecurityContact: "Bob",
 				Details:         "Don't mess with me!!!",
 			},
@@ -527,7 +527,7 @@ func stakingEditValidatorTransaction(key *ecdsa.PrivateKey) (*stakingTypes.Staki
 			Description: stakingTypes.Description{
 				Name:            "Alice",
 				Identity:        "alice",
-				Website:         "alice.astra.one",
+				Website:         "alice.astranetwork.com",
 				SecurityContact: "Bob",
 				Details:         "Don't mess with me!!!",
 			},
