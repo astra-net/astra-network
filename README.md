@@ -12,7 +12,7 @@ https://docs.astranetwork.com
 
 ## API Guide
 
-http://api.hmny.io/
+http://api.astranetwork.com/
 
 ## Requirements
 

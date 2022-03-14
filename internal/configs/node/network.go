@@ -2,11 +2,11 @@ package nodeconfig
 
 var (
 	mainnetBootNodes = []string{
-		"/dnsaddr/bootstrap.t.hmny.io",
+		"/dnsaddr/bootstrap.t.astranetwork.com",
 	}
 
 	testnetBootNodes = []string{
-		"/dnsaddr/bootstrap.b.hmny.io",
+		"/dnsaddr/bootstrap.b.astranetwork.com",
 	}
 
 	pangaeaBootNodes = []string{
@@ -15,22 +15,22 @@ var (
 	}
 
 	partnerBootNodes = []string{
-		"/dnsaddr/bootstrap.ps.hmny.io",
+		"/dnsaddr/bootstrap.ps.astranetwork.com",
 	}
 
 	stressBootNodes = []string{
-		"/dnsaddr/bootstrap.stn.hmny.io",
+		"/dnsaddr/bootstrap.stn.astranetwork.com",
 	}
 
 	devnetBootNodes = []string{}
 )
 
 const (
-	mainnetDNSZone   = "t.hmny.io"
-	testnetDNSZone   = "b.hmny.io"
-	pangaeaDNSZone   = "os.hmny.io"
-	partnerDNSZone   = "ps.hmny.io"
-	stressnetDNSZone = "stn.hmny.io"
+	mainnetDNSZone   = "t.astranetwork.com"
+	testnetDNSZone   = "b.astranetwork.com"
+	pangaeaDNSZone   = "os.astranetwork.com"
+	partnerDNSZone   = "ps.astranetwork.com"
+	stressnetDNSZone = "stn.astranetwork.com"
 )
 
 const (

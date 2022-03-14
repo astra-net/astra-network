@@ -24,9 +24,9 @@ const (
 	testnetVdfDifficulty = 10000 // This takes about 20s to finish the vdf
 
 	// TestNetHTTPPattern is the http pattern for testnet.
-	TestNetHTTPPattern = "https://api.s%d.b.hmny.io"
+	TestNetHTTPPattern = "https://api.s%d.b.astranetwork.com"
 	// TestNetWSPattern is the websocket pattern for testnet.
-	TestNetWSPattern = "wss://ws.s%d.b.hmny.io"
+	TestNetWSPattern = "wss://ws.s%d.b.astranetwork.com"
 
 	testnetV2Epoch = 6050 // per shard, reduce internal node from 15 to 8, and external nodes from 5 to 22
 )
