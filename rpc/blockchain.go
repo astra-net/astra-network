@@ -18,10 +18,10 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"golang.org/x/time/rate"
 
+	"github.com/harmony-one/astra/astra"
 	"github.com/harmony-one/astra/core/types"
 	internal_bls "github.com/harmony-one/astra/crypto/bls"
 	"github.com/harmony-one/astra/eth/rpc"
-	"github.com/harmony-one/astra/astra"
 	"github.com/harmony-one/astra/internal/chain"
 	internal_common "github.com/harmony-one/astra/internal/common"
 	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
@@ -38,7 +38,7 @@ import (
 // PublicBlockchainService provides an API to access the Astra blockchain.
 // It offers only methods that operate on public data that is freely available to anyone.
 type PublicBlockchainService struct {
-	astra             *astra.Astra
+	astra           *astra.Astra
 	version         Version
 	limiter         *rate.Limiter
 	rpcBlockFactory rpc_common.BlockFactory
@@ -66,7 +66,7 @@ func NewPublicBlockchainAPI(astra *astra.Astra, version Version, limiterEnable b
 	}
 
 	s := &PublicBlockchainService{
-		astra:                             astra,
+		astra:                           astra,
 		version:                         version,
 		limiter:                         limiter,
 		limiterGetStakingNetworkInfo:    rate.NewLimiter(5, 10),
@@ -1186,7 +1186,7 @@ type (
 	// rpc_common.BlockDataProvider
 	bcServiceHelper struct {
 		version Version
-		astra     *astra.Astra
+		astra   *astra.Astra
 		cache   *bcServiceCache
 	}
 
@@ -1208,7 +1208,7 @@ func (s *PublicBlockchainService) newHelper() *bcServiceHelper {
 	}
 	return &bcServiceHelper{
 		version: s.version,
-		astra:     s.astra,
+		astra:   s.astra,
 		cache:   cache,
 	}
 }
