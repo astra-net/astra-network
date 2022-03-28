@@ -1,7 +1,7 @@
 package bls
 
 import (
-	"github.com/Astra-Net/bls/ffi/go/bls"
+	"github.com/astra-net/bls/ffi/go/bls"
 	lru "github.com/hashicorp/golang-lru"
 	"github.com/pkg/errors"
 )

@@ -28,4 +28,4 @@ https://github.com/harmony-one/harmony-open/blob/master/README.md
 
 # Explore All Bounties
 
-https://gitcoin.co/profile/Astra-Net
+https://gitcoin.co/profile/astra-net

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sync"
 
-	prom "github.com/Astra-Net/AstraNetwork/api/service/prometheus"
+	prom "github.com/astra-net/AstraNetwork/api/service/prometheus"
 	"github.com/prometheus/client_golang/prometheus"
 )
 

@@ -3,11 +3,11 @@ package downloader
 import (
 	"context"
 
-	"github.com/Astra-Net/AstraNetwork/consensus/engine"
-	"github.com/Astra-Net/AstraNetwork/core/types"
-	"github.com/Astra-Net/AstraNetwork/p2p/stream/common/streammanager"
-	syncproto "github.com/Astra-Net/AstraNetwork/p2p/stream/protocols/sync"
-	sttypes "github.com/Astra-Net/AstraNetwork/p2p/stream/types"
+	"github.com/astra-net/AstraNetwork/consensus/engine"
+	"github.com/astra-net/AstraNetwork/core/types"
+	"github.com/astra-net/AstraNetwork/p2p/stream/common/streammanager"
+	syncproto "github.com/astra-net/AstraNetwork/p2p/stream/protocols/sync"
+	sttypes "github.com/astra-net/AstraNetwork/p2p/stream/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/event"
 )

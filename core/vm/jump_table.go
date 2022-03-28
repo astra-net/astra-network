@@ -19,7 +19,7 @@ package vm
 import (
 	"errors"
 
-	"github.com/Astra-Net/AstraNetwork/internal/params"
+	"github.com/astra-net/AstraNetwork/internal/params"
 )
 
 type (

@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/event"
-	"github.com/Astra-Net/AstraNetwork/p2p/stream/common/streammanager"
-	sttypes "github.com/Astra-Net/AstraNetwork/p2p/stream/types"
+	"github.com/astra-net/AstraNetwork/p2p/stream/common/streammanager"
+	sttypes "github.com/astra-net/AstraNetwork/p2p/stream/types"
 )
 
 func TestRateLimiter(t *testing.T) {

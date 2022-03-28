@@ -23,11 +23,11 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/Astra-Net/AstraNetwork/block"
-	"github.com/Astra-Net/AstraNetwork/eth/rpc"
-	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/astra-net/AstraNetwork/block"
+	"github.com/astra-net/AstraNetwork/eth/rpc"
+	"github.com/astra-net/AstraNetwork/internal/utils"
 
-	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/astra-net/AstraNetwork/core/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/params"
 )

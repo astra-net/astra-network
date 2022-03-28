@@ -1,7 +1,7 @@
 package streammanager
 
 import (
-	sttypes "github.com/Astra-Net/AstraNetwork/p2p/stream/types"
+	sttypes "github.com/astra-net/AstraNetwork/p2p/stream/types"
 	"github.com/ethereum/go-ethereum/event"
 )
 

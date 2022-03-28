@@ -6,7 +6,7 @@ import (
 	"math/big"
 	"sort"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/hash"
+	"github.com/astra-net/AstraNetwork/crypto/hash"
 	"github.com/ethereum/go-ethereum/common"
 )
 

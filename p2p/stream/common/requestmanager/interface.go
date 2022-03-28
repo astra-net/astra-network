@@ -3,8 +3,8 @@ package requestmanager
 import (
 	"context"
 
-	sttypes "github.com/Astra-Net/AstraNetwork/p2p/stream/types"
-	p2ptypes "github.com/Astra-Net/AstraNetwork/p2p/types"
+	sttypes "github.com/astra-net/AstraNetwork/p2p/stream/types"
+	p2ptypes "github.com/astra-net/AstraNetwork/p2p/types"
 )
 
 // Requester is the interface to do request

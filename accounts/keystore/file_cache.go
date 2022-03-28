@@ -26,7 +26,7 @@ import (
 
 	mapset "github.com/deckarep/golang-set"
 
-	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/astra-net/AstraNetwork/internal/utils"
 )
 
 // fileCache is a cache of files seen during scan of keystore.

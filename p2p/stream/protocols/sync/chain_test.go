@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/Astra-Net/AstraNetwork/block"
-	"github.com/Astra-Net/AstraNetwork/core/types"
-	syncpb "github.com/Astra-Net/AstraNetwork/p2p/stream/protocols/sync/message"
+	"github.com/astra-net/AstraNetwork/block"
+	"github.com/astra-net/AstraNetwork/core/types"
+	syncpb "github.com/astra-net/AstraNetwork/p2p/stream/protocols/sync/message"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
 	protobuf "github.com/golang/protobuf/proto"

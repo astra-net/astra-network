@@ -1,8 +1,8 @@
 package downloader
 
 import (
-	"github.com/Astra-Net/AstraNetwork/core"
-	"github.com/Astra-Net/AstraNetwork/p2p"
+	"github.com/astra-net/AstraNetwork/core"
+	"github.com/astra-net/AstraNetwork/p2p"
 	"github.com/harmony-one/abool"
 )
 

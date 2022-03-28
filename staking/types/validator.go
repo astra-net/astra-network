@@ -4,18 +4,18 @@ import (
 	"encoding/json"
 	"math/big"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
-	"github.com/Astra-Net/AstraNetwork/shard"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/shard"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/Astra-Net/AstraNetwork/common/denominations"
-	"github.com/Astra-Net/AstraNetwork/consensus/votepower"
-	"github.com/Astra-Net/AstraNetwork/crypto/hash"
-	"github.com/Astra-Net/AstraNetwork/internal/genesis"
-	"github.com/Astra-Net/AstraNetwork/numeric"
-	"github.com/Astra-Net/AstraNetwork/staking/effective"
-	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
+	"github.com/astra-net/AstraNetwork/common/denominations"
+	"github.com/astra-net/AstraNetwork/consensus/votepower"
+	"github.com/astra-net/AstraNetwork/crypto/hash"
+	"github.com/astra-net/AstraNetwork/internal/genesis"
+	"github.com/astra-net/AstraNetwork/numeric"
+	"github.com/astra-net/AstraNetwork/staking/effective"
+	bls_core "github.com/astra-net/bls/ffi/go/bls"
 	"github.com/pkg/errors"
 )
 
@@ -26,7 +26,7 @@ const (
 	MaxWebsiteLength         = 140
 	MaxSecurityContactLength = 140
 	MaxDetailsLength         = 280
-	BLSVerificationStr       = "Astra-Net"
+	BLSVerificationStr       = "astra-net"
 	TenThousand              = 10000
 	APRHistoryLength         = 30
 	SigningHistoryLength     = 30

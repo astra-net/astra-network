@@ -5,7 +5,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
 )
 
 func TestVRF1(t *testing.T) {

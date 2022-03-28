@@ -4,10 +4,10 @@ import (
 	"errors"
 	"math/big"
 
-	"github.com/Astra-Net/AstraNetwork/core"
-	"github.com/Astra-Net/AstraNetwork/internal/utils"
-	"github.com/Astra-Net/AstraNetwork/shard"
-	"github.com/Astra-Net/AstraNetwork/shard/committee"
+	"github.com/astra-net/AstraNetwork/core"
+	"github.com/astra-net/AstraNetwork/internal/utils"
+	"github.com/astra-net/AstraNetwork/shard"
+	"github.com/astra-net/AstraNetwork/shard/committee"
 	"github.com/ethereum/go-ethereum/ethdb"
 )
 

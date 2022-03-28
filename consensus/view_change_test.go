@@ -3,10 +3,10 @@ package consensus
 import (
 	"testing"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
 
-	astra_bls "github.com/Astra-Net/AstraNetwork/crypto/bls"
-	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
+	astra_bls "github.com/astra-net/AstraNetwork/crypto/bls"
+	bls_core "github.com/astra-net/bls/ffi/go/bls"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -86,7 +86,7 @@ func TestGetNextLeaderKeyShouldFailForStandardGeneratedConsensus(t *testing.T) {
 	assert.NoError(t, err)
 
 	// The below results in: "panic: runtime error: integer divide by zero"
-	// This happens because there's no check for if there are any participants or not in https://github.com/Astra-Net/AstraNetwork/blob/main/consensus/quorum/quorum.go#L188-L197
+	// This happens because there's no check for if there are any participants or not in https://github.com/astra-net/AstraNetwork/blob/main/consensus/quorum/quorum.go#L188-L197
 	assert.Panics(t, func() { consensus.getNextLeaderKey(uint64(1)) })
 }
 

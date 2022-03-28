@@ -3,8 +3,8 @@ package sync
 import (
 	"fmt"
 
-	"github.com/Astra-Net/AstraNetwork/p2p/stream/common/requestmanager"
-	syncpb "github.com/Astra-Net/AstraNetwork/p2p/stream/protocols/sync/message"
+	"github.com/astra-net/AstraNetwork/p2p/stream/common/requestmanager"
+	syncpb "github.com/astra-net/AstraNetwork/p2p/stream/protocols/sync/message"
 	protobuf "github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 )

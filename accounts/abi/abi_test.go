@@ -28,7 +28,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/Astra-Net/AstraNetwork/common/math"
+	"github.com/astra-net/AstraNetwork/common/math"
 )
 
 const jsondata = `

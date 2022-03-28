@@ -20,8 +20,8 @@ import (
 	"encoding/json"
 	"errors"
 
-	"github.com/Astra-Net/AstraNetwork/internal/params"
-	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/astra-net/AstraNetwork/internal/params"
+	"github.com/astra-net/AstraNetwork/internal/utils"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
 )

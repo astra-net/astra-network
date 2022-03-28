@@ -19,7 +19,7 @@ package vm
 import (
 	"errors"
 
-	"github.com/Astra-Net/AstraNetwork/internal/params"
+	"github.com/astra-net/AstraNetwork/internal/params"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/math"
 )

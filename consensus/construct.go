@@ -6,13 +6,13 @@ import (
 
 	protobuf "github.com/golang/protobuf/proto"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
 
-	"github.com/Astra-Net/AstraNetwork/api/proto"
-	msg_pb "github.com/Astra-Net/AstraNetwork/api/proto/message"
-	"github.com/Astra-Net/AstraNetwork/consensus/quorum"
-	"github.com/Astra-Net/AstraNetwork/internal/utils"
-	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
+	"github.com/astra-net/AstraNetwork/api/proto"
+	msg_pb "github.com/astra-net/AstraNetwork/api/proto/message"
+	"github.com/astra-net/AstraNetwork/consensus/quorum"
+	"github.com/astra-net/AstraNetwork/internal/utils"
+	bls_core "github.com/astra-net/bls/ffi/go/bls"
 )
 
 // NetworkMessage is a message intended to be

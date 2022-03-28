@@ -7,7 +7,7 @@ SHELL ["/bin/bash", "-c"]
 
 ENV GOPATH=/root/go
 ENV GO111MODULE=on
-ENV ASTRA_PATH=${GOPATH}/src/github.com/Astra-Net
+ENV ASTRA_PATH=${GOPATH}/src/github.com/astra-net
 ENV OPENSSL_DIR=/usr/lib/ssl
 ENV MCL_DIR=${ASTRA_PATH}/mcl
 ENV BLS_DIR=${ASTRA_PATH}/bls
@@ -29,11 +29,11 @@ RUN mkdir ~/bin && \
 
 RUN eval "$(~/bin/gimme ${GIMME_GO_VERSION})"
 
-RUN git clone https://github.com/Astra-Net/AstraNetwork.git ${ASTRA_PATH}/astra
+RUN git clone https://github.com/astra-net/AstraNetwork.git ${ASTRA_PATH}/astra
 
-RUN git clone https://github.com/Astra-Net/bls.git ${ASTRA_PATH}/bls
+RUN git clone https://github.com/astra-net/bls.git ${ASTRA_PATH}/bls
 
-RUN git clone https://github.com/Astra-Net/mcl.git ${ASTRA_PATH}/mcl
+RUN git clone https://github.com/astra-net/mcl.git ${ASTRA_PATH}/mcl
 
 RUN git clone https://github.com/harmony-one/go-sdk.git ${ASTRA_PATH}/go-sdk
 

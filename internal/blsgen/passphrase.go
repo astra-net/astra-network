@@ -8,7 +8,7 @@ import (
 	"strings"
 	"sync"
 
-	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
+	bls_core "github.com/astra-net/bls/ffi/go/bls"
 )
 
 // PassSrcType is the type of passphrase provider source.

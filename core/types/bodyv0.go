@@ -5,9 +5,9 @@ import (
 
 	"github.com/ethereum/go-ethereum/rlp"
 
-	"github.com/Astra-Net/AstraNetwork/block"
-	"github.com/Astra-Net/AstraNetwork/internal/utils"
-	staking "github.com/Astra-Net/AstraNetwork/staking/types"
+	"github.com/astra-net/AstraNetwork/block"
+	"github.com/astra-net/AstraNetwork/internal/utils"
+	staking "github.com/astra-net/AstraNetwork/staking/types"
 )
 
 // BodyV0 is the V0 block body

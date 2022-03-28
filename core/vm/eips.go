@@ -19,7 +19,7 @@ package vm
 import (
 	"fmt"
 
-	"github.com/Astra-Net/AstraNetwork/internal/params"
+	"github.com/astra-net/AstraNetwork/internal/params"
 )
 
 // EnableEIP enables the given EIP on the config.

@@ -3,10 +3,10 @@ package multibls
 import (
 	"strings"
 
-	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/astra-net/AstraNetwork/internal/utils"
 
-	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	bls_core "github.com/astra-net/bls/ffi/go/bls"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
 )
 
 // PrivateKeys stores the bls secret keys that belongs to the node

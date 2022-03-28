@@ -21,10 +21,10 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/Astra-Net/AstraNetwork/core/types"
-	"github.com/Astra-Net/AstraNetwork/internal/params"
+	"github.com/astra-net/AstraNetwork/core/types"
+	"github.com/astra-net/AstraNetwork/internal/params"
 
-	"github.com/Astra-Net/AstraNetwork/core/state"
+	"github.com/astra-net/AstraNetwork/core/state"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/rawdb"

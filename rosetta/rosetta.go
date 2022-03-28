@@ -13,11 +13,11 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/server"
 	"github.com/coinbase/rosetta-sdk-go/types"
 
-	"github.com/Astra-Net/AstraNetwork/astra"
-	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
-	"github.com/Astra-Net/AstraNetwork/internal/utils"
-	"github.com/Astra-Net/AstraNetwork/rosetta/common"
-	"github.com/Astra-Net/AstraNetwork/rosetta/services"
+	"github.com/astra-net/AstraNetwork/astra"
+	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
+	"github.com/astra-net/AstraNetwork/internal/utils"
+	"github.com/astra-net/AstraNetwork/rosetta/common"
+	"github.com/astra-net/AstraNetwork/rosetta/services"
 )
 
 var listener net.Listener

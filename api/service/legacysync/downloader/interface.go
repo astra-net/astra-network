@@ -1,7 +1,7 @@
 package downloader
 
 import (
-	pb "github.com/Astra-Net/AstraNetwork/api/service/legacysync/downloader/proto"
+	pb "github.com/astra-net/AstraNetwork/api/service/legacysync/downloader/proto"
 )
 
 // DownloadInterface is the interface for downloader package.

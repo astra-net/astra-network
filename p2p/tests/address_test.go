@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	p2ptypes "github.com/Astra-Net/AstraNetwork/p2p/types"
-	"github.com/Astra-Net/AstraNetwork/test/helpers"
+	p2ptypes "github.com/astra-net/AstraNetwork/p2p/types"
+	"github.com/astra-net/AstraNetwork/test/helpers"
 	"github.com/stretchr/testify/assert"
 )
 

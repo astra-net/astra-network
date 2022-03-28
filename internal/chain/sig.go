@@ -3,10 +3,10 @@ package chain
 import (
 	"errors"
 
-	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
+	bls_core "github.com/astra-net/bls/ffi/go/bls"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
-	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/internal/utils"
 )
 
 // ReadSignatureBitmapByPublicKeys read the payload of signature and bitmap based on public keys

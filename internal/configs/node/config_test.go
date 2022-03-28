@@ -3,11 +3,11 @@ package nodeconfig
 import (
 	"testing"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
 
-	"github.com/Astra-Net/AstraNetwork/internal/blsgen"
-	shardingconfig "github.com/Astra-Net/AstraNetwork/internal/configs/sharding"
-	"github.com/Astra-Net/AstraNetwork/multibls"
+	"github.com/astra-net/AstraNetwork/internal/blsgen"
+	shardingconfig "github.com/astra-net/AstraNetwork/internal/configs/sharding"
+	"github.com/astra-net/AstraNetwork/multibls"
 	"github.com/pkg/errors"
 )
 

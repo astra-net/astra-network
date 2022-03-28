@@ -3,8 +3,8 @@ package rpc
 import (
 	"context"
 
-	"github.com/Astra-Net/AstraNetwork/astra"
-	"github.com/Astra-Net/AstraNetwork/eth/rpc"
+	"github.com/astra-net/AstraNetwork/astra"
+	"github.com/astra-net/AstraNetwork/eth/rpc"
 )
 
 // PrivateDebugService Internal JSON RPC for debugging purpose

@@ -5,8 +5,8 @@ import (
 	"crypto/sha256"
 	"errors"
 
-	"github.com/Astra-Net/bls/ffi/go/bls"
-	"github.com/Astra-Net/AstraNetwork/crypto/vrf"
+	"github.com/astra-net/bls/ffi/go/bls"
+	"github.com/astra-net/AstraNetwork/crypto/vrf"
 )
 
 var (

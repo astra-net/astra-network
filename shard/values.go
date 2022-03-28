@@ -3,8 +3,8 @@ package shard
 import (
 	"math/big"
 
-	shardingconfig "github.com/Astra-Net/AstraNetwork/internal/configs/sharding"
-	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	shardingconfig "github.com/astra-net/AstraNetwork/internal/configs/sharding"
+	"github.com/astra-net/AstraNetwork/internal/utils"
 )
 
 const (

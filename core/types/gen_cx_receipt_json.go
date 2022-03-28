@@ -5,8 +5,8 @@ import (
 	"errors"
 	"math/big"
 
-	"github.com/Astra-Net/AstraNetwork/block"
-	internal_common "github.com/Astra-Net/AstraNetwork/internal/common"
+	"github.com/astra-net/AstraNetwork/block"
+	internal_common "github.com/astra-net/AstraNetwork/internal/common"
 	"github.com/ethereum/go-ethereum/common"
 )
 

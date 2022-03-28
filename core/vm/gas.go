@@ -20,7 +20,7 @@ import (
 	"math"
 	"math/big"
 
-	"github.com/Astra-Net/AstraNetwork/internal/params"
+	"github.com/astra-net/AstraNetwork/internal/params"
 )
 
 // Gas costs

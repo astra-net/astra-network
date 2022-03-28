@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
+	bls_core "github.com/astra-net/bls/ffi/go/bls"
 	"github.com/ethereum/go-ethereum/common"
 )
 

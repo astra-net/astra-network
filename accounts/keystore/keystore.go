@@ -33,9 +33,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Astra-Net/AstraNetwork/accounts"
-	"github.com/Astra-Net/AstraNetwork/core/types"
-	staking "github.com/Astra-Net/AstraNetwork/staking/types"
+	"github.com/astra-net/AstraNetwork/accounts"
+	"github.com/astra-net/AstraNetwork/core/types"
+	staking "github.com/astra-net/AstraNetwork/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/event"

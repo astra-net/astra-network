@@ -35,7 +35,7 @@ import (
 	"errors"
 	"math/big"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/vrf"
+	"github.com/astra-net/AstraNetwork/crypto/vrf"
 )
 
 var (

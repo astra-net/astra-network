@@ -6,8 +6,8 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/Astra-Net/AstraNetwork/rosetta/common"
-	commonRPC "github.com/Astra-Net/AstraNetwork/rpc/common"
+	"github.com/astra-net/AstraNetwork/rosetta/common"
+	commonRPC "github.com/astra-net/AstraNetwork/rpc/common"
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/libp2p/go-libp2p-core/peer"
 )

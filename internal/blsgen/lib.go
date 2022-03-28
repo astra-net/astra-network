@@ -11,8 +11,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
-	ffi_bls "github.com/Astra-Net/bls/ffi/go/bls"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
+	ffi_bls "github.com/astra-net/bls/ffi/go/bls"
 	"github.com/aws/aws-sdk-go/service/kms"
 	"github.com/pkg/errors"
 )

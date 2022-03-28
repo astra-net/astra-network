@@ -1,8 +1,8 @@
 package main
 
 import (
-	astraconfig "github.com/Astra-Net/AstraNetwork/internal/configs/astra"
-	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
+	astraconfig "github.com/astra-net/AstraNetwork/internal/configs/astra"
+	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
 )
 
 const tomlConfigVersion = "2.5.1" // bump from 2.5.0 for AccountSlots

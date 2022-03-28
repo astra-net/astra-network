@@ -5,13 +5,13 @@ import (
 	"strings"
 	"testing"
 
-	astra_bls "github.com/Astra-Net/AstraNetwork/crypto/bls"
-	shardingconfig "github.com/Astra-Net/AstraNetwork/internal/configs/sharding"
-	"github.com/Astra-Net/AstraNetwork/shard"
-	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
+	astra_bls "github.com/astra-net/AstraNetwork/crypto/bls"
+	shardingconfig "github.com/astra-net/AstraNetwork/internal/configs/sharding"
+	"github.com/astra-net/AstraNetwork/shard"
+	bls_core "github.com/astra-net/bls/ffi/go/bls"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
 	"github.com/ethereum/go-ethereum/common"
 )
 

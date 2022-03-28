@@ -25,12 +25,12 @@ import (
 	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/harmony-one/taggedrlp"
 
-	"github.com/Astra-Net/AstraNetwork/block"
-	blockfactory "github.com/Astra-Net/AstraNetwork/block/factory"
-	blockif "github.com/Astra-Net/AstraNetwork/block/interface"
-	v0 "github.com/Astra-Net/AstraNetwork/block/v0"
-	v1 "github.com/Astra-Net/AstraNetwork/block/v1"
-	v2 "github.com/Astra-Net/AstraNetwork/block/v2"
+	"github.com/astra-net/AstraNetwork/block"
+	blockfactory "github.com/astra-net/AstraNetwork/block/factory"
+	blockif "github.com/astra-net/AstraNetwork/block/interface"
+	v0 "github.com/astra-net/AstraNetwork/block/v0"
+	v1 "github.com/astra-net/AstraNetwork/block/v1"
+	v2 "github.com/astra-net/AstraNetwork/block/v2"
 )
 
 var (

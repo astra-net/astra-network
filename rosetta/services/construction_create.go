@@ -6,18 +6,18 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
-	common2 "github.com/Astra-Net/AstraNetwork/internal/common"
-	"github.com/Astra-Net/AstraNetwork/numeric"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
+	common2 "github.com/astra-net/AstraNetwork/internal/common"
+	"github.com/astra-net/AstraNetwork/numeric"
 
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/pkg/errors"
 
-	astraTypes "github.com/Astra-Net/AstraNetwork/core/types"
-	"github.com/Astra-Net/AstraNetwork/rosetta/common"
-	stakingTypes "github.com/Astra-Net/AstraNetwork/staking/types"
+	astraTypes "github.com/astra-net/AstraNetwork/core/types"
+	"github.com/astra-net/AstraNetwork/rosetta/common"
+	stakingTypes "github.com/astra-net/AstraNetwork/staking/types"
 )
 
 const (

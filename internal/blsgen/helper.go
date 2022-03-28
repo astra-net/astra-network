@@ -5,8 +5,8 @@ import (
 	"os"
 	"path/filepath"
 
-	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
-	"github.com/Astra-Net/AstraNetwork/multibls"
+	bls_core "github.com/astra-net/bls/ffi/go/bls"
+	"github.com/astra-net/AstraNetwork/multibls"
 )
 
 // loadHelper defines the helper interface to load bls keys. Implemented by

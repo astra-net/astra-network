@@ -7,14 +7,14 @@ RUN apt update -y && \
 
 ENV GOPATH=/root/go
 ENV GO111MODULE=on
-ENV ASTRA_PATH=${GOPATH}/src/github.com/Astra-Net
+ENV ASTRA_PATH=${GOPATH}/src/github.com/astra-net
 RUN mkdir -p $ASTRA_PATH
 
 WORKDIR $ASTRA_PATH
 
-RUN git clone https://github.com/Astra-Net/AstraNetwork.git && \
-    git clone https://github.com/Astra-Net/bls.git && \
-    git clone https://github.com/Astra-Net/mcl.git
+RUN git clone https://github.com/astra-net/AstraNetwork.git && \
+    git clone https://github.com/astra-net/bls.git && \
+    git clone https://github.com/astra-net/mcl.git
 
 WORKDIR $ASTRA_PATH/astra
 

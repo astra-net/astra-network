@@ -1,9 +1,9 @@
 package eth
 
 import (
-	"github.com/Astra-Net/AstraNetwork/core/types"
-	internal_common "github.com/Astra-Net/AstraNetwork/internal/common"
-	rpc_common "github.com/Astra-Net/AstraNetwork/rpc/common"
+	"github.com/astra-net/AstraNetwork/core/types"
+	internal_common "github.com/astra-net/AstraNetwork/internal/common"
+	rpc_common "github.com/astra-net/AstraNetwork/rpc/common"
 	"github.com/pkg/errors"
 )
 

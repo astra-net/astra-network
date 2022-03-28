@@ -3,9 +3,9 @@ package v1
 import (
 	"context"
 
-	"github.com/Astra-Net/AstraNetwork/astra"
-	"github.com/Astra-Net/AstraNetwork/eth/rpc"
-	internal_common "github.com/Astra-Net/AstraNetwork/internal/common"
+	"github.com/astra-net/AstraNetwork/astra"
+	"github.com/astra-net/AstraNetwork/eth/rpc"
+	internal_common "github.com/astra-net/AstraNetwork/internal/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 )
 

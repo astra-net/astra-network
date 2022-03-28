@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
+	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
 	"github.com/hashicorp/go-version"
 	libp2p_proto "github.com/libp2p/go-libp2p-core/protocol"
 	"github.com/pkg/errors"

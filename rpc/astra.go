@@ -4,8 +4,8 @@ import (
 	"context"
 	"math/big"
 
-	"github.com/Astra-Net/AstraNetwork/astra"
-	"github.com/Astra-Net/AstraNetwork/eth/rpc"
+	"github.com/astra-net/AstraNetwork/astra"
+	"github.com/astra-net/AstraNetwork/eth/rpc"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 )
 

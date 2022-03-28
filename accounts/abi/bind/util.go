@@ -21,7 +21,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/astra-net/AstraNetwork/core/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/log"
 )

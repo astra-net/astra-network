@@ -60,13 +60,13 @@ jobs:
       - name: Checkout dependence repo
         uses: actions/checkout@v2
         with:
-          repository: Astra-Net/mcl
+          repository: astra-net/mcl
           path: mcl
 
       - name: Checkout dependence repo
         uses: actions/checkout@v2
         with:
-          repository: Astra-Net/bls
+          repository: astra-net/bls
           path: bls
 
       - name: Checkout astra core code

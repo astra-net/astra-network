@@ -6,9 +6,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Astra-Net/AstraNetwork/core/types"
-	syncproto "github.com/Astra-Net/AstraNetwork/p2p/stream/protocols/sync"
-	sttypes "github.com/Astra-Net/AstraNetwork/p2p/stream/types"
+	"github.com/astra-net/AstraNetwork/core/types"
+	syncproto "github.com/astra-net/AstraNetwork/p2p/stream/protocols/sync"
+	sttypes "github.com/astra-net/AstraNetwork/p2p/stream/types"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
 )

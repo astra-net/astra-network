@@ -26,10 +26,10 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/Astra-Net/AstraNetwork/accounts"
-	"github.com/Astra-Net/AstraNetwork/accounts/external"
-	"github.com/Astra-Net/AstraNetwork/accounts/keystore"
-	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/astra-net/AstraNetwork/accounts"
+	"github.com/astra-net/AstraNetwork/accounts/external"
+	"github.com/astra-net/AstraNetwork/accounts/keystore"
+	"github.com/astra-net/AstraNetwork/core/types"
 )
 
 // ErrNoChainID is returned whenever the user failed to specify a chain id.

@@ -6,14 +6,14 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
 
-	shardingconfig "github.com/Astra-Net/AstraNetwork/internal/configs/sharding"
+	shardingconfig "github.com/astra-net/AstraNetwork/internal/configs/sharding"
 
 	"github.com/ethereum/go-ethereum/common"
-	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
-	"github.com/Astra-Net/AstraNetwork/numeric"
-	"github.com/Astra-Net/AstraNetwork/shard"
+	bls_core "github.com/astra-net/bls/ffi/go/bls"
+	"github.com/astra-net/AstraNetwork/numeric"
+	"github.com/astra-net/AstraNetwork/shard"
 )
 
 var (

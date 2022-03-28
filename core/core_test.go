@@ -4,10 +4,10 @@ import (
 	"math/big"
 	"testing"
 
-	blockfactory "github.com/Astra-Net/AstraNetwork/block/factory"
-	"github.com/Astra-Net/AstraNetwork/core/types"
-	shardingconfig "github.com/Astra-Net/AstraNetwork/internal/configs/sharding"
-	"github.com/Astra-Net/AstraNetwork/shard"
+	blockfactory "github.com/astra-net/AstraNetwork/block/factory"
+	"github.com/astra-net/AstraNetwork/core/types"
+	shardingconfig "github.com/astra-net/AstraNetwork/internal/configs/sharding"
+	"github.com/astra-net/AstraNetwork/shard"
 )
 
 func TestIsEpochBlock(t *testing.T) {

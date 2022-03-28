@@ -21,8 +21,8 @@ import (
 	"testing"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/Astra-Net/AstraNetwork/core/state"
-	"github.com/Astra-Net/AstraNetwork/internal/params"
+	"github.com/astra-net/AstraNetwork/core/state"
+	"github.com/astra-net/AstraNetwork/internal/params"
 )
 
 type dummyContractRef struct {

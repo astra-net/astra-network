@@ -24,15 +24,15 @@ import (
 	"math/big"
 	"sync/atomic"
 
-	"github.com/Astra-Net/AstraNetwork/internal/params"
+	"github.com/astra-net/AstraNetwork/internal/params"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/rlp"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/hash"
-	staking "github.com/Astra-Net/AstraNetwork/staking/types"
+	"github.com/astra-net/AstraNetwork/crypto/hash"
+	staking "github.com/astra-net/AstraNetwork/staking/types"
 )
 
 // no go:generate gencodec -type txdata -field-override txdataMarshaling -out gen_tx_json.go

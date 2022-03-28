@@ -8,4 +8,4 @@ docker load -i $CACHE_DIR/images.tar || true
 docker pull astraone/localnet-test
 echo "saving cached docker img"
 docker save -o $CACHE_DIR/images.tar astraone/localnet-test
-docker run -v "$DIR/../:/go/src/github.com/Astra-Net/AstraNetwork" astraone/localnet-test -r
+docker run -v "$DIR/../:/go/src/github.com/astra-net/AstraNetwork" astraone/localnet-test -r

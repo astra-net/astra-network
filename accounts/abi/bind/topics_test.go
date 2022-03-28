@@ -21,7 +21,7 @@ import (
 	"testing"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/Astra-Net/AstraNetwork/accounts/abi"
+	"github.com/astra-net/AstraNetwork/accounts/abi"
 )
 
 func TestMakeTopics(t *testing.T) {

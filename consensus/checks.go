@@ -4,11 +4,11 @@ import (
 	"bytes"
 	"encoding/binary"
 
-	msg_pb "github.com/Astra-Net/AstraNetwork/api/proto/message"
-	"github.com/Astra-Net/AstraNetwork/core/types"
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
-	"github.com/Astra-Net/AstraNetwork/crypto/hash"
-	libbls "github.com/Astra-Net/bls/ffi/go/bls"
+	msg_pb "github.com/astra-net/AstraNetwork/api/proto/message"
+	"github.com/astra-net/AstraNetwork/core/types"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/crypto/hash"
+	libbls "github.com/astra-net/bls/ffi/go/bls"
 	protobuf "github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 )

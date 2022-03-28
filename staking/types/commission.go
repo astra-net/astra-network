@@ -3,7 +3,7 @@ package types
 import (
 	"math/big"
 
-	"github.com/Astra-Net/AstraNetwork/numeric"
+	"github.com/astra-net/AstraNetwork/numeric"
 )
 
 type (

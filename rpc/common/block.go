@@ -2,7 +2,7 @@ package common
 
 import (
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/astra-net/AstraNetwork/core/types"
 )
 
 // BlockFactory is the interface of factory for RPC block data

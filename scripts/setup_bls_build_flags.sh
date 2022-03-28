@@ -11,7 +11,7 @@ case "${ASTRA_PATH+set}" in
    unset -v gopath
    gopath=$(go env GOPATH)
    # ASTRA_PATH is the common root directory of all astra repos
-   ASTRA_PATH="${gopath%%:*}/src/github.com/Astra-Net"
+   ASTRA_PATH="${gopath%%:*}/src/github.com/astra-net"
    if [ ! -d $ASTRA_PATH ]; then
       # "env pwd" uses external pwd(1) implementation and not the Bash built-in,
       # which does not fully dereference symlinks.

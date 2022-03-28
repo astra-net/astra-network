@@ -24,7 +24,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Astra-Net/AstraNetwork/accounts"
+	"github.com/astra-net/AstraNetwork/accounts"
 	"github.com/ethereum/go-ethereum/common"
 )
 

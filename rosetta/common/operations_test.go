@@ -6,7 +6,7 @@ import (
 	"sort"
 	"testing"
 
-	staking "github.com/Astra-Net/AstraNetwork/staking/types"
+	staking "github.com/astra-net/AstraNetwork/staking/types"
 	"github.com/coinbase/rosetta-sdk-go/types"
 )
 

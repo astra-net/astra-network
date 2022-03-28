@@ -9,13 +9,13 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-	blockfactory "github.com/Astra-Net/AstraNetwork/block/factory"
-	"github.com/Astra-Net/AstraNetwork/common/denominations"
-	"github.com/Astra-Net/AstraNetwork/core"
-	"github.com/Astra-Net/AstraNetwork/core/types"
-	"github.com/Astra-Net/AstraNetwork/core/vm"
-	chain2 "github.com/Astra-Net/AstraNetwork/internal/chain"
-	"github.com/Astra-Net/AstraNetwork/internal/params"
+	blockfactory "github.com/astra-net/AstraNetwork/block/factory"
+	"github.com/astra-net/AstraNetwork/common/denominations"
+	"github.com/astra-net/AstraNetwork/core"
+	"github.com/astra-net/AstraNetwork/core/types"
+	"github.com/astra-net/AstraNetwork/core/vm"
+	chain2 "github.com/astra-net/AstraNetwork/internal/chain"
+	"github.com/astra-net/AstraNetwork/internal/params"
 )
 
 var (

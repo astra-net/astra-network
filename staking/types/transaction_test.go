@@ -6,11 +6,11 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
 
-	common2 "github.com/Astra-Net/AstraNetwork/internal/common"
-	numeric "github.com/Astra-Net/AstraNetwork/numeric"
-	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
+	common2 "github.com/astra-net/AstraNetwork/internal/common"
+	numeric "github.com/astra-net/AstraNetwork/numeric"
+	bls_core "github.com/astra-net/bls/ffi/go/bls"
 	"github.com/ethereum/go-ethereum/common"
 )
 

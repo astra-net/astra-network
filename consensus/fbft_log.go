@@ -5,15 +5,15 @@ import (
 	"fmt"
 	"sync"
 
-	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
+	bls_core "github.com/astra-net/bls/ffi/go/bls"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
 
-	msg_pb "github.com/Astra-Net/AstraNetwork/api/proto/message"
-	"github.com/Astra-Net/AstraNetwork/core/types"
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
-	bls_cosi "github.com/Astra-Net/AstraNetwork/crypto/bls"
+	msg_pb "github.com/astra-net/AstraNetwork/api/proto/message"
+	"github.com/astra-net/AstraNetwork/core/types"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
+	bls_cosi "github.com/astra-net/AstraNetwork/crypto/bls"
 )
 
 // FBFTMessage is the record of pbft messages received by a node during FBFT process

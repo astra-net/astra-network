@@ -7,22 +7,22 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Astra-Net/AstraNetwork/internal/params"
+	"github.com/astra-net/AstraNetwork/internal/params"
 
 	"github.com/ethereum/go-ethereum/core/rawdb"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
 
-	"github.com/Astra-Net/AstraNetwork/block"
-	consensus_engine "github.com/Astra-Net/AstraNetwork/consensus/engine"
-	"github.com/Astra-Net/AstraNetwork/core/state"
-	"github.com/Astra-Net/AstraNetwork/core/vm"
-	"github.com/Astra-Net/AstraNetwork/crypto/hash"
-	"github.com/Astra-Net/AstraNetwork/numeric"
-	"github.com/Astra-Net/AstraNetwork/shard"
-	"github.com/Astra-Net/AstraNetwork/staking/effective"
-	staking "github.com/Astra-Net/AstraNetwork/staking/types"
-	staketest "github.com/Astra-Net/AstraNetwork/staking/types/test"
+	"github.com/astra-net/AstraNetwork/block"
+	consensus_engine "github.com/astra-net/AstraNetwork/consensus/engine"
+	"github.com/astra-net/AstraNetwork/core/state"
+	"github.com/astra-net/AstraNetwork/core/vm"
+	"github.com/astra-net/AstraNetwork/crypto/hash"
+	"github.com/astra-net/AstraNetwork/numeric"
+	"github.com/astra-net/AstraNetwork/shard"
+	"github.com/astra-net/AstraNetwork/staking/effective"
+	staking "github.com/astra-net/AstraNetwork/staking/types"
+	staketest "github.com/astra-net/AstraNetwork/staking/types/test"
 	"github.com/ethereum/go-ethereum/common"
 )
 
@@ -1796,11 +1796,11 @@ func (chain *fakeErrChainContext) ReadValidatorSnapshot(common.Address) (*stakin
 }
 
 func makeIdentityStr(item interface{}) string {
-	return fmt.Sprintf("Astra-Net-%v", item)
+	return fmt.Sprintf("astra-net-%v", item)
 }
 
 func makeTestAddr(item interface{}) common.Address {
-	s := fmt.Sprintf("Astra-Net-%v", item)
+	s := fmt.Sprintf("astra-net-%v", item)
 	return common.BytesToAddress([]byte(s))
 }
 

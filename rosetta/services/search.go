@@ -3,11 +3,11 @@ package services
 import (
 	"context"
 
-	"github.com/Astra-Net/AstraNetwork/astra"
-	"github.com/Astra-Net/AstraNetwork/core/rawdb"
-	astraTypes "github.com/Astra-Net/AstraNetwork/core/types"
-	internal_common "github.com/Astra-Net/AstraNetwork/internal/common"
-	rosetta_common "github.com/Astra-Net/AstraNetwork/rosetta/common"
+	"github.com/astra-net/AstraNetwork/astra"
+	"github.com/astra-net/AstraNetwork/core/rawdb"
+	astraTypes "github.com/astra-net/AstraNetwork/core/types"
+	internal_common "github.com/astra-net/AstraNetwork/internal/common"
+	rosetta_common "github.com/astra-net/AstraNetwork/rosetta/common"
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/ethereum/go-ethereum/common"
 )

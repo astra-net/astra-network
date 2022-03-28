@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/Astra-Net/AstraNetwork/multibls"
-	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
+	"github.com/astra-net/AstraNetwork/multibls"
+	bls_core "github.com/astra-net/bls/ffi/go/bls"
 )
 
 // LoadKeys load all BLS keys with the given config. If loading keys from files, the

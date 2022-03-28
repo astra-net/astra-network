@@ -7,8 +7,8 @@ import (
 	"testing"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/Astra-Net/AstraNetwork/common/denominations"
-	stakingTypes "github.com/Astra-Net/AstraNetwork/staking/types"
+	"github.com/astra-net/AstraNetwork/common/denominations"
+	stakingTypes "github.com/astra-net/AstraNetwork/staking/types"
 )
 
 func TestValidateContractAddress(t *testing.T) {

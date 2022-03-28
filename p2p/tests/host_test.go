@@ -3,7 +3,7 @@ package p2ptests
 import (
 	"testing"
 
-	"github.com/Astra-Net/AstraNetwork/test/helpers"
+	"github.com/astra-net/AstraNetwork/test/helpers"
 	"github.com/stretchr/testify/assert"
 )
 

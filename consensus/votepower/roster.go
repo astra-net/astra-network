@@ -7,15 +7,15 @@ import (
 	"math/big"
 	"sort"
 
-	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
+	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
 
-	"github.com/Astra-Net/AstraNetwork/shard"
+	"github.com/astra-net/AstraNetwork/shard"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
-	"github.com/Astra-Net/AstraNetwork/internal/utils"
-	"github.com/Astra-Net/AstraNetwork/numeric"
-	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/internal/utils"
+	"github.com/astra-net/AstraNetwork/numeric"
+	bls_core "github.com/astra-net/bls/ffi/go/bls"
 	"github.com/pkg/errors"
 )
 

@@ -6,7 +6,7 @@ import (
 	"math/big"
 	"net"
 
-	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/astra-net/AstraNetwork/internal/utils"
 	"google.golang.org/grpc"
 )
 

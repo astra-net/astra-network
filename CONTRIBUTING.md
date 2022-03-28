@@ -28,7 +28,7 @@ For exampple, a typical workflow is like the following.
 ```bash
 # assuming you are working on a fix of bug1, and use a local branch called "fixes_of_bug1".
 
-git clone https://github.com/Astra-Net/AstraNetwork
+git clone https://github.com/astra-net/AstraNetwork
 cd astra
 
 # create a local branch to keep track of the origin/master

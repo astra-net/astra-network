@@ -7,21 +7,21 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/Astra-Net/AstraNetwork/astra/tracers"
+	"github.com/astra-net/AstraNetwork/astra/tracers"
 
 	"github.com/coinbase/rosetta-sdk-go/types"
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	"github.com/Astra-Net/AstraNetwork/astra"
-	astratypes "github.com/Astra-Net/AstraNetwork/core/types"
-	"github.com/Astra-Net/AstraNetwork/core/vm"
-	internalCommon "github.com/Astra-Net/AstraNetwork/internal/common"
-	"github.com/Astra-Net/AstraNetwork/internal/params"
-	"github.com/Astra-Net/AstraNetwork/rosetta/common"
-	"github.com/Astra-Net/AstraNetwork/staking"
-	stakingTypes "github.com/Astra-Net/AstraNetwork/staking/types"
-	"github.com/Astra-Net/AstraNetwork/test/helpers"
+	"github.com/astra-net/AstraNetwork/astra"
+	astratypes "github.com/astra-net/AstraNetwork/core/types"
+	"github.com/astra-net/AstraNetwork/core/vm"
+	internalCommon "github.com/astra-net/AstraNetwork/internal/common"
+	"github.com/astra-net/AstraNetwork/internal/params"
+	"github.com/astra-net/AstraNetwork/rosetta/common"
+	"github.com/astra-net/AstraNetwork/staking"
+	stakingTypes "github.com/astra-net/AstraNetwork/staking/types"
+	"github.com/astra-net/AstraNetwork/test/helpers"
 )
 
 func TestGetStakingOperationsFromCreateValidator(t *testing.T) {

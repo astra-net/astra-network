@@ -7,14 +7,14 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/Astra-Net/AstraNetwork/numeric"
-	"github.com/Astra-Net/AstraNetwork/shard"
-	"github.com/Astra-Net/AstraNetwork/staking/effective"
-	staking "github.com/Astra-Net/AstraNetwork/staking/types"
+	"github.com/astra-net/AstraNetwork/numeric"
+	"github.com/astra-net/AstraNetwork/shard"
+	"github.com/astra-net/AstraNetwork/staking/effective"
+	staking "github.com/astra-net/AstraNetwork/staking/types"
 )
 
 func TestBlockSigners(t *testing.T) {

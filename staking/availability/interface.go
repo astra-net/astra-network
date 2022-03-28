@@ -4,7 +4,7 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
-	staking "github.com/Astra-Net/AstraNetwork/staking/types"
+	staking "github.com/astra-net/AstraNetwork/staking/types"
 )
 
 // Reader ..

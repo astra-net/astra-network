@@ -1,9 +1,9 @@
 package common
 
 import (
-	"github.com/Astra-Net/AstraNetwork/consensus/quorum"
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
-	"github.com/Astra-Net/AstraNetwork/numeric"
+	"github.com/astra-net/AstraNetwork/consensus/quorum"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/numeric"
 )
 
 type setRawStakeHack interface {

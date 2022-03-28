@@ -3,16 +3,16 @@ package consensus
 import (
 	"encoding/binary"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/rlp"
 
-	"github.com/Astra-Net/AstraNetwork/api/proto"
-	msg_pb "github.com/Astra-Net/AstraNetwork/api/proto/message"
-	bls_cosi "github.com/Astra-Net/AstraNetwork/crypto/bls"
-	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
+	"github.com/astra-net/AstraNetwork/api/proto"
+	msg_pb "github.com/astra-net/AstraNetwork/api/proto/message"
+	bls_cosi "github.com/astra-net/AstraNetwork/crypto/bls"
+	bls_core "github.com/astra-net/bls/ffi/go/bls"
 
-	"github.com/Astra-Net/AstraNetwork/multibls"
+	"github.com/astra-net/AstraNetwork/multibls"
 	"github.com/pkg/errors"
 )
 

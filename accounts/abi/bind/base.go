@@ -22,8 +22,8 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/Astra-Net/AstraNetwork/accounts/abi"
-	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/astra-net/AstraNetwork/accounts/abi"
+	"github.com/astra-net/AstraNetwork/core/types"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"

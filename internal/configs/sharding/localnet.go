@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/Astra-Net/AstraNetwork/internal/params"
-	"github.com/Astra-Net/AstraNetwork/numeric"
+	"github.com/astra-net/AstraNetwork/internal/params"
+	"github.com/astra-net/AstraNetwork/numeric"
 
-	"github.com/Astra-Net/AstraNetwork/internal/genesis"
+	"github.com/astra-net/AstraNetwork/internal/genesis"
 )
 
 // LocalnetSchedule is the local testnet sharding

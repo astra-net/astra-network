@@ -1,8 +1,8 @@
 package types
 
 import (
-	"github.com/Astra-Net/AstraNetwork/block"
-	"github.com/Astra-Net/AstraNetwork/staking/types"
+	"github.com/astra-net/AstraNetwork/block"
+	"github.com/astra-net/AstraNetwork/staking/types"
 )
 
 // BodyFieldSetter is a body field setter.

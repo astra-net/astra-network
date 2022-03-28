@@ -4,7 +4,7 @@ import (
 	"context"
 	"math/big"
 
-	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/astra-net/AstraNetwork/core/types"
 	"github.com/ethereum/go-ethereum/common"
 )
 

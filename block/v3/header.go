@@ -10,10 +10,10 @@ import (
 	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/rs/zerolog"
 
-	blockif "github.com/Astra-Net/AstraNetwork/block/interface"
-	"github.com/Astra-Net/AstraNetwork/crypto/hash"
-	"github.com/Astra-Net/AstraNetwork/internal/utils"
-	"github.com/Astra-Net/AstraNetwork/shard"
+	blockif "github.com/astra-net/AstraNetwork/block/interface"
+	"github.com/astra-net/AstraNetwork/crypto/hash"
+	"github.com/astra-net/AstraNetwork/internal/utils"
+	"github.com/astra-net/AstraNetwork/shard"
 )
 
 // Header is the V3 block header.

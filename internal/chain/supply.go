@@ -4,11 +4,11 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/Astra-Net/AstraNetwork/consensus/engine"
-	"github.com/Astra-Net/AstraNetwork/consensus/reward"
-	"github.com/Astra-Net/AstraNetwork/numeric"
-	"github.com/Astra-Net/AstraNetwork/shard"
-	stakingReward "github.com/Astra-Net/AstraNetwork/staking/reward"
+	"github.com/astra-net/AstraNetwork/consensus/engine"
+	"github.com/astra-net/AstraNetwork/consensus/reward"
+	"github.com/astra-net/AstraNetwork/numeric"
+	"github.com/astra-net/AstraNetwork/shard"
+	stakingReward "github.com/astra-net/AstraNetwork/staking/reward"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
 )

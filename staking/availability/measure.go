@@ -3,14 +3,14 @@ package availability
 import (
 	"math/big"
 
-	"github.com/Astra-Net/AstraNetwork/core/state"
+	"github.com/astra-net/AstraNetwork/core/state"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
-	"github.com/Astra-Net/AstraNetwork/internal/utils"
-	"github.com/Astra-Net/AstraNetwork/numeric"
-	"github.com/Astra-Net/AstraNetwork/shard"
-	"github.com/Astra-Net/AstraNetwork/staking/effective"
-	staking "github.com/Astra-Net/AstraNetwork/staking/types"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/internal/utils"
+	"github.com/astra-net/AstraNetwork/numeric"
+	"github.com/astra-net/AstraNetwork/shard"
+	"github.com/astra-net/AstraNetwork/staking/effective"
+	staking "github.com/astra-net/AstraNetwork/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
 )

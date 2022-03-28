@@ -3,7 +3,7 @@ dist: bionic
 language: go
 go:
   - 1.16
-go_import_path: github.com/Astra-Net/AstraNetwork
+go_import_path: github.com/astra-net/AstraNetwork
 cache:
   directories:
     - docker_images
@@ -14,12 +14,12 @@ env:
   - TEST="bash ./scripts/travis_rosetta_checker.sh"
 install:
   # default working directory with source code is automatically set to
-  #   /home/travis/gopath/src/github.com/Astra-Net/AstraNetwork
+  #   /home/travis/gopath/src/github.com/astra-net/AstraNetwork
   # https://docs.travis-ci.com/user/languages/go/#go-import-path
-  - git clone https://github.com/Astra-Net/mcl.git $HOME/gopath/src/github.com/Astra-Net/mcl
-  - git clone https://github.com/Astra-Net/bls.git $HOME/gopath/src/github.com/Astra-Net/bls
-  - (cd $HOME/gopath/src/github.com/Astra-Net/mcl; make -j4)
-  - (cd $HOME/gopath/src/github.com/Astra-Net/bls; make BLS_SWAP_G=1 -j4)
+  - git clone https://github.com/astra-net/mcl.git $HOME/gopath/src/github.com/astra-net/mcl
+  - git clone https://github.com/astra-net/bls.git $HOME/gopath/src/github.com/astra-net/bls
+  - (cd $HOME/gopath/src/github.com/astra-net/mcl; make -j4)
+  - (cd $HOME/gopath/src/github.com/astra-net/bls; make BLS_SWAP_G=1 -j4)
   - go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.26
   - go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.1
   - make go-get

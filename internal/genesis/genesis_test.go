@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	ethCommon "github.com/ethereum/go-ethereum/common"
-	"github.com/Astra-Net/bls/ffi/go/bls"
-	"github.com/Astra-Net/AstraNetwork/internal/common"
+	"github.com/astra-net/bls/ffi/go/bls"
+	"github.com/astra-net/AstraNetwork/internal/common"
 )
 
 func TestString(t *testing.T) {

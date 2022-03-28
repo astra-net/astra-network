@@ -4,12 +4,12 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/Astra-Net/bls/ffi/go/bls"
-	"github.com/Astra-Net/AstraNetwork/consensus/quorum"
-	"github.com/Astra-Net/AstraNetwork/consensus/signature"
-	"github.com/Astra-Net/AstraNetwork/core"
-	bls_cosi "github.com/Astra-Net/AstraNetwork/crypto/bls"
-	"github.com/Astra-Net/AstraNetwork/shard"
+	"github.com/astra-net/bls/ffi/go/bls"
+	"github.com/astra-net/AstraNetwork/consensus/quorum"
+	"github.com/astra-net/AstraNetwork/consensus/signature"
+	"github.com/astra-net/AstraNetwork/core"
+	bls_cosi "github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/shard"
 	"github.com/pkg/errors"
 )
 

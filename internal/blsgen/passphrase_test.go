@@ -11,7 +11,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
 	"github.com/ethereum/go-ethereum/common"
 )
 

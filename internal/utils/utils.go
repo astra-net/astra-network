@@ -15,8 +15,8 @@ import (
 	"sync"
 
 	"github.com/ethereum/go-ethereum/common"
-	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	bls_core "github.com/astra-net/bls/ffi/go/bls"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
 	p2p_crypto "github.com/libp2p/go-libp2p-core/crypto"
 	"github.com/pkg/errors"
 )

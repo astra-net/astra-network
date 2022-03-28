@@ -29,7 +29,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Astra-Net/AstraNetwork/accounts"
+	"github.com/astra-net/AstraNetwork/accounts"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/pborman/uuid"

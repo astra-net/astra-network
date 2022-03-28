@@ -11,10 +11,10 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	core2 "github.com/Astra-Net/AstraNetwork/core"
-	"github.com/Astra-Net/AstraNetwork/core/types"
-	"github.com/Astra-Net/AstraNetwork/internal/utils"
-	staking "github.com/Astra-Net/AstraNetwork/staking/types"
+	core2 "github.com/astra-net/AstraNetwork/core"
+	"github.com/astra-net/AstraNetwork/core/types"
+	"github.com/astra-net/AstraNetwork/internal/utils"
+	staking "github.com/astra-net/AstraNetwork/staking/types"
 )
 
 type addrStr string

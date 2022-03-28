@@ -3,9 +3,9 @@ package rpc
 import (
 	"context"
 
-	"github.com/Astra-Net/AstraNetwork/astra"
-	"github.com/Astra-Net/AstraNetwork/eth/rpc"
-	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/astra-net/AstraNetwork/astra"
+	"github.com/astra-net/AstraNetwork/eth/rpc"
+	"github.com/astra-net/AstraNetwork/internal/utils"
 	"github.com/ethereum/go-ethereum/log"
 )
 

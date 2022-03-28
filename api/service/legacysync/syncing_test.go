@@ -11,14 +11,14 @@ import (
 	"testing"
 	"time"
 
-	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
+	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/Astra-Net/AstraNetwork/api/service/legacysync/downloader"
-	"github.com/Astra-Net/AstraNetwork/block"
-	headerV3 "github.com/Astra-Net/AstraNetwork/block/v3"
-	"github.com/Astra-Net/AstraNetwork/core/types"
-	"github.com/Astra-Net/AstraNetwork/p2p"
+	"github.com/astra-net/AstraNetwork/api/service/legacysync/downloader"
+	"github.com/astra-net/AstraNetwork/block"
+	headerV3 "github.com/astra-net/AstraNetwork/block/v3"
+	"github.com/astra-net/AstraNetwork/core/types"
+	"github.com/astra-net/AstraNetwork/p2p"
 	"github.com/stretchr/testify/assert"
 )
 

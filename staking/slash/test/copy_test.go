@@ -5,10 +5,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/Astra-Net/AstraNetwork/staking/slash"
+	"github.com/astra-net/AstraNetwork/staking/slash"
 )
 
 func TestCopyRecord(t *testing.T) {

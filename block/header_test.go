@@ -7,10 +7,10 @@ import (
 
 	"github.com/ethereum/go-ethereum/rlp"
 
-	blockif "github.com/Astra-Net/AstraNetwork/block/interface"
-	v0 "github.com/Astra-Net/AstraNetwork/block/v0"
-	v1 "github.com/Astra-Net/AstraNetwork/block/v1"
-	v2 "github.com/Astra-Net/AstraNetwork/block/v2"
+	blockif "github.com/astra-net/AstraNetwork/block/interface"
+	v0 "github.com/astra-net/AstraNetwork/block/v0"
+	v1 "github.com/astra-net/AstraNetwork/block/v1"
+	v2 "github.com/astra-net/AstraNetwork/block/v2"
 )
 
 func TestHeader_EncodeRLP(t *testing.T) {

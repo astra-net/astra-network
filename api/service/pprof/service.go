@@ -10,7 +10,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/astra-net/AstraNetwork/internal/utils"
 )
 
 // Config is the config for the pprof service

@@ -5,10 +5,10 @@ import (
 	"sort"
 
 	"github.com/ethereum/go-ethereum/common"
-	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
-	"github.com/Astra-Net/AstraNetwork/consensus/quorum"
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
-	"github.com/Astra-Net/AstraNetwork/staking/slash"
+	bls_core "github.com/astra-net/bls/ffi/go/bls"
+	"github.com/astra-net/AstraNetwork/consensus/quorum"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/staking/slash"
 )
 
 // Check for double sign and if any, send it out to beacon chain for slashing.

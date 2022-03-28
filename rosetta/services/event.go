@@ -3,8 +3,8 @@ package services
 import (
 	"context"
 
-	"github.com/Astra-Net/AstraNetwork/astra"
-	astraTypes "github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/astra-net/AstraNetwork/astra"
+	astraTypes "github.com/astra-net/AstraNetwork/core/types"
 	"github.com/coinbase/rosetta-sdk-go/types"
 )
 

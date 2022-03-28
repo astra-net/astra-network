@@ -4,9 +4,9 @@ import (
 	"context"
 	"math/big"
 
-	"github.com/Astra-Net/AstraNetwork/eth/rpc"
-	"github.com/Astra-Net/AstraNetwork/astra"
-	internal_common "github.com/Astra-Net/AstraNetwork/internal/common"
+	"github.com/astra-net/AstraNetwork/eth/rpc"
+	"github.com/astra-net/AstraNetwork/astra"
+	internal_common "github.com/astra-net/AstraNetwork/internal/common"
 )
 
 // PublicLegacyService provides an API to access the Astra blockchain.

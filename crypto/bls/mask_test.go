@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Astra-Net/bls/ffi/go/bls"
+	"github.com/astra-net/bls/ffi/go/bls"
 )
 
 // Test the basic functionality of a BLS multi-sig mask.

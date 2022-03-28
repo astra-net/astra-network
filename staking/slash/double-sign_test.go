@@ -10,20 +10,20 @@ import (
 
 	"github.com/ethereum/go-ethereum/core/rawdb"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	blockfactory "github.com/Astra-Net/AstraNetwork/block/factory"
-	consensus_sig "github.com/Astra-Net/AstraNetwork/consensus/signature"
-	"github.com/Astra-Net/AstraNetwork/consensus/votepower"
-	"github.com/Astra-Net/AstraNetwork/core/state"
-	"github.com/Astra-Net/AstraNetwork/core/types"
-	"github.com/Astra-Net/AstraNetwork/internal/params"
-	"github.com/Astra-Net/AstraNetwork/numeric"
-	"github.com/Astra-Net/AstraNetwork/shard"
-	"github.com/Astra-Net/AstraNetwork/staking/effective"
-	staking "github.com/Astra-Net/AstraNetwork/staking/types"
-	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
+	blockfactory "github.com/astra-net/AstraNetwork/block/factory"
+	consensus_sig "github.com/astra-net/AstraNetwork/consensus/signature"
+	"github.com/astra-net/AstraNetwork/consensus/votepower"
+	"github.com/astra-net/AstraNetwork/core/state"
+	"github.com/astra-net/AstraNetwork/core/types"
+	"github.com/astra-net/AstraNetwork/internal/params"
+	"github.com/astra-net/AstraNetwork/numeric"
+	"github.com/astra-net/AstraNetwork/shard"
+	"github.com/astra-net/AstraNetwork/staking/effective"
+	staking "github.com/astra-net/AstraNetwork/staking/types"
+	bls_core "github.com/astra-net/bls/ffi/go/bls"
 )
 
 var (

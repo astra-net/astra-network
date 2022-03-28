@@ -25,7 +25,7 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/Astra-Net/AstraNetwork/core/vm"
+	"github.com/astra-net/AstraNetwork/core/vm"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"

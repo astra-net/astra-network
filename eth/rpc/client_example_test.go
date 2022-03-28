@@ -22,7 +22,7 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/Astra-Net/AstraNetwork/eth/rpc"
+	"github.com/astra-net/AstraNetwork/eth/rpc"
 )
 
 // In this example, our client wishes to track the latest 'block number'

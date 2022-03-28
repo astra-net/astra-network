@@ -30,7 +30,7 @@ import (
 	"text/template"
 	"unicode"
 
-	"github.com/Astra-Net/AstraNetwork/accounts/abi"
+	"github.com/astra-net/AstraNetwork/accounts/abi"
 	"github.com/ethereum/go-ethereum/log"
 )
 

@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Astra-Net/AstraNetwork/eth/rpc"
+	"github.com/astra-net/AstraNetwork/eth/rpc"
 )
 
 func TestManager_StartServices(t *testing.T) {

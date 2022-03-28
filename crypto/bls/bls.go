@@ -5,7 +5,7 @@ import (
 	"encoding/hex"
 	"math/big"
 
-	"github.com/Astra-Net/bls/ffi/go/bls"
+	"github.com/astra-net/bls/ffi/go/bls"
 	"github.com/pkg/errors"
 )
 

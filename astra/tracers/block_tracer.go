@@ -24,7 +24,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Astra-Net/AstraNetwork/core/vm"
+	"github.com/astra-net/AstraNetwork/core/vm"
 	"github.com/ethereum/go-ethereum/common"
 )
 

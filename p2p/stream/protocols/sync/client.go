@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Astra-Net/AstraNetwork/core/types"
-	syncpb "github.com/Astra-Net/AstraNetwork/p2p/stream/protocols/sync/message"
-	sttypes "github.com/Astra-Net/AstraNetwork/p2p/stream/types"
+	"github.com/astra-net/AstraNetwork/core/types"
+	syncpb "github.com/astra-net/AstraNetwork/p2p/stream/protocols/sync/message"
+	sttypes "github.com/astra-net/AstraNetwork/p2p/stream/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
 	protobuf "github.com/golang/protobuf/proto"

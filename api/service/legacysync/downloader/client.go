@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	pb "github.com/Astra-Net/AstraNetwork/api/service/legacysync/downloader/proto"
-	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	pb "github.com/astra-net/AstraNetwork/api/service/legacysync/downloader/proto"
+	"github.com/astra-net/AstraNetwork/internal/utils"
 	"google.golang.org/grpc"
 )
 

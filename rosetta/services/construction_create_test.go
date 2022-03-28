@@ -9,18 +9,18 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
-	"github.com/Astra-Net/AstraNetwork/internal/common"
-	"github.com/Astra-Net/AstraNetwork/numeric"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/internal/common"
+	"github.com/astra-net/AstraNetwork/numeric"
 	common2 "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	astratypes "github.com/Astra-Net/AstraNetwork/core/types"
-	stakingTypes "github.com/Astra-Net/AstraNetwork/staking/types"
-	"github.com/Astra-Net/AstraNetwork/test/helpers"
+	astratypes "github.com/astra-net/AstraNetwork/core/types"
+	stakingTypes "github.com/astra-net/AstraNetwork/staking/types"
+	"github.com/astra-net/AstraNetwork/test/helpers"
 )
 
 func TestUnpackWrappedTransactionFromString(t *testing.T) {

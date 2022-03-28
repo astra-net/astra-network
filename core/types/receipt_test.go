@@ -7,7 +7,7 @@ import (
 	ethcommon "github.com/ethereum/go-ethereum/common"
 
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/Astra-Net/AstraNetwork/staking"
+	"github.com/astra-net/AstraNetwork/staking"
 )
 
 func TestFindLogsWithTopic(t *testing.T) {

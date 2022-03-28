@@ -3,14 +3,14 @@ package consensus
 import (
 	"testing"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
 
-	msg_pb "github.com/Astra-Net/AstraNetwork/api/proto/message"
-	"github.com/Astra-Net/AstraNetwork/consensus/quorum"
-	"github.com/Astra-Net/AstraNetwork/internal/utils"
-	"github.com/Astra-Net/AstraNetwork/multibls"
-	"github.com/Astra-Net/AstraNetwork/p2p"
-	"github.com/Astra-Net/AstraNetwork/shard"
+	msg_pb "github.com/astra-net/AstraNetwork/api/proto/message"
+	"github.com/astra-net/AstraNetwork/consensus/quorum"
+	"github.com/astra-net/AstraNetwork/internal/utils"
+	"github.com/astra-net/AstraNetwork/multibls"
+	"github.com/astra-net/AstraNetwork/p2p"
+	"github.com/astra-net/AstraNetwork/shard"
 )
 
 func TestSignAndMarshalConsensusMessage(t *testing.T) {

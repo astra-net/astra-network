@@ -3,10 +3,10 @@ package node
 import (
 	"fmt"
 
-	"github.com/Astra-Net/AstraNetwork/api/service"
-	"github.com/Astra-Net/AstraNetwork/api/service/blockproposal"
-	"github.com/Astra-Net/AstraNetwork/api/service/consensus"
-	"github.com/Astra-Net/AstraNetwork/api/service/explorer"
+	"github.com/astra-net/AstraNetwork/api/service"
+	"github.com/astra-net/AstraNetwork/api/service/blockproposal"
+	"github.com/astra-net/AstraNetwork/api/service/consensus"
+	"github.com/astra-net/AstraNetwork/api/service/explorer"
 )
 
 // RegisterValidatorServices register the validator services.

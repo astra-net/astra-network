@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
 
-	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
-	"github.com/Astra-Net/AstraNetwork/crypto/hash"
-	vrf_bls "github.com/Astra-Net/AstraNetwork/crypto/vrf/bls"
+	bls_core "github.com/astra-net/bls/ffi/go/bls"
+	"github.com/astra-net/AstraNetwork/crypto/hash"
+	vrf_bls "github.com/astra-net/AstraNetwork/crypto/vrf/bls"
 )
 
 func init() {

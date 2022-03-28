@@ -9,7 +9,7 @@ import (
 	"reflect"
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/astra-net/AstraNetwork/internal/utils"
 )
 
 // Lengths of hashes in bytes.

@@ -1,14 +1,14 @@
 package node
 
 import (
-	"github.com/Astra-Net/AstraNetwork/astra"
-	"github.com/Astra-Net/AstraNetwork/consensus/quorum"
-	"github.com/Astra-Net/AstraNetwork/core/types"
-	"github.com/Astra-Net/AstraNetwork/eth/rpc"
-	"github.com/Astra-Net/AstraNetwork/rosetta"
-	astra_rpc "github.com/Astra-Net/AstraNetwork/rpc"
-	rpc_common "github.com/Astra-Net/AstraNetwork/rpc/common"
-	"github.com/Astra-Net/AstraNetwork/rpc/filters"
+	"github.com/astra-net/AstraNetwork/astra"
+	"github.com/astra-net/AstraNetwork/consensus/quorum"
+	"github.com/astra-net/AstraNetwork/core/types"
+	"github.com/astra-net/AstraNetwork/eth/rpc"
+	"github.com/astra-net/AstraNetwork/rosetta"
+	astra_rpc "github.com/astra-net/AstraNetwork/rpc"
+	rpc_common "github.com/astra-net/AstraNetwork/rpc/common"
+	"github.com/astra-net/AstraNetwork/rpc/filters"
 	"github.com/libp2p/go-libp2p-core/peer"
 )
 

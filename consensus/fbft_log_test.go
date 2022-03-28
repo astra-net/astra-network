@@ -5,8 +5,8 @@ import (
 	"encoding/binary"
 	"testing"
 
-	msg_pb "github.com/Astra-Net/AstraNetwork/api/proto/message"
-	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	msg_pb "github.com/astra-net/AstraNetwork/api/proto/message"
+	"github.com/astra-net/AstraNetwork/crypto/bls"
 )
 
 func TestFBFTLog_id(t *testing.T) {
