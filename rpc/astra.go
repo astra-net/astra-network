@@ -4,9 +4,9 @@ import (
 	"context"
 	"math/big"
 
+	"github.com/Astra-Net/AstraNetwork/astra"
+	"github.com/Astra-Net/AstraNetwork/eth/rpc"
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/harmony-one/astra/eth/rpc"
-	"github.com/harmony-one/astra/astra"
 )
 
 // PublicAstraService provides an API to access Astra related information.

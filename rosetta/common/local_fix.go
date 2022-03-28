@@ -5,7 +5,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/harmony-one/astra/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
 )
 
 var defaultFix *LocalFix

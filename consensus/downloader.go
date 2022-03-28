@@ -1,8 +1,8 @@
 package consensus
 
 import (
+	"github.com/Astra-Net/AstraNetwork/core/types"
 	"github.com/ethereum/go-ethereum/event"
-	"github.com/harmony-one/astra/core/types"
 	"github.com/pkg/errors"
 )
 

@@ -4,9 +4,9 @@ import (
 	"sync/atomic"
 	"testing"
 
-	msg_pb "github.com/harmony-one/astra/api/proto/message"
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
-	"github.com/harmony-one/astra/test/helpers"
+	msg_pb "github.com/Astra-Net/AstraNetwork/api/proto/message"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
+	"github.com/Astra-Net/AstraNetwork/test/helpers"
 	"github.com/stretchr/testify/assert"
 )
 

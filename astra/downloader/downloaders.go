@@ -1,9 +1,9 @@
 package downloader
 
 import (
+	"github.com/Astra-Net/AstraNetwork/core"
+	"github.com/Astra-Net/AstraNetwork/p2p"
 	"github.com/harmony-one/abool"
-	"github.com/harmony-one/astra/core"
-	"github.com/harmony-one/astra/p2p"
 )
 
 // Downloaders is the set of downloaders

@@ -6,18 +6,18 @@ import (
 	"math/big"
 	"sort"
 
-	"github.com/harmony-one/astra/staking/availability"
+	"github.com/Astra-Net/AstraNetwork/staking/availability"
 
-	"github.com/harmony-one/astra/internal/params"
+	"github.com/Astra-Net/AstraNetwork/internal/params"
 
-	"github.com/harmony-one/astra/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
 
+	"github.com/Astra-Net/AstraNetwork/common/denominations"
+	"github.com/Astra-Net/AstraNetwork/core/vm"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/staking/effective"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/common/denominations"
-	"github.com/harmony-one/astra/core/vm"
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/staking/effective"
-	staking "github.com/harmony-one/astra/staking/types"
 	"github.com/pkg/errors"
 )
 

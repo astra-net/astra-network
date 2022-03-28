@@ -1,9 +1,9 @@
 package astra
 
 import (
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
-	commonRPC "github.com/harmony-one/astra/rpc/common"
-	"github.com/harmony-one/astra/staking/network"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
+	commonRPC "github.com/Astra-Net/AstraNetwork/rpc/common"
+	"github.com/Astra-Net/AstraNetwork/staking/network"
 	"github.com/libp2p/go-libp2p-core/peer"
 )
 

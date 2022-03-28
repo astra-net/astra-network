@@ -21,11 +21,11 @@ import (
 	"encoding/binary"
 	"math/big"
 
+	"github.com/Astra-Net/AstraNetwork/block"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/astra/block"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/internal/utils"
 )
 
 // MsgNoShardStateFromDB error message for shard state reading failure

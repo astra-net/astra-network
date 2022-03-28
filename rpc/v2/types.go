@@ -7,13 +7,13 @@ import (
 
 	"github.com/pkg/errors"
 
+	"github.com/Astra-Net/AstraNetwork/block"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
-	"github.com/harmony-one/astra/block"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/crypto/bls"
-	staking "github.com/harmony-one/astra/staking/types"
 )
 
 // BlockWithTxHash represents a block that will serialize to the RPC representation of a block

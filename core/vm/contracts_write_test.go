@@ -7,9 +7,9 @@ import (
 	"math/big"
 	"testing"
 
+	"github.com/Astra-Net/AstraNetwork/internal/params"
+	stakingTypes "github.com/Astra-Net/AstraNetwork/staking/types"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/internal/params"
-	stakingTypes "github.com/harmony-one/astra/staking/types"
 )
 
 type writeCapablePrecompileTest struct {

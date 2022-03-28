@@ -11,13 +11,13 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/libp2p/go-libp2p-core/peer"
 
-	"github.com/harmony-one/astra/block"
-	"github.com/harmony-one/astra/eth/rpc"
-	"github.com/harmony-one/astra/astra"
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
-	"github.com/harmony-one/astra/rosetta/common"
-	commonRPC "github.com/harmony-one/astra/rpc/common"
-	"github.com/harmony-one/astra/shard"
+	"github.com/Astra-Net/AstraNetwork/astra"
+	"github.com/Astra-Net/AstraNetwork/block"
+	"github.com/Astra-Net/AstraNetwork/eth/rpc"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
+	"github.com/Astra-Net/AstraNetwork/rosetta/common"
+	commonRPC "github.com/Astra-Net/AstraNetwork/rpc/common"
+	"github.com/Astra-Net/AstraNetwork/shard"
 )
 
 // NetworkAPI implements the server.NetworkAPIServicer interface.

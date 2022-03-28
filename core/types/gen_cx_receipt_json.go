@@ -5,9 +5,9 @@ import (
 	"errors"
 	"math/big"
 
+	"github.com/Astra-Net/AstraNetwork/block"
+	internal_common "github.com/Astra-Net/AstraNetwork/internal/common"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/block"
-	internal_common "github.com/harmony-one/astra/internal/common"
 )
 
 // MarshalJSON marshals as JSON.

@@ -7,23 +7,23 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/harmony-one/astra/internal/params"
+	"github.com/Astra-Net/AstraNetwork/internal/params"
 
 	"github.com/ethereum/go-ethereum/core/rawdb"
 
-	"github.com/harmony-one/astra/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
 
+	"github.com/Astra-Net/AstraNetwork/block"
+	consensus_engine "github.com/Astra-Net/AstraNetwork/consensus/engine"
+	"github.com/Astra-Net/AstraNetwork/core/state"
+	"github.com/Astra-Net/AstraNetwork/core/vm"
+	"github.com/Astra-Net/AstraNetwork/crypto/hash"
+	"github.com/Astra-Net/AstraNetwork/numeric"
+	"github.com/Astra-Net/AstraNetwork/shard"
+	"github.com/Astra-Net/AstraNetwork/staking/effective"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
+	staketest "github.com/Astra-Net/AstraNetwork/staking/types/test"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/block"
-	consensus_engine "github.com/harmony-one/astra/consensus/engine"
-	"github.com/harmony-one/astra/core/state"
-	"github.com/harmony-one/astra/core/vm"
-	"github.com/harmony-one/astra/crypto/hash"
-	"github.com/harmony-one/astra/numeric"
-	"github.com/harmony-one/astra/shard"
-	"github.com/harmony-one/astra/staking/effective"
-	staking "github.com/harmony-one/astra/staking/types"
-	staketest "github.com/harmony-one/astra/staking/types/test"
 )
 
 const (
@@ -1796,11 +1796,11 @@ func (chain *fakeErrChainContext) ReadValidatorSnapshot(common.Address) (*stakin
 }
 
 func makeIdentityStr(item interface{}) string {
-	return fmt.Sprintf("harmony-one-%v", item)
+	return fmt.Sprintf("Astra-Net-%v", item)
 }
 
 func makeTestAddr(item interface{}) common.Address {
-	s := fmt.Sprintf("harmony-one-%v", item)
+	s := fmt.Sprintf("Astra-Net-%v", item)
 	return common.BytesToAddress([]byte(s))
 }
 

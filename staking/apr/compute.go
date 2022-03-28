@@ -3,15 +3,15 @@ package apr
 import (
 	"math/big"
 
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/shard"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/shard"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/block"
-	"github.com/harmony-one/astra/internal/params"
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/numeric"
-	staking "github.com/harmony-one/astra/staking/types"
+	"github.com/Astra-Net/AstraNetwork/block"
+	"github.com/Astra-Net/AstraNetwork/internal/params"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/numeric"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 	"github.com/pkg/errors"
 )
 

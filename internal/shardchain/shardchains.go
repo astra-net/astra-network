@@ -4,16 +4,16 @@ import (
 	"math/big"
 	"sync"
 
-	"github.com/harmony-one/astra/shard"
+	"github.com/Astra-Net/AstraNetwork/shard"
 
+	"github.com/Astra-Net/AstraNetwork/consensus/engine"
+	"github.com/Astra-Net/AstraNetwork/core"
+	"github.com/Astra-Net/AstraNetwork/core/rawdb"
+	"github.com/Astra-Net/AstraNetwork/core/vm"
+	"github.com/Astra-Net/AstraNetwork/internal/params"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/harmony-one/astra/consensus/engine"
-	"github.com/harmony-one/astra/core"
-	"github.com/harmony-one/astra/core/rawdb"
-	"github.com/harmony-one/astra/core/vm"
-	"github.com/harmony-one/astra/internal/params"
-	"github.com/harmony-one/astra/internal/utils"
 	"github.com/pkg/errors"
 )
 

@@ -3,15 +3,15 @@ package availability
 import (
 	"math/big"
 
-	"github.com/harmony-one/astra/core/state"
+	"github.com/Astra-Net/AstraNetwork/core/state"
 
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/numeric"
+	"github.com/Astra-Net/AstraNetwork/shard"
+	"github.com/Astra-Net/AstraNetwork/staking/effective"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/crypto/bls"
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/numeric"
-	"github.com/harmony-one/astra/shard"
-	"github.com/harmony-one/astra/staking/effective"
-	staking "github.com/harmony-one/astra/staking/types"
 	"github.com/pkg/errors"
 )
 

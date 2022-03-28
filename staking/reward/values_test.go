@@ -4,8 +4,8 @@ import (
 	"math/big"
 	"testing"
 
-	shardingconfig "github.com/harmony-one/astra/internal/configs/sharding"
-	"github.com/harmony-one/astra/numeric"
+	shardingconfig "github.com/Astra-Net/AstraNetwork/internal/configs/sharding"
+	"github.com/Astra-Net/AstraNetwork/numeric"
 )
 
 func TestFiveSecondsBaseStakedReward(t *testing.T) {

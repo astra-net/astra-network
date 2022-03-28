@@ -3,7 +3,7 @@ package reward
 import (
 	"testing"
 
-	"github.com/harmony-one/astra/numeric"
+	"github.com/Astra-Net/AstraNetwork/numeric"
 )
 
 func TestPercentageForTimeStamp(t *testing.T) {

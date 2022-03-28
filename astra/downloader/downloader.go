@@ -9,15 +9,15 @@ import (
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
 
-	"github.com/harmony-one/astra/core"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/crypto/bls"
-	"github.com/harmony-one/astra/internal/chain"
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/p2p"
-	"github.com/harmony-one/astra/p2p/stream/common/streammanager"
-	"github.com/harmony-one/astra/p2p/stream/protocols/sync"
+	"github.com/Astra-Net/AstraNetwork/core"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/internal/chain"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/p2p"
+	"github.com/Astra-Net/AstraNetwork/p2p/stream/common/streammanager"
+	"github.com/Astra-Net/AstraNetwork/p2p/stream/protocols/sync"
 )
 
 type (

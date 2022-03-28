@@ -32,16 +32,16 @@ import (
 	"github.com/ethereum/go-ethereum/core/rawdb"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/core/types"
+	"github.com/Astra-Net/AstraNetwork/core/types"
 
-	"github.com/harmony-one/astra/crypto/bls"
-	"github.com/harmony-one/astra/crypto/hash"
-	"github.com/harmony-one/astra/numeric"
-	stk "github.com/harmony-one/astra/staking/types"
-	staketest "github.com/harmony-one/astra/staking/types/test"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/crypto/hash"
+	"github.com/Astra-Net/AstraNetwork/numeric"
+	stk "github.com/Astra-Net/AstraNetwork/staking/types"
+	staketest "github.com/Astra-Net/AstraNetwork/staking/types/test"
 
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/harmony-one/astra/common/denominations"
+	"github.com/Astra-Net/AstraNetwork/common/denominations"
 )
 
 // Tests that updating a state trie does not leak any database writes prior to

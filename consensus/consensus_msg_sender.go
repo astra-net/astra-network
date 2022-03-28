@@ -5,10 +5,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	msg_pb "github.com/harmony-one/astra/api/proto/message"
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/p2p"
+	msg_pb "github.com/Astra-Net/AstraNetwork/api/proto/message"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/p2p"
 )
 
 const (

@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/harmony-one/astra/common/denominations"
-	"github.com/harmony-one/astra/consensus/engine"
-	shardingconfig "github.com/harmony-one/astra/internal/configs/sharding"
-	"github.com/harmony-one/astra/internal/params"
-	"github.com/harmony-one/astra/numeric"
-	"github.com/harmony-one/astra/shard"
+	"github.com/Astra-Net/AstraNetwork/common/denominations"
+	"github.com/Astra-Net/AstraNetwork/consensus/engine"
+	shardingconfig "github.com/Astra-Net/AstraNetwork/internal/configs/sharding"
+	"github.com/Astra-Net/AstraNetwork/internal/params"
+	"github.com/Astra-Net/AstraNetwork/numeric"
+	"github.com/Astra-Net/AstraNetwork/shard"
 )
 
 var (

@@ -3,10 +3,10 @@ package common
 import (
 	"encoding/json"
 
-	astraconfig "github.com/harmony-one/astra/internal/configs/astra"
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	astraconfig "github.com/Astra-Net/AstraNetwork/internal/configs/astra"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
 
-	"github.com/harmony-one/astra/internal/params"
+	"github.com/Astra-Net/AstraNetwork/internal/params"
 	"github.com/libp2p/go-libp2p-core/peer"
 )
 

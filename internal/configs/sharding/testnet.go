@@ -3,9 +3,9 @@ package shardingconfig
 import (
 	"math/big"
 
-	"github.com/harmony-one/astra/internal/genesis"
-	"github.com/harmony-one/astra/internal/params"
-	"github.com/harmony-one/astra/numeric"
+	"github.com/Astra-Net/AstraNetwork/internal/genesis"
+	"github.com/Astra-Net/AstraNetwork/internal/params"
+	"github.com/Astra-Net/AstraNetwork/numeric"
 )
 
 // TestnetSchedule is the long-running public testnet sharding

@@ -4,9 +4,9 @@ import (
 	"reflect"
 	"testing"
 
-	astraconfig "github.com/harmony-one/astra/internal/configs/astra"
+	astraconfig "github.com/Astra-Net/AstraNetwork/internal/configs/astra"
 
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
 )
 
 var (

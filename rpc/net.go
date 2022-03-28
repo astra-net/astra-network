@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/Astra-Net/AstraNetwork/eth/rpc"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/p2p"
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/harmony-one/astra/eth/rpc"
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/p2p"
 )
 
 // PublicNetService offers network related RPC methods

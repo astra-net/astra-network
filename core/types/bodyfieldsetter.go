@@ -1,8 +1,8 @@
 package types
 
 import (
-	"github.com/harmony-one/astra/block"
-	"github.com/harmony-one/astra/staking/types"
+	"github.com/Astra-Net/AstraNetwork/block"
+	"github.com/Astra-Net/AstraNetwork/staking/types"
 )
 
 // BodyFieldSetter is a body field setter.

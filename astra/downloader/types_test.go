@@ -7,11 +7,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/harmony-one/astra/block"
-	headerV3 "github.com/harmony-one/astra/block/v3"
-	"github.com/harmony-one/astra/core/types"
-	bls_cosi "github.com/harmony-one/astra/crypto/bls"
-	sttypes "github.com/harmony-one/astra/p2p/stream/types"
+	"github.com/Astra-Net/AstraNetwork/block"
+	headerV3 "github.com/Astra-Net/AstraNetwork/block/v3"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	bls_cosi "github.com/Astra-Net/AstraNetwork/crypto/bls"
+	sttypes "github.com/Astra-Net/AstraNetwork/p2p/stream/types"
 )
 
 func TestResultQueue_AddBlockResults(t *testing.T) {

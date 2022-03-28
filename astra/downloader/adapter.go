@@ -3,13 +3,13 @@ package downloader
 import (
 	"context"
 
+	"github.com/Astra-Net/AstraNetwork/consensus/engine"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/p2p/stream/common/streammanager"
+	syncproto "github.com/Astra-Net/AstraNetwork/p2p/stream/protocols/sync"
+	sttypes "github.com/Astra-Net/AstraNetwork/p2p/stream/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/event"
-	"github.com/harmony-one/astra/consensus/engine"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/p2p/stream/common/streammanager"
-	syncproto "github.com/harmony-one/astra/p2p/stream/protocols/sync"
-	sttypes "github.com/harmony-one/astra/p2p/stream/types"
 )
 
 type syncProtocol interface {

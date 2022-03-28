@@ -23,12 +23,12 @@ import (
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
 
-	"github.com/harmony-one/bls/ffi/go/bls"
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/p2p/discovery"
-	"github.com/harmony-one/astra/p2p/security"
-	sttypes "github.com/harmony-one/astra/p2p/stream/types"
+	"github.com/Astra-Net/bls/ffi/go/bls"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/p2p/discovery"
+	"github.com/Astra-Net/AstraNetwork/p2p/security"
+	sttypes "github.com/Astra-Net/AstraNetwork/p2p/stream/types"
 )
 
 type ConnectCallback func(net libp2p_network.Network, conn libp2p_network.Conn) error

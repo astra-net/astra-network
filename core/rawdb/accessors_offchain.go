@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"math/big"
 
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/shard"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethdb"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/shard"
-	staking "github.com/harmony-one/astra/staking/types"
 	"github.com/pkg/errors"
 )
 

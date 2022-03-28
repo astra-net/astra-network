@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/harmony-one/astra/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
 
+	"github.com/Astra-Net/AstraNetwork/numeric"
+	"github.com/Astra-Net/AstraNetwork/staking/effective"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/numeric"
-	"github.com/harmony-one/astra/staking/effective"
 	"github.com/pkg/errors"
 )
 

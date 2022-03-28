@@ -3,9 +3,9 @@ package staketest
 import (
 	"math/big"
 
-	"github.com/harmony-one/astra/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
 
-	staking "github.com/harmony-one/astra/staking/types"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 )
 
 // CopyValidatorWrapper deep copies staking.ValidatorWrapper

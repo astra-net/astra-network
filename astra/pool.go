@@ -4,8 +4,8 @@ import (
 	"context"
 	"math/big"
 
+	"github.com/Astra-Net/AstraNetwork/core/types"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/core/types"
 )
 
 // GetPoolStats returns the number of pending and queued transactions

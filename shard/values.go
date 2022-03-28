@@ -3,8 +3,8 @@ package shard
 import (
 	"math/big"
 
-	shardingconfig "github.com/harmony-one/astra/internal/configs/sharding"
-	"github.com/harmony-one/astra/internal/utils"
+	shardingconfig "github.com/Astra-Net/AstraNetwork/internal/configs/sharding"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
 )
 
 const (

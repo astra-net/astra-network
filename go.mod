@@ -1,4 +1,4 @@
-module github.com/harmony-one/astra
+module github.com/Astra-Net/AstraNetwork
 
 go 1.16
 
@@ -9,7 +9,6 @@ require (
 	github.com/aristanetworks/goarista v0.0.0-20190607111240-52c2a7864a08 // indirect
 	github.com/aws/aws-sdk-go v1.30.1
 	github.com/beevik/ntp v0.3.0
-	github.com/btcsuite/btcutil v1.0.3-0.20201208143702-a53e38424cce // indirect
 	github.com/cespare/cp v1.1.1
 	github.com/coinbase/rosetta-sdk-go v0.7.0
 	github.com/davecgh/go-spew v1.1.1
@@ -24,9 +23,9 @@ require (
 	github.com/gorilla/websocket v1.4.2
 	github.com/harmony-ek/gencodec v0.0.0-20190215044613-e6740dbdd846
 	github.com/harmony-one/abool v1.0.1
-	github.com/harmony-one/bls v0.0.6
+	github.com/Astra-Net/bls v0.0.7
 	github.com/harmony-one/taggedrlp v0.1.4
-	github.com/harmony-one/vdf v0.0.0-20190924175951-620379da8849
+	github.com/harmony-one/vdf v1.0.0
 	github.com/hashicorp/go-version v1.2.0
 	github.com/hashicorp/golang-lru v0.5.4
 	github.com/ipfs/go-ds-badger v0.2.7

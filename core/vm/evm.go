@@ -21,11 +21,11 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/internal/params"
+	stakingTypes "github.com/Astra-Net/AstraNetwork/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/internal/params"
-	stakingTypes "github.com/harmony-one/astra/staking/types"
 )
 
 // emptyCodeHash is used by create to ensure deployment is disallowed to already

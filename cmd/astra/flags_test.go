@@ -6,12 +6,12 @@ import (
 	"strings"
 	"testing"
 
-	astraconfig "github.com/harmony-one/astra/internal/configs/astra"
+	astraconfig "github.com/Astra-Net/AstraNetwork/internal/configs/astra"
 
 	"github.com/spf13/cobra"
 
-	"github.com/harmony-one/astra/internal/cli"
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	"github.com/Astra-Net/AstraNetwork/internal/cli"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
 )
 
 var (

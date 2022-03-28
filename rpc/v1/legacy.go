@@ -3,10 +3,10 @@ package v1
 import (
 	"context"
 
+	"github.com/Astra-Net/AstraNetwork/astra"
+	"github.com/Astra-Net/AstraNetwork/eth/rpc"
+	internal_common "github.com/Astra-Net/AstraNetwork/internal/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/harmony-one/astra/eth/rpc"
-	"github.com/harmony-one/astra/astra"
-	internal_common "github.com/harmony-one/astra/internal/common"
 )
 
 // PublicLegacyService provides an API to access the Astra blockchain.

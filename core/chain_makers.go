@@ -23,15 +23,15 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethdb"
 
-	"github.com/harmony-one/astra/block"
-	blockfactory "github.com/harmony-one/astra/block/factory"
-	consensus_engine "github.com/harmony-one/astra/consensus/engine"
-	"github.com/harmony-one/astra/core/state"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/core/vm"
-	"github.com/harmony-one/astra/internal/params"
-	"github.com/harmony-one/astra/shard"
-	staking "github.com/harmony-one/astra/staking/types"
+	"github.com/Astra-Net/AstraNetwork/block"
+	blockfactory "github.com/Astra-Net/AstraNetwork/block/factory"
+	consensus_engine "github.com/Astra-Net/AstraNetwork/consensus/engine"
+	"github.com/Astra-Net/AstraNetwork/core/state"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/core/vm"
+	"github.com/Astra-Net/AstraNetwork/internal/params"
+	"github.com/Astra-Net/AstraNetwork/shard"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 )
 
 // BlockGen creates blocks for testing.

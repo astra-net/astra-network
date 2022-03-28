@@ -6,12 +6,12 @@ import (
 	"sync"
 	"time"
 
+	"github.com/Astra-Net/AstraNetwork/block"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/eth/rpc"
+	astra_rpc "github.com/Astra-Net/AstraNetwork/rpc"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/block"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/eth/rpc"
-	astra_rpc "github.com/harmony-one/astra/rpc"
 )
 
 var (

@@ -8,9 +8,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/harmony-one/astra/internal/cli"
-	astraconfig "github.com/harmony-one/astra/internal/configs/astra"
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	"github.com/Astra-Net/AstraNetwork/internal/cli"
+	astraconfig "github.com/Astra-Net/AstraNetwork/internal/configs/astra"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
 	"github.com/pelletier/go-toml"
 	"github.com/spf13/cobra"
 )

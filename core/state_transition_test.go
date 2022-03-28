@@ -6,10 +6,10 @@ import (
 	"math"
 	"testing"
 
+	"github.com/Astra-Net/AstraNetwork/core/vm"
+	"github.com/Astra-Net/AstraNetwork/internal/params"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/harmony-one/astra/core/vm"
-	"github.com/harmony-one/astra/internal/params"
-	staking "github.com/harmony-one/astra/staking/types"
 	"github.com/pkg/errors"
 )
 

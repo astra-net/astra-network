@@ -4,13 +4,13 @@ import (
 	"context"
 	"encoding/json"
 
+	"github.com/Astra-Net/AstraNetwork/astra"
+	"github.com/Astra-Net/AstraNetwork/eth/rpc"
+	internal_common "github.com/Astra-Net/AstraNetwork/internal/common"
+	"github.com/Astra-Net/AstraNetwork/rosetta/common"
+	rpc2 "github.com/Astra-Net/AstraNetwork/rpc"
 	"github.com/coinbase/rosetta-sdk-go/server"
 	"github.com/coinbase/rosetta-sdk-go/types"
-	"github.com/harmony-one/astra/eth/rpc"
-	"github.com/harmony-one/astra/astra"
-	internal_common "github.com/harmony-one/astra/internal/common"
-	"github.com/harmony-one/astra/rosetta/common"
-	rpc2 "github.com/harmony-one/astra/rpc"
 	"github.com/pkg/errors"
 )
 

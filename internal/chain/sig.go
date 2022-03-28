@@ -3,10 +3,10 @@ package chain
 import (
 	"errors"
 
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
+	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
 
-	"github.com/harmony-one/astra/crypto/bls"
-	"github.com/harmony-one/astra/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
 )
 
 // ReadSignatureBitmapByPublicKeys read the payload of signature and bitmap based on public keys

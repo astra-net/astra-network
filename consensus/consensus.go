@@ -5,18 +5,18 @@ import (
 	"sync"
 	"time"
 
-	"github.com/harmony-one/astra/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
 
+	"github.com/Astra-Net/AstraNetwork/consensus/quorum"
+	"github.com/Astra-Net/AstraNetwork/core"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	bls_cosi "github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/multibls"
+	"github.com/Astra-Net/AstraNetwork/p2p"
+	"github.com/Astra-Net/AstraNetwork/staking/slash"
+	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
 	"github.com/harmony-one/abool"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/astra/consensus/quorum"
-	"github.com/harmony-one/astra/core"
-	"github.com/harmony-one/astra/core/types"
-	bls_cosi "github.com/harmony-one/astra/crypto/bls"
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/multibls"
-	"github.com/harmony-one/astra/p2p"
-	"github.com/harmony-one/astra/staking/slash"
 	"github.com/pkg/errors"
 )
 

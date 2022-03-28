@@ -4,18 +4,18 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/harmony-one/astra/internal/shardchain"
+	"github.com/Astra-Net/AstraNetwork/internal/shardchain"
 
+	"github.com/Astra-Net/AstraNetwork/consensus"
+	"github.com/Astra-Net/AstraNetwork/consensus/quorum"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/multibls"
+	"github.com/Astra-Net/AstraNetwork/p2p"
+	"github.com/Astra-Net/AstraNetwork/shard"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/consensus"
-	"github.com/harmony-one/astra/consensus/quorum"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/crypto/bls"
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/multibls"
-	"github.com/harmony-one/astra/p2p"
-	"github.com/harmony-one/astra/shard"
-	staking "github.com/harmony-one/astra/staking/types"
 )
 
 func TestFinalizeNewBlockAsync(t *testing.T) {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/harmony-one/astra/internal/cli"
+	"github.com/Astra-Net/AstraNetwork/internal/cli"
 	"github.com/spf13/cobra"
 )
 

@@ -9,7 +9,7 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/types"
 	ethcommon "github.com/ethereum/go-ethereum/common"
 
-	"github.com/harmony-one/astra/rosetta/common"
+	"github.com/Astra-Net/AstraNetwork/rosetta/common"
 )
 
 var (

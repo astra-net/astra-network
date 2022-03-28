@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"testing"
 
+	internal_common "github.com/Astra-Net/AstraNetwork/internal/common"
 	"github.com/ethereum/go-ethereum/common"
-	internal_common "github.com/harmony-one/astra/internal/common"
 	"github.com/pkg/errors"
 )
 

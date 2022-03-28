@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/harmony-one/astra/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
 
-	"github.com/harmony-one/astra/numeric"
-	staking "github.com/harmony-one/astra/staking/types"
+	"github.com/Astra-Net/AstraNetwork/numeric"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 )
 
 // CheckValidatorWrapperEqual checks the equality of staking.ValidatorWrapper. If not equal, an

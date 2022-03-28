@@ -12,10 +12,10 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	ffi_bls "github.com/Astra-Net/bls/ffi/go/bls"
 	"github.com/aws/aws-sdk-go/service/kms"
 	"github.com/ethereum/go-ethereum/common"
-	ffi_bls "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/astra/crypto/bls"
 )
 
 var TestAwsConfig = AwsConfig{

@@ -9,8 +9,8 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 
-	blockfactory "github.com/harmony-one/astra/block/factory"
-	"github.com/harmony-one/astra/core/types"
+	blockfactory "github.com/Astra-Net/AstraNetwork/block/factory"
+	"github.com/Astra-Net/AstraNetwork/core/types"
 )
 
 // Test for GetBlockInfoKey

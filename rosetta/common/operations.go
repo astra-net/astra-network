@@ -4,11 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 
-
 	"github.com/coinbase/rosetta-sdk-go/types"
 
-	rpcV2 "github.com/harmony-one/astra/rpc/v2"
-	staking "github.com/harmony-one/astra/staking/types"
+	rpcV2 "github.com/Astra-Net/AstraNetwork/rpc/v2"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 )
 
 const (

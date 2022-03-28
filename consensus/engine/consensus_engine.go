@@ -4,16 +4,16 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/block"
-	"github.com/harmony-one/astra/consensus/reward"
-	"github.com/harmony-one/astra/core/state"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/crypto/bls"
-	"github.com/harmony-one/astra/internal/params"
-	"github.com/harmony-one/astra/shard"
-	"github.com/harmony-one/astra/shard/committee"
-	"github.com/harmony-one/astra/staking/slash"
-	staking "github.com/harmony-one/astra/staking/types"
+	"github.com/Astra-Net/AstraNetwork/block"
+	"github.com/Astra-Net/AstraNetwork/consensus/reward"
+	"github.com/Astra-Net/AstraNetwork/core/state"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/internal/params"
+	"github.com/Astra-Net/AstraNetwork/shard"
+	"github.com/Astra-Net/AstraNetwork/shard/committee"
+	"github.com/Astra-Net/AstraNetwork/staking/slash"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 )
 
 // ChainReader defines a collection of methods needed to access the local

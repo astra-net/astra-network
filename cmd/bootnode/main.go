@@ -12,8 +12,8 @@ import (
 	net "github.com/libp2p/go-libp2p-core/network"
 	ma "github.com/multiformats/go-multiaddr"
 
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/p2p"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/p2p"
 )
 
 // ConnLogger ..

@@ -19,7 +19,7 @@ package tracers
 import (
 	"math/big"
 
-	"github.com/harmony-one/astra/core/vm"
+	"github.com/Astra-Net/AstraNetwork/core/vm"
 )
 
 type RosettaLogItem struct {

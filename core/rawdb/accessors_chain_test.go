@@ -25,10 +25,10 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/astra/block"
-	blockfactory "github.com/harmony-one/astra/block/factory"
-	"github.com/harmony-one/astra/core/types"
-	staking "github.com/harmony-one/astra/staking/types"
+	"github.com/Astra-Net/AstraNetwork/block"
+	blockfactory "github.com/Astra-Net/AstraNetwork/block/factory"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 	"golang.org/x/crypto/sha3"
 )
 

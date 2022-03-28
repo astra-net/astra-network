@@ -23,11 +23,11 @@ import (
 	"math/big"
 	"sort"
 
-	staking "github.com/harmony-one/astra/staking/types"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/internal/utils"
 )
 
 // nonceHeap is a heap.Interface implementation over 64bit unsigned integers for

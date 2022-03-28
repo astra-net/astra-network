@@ -35,7 +35,7 @@ import (
 	"errors"
 	"math/big"
 
-	"github.com/harmony-one/astra/crypto/vrf"
+	"github.com/Astra-Net/AstraNetwork/crypto/vrf"
 )
 
 var (

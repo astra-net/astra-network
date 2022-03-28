@@ -1,9 +1,9 @@
 package eth
 
 import (
-	"github.com/harmony-one/astra/core/types"
-	internal_common "github.com/harmony-one/astra/internal/common"
-	rpc_common "github.com/harmony-one/astra/rpc/common"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	internal_common "github.com/Astra-Net/AstraNetwork/internal/common"
+	rpc_common "github.com/Astra-Net/AstraNetwork/rpc/common"
 	"github.com/pkg/errors"
 )
 

@@ -10,11 +10,11 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	astratypes "github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/internal/params"
-	"github.com/harmony-one/astra/rosetta/common"
-	stakingTypes "github.com/harmony-one/astra/staking/types"
-	"github.com/harmony-one/astra/test/helpers"
+	astratypes "github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/internal/params"
+	"github.com/Astra-Net/AstraNetwork/rosetta/common"
+	stakingTypes "github.com/Astra-Net/AstraNetwork/staking/types"
+	"github.com/Astra-Net/AstraNetwork/test/helpers"
 )
 
 func assertNativeOperationTypeUniquenessInvariant(operations []*types.Operation) error {

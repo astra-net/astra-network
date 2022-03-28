@@ -8,26 +8,26 @@ import (
 
 	"github.com/ethereum/go-ethereum/core/rawdb"
 
-	msg_pb "github.com/harmony-one/astra/api/proto/message"
-	"github.com/harmony-one/astra/crypto/bls"
+	msg_pb "github.com/Astra-Net/AstraNetwork/api/proto/message"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
 
-	blockfactory "github.com/harmony-one/astra/block/factory"
-	"github.com/harmony-one/astra/internal/params"
-	"github.com/harmony-one/astra/internal/utils"
+	blockfactory "github.com/Astra-Net/AstraNetwork/block/factory"
+	"github.com/Astra-Net/AstraNetwork/internal/params"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
 
 	common2 "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/astra/core"
-	"github.com/harmony-one/astra/core/state"
-	"github.com/harmony-one/astra/core/vm"
-	"github.com/harmony-one/astra/crypto/hash"
-	"github.com/harmony-one/astra/internal/chain"
-	"github.com/harmony-one/astra/internal/common"
+	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
+	"github.com/Astra-Net/AstraNetwork/core"
+	"github.com/Astra-Net/AstraNetwork/core/state"
+	"github.com/Astra-Net/AstraNetwork/core/vm"
+	"github.com/Astra-Net/AstraNetwork/crypto/hash"
+	"github.com/Astra-Net/AstraNetwork/internal/chain"
+	"github.com/Astra-Net/AstraNetwork/internal/common"
 
 	protobuf "github.com/golang/protobuf/proto"
-	"github.com/harmony-one/astra/numeric"
-	staking "github.com/harmony-one/astra/staking/types"
+	"github.com/Astra-Net/AstraNetwork/numeric"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 )
 
 var (

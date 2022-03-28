@@ -6,11 +6,11 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/Astra-Net/AstraNetwork/core/rawdb"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/harmony-one/astra/core/rawdb"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/internal/utils"
 )
 
 const (

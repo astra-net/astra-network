@@ -24,8 +24,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Astra-Net/AstraNetwork/accounts"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/accounts"
 )
 
 var testSigData = make([]byte, 32)

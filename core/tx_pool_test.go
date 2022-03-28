@@ -28,22 +28,22 @@ import (
 
 	"github.com/ethereum/go-ethereum/core/rawdb"
 
-	"github.com/harmony-one/astra/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
 
+	blockfactory "github.com/Astra-Net/AstraNetwork/block/factory"
+	"github.com/Astra-Net/AstraNetwork/common/denominations"
+	"github.com/Astra-Net/AstraNetwork/core/state"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/core/vm"
+	"github.com/Astra-Net/AstraNetwork/crypto/hash"
+	chain2 "github.com/Astra-Net/AstraNetwork/internal/chain"
+	"github.com/Astra-Net/AstraNetwork/internal/params"
+	"github.com/Astra-Net/AstraNetwork/numeric"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
+	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/event"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	blockfactory "github.com/harmony-one/astra/block/factory"
-	"github.com/harmony-one/astra/common/denominations"
-	"github.com/harmony-one/astra/core/state"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/core/vm"
-	"github.com/harmony-one/astra/crypto/hash"
-	chain2 "github.com/harmony-one/astra/internal/chain"
-	"github.com/harmony-one/astra/internal/params"
-	"github.com/harmony-one/astra/numeric"
-	staking "github.com/harmony-one/astra/staking/types"
 )
 
 var (

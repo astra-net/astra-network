@@ -4,11 +4,11 @@ import (
 	"math/big"
 	"testing"
 
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	internalCommon "github.com/Astra-Net/AstraNetwork/internal/common"
+	"github.com/Astra-Net/AstraNetwork/rosetta/common"
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/harmony-one/astra/crypto/bls"
-	internalCommon "github.com/harmony-one/astra/internal/common"
-	"github.com/harmony-one/astra/rosetta/common"
 )
 
 func TestGetContractCreationOperationComponents(t *testing.T) {

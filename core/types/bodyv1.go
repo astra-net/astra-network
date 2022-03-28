@@ -5,8 +5,8 @@ import (
 
 	"github.com/ethereum/go-ethereum/rlp"
 
-	"github.com/harmony-one/astra/block"
-	staking "github.com/harmony-one/astra/staking/types"
+	"github.com/Astra-Net/AstraNetwork/block"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 )
 
 // BodyV1 is the V1 block body

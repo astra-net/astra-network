@@ -1,14 +1,14 @@
 package node
 
 import (
-	"github.com/harmony-one/astra/consensus/quorum"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/eth/rpc"
-	"github.com/harmony-one/astra/astra"
-	"github.com/harmony-one/astra/rosetta"
-	astra_rpc "github.com/harmony-one/astra/rpc"
-	rpc_common "github.com/harmony-one/astra/rpc/common"
-	"github.com/harmony-one/astra/rpc/filters"
+	"github.com/Astra-Net/AstraNetwork/astra"
+	"github.com/Astra-Net/AstraNetwork/consensus/quorum"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/eth/rpc"
+	"github.com/Astra-Net/AstraNetwork/rosetta"
+	astra_rpc "github.com/Astra-Net/AstraNetwork/rpc"
+	rpc_common "github.com/Astra-Net/AstraNetwork/rpc/common"
+	"github.com/Astra-Net/AstraNetwork/rpc/filters"
 	"github.com/libp2p/go-libp2p-core/peer"
 )
 

@@ -4,8 +4,8 @@ import (
 	"math/big"
 	"testing"
 
+	"github.com/Astra-Net/AstraNetwork/internal/params"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/internal/params"
 )
 
 // this test is here so we can cover the input = epoch.bytes() line as well

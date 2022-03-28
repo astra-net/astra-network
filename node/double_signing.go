@@ -2,8 +2,8 @@ package node
 
 import (
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/staking/slash"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/staking/slash"
 )
 
 // ProcessSlashCandidateMessage ..

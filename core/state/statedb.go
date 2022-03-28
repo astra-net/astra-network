@@ -25,18 +25,18 @@ import (
 
 	"github.com/ethereum/go-ethereum/metrics"
 
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/numeric"
+	"github.com/Astra-Net/AstraNetwork/staking"
+	"github.com/Astra-Net/AstraNetwork/staking/effective"
+	stk "github.com/Astra-Net/AstraNetwork/staking/types"
+	staketest "github.com/Astra-Net/AstraNetwork/staking/types/test"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/log"
 	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/ethereum/go-ethereum/trie"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/numeric"
-	"github.com/harmony-one/astra/staking"
-	"github.com/harmony-one/astra/staking/effective"
-	stk "github.com/harmony-one/astra/staking/types"
-	staketest "github.com/harmony-one/astra/staking/types/test"
 	"github.com/pkg/errors"
 )
 

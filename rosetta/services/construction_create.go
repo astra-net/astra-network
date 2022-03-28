@@ -6,18 +6,18 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/harmony-one/astra/crypto/bls"
-	common2 "github.com/harmony-one/astra/internal/common"
-	"github.com/harmony-one/astra/numeric"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	common2 "github.com/Astra-Net/AstraNetwork/internal/common"
+	"github.com/Astra-Net/AstraNetwork/numeric"
 
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/pkg/errors"
 
-	astraTypes "github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/rosetta/common"
-	stakingTypes "github.com/harmony-one/astra/staking/types"
+	astraTypes "github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/rosetta/common"
+	stakingTypes "github.com/Astra-Net/AstraNetwork/staking/types"
 )
 
 const (

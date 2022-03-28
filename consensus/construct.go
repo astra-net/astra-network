@@ -6,13 +6,13 @@ import (
 
 	protobuf "github.com/golang/protobuf/proto"
 
-	"github.com/harmony-one/astra/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
 
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/astra/api/proto"
-	msg_pb "github.com/harmony-one/astra/api/proto/message"
-	"github.com/harmony-one/astra/consensus/quorum"
-	"github.com/harmony-one/astra/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/api/proto"
+	msg_pb "github.com/Astra-Net/AstraNetwork/api/proto/message"
+	"github.com/Astra-Net/AstraNetwork/consensus/quorum"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
 )
 
 // NetworkMessage is a message intended to be

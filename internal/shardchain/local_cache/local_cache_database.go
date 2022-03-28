@@ -6,7 +6,7 @@ import (
 
 	"github.com/allegro/bigcache"
 	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/harmony-one/astra/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
 )
 
 type cacheWrapper struct {

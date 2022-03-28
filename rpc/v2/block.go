@@ -1,8 +1,8 @@
 package v2
 
 import (
-	"github.com/harmony-one/astra/core/types"
-	rpc_common "github.com/harmony-one/astra/rpc/common"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	rpc_common "github.com/Astra-Net/AstraNetwork/rpc/common"
 	"github.com/pkg/errors"
 )
 

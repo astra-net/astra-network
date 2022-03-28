@@ -3,17 +3,17 @@ package consensus
 import (
 	"time"
 
-	"github.com/harmony-one/astra/crypto/bls"
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
 
-	"github.com/harmony-one/astra/consensus/signature"
+	"github.com/Astra-Net/AstraNetwork/consensus/signature"
 
+	msg_pb "github.com/Astra-Net/AstraNetwork/api/proto/message"
+	"github.com/Astra-Net/AstraNetwork/consensus/quorum"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/p2p"
+	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
 	"github.com/ethereum/go-ethereum/rlp"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	msg_pb "github.com/harmony-one/astra/api/proto/message"
-	"github.com/harmony-one/astra/consensus/quorum"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/p2p"
 )
 
 func (consensus *Consensus) announce(block *types.Block) {

@@ -5,16 +5,16 @@ import (
 	"fmt"
 	"math/big"
 
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	common2 "github.com/Astra-Net/AstraNetwork/internal/common"
+	"github.com/Astra-Net/AstraNetwork/numeric"
+	types2 "github.com/Astra-Net/AstraNetwork/staking/types"
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/harmony-one/astra/crypto/bls"
-	common2 "github.com/harmony-one/astra/internal/common"
-	"github.com/harmony-one/astra/numeric"
-	types2 "github.com/harmony-one/astra/staking/types"
 	"github.com/pkg/errors"
 
-	astraTypes "github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/rosetta/common"
+	astraTypes "github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/rosetta/common"
 )
 
 // TransactionMetadata contains all (optional) information for a transaction.

@@ -5,14 +5,14 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/harmony-one/astra/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
 
-	shardingconfig "github.com/harmony-one/astra/internal/configs/sharding"
+	shardingconfig "github.com/Astra-Net/AstraNetwork/internal/configs/sharding"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/numeric"
-	"github.com/harmony-one/astra/shard"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
+	"github.com/Astra-Net/AstraNetwork/numeric"
+	"github.com/Astra-Net/AstraNetwork/shard"
+	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
 )
 
 var (

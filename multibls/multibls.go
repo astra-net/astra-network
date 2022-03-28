@@ -3,10 +3,10 @@ package multibls
 import (
 	"strings"
 
-	"github.com/harmony-one/astra/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
 
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/astra/crypto/bls"
+	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
 )
 
 // PrivateKeys stores the bls secret keys that belongs to the node

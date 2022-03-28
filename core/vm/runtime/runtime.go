@@ -21,12 +21,12 @@ import (
 	"math/big"
 	"time"
 
+	"github.com/Astra-Net/AstraNetwork/core/state"
+	"github.com/Astra-Net/AstraNetwork/core/vm"
+	"github.com/Astra-Net/AstraNetwork/internal/params"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/rawdb"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/harmony-one/astra/core/state"
-	"github.com/harmony-one/astra/core/vm"
-	"github.com/harmony-one/astra/internal/params"
 )
 
 // Config is a basic type specifying certain configuration flags for running

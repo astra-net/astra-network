@@ -4,15 +4,15 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Astra-Net/AstraNetwork/consensus/quorum"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/multibls"
+	"github.com/Astra-Net/AstraNetwork/p2p"
+	"github.com/Astra-Net/AstraNetwork/shard"
+	"github.com/Astra-Net/AstraNetwork/staking/slash"
+	"github.com/Astra-Net/AstraNetwork/test/helpers"
 	"github.com/harmony-one/abool"
-	"github.com/harmony-one/astra/consensus/quorum"
-	"github.com/harmony-one/astra/crypto/bls"
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/multibls"
-	"github.com/harmony-one/astra/p2p"
-	"github.com/harmony-one/astra/shard"
-	"github.com/harmony-one/astra/staking/slash"
-	"github.com/harmony-one/astra/test/helpers"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/harmony-one/astra/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
 	libp2p_network "github.com/libp2p/go-libp2p-core/network"
 	ma "github.com/multiformats/go-multiaddr"
 	"github.com/pkg/errors"

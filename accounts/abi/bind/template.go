@@ -16,7 +16,7 @@
 
 package bind
 
-import "github.com/harmony-one/astra/accounts/abi"
+import "github.com/Astra-Net/AstraNetwork/accounts/abi"
 
 // tmplData is the data structure required to fill the binding template.
 type tmplData struct {

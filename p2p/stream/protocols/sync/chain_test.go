@@ -7,12 +7,12 @@ import (
 	"fmt"
 	"math/big"
 
+	"github.com/Astra-Net/AstraNetwork/block"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	syncpb "github.com/Astra-Net/AstraNetwork/p2p/stream/protocols/sync/message"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
 	protobuf "github.com/golang/protobuf/proto"
-	"github.com/harmony-one/astra/block"
-	"github.com/harmony-one/astra/core/types"
-	syncpb "github.com/harmony-one/astra/p2p/stream/protocols/sync/message"
 )
 
 type testChainHelper struct{}

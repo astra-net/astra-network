@@ -24,7 +24,7 @@ import (
 	ethereum "github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/event"
-	"github.com/harmony-one/astra/core/types"
+	"github.com/Astra-Net/AstraNetwork/core/types"
 	"golang.org/x/crypto/sha3"
 )
 

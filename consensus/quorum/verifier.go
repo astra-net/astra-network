@@ -3,10 +3,10 @@ package quorum
 import (
 	"math/big"
 
-	"github.com/harmony-one/astra/consensus/votepower"
-	bls_cosi "github.com/harmony-one/astra/crypto/bls"
-	"github.com/harmony-one/astra/numeric"
-	"github.com/harmony-one/astra/shard"
+	"github.com/Astra-Net/AstraNetwork/consensus/votepower"
+	bls_cosi "github.com/Astra-Net/AstraNetwork/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/numeric"
+	"github.com/Astra-Net/AstraNetwork/shard"
 	"github.com/pkg/errors"
 )
 

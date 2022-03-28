@@ -5,17 +5,17 @@ import (
 	"sync"
 	"time"
 
-	"github.com/harmony-one/astra/internal/chain"
+	"github.com/Astra-Net/AstraNetwork/internal/chain"
 
-	"github.com/harmony-one/astra/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
 
+	msg_pb "github.com/Astra-Net/AstraNetwork/api/proto/message"
+	"github.com/Astra-Net/AstraNetwork/consensus/quorum"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/p2p"
+	"github.com/Astra-Net/AstraNetwork/shard"
 	"github.com/ethereum/go-ethereum/common"
-	msg_pb "github.com/harmony-one/astra/api/proto/message"
-	"github.com/harmony-one/astra/consensus/quorum"
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/p2p"
-	"github.com/harmony-one/astra/shard"
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
 )

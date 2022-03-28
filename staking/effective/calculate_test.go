@@ -9,11 +9,11 @@ import (
 	"sort"
 	"testing"
 
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/astra/crypto/bls"
+	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/numeric"
+	"github.com/Astra-Net/AstraNetwork/numeric"
 )
 
 const eposTestingFile = "epos.json"

@@ -3,9 +3,9 @@ package services
 import (
 	"context"
 
+	"github.com/Astra-Net/AstraNetwork/astra"
+	astraTypes "github.com/Astra-Net/AstraNetwork/core/types"
 	"github.com/coinbase/rosetta-sdk-go/types"
-	astraTypes "github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/astra"
 )
 
 // EventAPI implements the server.EventsAPIServicer interface.

@@ -7,8 +7,8 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/pkg/errors"
 
-	astraTypes "github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/rosetta/common"
+	astraTypes "github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/rosetta/common"
 )
 
 // ConstructionParse implements the /construction/parse endpoint.

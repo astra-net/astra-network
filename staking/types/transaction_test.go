@@ -6,12 +6,12 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/harmony-one/astra/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
 
+	common2 "github.com/Astra-Net/AstraNetwork/internal/common"
+	numeric "github.com/Astra-Net/AstraNetwork/numeric"
+	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
 	"github.com/ethereum/go-ethereum/common"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	common2 "github.com/harmony-one/astra/internal/common"
-	numeric "github.com/harmony-one/astra/numeric"
 )
 
 // for testing purpose

@@ -5,14 +5,14 @@ import (
 	"strings"
 	"testing"
 
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	astra_bls "github.com/harmony-one/astra/crypto/bls"
-	shardingconfig "github.com/harmony-one/astra/internal/configs/sharding"
-	"github.com/harmony-one/astra/shard"
+	astra_bls "github.com/Astra-Net/AstraNetwork/crypto/bls"
+	shardingconfig "github.com/Astra-Net/AstraNetwork/internal/configs/sharding"
+	"github.com/Astra-Net/AstraNetwork/shard"
+	bls_core "github.com/Astra-Net/bls/ffi/go/bls"
 	"github.com/stretchr/testify/assert"
 
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/crypto/bls"
 )
 
 func TestPhaseStrings(t *testing.T) {

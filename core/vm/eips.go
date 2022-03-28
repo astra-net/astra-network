@@ -19,7 +19,7 @@ package vm
 import (
 	"fmt"
 
-	"github.com/harmony-one/astra/internal/params"
+	"github.com/Astra-Net/AstraNetwork/internal/params"
 )
 
 // EnableEIP enables the given EIP on the config.

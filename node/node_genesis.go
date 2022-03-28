@@ -4,11 +4,11 @@ import (
 	"errors"
 	"math/big"
 
+	"github.com/Astra-Net/AstraNetwork/core"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/shard"
+	"github.com/Astra-Net/AstraNetwork/shard/committee"
 	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/harmony-one/astra/core"
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/shard"
-	"github.com/harmony-one/astra/shard/committee"
 )
 
 // genesisInitializer is a shardchain.DBInitializer adapter.

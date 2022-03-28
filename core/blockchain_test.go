@@ -5,10 +5,10 @@ import (
 	"math/big"
 	"testing"
 
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/harmony-one/astra/core/types"
-	staking "github.com/harmony-one/astra/staking/types"
 )
 
 func TestPrepareStakingMetadata(t *testing.T) {

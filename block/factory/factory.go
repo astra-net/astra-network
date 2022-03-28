@@ -3,13 +3,13 @@ package blockfactory
 import (
 	"math/big"
 
-	"github.com/harmony-one/astra/block"
-	blockif "github.com/harmony-one/astra/block/interface"
-	v0 "github.com/harmony-one/astra/block/v0"
-	v1 "github.com/harmony-one/astra/block/v1"
-	v2 "github.com/harmony-one/astra/block/v2"
-	v3 "github.com/harmony-one/astra/block/v3"
-	"github.com/harmony-one/astra/internal/params"
+	"github.com/Astra-Net/AstraNetwork/block"
+	blockif "github.com/Astra-Net/AstraNetwork/block/interface"
+	v0 "github.com/Astra-Net/AstraNetwork/block/v0"
+	v1 "github.com/Astra-Net/AstraNetwork/block/v1"
+	v2 "github.com/Astra-Net/AstraNetwork/block/v2"
+	v3 "github.com/Astra-Net/AstraNetwork/block/v3"
+	"github.com/Astra-Net/AstraNetwork/internal/params"
 )
 
 // Factory is a data structure factory for a specific chain configuration.

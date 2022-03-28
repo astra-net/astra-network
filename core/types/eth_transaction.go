@@ -21,13 +21,13 @@ import (
 	"math/big"
 	"sync/atomic"
 
-	"github.com/harmony-one/astra/internal/params"
+	"github.com/Astra-Net/AstraNetwork/internal/params"
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
 
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
 
-	"github.com/harmony-one/astra/crypto/hash"
+	"github.com/Astra-Net/AstraNetwork/crypto/hash"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"

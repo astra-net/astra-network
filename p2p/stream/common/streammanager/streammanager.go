@@ -6,10 +6,10 @@ import (
 	"sync"
 	"time"
 
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	sttypes "github.com/Astra-Net/AstraNetwork/p2p/stream/types"
 	"github.com/ethereum/go-ethereum/event"
 	"github.com/harmony-one/abool"
-	"github.com/harmony-one/astra/internal/utils"
-	sttypes "github.com/harmony-one/astra/p2p/stream/types"
 	"github.com/libp2p/go-libp2p-core/network"
 	libp2p_peer "github.com/libp2p/go-libp2p-core/peer"
 	"github.com/libp2p/go-libp2p-core/protocol"

@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/harmony-one/astra/internal/shardchain/leveldb_shard"
-	"github.com/harmony-one/astra/internal/shardchain/local_cache"
+	"github.com/Astra-Net/AstraNetwork/internal/shardchain/leveldb_shard"
+	"github.com/Astra-Net/AstraNetwork/internal/shardchain/local_cache"
 
 	"github.com/ethereum/go-ethereum/core/rawdb"
 

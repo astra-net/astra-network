@@ -25,11 +25,11 @@ import (
 	"time"
 	"unsafe"
 
+	"github.com/Astra-Net/AstraNetwork/core/vm"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/harmony-one/astra/core/vm"
 	duktape "gopkg.in/olebedev/go-duktape.v3"
 )
 

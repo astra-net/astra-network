@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	sttypes "github.com/harmony-one/astra/p2p/stream/types"
+	sttypes "github.com/Astra-Net/AstraNetwork/p2p/stream/types"
 	"github.com/pkg/errors"
 )
 

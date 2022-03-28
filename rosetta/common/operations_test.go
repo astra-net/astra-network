@@ -6,8 +6,8 @@ import (
 	"sort"
 	"testing"
 
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 	"github.com/coinbase/rosetta-sdk-go/types"
-	staking "github.com/harmony-one/astra/staking/types"
 )
 
 // WARNING: Careful for client side dependencies when changing operation status!

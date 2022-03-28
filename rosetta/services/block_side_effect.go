@@ -8,9 +8,9 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/types"
 	ethcommon "github.com/ethereum/go-ethereum/common"
 
-	"github.com/harmony-one/astra/core"
-	astratypes "github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/rosetta/common"
+	"github.com/Astra-Net/AstraNetwork/core"
+	astratypes "github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/rosetta/common"
 )
 
 // containsSideEffectTransaction checks if the block contains any side effect operations to report.

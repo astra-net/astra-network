@@ -21,13 +21,13 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/internal/params"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/internal/params"
 
+	"github.com/Astra-Net/AstraNetwork/core/state"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/harmony-one/astra/core/state"
 )
 
 func TestMemoryGasCost(t *testing.T) {

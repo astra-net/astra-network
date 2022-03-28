@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/harmony-one/astra/numeric"
+	"github.com/Astra-Net/AstraNetwork/numeric"
 )
 
 var (

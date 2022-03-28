@@ -7,16 +7,16 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/Astra-Net/AstraNetwork/block"
+	headerV3 "github.com/Astra-Net/AstraNetwork/block/v3"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/p2p/stream/common/ratelimiter"
+	"github.com/Astra-Net/AstraNetwork/p2p/stream/common/streammanager"
+	syncpb "github.com/Astra-Net/AstraNetwork/p2p/stream/protocols/sync/message"
+	sttypes "github.com/Astra-Net/AstraNetwork/p2p/stream/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/event"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/astra/block"
-	headerV3 "github.com/harmony-one/astra/block/v3"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/p2p/stream/common/ratelimiter"
-	"github.com/harmony-one/astra/p2p/stream/common/streammanager"
-	syncpb "github.com/harmony-one/astra/p2p/stream/protocols/sync/message"
-	sttypes "github.com/harmony-one/astra/p2p/stream/types"
 )
 
 var (

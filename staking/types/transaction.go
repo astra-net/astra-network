@@ -9,9 +9,9 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
 
-	"github.com/harmony-one/astra/crypto/hash"
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/shard"
+	"github.com/Astra-Net/AstraNetwork/crypto/hash"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/shard"
 )
 
 var (

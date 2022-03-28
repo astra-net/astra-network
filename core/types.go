@@ -17,11 +17,11 @@
 package core
 
 import (
-	"github.com/harmony-one/astra/consensus/reward"
-	"github.com/harmony-one/astra/core/state"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/core/vm"
-	stakingTypes "github.com/harmony-one/astra/staking/types"
+	"github.com/Astra-Net/AstraNetwork/consensus/reward"
+	"github.com/Astra-Net/AstraNetwork/core/state"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/core/vm"
+	stakingTypes "github.com/Astra-Net/AstraNetwork/staking/types"
 )
 
 // Validator is an interface which defines the standard for block validation. It

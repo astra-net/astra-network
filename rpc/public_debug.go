@@ -3,10 +3,10 @@ package rpc
 import (
 	"context"
 
+	"github.com/Astra-Net/AstraNetwork/astra"
+	"github.com/Astra-Net/AstraNetwork/eth/rpc"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/harmony-one/astra/eth/rpc"
-	"github.com/harmony-one/astra/astra"
-	"github.com/harmony-one/astra/internal/utils"
 )
 
 // PublicDebugService Internal JSON RPC for debugging purpose

@@ -10,10 +10,10 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/parser"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	astratypes "github.com/harmony-one/astra/core/types"
-	internalCommon "github.com/harmony-one/astra/internal/common"
-	stakingTypes "github.com/harmony-one/astra/staking/types"
-	"github.com/harmony-one/astra/test/helpers"
+	astratypes "github.com/Astra-Net/AstraNetwork/core/types"
+	internalCommon "github.com/Astra-Net/AstraNetwork/internal/common"
+	stakingTypes "github.com/Astra-Net/AstraNetwork/staking/types"
+	"github.com/Astra-Net/AstraNetwork/test/helpers"
 )
 
 var (

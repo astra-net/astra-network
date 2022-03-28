@@ -7,9 +7,9 @@ import (
 	goversion "github.com/hashicorp/go-version"
 	"github.com/pelletier/go-toml"
 
-	"github.com/harmony-one/astra/api/service/legacysync"
-	astraconfig "github.com/harmony-one/astra/internal/configs/astra"
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	"github.com/Astra-Net/AstraNetwork/api/service/legacysync"
+	astraconfig "github.com/Astra-Net/AstraNetwork/internal/configs/astra"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
 )
 
 const legacyConfigVersion = "1.0.4"

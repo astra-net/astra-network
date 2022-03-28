@@ -58,13 +58,13 @@ jobs:
       - name: Checkout dependence repo
         uses: actions/checkout@v2
         with:
-          repository: harmony-one/mcl
+          repository: Astra-Net/mcl
           path: mcl
 
       - name: Checkout dependence repo
         uses: actions/checkout@v2
         with:
-          repository: harmony-one/bls
+          repository: Astra-Net/bls
           path: bls
 
       - name: Checkout astra core code

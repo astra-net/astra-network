@@ -11,19 +11,19 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/harmony-one/astra/core/types"
+	"github.com/Astra-Net/AstraNetwork/core/types"
 
+	msg_pb "github.com/Astra-Net/AstraNetwork/api/proto/message"
+	"github.com/Astra-Net/AstraNetwork/astra"
+	"github.com/Astra-Net/AstraNetwork/core"
+	"github.com/Astra-Net/AstraNetwork/internal/chain"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/numeric"
+	"github.com/Astra-Net/AstraNetwork/p2p"
+	stakingReward "github.com/Astra-Net/AstraNetwork/staking/reward"
 	ethCommon "github.com/ethereum/go-ethereum/common"
 	"github.com/gorilla/mux"
-	msg_pb "github.com/harmony-one/astra/api/proto/message"
-	"github.com/harmony-one/astra/core"
-	"github.com/harmony-one/astra/astra"
-	"github.com/harmony-one/astra/internal/chain"
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/numeric"
-	"github.com/harmony-one/astra/p2p"
-	stakingReward "github.com/harmony-one/astra/staking/reward"
 )
 
 // Constants for explorer service.

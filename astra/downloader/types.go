@@ -4,9 +4,9 @@ import (
 	"container/heap"
 	"sync"
 
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	sttypes "github.com/Astra-Net/AstraNetwork/p2p/stream/types"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/core/types"
-	sttypes "github.com/harmony-one/astra/p2p/stream/types"
 )
 
 var (

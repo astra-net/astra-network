@@ -7,14 +7,14 @@ RUN apt update -y && \
 
 ENV GOPATH=/root/go
 ENV GO111MODULE=on
-ENV ASTRA_PATH=${GOPATH}/src/github.com/harmony-one
+ENV ASTRA_PATH=${GOPATH}/src/github.com/Astra-Net
 RUN mkdir -p $ASTRA_PATH
 
 WORKDIR $ASTRA_PATH
 
-RUN git clone https://github.com/harmony-one/astra.git && \
-    git clone https://github.com/harmony-one/bls.git && \
-    git clone https://github.com/harmony-one/mcl.git
+RUN git clone https://github.com/Astra-Net/AstraNetwork.git && \
+    git clone https://github.com/Astra-Net/bls.git && \
+    git clone https://github.com/Astra-Net/mcl.git
 
 WORKDIR $ASTRA_PATH/astra
 

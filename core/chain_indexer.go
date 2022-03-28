@@ -29,9 +29,9 @@ import (
 	"github.com/ethereum/go-ethereum/event"
 	"github.com/rs/zerolog"
 
-	"github.com/harmony-one/astra/block"
-	"github.com/harmony-one/astra/core/rawdb"
-	"github.com/harmony-one/astra/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/block"
+	"github.com/Astra-Net/AstraNetwork/core/rawdb"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
 )
 
 // ChainIndexerBackend defines the methods needed to process chain segments in

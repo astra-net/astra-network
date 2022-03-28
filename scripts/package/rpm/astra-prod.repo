@@ -2,5 +2,5 @@
 name=Production Packages - $basearch
 baseurl=http://pub.astranetwork.com.s3.amazonaws.com/release/package/yum/$basearch/
 enabled=1
-gpgkey=https://raw.githubusercontent.com/harmony-one/astra-open/master/astra-release/astra-pub.key
+gpgkey=https://raw.githubusercontent.com/Astra-Net/AstraNetwork-open/master/astra-release/astra-pub.key
 gpgcheck=1

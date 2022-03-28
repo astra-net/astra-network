@@ -7,8 +7,8 @@ import (
 	"sync"
 	"testing"
 
+	sttypes "github.com/Astra-Net/AstraNetwork/p2p/stream/types"
 	"github.com/ethereum/go-ethereum/common"
-	sttypes "github.com/harmony-one/astra/p2p/stream/types"
 	"github.com/rs/zerolog"
 )
 

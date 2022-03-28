@@ -5,8 +5,8 @@ import (
 	"crypto/sha256"
 	"errors"
 
-	"github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/astra/crypto/vrf"
+	"github.com/Astra-Net/bls/ffi/go/bls"
+	"github.com/Astra-Net/AstraNetwork/crypto/vrf"
 )
 
 var (

@@ -20,8 +20,8 @@ import (
 	"math/rand"
 	"testing"
 
+	"github.com/Astra-Net/AstraNetwork/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/harmony-one/astra/core/types"
 )
 
 // Tests that transactions can be added to strict lists and list contents and

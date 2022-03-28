@@ -21,9 +21,9 @@ import (
 	"errors"
 	"time"
 
+	"github.com/Astra-Net/AstraNetwork/core/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/harmony-one/astra/core/types"
 )
 
 // WaitMined waits for tx to be mined on the blockchain.

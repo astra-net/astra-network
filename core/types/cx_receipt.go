@@ -5,10 +5,10 @@ import (
 	"encoding/binary"
 	"math/big"
 
+	"github.com/Astra-Net/AstraNetwork/block"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/astra/block"
 	"github.com/pkg/errors"
 )
 

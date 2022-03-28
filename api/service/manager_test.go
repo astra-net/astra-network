@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/Astra-Net/AstraNetwork/eth/rpc"
 )
 
 func TestManager_StartServices(t *testing.T) {

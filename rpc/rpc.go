@@ -6,13 +6,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/harmony-one/astra/astra"
-	"github.com/harmony-one/astra/eth/rpc"
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
-	"github.com/harmony-one/astra/internal/utils"
-	eth "github.com/harmony-one/astra/rpc/eth"
-	v1 "github.com/harmony-one/astra/rpc/v1"
-	v2 "github.com/harmony-one/astra/rpc/v2"
+	"github.com/Astra-Net/AstraNetwork/astra"
+	"github.com/Astra-Net/AstraNetwork/eth/rpc"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	eth "github.com/Astra-Net/AstraNetwork/rpc/eth"
+	v1 "github.com/Astra-Net/AstraNetwork/rpc/v1"
+	v2 "github.com/Astra-Net/AstraNetwork/rpc/v2"
 )
 
 // Version enum

@@ -11,14 +11,14 @@ import (
 	"testing"
 	"time"
 
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/api/service/legacysync/downloader"
-	"github.com/harmony-one/astra/block"
-	headerV3 "github.com/harmony-one/astra/block/v3"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/p2p"
+	"github.com/Astra-Net/AstraNetwork/api/service/legacysync/downloader"
+	"github.com/Astra-Net/AstraNetwork/block"
+	headerV3 "github.com/Astra-Net/AstraNetwork/block/v3"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/p2p"
 	"github.com/stretchr/testify/assert"
 )
 

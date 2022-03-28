@@ -22,12 +22,12 @@ import (
 	"fmt"
 	"math/big"
 
+	"github.com/Astra-Net/AstraNetwork/accounts/abi"
+	"github.com/Astra-Net/AstraNetwork/core/types"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/event"
-	"github.com/harmony-one/astra/accounts/abi"
-	"github.com/harmony-one/astra/core/types"
 )
 
 // SignerFn is a signer function callback when a contract requires a method to

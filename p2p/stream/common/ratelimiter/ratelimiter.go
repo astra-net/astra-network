@@ -7,9 +7,9 @@ import (
 
 	"github.com/ethereum/go-ethereum/event"
 
-	"github.com/harmony-one/astra/p2p/stream/common/streammanager"
-	sttypes "github.com/harmony-one/astra/p2p/stream/types"
-	p2ptypes "github.com/harmony-one/astra/p2p/types"
+	"github.com/Astra-Net/AstraNetwork/p2p/stream/common/streammanager"
+	sttypes "github.com/Astra-Net/AstraNetwork/p2p/stream/types"
+	p2ptypes "github.com/Astra-Net/AstraNetwork/p2p/types"
 	"go.uber.org/ratelimit"
 )
 

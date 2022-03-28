@@ -1,10 +1,10 @@
 package helpers
 
 import (
-	"github.com/harmony-one/bls/ffi/go/bls"
-	astra_bls "github.com/harmony-one/astra/crypto/bls"
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
-	"github.com/harmony-one/astra/p2p"
+	astra_bls "github.com/Astra-Net/AstraNetwork/crypto/bls"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
+	"github.com/Astra-Net/AstraNetwork/p2p"
+	"github.com/Astra-Net/bls/ffi/go/bls"
 	libp2p_crypto "github.com/libp2p/go-libp2p-crypto"
 	"github.com/pkg/errors"
 )

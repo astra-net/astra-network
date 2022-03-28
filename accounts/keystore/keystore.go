@@ -33,12 +33,12 @@ import (
 	"sync"
 	"time"
 
+	"github.com/Astra-Net/AstraNetwork/accounts"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/event"
-	"github.com/harmony-one/astra/accounts"
-	"github.com/harmony-one/astra/core/types"
-	staking "github.com/harmony-one/astra/staking/types"
 )
 
 // ErrLocked ...

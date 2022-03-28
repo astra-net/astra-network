@@ -4,9 +4,9 @@ import (
 	"context"
 	"math/big"
 
-	"github.com/harmony-one/astra/eth/rpc"
-	"github.com/harmony-one/astra/astra"
-	internal_common "github.com/harmony-one/astra/internal/common"
+	"github.com/Astra-Net/AstraNetwork/eth/rpc"
+	"github.com/Astra-Net/AstraNetwork/astra"
+	internal_common "github.com/Astra-Net/AstraNetwork/internal/common"
 )
 
 // PublicLegacyService provides an API to access the Astra blockchain.

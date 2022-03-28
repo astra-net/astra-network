@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
+	astraTypes "github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/rosetta/common"
+	stakingTypes "github.com/Astra-Net/AstraNetwork/staking/types"
 	"github.com/coinbase/rosetta-sdk-go/types"
-	astraTypes "github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/rosetta/common"
-	stakingTypes "github.com/harmony-one/astra/staking/types"
 	"github.com/pkg/errors"
 )
 

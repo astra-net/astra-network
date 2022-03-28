@@ -1,7 +1,7 @@
 package rpc
 
 import (
-	prom "github.com/harmony-one/astra/api/service/prometheus"
+	prom "github.com/Astra-Net/AstraNetwork/api/service/prometheus"
 	"github.com/prometheus/client_golang/prometheus"
 )
 

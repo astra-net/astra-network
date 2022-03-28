@@ -3,8 +3,8 @@ package rpc
 import (
 	"context"
 
-	"github.com/harmony-one/astra/eth/rpc"
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	"github.com/Astra-Net/AstraNetwork/eth/rpc"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
 )
 
 // PublicWeb3Service offers web3 related RPC methods

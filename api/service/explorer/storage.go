@@ -8,13 +8,13 @@ import (
 	"sync"
 	"time"
 
+	"github.com/Astra-Net/AstraNetwork/core"
+	core2 "github.com/Astra-Net/AstraNetwork/core"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/harmony-one/abool"
-	"github.com/harmony-one/astra/core"
-	core2 "github.com/harmony-one/astra/core"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/internal/utils"
-	staking "github.com/harmony-one/astra/staking/types"
 	"github.com/rs/zerolog"
 )
 

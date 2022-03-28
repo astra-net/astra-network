@@ -1,15 +1,15 @@
 package node
 
 import (
+	proto_node "github.com/Astra-Net/AstraNetwork/api/proto/node"
+	"github.com/Astra-Net/AstraNetwork/core"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/p2p"
+	"github.com/Astra-Net/AstraNetwork/shard"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	proto_node "github.com/harmony-one/astra/api/proto/node"
-	"github.com/harmony-one/astra/core"
-	"github.com/harmony-one/astra/core/types"
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/p2p"
-	"github.com/harmony-one/astra/shard"
 	"github.com/pkg/errors"
 )
 

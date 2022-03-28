@@ -13,21 +13,21 @@ import (
 
 	"github.com/ethereum/go-ethereum/common/math"
 
-	nodeconfig "github.com/harmony-one/astra/internal/configs/node"
+	nodeconfig "github.com/Astra-Net/AstraNetwork/internal/configs/node"
 
 	"github.com/Workiva/go-datastructures/queue"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/astra/api/service/legacysync/downloader"
-	pb "github.com/harmony-one/astra/api/service/legacysync/downloader/proto"
-	"github.com/harmony-one/astra/consensus"
-	"github.com/harmony-one/astra/consensus/engine"
-	"github.com/harmony-one/astra/core"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/internal/chain"
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/node/worker"
-	"github.com/harmony-one/astra/p2p"
+	"github.com/Astra-Net/AstraNetwork/api/service/legacysync/downloader"
+	pb "github.com/Astra-Net/AstraNetwork/api/service/legacysync/downloader/proto"
+	"github.com/Astra-Net/AstraNetwork/consensus"
+	"github.com/Astra-Net/AstraNetwork/consensus/engine"
+	"github.com/Astra-Net/AstraNetwork/core"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/internal/chain"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/node/worker"
+	"github.com/Astra-Net/AstraNetwork/p2p"
 	"github.com/pkg/errors"
 )
 

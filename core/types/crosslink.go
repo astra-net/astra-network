@@ -6,9 +6,9 @@ import (
 	"math/big"
 	"sort"
 
+	"github.com/Astra-Net/AstraNetwork/block"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/astra/block"
 )
 
 // CrossLink is only used on beacon chain to store the hash links from other shards

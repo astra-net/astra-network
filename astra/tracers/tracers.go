@@ -21,7 +21,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/harmony-one/astra/astra/tracers/internal/tracers"
+	"github.com/Astra-Net/AstraNetwork/astra/tracers/internal/tracers"
 )
 
 // all contains all the built in JavaScript tracers by name.

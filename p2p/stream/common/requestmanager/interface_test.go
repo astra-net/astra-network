@@ -6,10 +6,10 @@ import (
 	"strconv"
 	"sync"
 
+	"github.com/Astra-Net/AstraNetwork/p2p/stream/common/streammanager"
+	sttypes "github.com/Astra-Net/AstraNetwork/p2p/stream/types"
 	"github.com/ethereum/go-ethereum/event"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/astra/p2p/stream/common/streammanager"
-	sttypes "github.com/harmony-one/astra/p2p/stream/types"
 )
 
 var testProtoID = sttypes.ProtoID("astra/sync/unitest/0/1.0.0")

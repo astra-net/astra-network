@@ -23,13 +23,13 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/harmony-one/astra/block"
-	"github.com/harmony-one/astra/eth/rpc"
-	"github.com/harmony-one/astra/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/block"
+	"github.com/Astra-Net/AstraNetwork/eth/rpc"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
 
+	"github.com/Astra-Net/AstraNetwork/core/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/params"
-	"github.com/harmony-one/astra/core/types"
 )
 
 const sampleNumber = 3 // Number of transactions sampled in a block

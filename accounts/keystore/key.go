@@ -29,9 +29,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Astra-Net/AstraNetwork/accounts"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/harmony-one/astra/accounts"
 	"github.com/pborman/uuid"
 )
 

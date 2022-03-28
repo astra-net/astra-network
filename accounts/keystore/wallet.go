@@ -19,10 +19,10 @@ package keystore
 import (
 	"math/big"
 
+	"github.com/Astra-Net/AstraNetwork/accounts"
+	"github.com/Astra-Net/AstraNetwork/core/types"
 	ethereum "github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/harmony-one/astra/accounts"
-	"github.com/harmony-one/astra/core/types"
 )
 
 // keystoreWallet implements the accounts.Wallet interface for the original

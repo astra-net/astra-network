@@ -20,10 +20,10 @@ import (
 	"encoding/json"
 	"errors"
 
+	"github.com/Astra-Net/AstraNetwork/internal/params"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/astra/internal/params"
-	"github.com/harmony-one/astra/internal/utils"
 )
 
 // ReadDatabaseVersion retrieves the version number of the database.

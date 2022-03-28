@@ -30,8 +30,8 @@ import (
 	"text/template"
 	"unicode"
 
+	"github.com/Astra-Net/AstraNetwork/accounts/abi"
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/harmony-one/astra/accounts/abi"
 )
 
 // Lang is a target programming language selector to generate bindings for.

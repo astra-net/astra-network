@@ -27,9 +27,9 @@ import (
 	"github.com/ethereum/go-ethereum/event"
 	"github.com/ethereum/go-ethereum/log"
 	"github.com/ethereum/go-ethereum/signer/core"
-	"github.com/harmony-one/astra/accounts"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/eth/rpc"
+	"github.com/Astra-Net/AstraNetwork/accounts"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/eth/rpc"
 )
 
 // ExternalBackend is a struct for external backend

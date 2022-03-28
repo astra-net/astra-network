@@ -1,11 +1,11 @@
 package sync
 
 import (
+	"github.com/Astra-Net/AstraNetwork/block"
+	"github.com/Astra-Net/AstraNetwork/consensus/engine"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	shardingconfig "github.com/Astra-Net/AstraNetwork/internal/configs/sharding"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/block"
-	"github.com/harmony-one/astra/consensus/engine"
-	"github.com/harmony-one/astra/core/types"
-	shardingconfig "github.com/harmony-one/astra/internal/configs/sharding"
 	"github.com/pkg/errors"
 )
 

@@ -3,21 +3,21 @@ package services
 import (
 	"math/big"
 
-	"github.com/harmony-one/astra/astra/tracers"
+	"github.com/Astra-Net/AstraNetwork/astra/tracers"
 
-	internalCommon "github.com/harmony-one/astra/internal/common"
+	internalCommon "github.com/Astra-Net/AstraNetwork/internal/common"
 
 	"github.com/coinbase/rosetta-sdk-go/types"
 	ethcommon "github.com/ethereum/go-ethereum/common"
 
-	"github.com/harmony-one/astra/core"
-	astratypes "github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/astra"
-	"github.com/harmony-one/astra/internal/params"
-	"github.com/harmony-one/astra/rosetta/common"
-	rpcV2 "github.com/harmony-one/astra/rpc/v2"
-	"github.com/harmony-one/astra/staking"
-	stakingTypes "github.com/harmony-one/astra/staking/types"
+	"github.com/Astra-Net/AstraNetwork/astra"
+	"github.com/Astra-Net/AstraNetwork/core"
+	astratypes "github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/internal/params"
+	"github.com/Astra-Net/AstraNetwork/rosetta/common"
+	rpcV2 "github.com/Astra-Net/AstraNetwork/rpc/v2"
+	"github.com/Astra-Net/AstraNetwork/staking"
+	stakingTypes "github.com/Astra-Net/AstraNetwork/staking/types"
 )
 
 const (

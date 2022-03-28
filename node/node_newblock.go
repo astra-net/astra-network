@@ -6,17 +6,17 @@ import (
 	"strings"
 	"time"
 
-	"github.com/harmony-one/astra/consensus"
+	"github.com/Astra-Net/AstraNetwork/consensus"
 
-	"github.com/harmony-one/astra/crypto/bls"
+	"github.com/Astra-Net/AstraNetwork/crypto/bls"
 
-	staking "github.com/harmony-one/astra/staking/types"
+	staking "github.com/Astra-Net/AstraNetwork/staking/types"
 
+	"github.com/Astra-Net/AstraNetwork/core/rawdb"
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	"github.com/Astra-Net/AstraNetwork/internal/utils"
+	"github.com/Astra-Net/AstraNetwork/shard"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/astra/core/rawdb"
-	"github.com/harmony-one/astra/core/types"
-	"github.com/harmony-one/astra/internal/utils"
-	"github.com/harmony-one/astra/shard"
 )
 
 // Constants of proposing a new block

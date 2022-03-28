@@ -4,8 +4,8 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/harmony-one/astra/consensus/engine"
-	"github.com/harmony-one/astra/numeric"
+	"github.com/Astra-Net/AstraNetwork/consensus/engine"
+	"github.com/Astra-Net/AstraNetwork/numeric"
 )
 
 // UtilityMetric ..

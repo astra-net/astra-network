@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"math/big"
 
+	"github.com/Astra-Net/AstraNetwork/core/types"
+	astratypes "github.com/Astra-Net/AstraNetwork/core/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
-	"github.com/harmony-one/astra/core/types"
-	astratypes "github.com/harmony-one/astra/core/types"
 )
 
 // Block represents a basic block which is further amended by BlockWithTxHash or BlockWithFullTx
