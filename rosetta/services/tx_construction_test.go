@@ -8,9 +8,9 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	astraTypes "github.com/astra-net/AstraNetwork/core/types"
-	internalCommon "github.com/astra-net/AstraNetwork/internal/common"
-	"github.com/astra-net/AstraNetwork/rosetta/common"
+	astraTypes "github.com/astra-net/astra-network/core/types"
+	internalCommon "github.com/astra-net/astra-network/internal/common"
+	"github.com/astra-net/astra-network/rosetta/common"
 )
 
 func TestConstructPlainTransaction(t *testing.T) {

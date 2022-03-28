@@ -13,7 +13,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/metrics"
 	eth_prometheus "github.com/ethereum/go-ethereum/metrics/prometheus"
-	"github.com/astra-net/AstraNetwork/internal/utils"
+	"github.com/astra-net/astra-network/internal/utils"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/prometheus/client_golang/prometheus/push"

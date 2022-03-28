@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/astra-net/AstraNetwork/multibls"
+	"github.com/astra-net/astra-network/multibls"
 	bls_core "github.com/astra-net/bls/ffi/go/bls"
 )
 

@@ -23,9 +23,9 @@ import (
 
 	"github.com/ethereum/go-ethereum/core/rawdb"
 
-	"github.com/astra-net/AstraNetwork/core/state"
-	"github.com/astra-net/AstraNetwork/core/vm"
-	"github.com/astra-net/AstraNetwork/internal/params"
+	"github.com/astra-net/astra-network/core/state"
+	"github.com/astra-net/astra-network/core/vm"
+	"github.com/astra-net/astra-network/internal/params"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 )

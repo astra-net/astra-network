@@ -1,6 +1,6 @@
 package requestmanager
 
-import sttypes "github.com/astra-net/AstraNetwork/p2p/stream/types"
+import sttypes "github.com/astra-net/astra-network/p2p/stream/types"
 
 // RequestOption is the additional instruction for requests.
 // Currently, two options are supported:

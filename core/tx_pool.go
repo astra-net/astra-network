@@ -24,20 +24,20 @@ import (
 	"sync"
 	"time"
 
-	"github.com/astra-net/AstraNetwork/internal/params"
+	"github.com/astra-net/astra-network/internal/params"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/prque"
 	"github.com/ethereum/go-ethereum/event"
 	"github.com/ethereum/go-ethereum/metrics"
 	"github.com/pkg/errors"
 
-	"github.com/astra-net/AstraNetwork/block"
-	"github.com/astra-net/AstraNetwork/core/state"
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/core/vm"
-	"github.com/astra-net/AstraNetwork/internal/utils"
-	"github.com/astra-net/AstraNetwork/shard"
-	staking "github.com/astra-net/AstraNetwork/staking/types"
+	"github.com/astra-net/astra-network/block"
+	"github.com/astra-net/astra-network/core/state"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/core/vm"
+	"github.com/astra-net/astra-network/internal/utils"
+	"github.com/astra-net/astra-network/shard"
+	staking "github.com/astra-net/astra-network/staking/types"
 )
 
 const (

@@ -3,7 +3,7 @@ package slashtest
 import (
 	"math/big"
 
-	"github.com/astra-net/AstraNetwork/staking/slash"
+	"github.com/astra-net/astra-network/staking/slash"
 )
 
 // CopyRecord makes a deep copy the slash Record

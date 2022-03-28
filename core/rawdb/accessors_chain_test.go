@@ -25,10 +25,10 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/astra-net/AstraNetwork/block"
-	blockfactory "github.com/astra-net/AstraNetwork/block/factory"
-	"github.com/astra-net/AstraNetwork/core/types"
-	staking "github.com/astra-net/AstraNetwork/staking/types"
+	"github.com/astra-net/astra-network/block"
+	blockfactory "github.com/astra-net/astra-network/block/factory"
+	"github.com/astra-net/astra-network/core/types"
+	staking "github.com/astra-net/astra-network/staking/types"
 	"golang.org/x/crypto/sha3"
 )
 

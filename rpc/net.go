@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/astra-net/AstraNetwork/eth/rpc"
-	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
-	"github.com/astra-net/AstraNetwork/internal/utils"
-	"github.com/astra-net/AstraNetwork/p2p"
+	"github.com/astra-net/astra-network/eth/rpc"
+	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
+	"github.com/astra-net/astra-network/internal/utils"
+	"github.com/astra-net/astra-network/p2p"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 )
 

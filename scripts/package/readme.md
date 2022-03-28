@@ -41,7 +41,7 @@ RPM is for Redhat/Fedora based Linux distributions, such as Amazon Linux and Cen
 ```bash
 # do the following once to add the astra development repo
 curl -LsSf http://haochen-astra-pub.s3.amazonaws.com/pub/yum/astra-dev.repo | sudo tee -a /etc/yum.repos.d/astra-dev.repo
-sudo rpm --import https://raw.githubusercontent.com/astra-net/AstraNetwork-open/master/astra-release/astra-pub.key
+sudo rpm --import https://raw.githubusercontent.com/astra-net/astra-network-open/master/astra-release/astra-pub.key
 ```
 
 ## Deb Package
@@ -50,7 +50,7 @@ Deb is supported on Debian based Linux distributions, such as Ubuntu, MX Linux.
 
 ```bash
 # do the following once to add the astra development repo
-curl -LsSf https://raw.githubusercontent.com/astra-net/AstraNetwork-open/master/astra-release/astra-pub.key | sudo apt-key add
+curl -LsSf https://raw.githubusercontent.com/astra-net/astra-network-open/master/astra-release/astra-pub.key | sudo apt-key add
 echo "deb http://haochen-astra-pub.s3.amazonaws.com/pub/repo bionic main" | sudo tee -a /etc/apt/sources.list
 
 ```
@@ -158,4 +158,4 @@ sudo vim /etc/astra/astra.conf
 
 # Support
 
-Please open new github issues in https://github.com/astra-net/AstraNetwork/issues.
+Please open new github issues in https://github.com/astra-net/astra-network/issues.

@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/astra-net/AstraNetwork/numeric"
+	"github.com/astra-net/astra-network/numeric"
 
-	"github.com/astra-net/AstraNetwork/internal/genesis"
+	"github.com/astra-net/astra-network/internal/genesis"
 )
 
 // Schedule returns the sharding configuration instance for the given

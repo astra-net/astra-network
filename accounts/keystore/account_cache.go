@@ -30,9 +30,9 @@ import (
 	mapset "github.com/deckarep/golang-set"
 	"github.com/ethereum/go-ethereum/common"
 
-	"github.com/astra-net/AstraNetwork/accounts"
-	common2 "github.com/astra-net/AstraNetwork/internal/common"
-	"github.com/astra-net/AstraNetwork/internal/utils"
+	"github.com/astra-net/astra-network/accounts"
+	common2 "github.com/astra-net/astra-network/internal/common"
+	"github.com/astra-net/astra-network/internal/utils"
 )
 
 // Minimum amount of time between cache reloads. This limit applies if the platform does

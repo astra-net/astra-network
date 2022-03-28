@@ -6,13 +6,13 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/astra-network/crypto/bls"
 
-	"github.com/astra-net/AstraNetwork/crypto/hash"
-	common2 "github.com/astra-net/AstraNetwork/internal/common"
-	"github.com/astra-net/AstraNetwork/internal/genesis"
-	"github.com/astra-net/AstraNetwork/numeric"
-	"github.com/astra-net/AstraNetwork/staking/effective"
+	"github.com/astra-net/astra-network/crypto/hash"
+	common2 "github.com/astra-net/astra-network/internal/common"
+	"github.com/astra-net/astra-network/internal/genesis"
+	"github.com/astra-net/astra-network/numeric"
+	"github.com/astra-net/astra-network/staking/effective"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
 )

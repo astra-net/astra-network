@@ -3,10 +3,10 @@ package slash
 import (
 	"math/big"
 
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/internal/params"
-	"github.com/astra-net/AstraNetwork/shard"
-	staking "github.com/astra-net/AstraNetwork/staking/types"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/internal/params"
+	"github.com/astra-net/astra-network/shard"
+	staking "github.com/astra-net/astra-network/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
 )

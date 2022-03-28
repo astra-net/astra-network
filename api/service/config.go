@@ -1,7 +1,7 @@
 package service
 
 import (
-	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
+	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
 )
 
 // NodeConfig defines a structure of node configuration
@@ -9,7 +9,7 @@ import (
 // This is to pass node configuration to services and prvent
 // cyclic imports
 type NodeConfig struct {
-	// The three groupID design, please refer to https://github.com/astra-net/AstraNetwork/blob/master/node/node.md#libp2p-integration
+	// The three groupID design, please refer to https://github.com/astra-net/astra-network/blob/master/node/node.md#libp2p-integration
 	Beacon       nodeconfig.GroupID                           // the beacon group ID
 	ShardGroupID nodeconfig.GroupID                           // the group ID of the shard
 	Client       nodeconfig.GroupID                           // the client group ID of the shard

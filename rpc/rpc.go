@@ -6,13 +6,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/astra-net/AstraNetwork/astra"
-	"github.com/astra-net/AstraNetwork/eth/rpc"
-	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
-	"github.com/astra-net/AstraNetwork/internal/utils"
-	eth "github.com/astra-net/AstraNetwork/rpc/eth"
-	v1 "github.com/astra-net/AstraNetwork/rpc/v1"
-	v2 "github.com/astra-net/AstraNetwork/rpc/v2"
+	"github.com/astra-net/astra-network/astra"
+	"github.com/astra-net/astra-network/eth/rpc"
+	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
+	"github.com/astra-net/astra-network/internal/utils"
+	eth "github.com/astra-net/astra-network/rpc/eth"
+	v1 "github.com/astra-net/astra-network/rpc/v1"
+	v2 "github.com/astra-net/astra-network/rpc/v2"
 )
 
 // Version enum

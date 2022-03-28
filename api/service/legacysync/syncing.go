@@ -13,21 +13,21 @@ import (
 
 	"github.com/ethereum/go-ethereum/common/math"
 
-	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
+	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
 
 	"github.com/Workiva/go-datastructures/queue"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/astra-net/AstraNetwork/api/service/legacysync/downloader"
-	pb "github.com/astra-net/AstraNetwork/api/service/legacysync/downloader/proto"
-	"github.com/astra-net/AstraNetwork/consensus"
-	"github.com/astra-net/AstraNetwork/consensus/engine"
-	"github.com/astra-net/AstraNetwork/core"
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/internal/chain"
-	"github.com/astra-net/AstraNetwork/internal/utils"
-	"github.com/astra-net/AstraNetwork/node/worker"
-	"github.com/astra-net/AstraNetwork/p2p"
+	"github.com/astra-net/astra-network/api/service/legacysync/downloader"
+	pb "github.com/astra-net/astra-network/api/service/legacysync/downloader/proto"
+	"github.com/astra-net/astra-network/consensus"
+	"github.com/astra-net/astra-network/consensus/engine"
+	"github.com/astra-net/astra-network/core"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/internal/chain"
+	"github.com/astra-net/astra-network/internal/utils"
+	"github.com/astra-net/astra-network/node/worker"
+	"github.com/astra-net/astra-network/p2p"
 	"github.com/pkg/errors"
 )
 

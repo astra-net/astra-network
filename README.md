@@ -1,10 +1,10 @@
 # Astra
 
-[![Build Status](https://travis-ci.com/astra-net/AstraNetwork.svg?branch=main)](https://travis-ci.com/astra-net/AstraNetwork)
+[![Build Status](https://travis-ci.com/astra-net/astra-network.svg?branch=main)](https://travis-ci.com/astra-net/astra-network)
 ![gopherbadger-tag-do-not-edit](https://img.shields.io/badge/Go%20Coverage-45%25-brightgreen.svg?longCache=true&style=flat)
 ![Discord](https://img.shields.io/discord/532383335348043777.svg)
-[![Github Action](https://github.com/astra-net/AstraNetwork/actions/workflows/ci.yaml/badge.svg?event=push)](https://github.com/astra-net/AstraNetwork/actions/workflows/ci.yaml)
-[![Go Report Card](https://goreportcard.com/badge/github.com/astra-net/AstraNetwork)](https://goreportcard.com/report/github.com/astra-net/AstraNetwork)
+[![Github Action](https://github.com/astra-net/astra-network/actions/workflows/ci.yaml/badge.svg?event=push)](https://github.com/astra-net/astra-network/actions/workflows/ci.yaml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/astra-net/astra-network)](https://goreportcard.com/report/github.com/astra-net/astra-network)
 
 ## General Documentation
 
@@ -77,8 +77,8 @@ cd $(go env GOPATH)/src/github.com/astra-net
 ```bash
 git clone https://github.com/astra-net/mcl.git
 git clone https://github.com/astra-net/bls.git
-git clone https://github.com/astra-net/AstraNetwork.git
-cd AstraNetwork
+git clone https://github.com/astra-net/astra-network.git
+cd astra-network
 ```
 
 3. Build the astra binary & dependent libs
@@ -100,7 +100,7 @@ with our C/C++ based library dependencies (`libbls` and `mcl`) set up correctly 
 You can build the docker image for yourself with the following commands:
 
 ```bash
-cd $(go env GOPATH)/src/github.com/astra-net/AstraNetwork
+cd $(go env GOPATH)/src/github.com/astra-net/astra-network
 make clean
 docker build -t astra .
 ```
@@ -116,7 +116,7 @@ docker build -t astra .
 Then you can start your docker container with the following command:
 
 ```bash
-docker run --rm --name astra -it -v "$(go env GOPATH)/src/github.com/astra-net/AstraNetwork:/root/go/src/github.com/astra-net/AstraNetwork" astra /bin/bash
+docker run --rm --name astra -it -v "$(go env GOPATH)/src/github.com/astra-net/astra-network:/root/go/src/github.com/astra-net/astra-network" astra /bin/bash
 ```
 
 > Note that the astra repo will be shared between your docker container and your host machine. However, everything else in the docker container will be ephemeral.
@@ -211,7 +211,7 @@ make test-rpc
 This test starts a localnet (within the Docker container), **ensures it reaches a consensus**, and runs a series of tests to ensure correct RPC behavior.
 This test also acts as a preliminary integration test (more through tests are done on the testnets).
 
-> The tests ran by this command can be found [here](https://github.com/astra-net/AstraNetwork-test/tree/master/localnet).
+> The tests ran by this command can be found [here](https://github.com/astra-net/astra-network-test/tree/master/localnet).
 
 If you wish to debug further with the localnet after the tests are done, open a new shell and run:
 
@@ -237,7 +237,7 @@ make test-rosetta
 This test starts a localnet (within the Docker container), **ensures it reaches a consensus**, and runs the Construction & Data API checks using the [rosetta-cli](https://github.com/coinbase/rosetta-cli).
 This test also acts as a preliminary integration test (more through tests are done on the testnets).
 
-> The config for this test can be found [here](https://github.com/astra-net/AstraNetwork-test/blob/master/localnet/configs/localnet_rosetta_test_s0.json) & [here](https://github.com/astra-net/AstraNetwork-test/blob/master/localnet/configs/localnet_rosetta_test_s1.json)
+> The config for this test can be found [here](https://github.com/astra-net/astra-network-test/blob/master/localnet/configs/localnet_rosetta_test_s0.json) & [here](https://github.com/astra-net/astra-network-test/blob/master/localnet/configs/localnet_rosetta_test_s1.json)
 
 Similar to the RPC tests, if you wish to debug further with the localnet after the tests are done, open a new shell and run:
 

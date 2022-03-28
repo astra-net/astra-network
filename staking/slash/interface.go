@@ -3,9 +3,9 @@ package slash
 import (
 	"math/big"
 
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/internal/params"
-	"github.com/astra-net/AstraNetwork/shard"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/internal/params"
+	"github.com/astra-net/astra-network/shard"
 )
 
 // CommitteeReader ..

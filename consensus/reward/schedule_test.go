@@ -3,7 +3,7 @@ package reward
 import (
 	"testing"
 
-	"github.com/astra-net/AstraNetwork/numeric"
+	"github.com/astra-net/astra-network/numeric"
 )
 
 func TestPercentageForTimeStamp(t *testing.T) {

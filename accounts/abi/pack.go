@@ -23,7 +23,7 @@ import (
 	"reflect"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/astra-net/AstraNetwork/common/math"
+	"github.com/astra-net/astra-network/common/math"
 )
 
 // packBytesSlice packs the given bytes as [L, V] as the canonical representation

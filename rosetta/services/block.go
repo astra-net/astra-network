@@ -7,24 +7,24 @@ import (
 	"sync"
 	"time"
 
-	"github.com/astra-net/AstraNetwork/astra/tracers"
+	"github.com/astra-net/astra-network/astra/tracers"
 
-	"github.com/astra-net/AstraNetwork/core"
-	"github.com/astra-net/AstraNetwork/core/state"
-	coreTypes "github.com/astra-net/AstraNetwork/core/types"
+	"github.com/astra-net/astra-network/core"
+	"github.com/astra-net/astra-network/core/state"
+	coreTypes "github.com/astra-net/astra-network/core/types"
 
 	"github.com/coinbase/rosetta-sdk-go/server"
 	"github.com/coinbase/rosetta-sdk-go/types"
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	lru "github.com/hashicorp/golang-lru"
 
-	"github.com/astra-net/AstraNetwork/astra"
-	"github.com/astra-net/AstraNetwork/core/rawdb"
-	astratypes "github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/core/vm"
-	"github.com/astra-net/AstraNetwork/eth/rpc"
-	"github.com/astra-net/AstraNetwork/rosetta/common"
-	stakingTypes "github.com/astra-net/AstraNetwork/staking/types"
+	"github.com/astra-net/astra-network/astra"
+	"github.com/astra-net/astra-network/core/rawdb"
+	astratypes "github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/core/vm"
+	"github.com/astra-net/astra-network/eth/rpc"
+	"github.com/astra-net/astra-network/rosetta/common"
+	stakingTypes "github.com/astra-net/astra-network/staking/types"
 )
 
 const (

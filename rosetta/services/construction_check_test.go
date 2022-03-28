@@ -8,8 +8,8 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/pkg/errors"
 
-	"github.com/astra-net/AstraNetwork/internal/params"
-	"github.com/astra-net/AstraNetwork/rosetta/common"
+	"github.com/astra-net/astra-network/internal/params"
+	"github.com/astra-net/astra-network/rosetta/common"
 )
 
 func TestConstructMetadataOptions(t *testing.T) {

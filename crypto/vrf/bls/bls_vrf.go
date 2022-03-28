@@ -6,7 +6,7 @@ import (
 	"errors"
 
 	"github.com/astra-net/bls/ffi/go/bls"
-	"github.com/astra-net/AstraNetwork/crypto/vrf"
+	"github.com/astra-net/astra-network/crypto/vrf"
 )
 
 var (

@@ -5,14 +5,14 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/astra-net/AstraNetwork/consensus"
-	"github.com/astra-net/AstraNetwork/consensus/quorum"
-	"github.com/astra-net/AstraNetwork/crypto/bls"
-	"github.com/astra-net/AstraNetwork/internal/shardchain"
-	"github.com/astra-net/AstraNetwork/internal/utils"
-	"github.com/astra-net/AstraNetwork/multibls"
-	"github.com/astra-net/AstraNetwork/p2p"
-	"github.com/astra-net/AstraNetwork/shard"
+	"github.com/astra-net/astra-network/consensus"
+	"github.com/astra-net/astra-network/consensus/quorum"
+	"github.com/astra-net/astra-network/crypto/bls"
+	"github.com/astra-net/astra-network/internal/shardchain"
+	"github.com/astra-net/astra-network/internal/utils"
+	"github.com/astra-net/astra-network/multibls"
+	"github.com/astra-net/astra-network/p2p"
+	"github.com/astra-net/astra-network/shard"
 	"github.com/stretchr/testify/assert"
 )
 

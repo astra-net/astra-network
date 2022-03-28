@@ -5,7 +5,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	sttypes "github.com/astra-net/AstraNetwork/p2p/stream/types"
+	sttypes "github.com/astra-net/astra-network/p2p/stream/types"
 	"github.com/pkg/errors"
 )
 

@@ -6,16 +6,16 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/astra-network/crypto/bls"
 	bls_core "github.com/astra-net/bls/ffi/go/bls"
 
-	"github.com/astra-net/AstraNetwork/consensus/votepower"
+	"github.com/astra-net/astra-network/consensus/votepower"
 	"github.com/ethereum/go-ethereum/common"
 
-	bls_cosi "github.com/astra-net/AstraNetwork/crypto/bls"
-	"github.com/astra-net/AstraNetwork/internal/utils"
-	"github.com/astra-net/AstraNetwork/numeric"
-	"github.com/astra-net/AstraNetwork/shard"
+	bls_cosi "github.com/astra-net/astra-network/crypto/bls"
+	"github.com/astra-net/astra-network/internal/utils"
+	"github.com/astra-net/astra-network/numeric"
+	"github.com/astra-net/astra-network/shard"
 )
 
 type uniformVoteWeight struct {

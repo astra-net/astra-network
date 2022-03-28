@@ -26,7 +26,7 @@ import (
 	"fmt"
 
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/astra-net/AstraNetwork/accounts"
+	"github.com/astra-net/astra-network/accounts"
 	"github.com/pborman/uuid"
 	"golang.org/x/crypto/pbkdf2"
 )

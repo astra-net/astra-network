@@ -16,7 +16,7 @@
 
 package bind
 
-import "github.com/astra-net/AstraNetwork/accounts/abi"
+import "github.com/astra-net/astra-network/accounts/abi"
 
 // tmplData is the data structure required to fill the binding template.
 type tmplData struct {

@@ -10,12 +10,12 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"golang.org/x/time/rate"
 
-	"github.com/astra-net/AstraNetwork/astra"
-	"github.com/astra-net/AstraNetwork/common/denominations"
-	"github.com/astra-net/AstraNetwork/core"
-	"github.com/astra-net/AstraNetwork/eth/rpc"
-	astraCommon "github.com/astra-net/AstraNetwork/internal/common"
-	"github.com/astra-net/AstraNetwork/internal/utils"
+	"github.com/astra-net/astra-network/astra"
+	"github.com/astra-net/astra-network/common/denominations"
+	"github.com/astra-net/astra-network/core"
+	"github.com/astra-net/astra-network/eth/rpc"
+	astraCommon "github.com/astra-net/astra-network/internal/common"
+	"github.com/astra-net/astra-network/internal/utils"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 )

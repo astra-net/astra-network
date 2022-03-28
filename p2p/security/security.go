@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/astra-net/AstraNetwork/internal/utils"
+	"github.com/astra-net/astra-network/internal/utils"
 	libp2p_network "github.com/libp2p/go-libp2p-core/network"
 	ma "github.com/multiformats/go-multiaddr"
 	"github.com/pkg/errors"

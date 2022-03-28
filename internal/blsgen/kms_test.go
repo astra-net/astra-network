@@ -12,7 +12,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/astra-network/crypto/bls"
 	ffi_bls "github.com/astra-net/bls/ffi/go/bls"
 	"github.com/aws/aws-sdk-go/service/kms"
 	"github.com/ethereum/go-ethereum/common"

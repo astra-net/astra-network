@@ -6,7 +6,7 @@ import (
 	"math/big"
 	"sort"
 
-	"github.com/astra-net/AstraNetwork/block"
+	"github.com/astra-net/astra-network/block"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
 )

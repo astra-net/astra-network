@@ -38,7 +38,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/astra-net/AstraNetwork/accounts"
+	"github.com/astra-net/astra-network/accounts"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/math"
 	"github.com/ethereum/go-ethereum/crypto"

@@ -22,8 +22,8 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/internal/params"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/internal/params"
 	"golang.org/x/crypto/sha3"
 )
 

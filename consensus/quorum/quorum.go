@@ -4,15 +4,15 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/astra-network/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/astra-net/AstraNetwork/consensus/votepower"
-	bls_cosi "github.com/astra-net/AstraNetwork/crypto/bls"
-	shardingconfig "github.com/astra-net/AstraNetwork/internal/configs/sharding"
-	"github.com/astra-net/AstraNetwork/multibls"
-	"github.com/astra-net/AstraNetwork/numeric"
-	"github.com/astra-net/AstraNetwork/shard"
+	"github.com/astra-net/astra-network/consensus/votepower"
+	bls_cosi "github.com/astra-net/astra-network/crypto/bls"
+	shardingconfig "github.com/astra-net/astra-network/internal/configs/sharding"
+	"github.com/astra-net/astra-network/multibls"
+	"github.com/astra-net/astra-network/numeric"
+	"github.com/astra-net/astra-network/shard"
 	bls_core "github.com/astra-net/bls/ffi/go/bls"
 	"github.com/pkg/errors"
 )

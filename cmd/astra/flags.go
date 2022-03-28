@@ -5,13 +5,13 @@ import (
 	"strconv"
 	"strings"
 
-	astraconfig "github.com/astra-net/AstraNetwork/internal/configs/astra"
+	astraconfig "github.com/astra-net/astra-network/internal/configs/astra"
 
 	"github.com/spf13/cobra"
 
-	"github.com/astra-net/AstraNetwork/api/service/legacysync"
-	"github.com/astra-net/AstraNetwork/internal/cli"
-	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
+	"github.com/astra-net/astra-network/api/service/legacysync"
+	"github.com/astra-net/astra-network/internal/cli"
+	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
 )
 
 var (

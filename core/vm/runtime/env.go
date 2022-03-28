@@ -18,8 +18,8 @@ package runtime
 
 import (
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/astra-net/AstraNetwork/core"
-	"github.com/astra-net/AstraNetwork/core/vm"
+	"github.com/astra-net/astra-network/core"
+	"github.com/astra-net/astra-network/core/vm"
 )
 
 // NewEnv ...

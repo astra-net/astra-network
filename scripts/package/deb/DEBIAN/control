@@ -4,7 +4,7 @@ Version: {{ VER }}
 License: MIT
 Vendor: Astra blockchain
 Architecture: amd64
-Source: https://github.com/astra-net/AstraNetwork
+Source: https://github.com/astra-net/astra-network
 Maintainer: Leo Chen <leo@astranetwork.com>
 Section: net
 Priority: extra

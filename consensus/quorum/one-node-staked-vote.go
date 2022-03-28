@@ -5,18 +5,18 @@ import (
 	"encoding/json"
 	"math/big"
 
-	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/astra-network/crypto/bls"
 
-	"github.com/astra-net/AstraNetwork/internal/utils"
+	"github.com/astra-net/astra-network/internal/utils"
 
 	bls_core "github.com/astra-net/bls/ffi/go/bls"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
 
-	"github.com/astra-net/AstraNetwork/consensus/votepower"
-	bls_cosi "github.com/astra-net/AstraNetwork/crypto/bls"
-	"github.com/astra-net/AstraNetwork/numeric"
-	"github.com/astra-net/AstraNetwork/shard"
+	"github.com/astra-net/astra-network/consensus/votepower"
+	bls_cosi "github.com/astra-net/astra-network/crypto/bls"
+	"github.com/astra-net/astra-network/numeric"
+	"github.com/astra-net/astra-network/shard"
 )
 
 var (

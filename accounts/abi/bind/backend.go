@@ -21,7 +21,7 @@ import (
 	"errors"
 	"math/big"
 
-	"github.com/astra-net/AstraNetwork/core/types"
+	"github.com/astra-net/astra-network/core/types"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
 )

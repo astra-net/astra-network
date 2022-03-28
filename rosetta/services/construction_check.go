@@ -11,11 +11,11 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/pkg/errors"
 
-	"github.com/astra-net/AstraNetwork/core/vm"
-	ethRpc "github.com/astra-net/AstraNetwork/eth/rpc"
-	"github.com/astra-net/AstraNetwork/internal/params"
-	"github.com/astra-net/AstraNetwork/rosetta/common"
-	"github.com/astra-net/AstraNetwork/rpc"
+	"github.com/astra-net/astra-network/core/vm"
+	ethRpc "github.com/astra-net/astra-network/eth/rpc"
+	"github.com/astra-net/astra-network/internal/params"
+	"github.com/astra-net/astra-network/rosetta/common"
+	"github.com/astra-net/astra-network/rpc"
 )
 
 // ConstructMetadataOptions is constructed by ConstructionPreprocess for ConstructionMetadata options

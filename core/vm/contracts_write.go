@@ -3,9 +3,9 @@ package vm
 import (
 	"errors"
 
-	"github.com/astra-net/AstraNetwork/shard"
-	"github.com/astra-net/AstraNetwork/staking"
-	stakingTypes "github.com/astra-net/AstraNetwork/staking/types"
+	"github.com/astra-net/astra-network/shard"
+	"github.com/astra-net/astra-network/staking"
+	stakingTypes "github.com/astra-net/astra-network/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
 )

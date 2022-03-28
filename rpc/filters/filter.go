@@ -26,10 +26,10 @@ import (
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/ethdb"
 	"github.com/ethereum/go-ethereum/event"
-	"github.com/astra-net/AstraNetwork/block"
-	"github.com/astra-net/AstraNetwork/core"
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/eth/rpc"
+	"github.com/astra-net/astra-network/block"
+	"github.com/astra-net/astra-network/core"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/eth/rpc"
 )
 
 // Backend provides the APIs needed for filter

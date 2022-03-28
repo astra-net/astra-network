@@ -29,7 +29,7 @@ RUN mkdir ~/bin && \
 
 RUN eval "$(~/bin/gimme ${GIMME_GO_VERSION})"
 
-RUN git clone https://github.com/astra-net/AstraNetwork.git ${ASTRA_PATH}/astra
+RUN git clone https://github.com/astra-net/astra-network.git ${ASTRA_PATH}/astra
 
 RUN git clone https://github.com/astra-net/bls.git ${ASTRA_PATH}/bls
 

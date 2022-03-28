@@ -3,8 +3,8 @@ package streammanager
 import (
 	"context"
 
-	sttypes "github.com/astra-net/AstraNetwork/p2p/stream/types"
-	p2ptypes "github.com/astra-net/AstraNetwork/p2p/types"
+	sttypes "github.com/astra-net/astra-network/p2p/stream/types"
+	p2ptypes "github.com/astra-net/astra-network/p2p/types"
 	"github.com/ethereum/go-ethereum/event"
 	"github.com/libp2p/go-libp2p-core/network"
 	libp2p_peer "github.com/libp2p/go-libp2p-core/peer"

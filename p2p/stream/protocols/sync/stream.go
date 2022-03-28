@@ -7,8 +7,8 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	syncpb "github.com/astra-net/AstraNetwork/p2p/stream/protocols/sync/message"
-	sttypes "github.com/astra-net/AstraNetwork/p2p/stream/types"
+	syncpb "github.com/astra-net/astra-network/p2p/stream/protocols/sync/message"
+	sttypes "github.com/astra-net/astra-network/p2p/stream/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
 	protobuf "github.com/golang/protobuf/proto"

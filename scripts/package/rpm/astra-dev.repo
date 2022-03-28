@@ -2,5 +2,5 @@
 name=Development Packages - $basearch
 baseurl=http://haochen-astra-pub.s3.amazonaws.com/pub/yum/$basearch/
 enabled=1
-gpgkey=https://raw.githubusercontent.com/astra-net/AstraNetwork-open/master/astra-release/astra-pub.key
+gpgkey=https://raw.githubusercontent.com/astra-net/astra-network-open/master/astra-release/astra-pub.key
 gpgcheck=1

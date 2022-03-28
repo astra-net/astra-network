@@ -9,7 +9,7 @@ set -eu
 # Example: ASTRA_RELEASE=v3.0.0 ./node.sh astra
 
 ASTRA_SIGNING_KEY=539910B02B5BAC637F6615C9799ACE3A9B83DF60
-DOWNLOAD_URL=https://github.com/astra-net/AstraNetwork/releases/download
+DOWNLOAD_URL=https://github.com/astra-net/astra-network/releases/download
 ASTRA_PUB_KEY=https://astranetwork.com/releases/pgp_keys.asc
 version="v3 20201206.0"
 
@@ -33,7 +33,7 @@ get_version() {
     else
         # Find the latest Astra release available for download.
         readonly reason="automatically selected latest available release"
-        astra_rel=$(curl -f -s https://astranetwork.com/releases/latest) || (color "31" "Get latest version failed. You may manually download the binaries from Github release page. https://github.com/astra-net/AstraNetwork/releases/" && exit 1)
+        astra_rel=$(curl -f -s https://astranetwork.com/releases/latest) || (color "31" "Get latest version failed. You may manually download the binaries from Github release page. https://github.com/astra-net/astra-network/releases/" && exit 1)
         readonly astra_rel
     fi
 }

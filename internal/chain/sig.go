@@ -5,8 +5,8 @@ import (
 
 	bls_core "github.com/astra-net/bls/ffi/go/bls"
 
-	"github.com/astra-net/AstraNetwork/crypto/bls"
-	"github.com/astra-net/AstraNetwork/internal/utils"
+	"github.com/astra-net/astra-network/crypto/bls"
+	"github.com/astra-net/astra-network/internal/utils"
 )
 
 // ReadSignatureBitmapByPublicKeys read the payload of signature and bitmap based on public keys

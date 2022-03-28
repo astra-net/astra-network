@@ -9,10 +9,10 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/rlp"
-	blockif "github.com/astra-net/AstraNetwork/block/interface"
-	"github.com/astra-net/AstraNetwork/crypto/hash"
-	"github.com/astra-net/AstraNetwork/internal/utils"
-	"github.com/astra-net/AstraNetwork/shard"
+	blockif "github.com/astra-net/astra-network/block/interface"
+	"github.com/astra-net/astra-network/crypto/hash"
+	"github.com/astra-net/astra-network/internal/utils"
+	"github.com/astra-net/astra-network/shard"
 	"github.com/rs/zerolog"
 )
 

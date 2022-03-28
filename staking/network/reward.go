@@ -4,13 +4,13 @@ import (
 	"errors"
 	"math/big"
 
-	"github.com/astra-net/AstraNetwork/common/denominations"
-	"github.com/astra-net/AstraNetwork/consensus/engine"
-	"github.com/astra-net/AstraNetwork/consensus/reward"
-	"github.com/astra-net/AstraNetwork/internal/utils"
-	"github.com/astra-net/AstraNetwork/numeric"
-	"github.com/astra-net/AstraNetwork/shard"
-	stakingReward "github.com/astra-net/AstraNetwork/staking/reward"
+	"github.com/astra-net/astra-network/common/denominations"
+	"github.com/astra-net/astra-network/consensus/engine"
+	"github.com/astra-net/astra-network/consensus/reward"
+	"github.com/astra-net/astra-network/internal/utils"
+	"github.com/astra-net/astra-network/numeric"
+	"github.com/astra-net/astra-network/shard"
+	stakingReward "github.com/astra-net/astra-network/staking/reward"
 )
 
 var (

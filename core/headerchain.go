@@ -26,16 +26,16 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/astra-net/AstraNetwork/internal/params"
+	"github.com/astra-net/astra-network/internal/params"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethdb"
 	lru "github.com/hashicorp/golang-lru"
 
-	"github.com/astra-net/AstraNetwork/block"
-	consensus_engine "github.com/astra-net/AstraNetwork/consensus/engine"
-	"github.com/astra-net/AstraNetwork/core/rawdb"
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/internal/utils"
+	"github.com/astra-net/astra-network/block"
+	consensus_engine "github.com/astra-net/astra-network/consensus/engine"
+	"github.com/astra-net/astra-network/core/rawdb"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/internal/utils"
 )
 
 const (

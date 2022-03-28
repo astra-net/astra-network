@@ -3,7 +3,7 @@ package reward
 import (
 	"math/big"
 
-	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/astra-network/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
 )

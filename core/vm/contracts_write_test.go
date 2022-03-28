@@ -7,8 +7,8 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/astra-net/AstraNetwork/internal/params"
-	stakingTypes "github.com/astra-net/AstraNetwork/staking/types"
+	"github.com/astra-net/astra-network/internal/params"
+	stakingTypes "github.com/astra-net/astra-network/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 )
 

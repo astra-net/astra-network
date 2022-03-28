@@ -29,7 +29,7 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/rlp"
 
-	"github.com/astra-net/AstraNetwork/staking"
+	"github.com/astra-net/astra-network/staking"
 )
 
 var emptyCodeHash = crypto.Keccak256(nil)

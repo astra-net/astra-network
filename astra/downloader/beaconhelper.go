@@ -3,8 +3,8 @@ package downloader
 import (
 	"time"
 
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/internal/utils"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/internal/utils"
 	"github.com/rs/zerolog"
 )
 

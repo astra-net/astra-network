@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"sort"
 
-	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/astra-network/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/astra-net/AstraNetwork/crypto/hash"
-	"github.com/astra-net/AstraNetwork/numeric"
+	"github.com/astra-net/astra-network/crypto/hash"
+	"github.com/astra-net/astra-network/numeric"
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/sha3"
 )

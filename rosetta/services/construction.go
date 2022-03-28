@@ -10,11 +10,11 @@ import (
 	ethCommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	"github.com/astra-net/AstraNetwork/astra"
-	"github.com/astra-net/AstraNetwork/common/denominations"
-	astraTypes "github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/rosetta/common"
-	stakingTypes "github.com/astra-net/AstraNetwork/staking/types"
+	"github.com/astra-net/astra-network/astra"
+	"github.com/astra-net/astra-network/common/denominations"
+	astraTypes "github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/rosetta/common"
+	stakingTypes "github.com/astra-net/astra-network/staking/types"
 )
 
 const (

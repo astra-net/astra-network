@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/astra-net/AstraNetwork/core/types"
-	astratypes "github.com/astra-net/AstraNetwork/core/types"
+	"github.com/astra-net/astra-network/core/types"
+	astratypes "github.com/astra-net/astra-network/core/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"

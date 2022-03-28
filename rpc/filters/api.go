@@ -6,10 +6,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/astra-net/AstraNetwork/block"
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/eth/rpc"
-	astra_rpc "github.com/astra-net/AstraNetwork/rpc"
+	"github.com/astra-net/astra-network/block"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/eth/rpc"
+	astra_rpc "github.com/astra-net/astra-network/rpc"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
 )

@@ -17,11 +17,11 @@
 package core
 
 import (
-	"github.com/astra-net/AstraNetwork/consensus/reward"
-	"github.com/astra-net/AstraNetwork/core/state"
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/core/vm"
-	stakingTypes "github.com/astra-net/AstraNetwork/staking/types"
+	"github.com/astra-net/astra-network/consensus/reward"
+	"github.com/astra-net/astra-network/core/state"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/core/vm"
+	stakingTypes "github.com/astra-net/astra-network/staking/types"
 )
 
 // Validator is an interface which defines the standard for block validation. It

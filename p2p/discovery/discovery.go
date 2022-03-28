@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/astra-net/AstraNetwork/internal/utils"
+	"github.com/astra-net/astra-network/internal/utils"
 	"github.com/libp2p/go-libp2p-core/discovery"
 	libp2p_host "github.com/libp2p/go-libp2p-core/host"
 	libp2p_peer "github.com/libp2p/go-libp2p-core/peer"

@@ -6,7 +6,7 @@ import (
 
 	"github.com/coinbase/rosetta-sdk-go/types"
 
-	"github.com/astra-net/AstraNetwork/rosetta/common"
+	"github.com/astra-net/astra-network/rosetta/common"
 	"github.com/pkg/errors"
 )
 
@@ -285,8 +285,8 @@ func getCreateValidatorOperationComponents(
 	}
 
 	// slot public key would be add into
-	// https://github.com/astra-net/AstraNetwork/blob/3a8125666817149eaf9cea7870735e26cfe49c87/rosetta/services/tx_construction.go#L16
-	// see https://github.com/astra-net/AstraNetwork/issues/3431
+	// https://github.com/astra-net/astra-network/blob/3a8125666817149eaf9cea7870735e26cfe49c87/rosetta/services/tx_construction.go#L16
+	// see https://github.com/astra-net/astra-network/issues/3431
 
 	components := &OperationComponents{
 		Type:           operation.Type,

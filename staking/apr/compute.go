@@ -3,15 +3,15 @@ package apr
 import (
 	"math/big"
 
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/shard"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/shard"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/astra-net/AstraNetwork/block"
-	"github.com/astra-net/AstraNetwork/internal/params"
-	"github.com/astra-net/AstraNetwork/internal/utils"
-	"github.com/astra-net/AstraNetwork/numeric"
-	staking "github.com/astra-net/AstraNetwork/staking/types"
+	"github.com/astra-net/astra-network/block"
+	"github.com/astra-net/astra-network/internal/params"
+	"github.com/astra-net/astra-network/internal/utils"
+	"github.com/astra-net/astra-network/numeric"
+	staking "github.com/astra-net/astra-network/staking/types"
 	"github.com/pkg/errors"
 )
 

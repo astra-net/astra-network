@@ -4,10 +4,10 @@ import (
 	"sort"
 	"time"
 
-	shardingconfig "github.com/astra-net/AstraNetwork/internal/configs/sharding"
-	"github.com/astra-net/AstraNetwork/internal/utils"
-	"github.com/astra-net/AstraNetwork/numeric"
-	"github.com/astra-net/AstraNetwork/shard"
+	shardingconfig "github.com/astra-net/astra-network/internal/configs/sharding"
+	"github.com/astra-net/astra-network/internal/utils"
+	"github.com/astra-net/astra-network/numeric"
+	"github.com/astra-net/astra-network/shard"
 )
 
 type pair struct {

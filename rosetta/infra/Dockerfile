@@ -12,7 +12,7 @@ RUN mkdir -p $ASTRA_PATH
 
 WORKDIR $ASTRA_PATH
 
-RUN git clone https://github.com/astra-net/AstraNetwork.git && \
+RUN git clone https://github.com/astra-net/astra-network.git && \
     git clone https://github.com/astra-net/bls.git && \
     git clone https://github.com/astra-net/mcl.git
 

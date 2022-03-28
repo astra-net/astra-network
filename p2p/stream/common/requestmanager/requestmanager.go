@@ -9,9 +9,9 @@ import (
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
 
-	"github.com/astra-net/AstraNetwork/internal/utils"
-	"github.com/astra-net/AstraNetwork/p2p/stream/common/streammanager"
-	sttypes "github.com/astra-net/AstraNetwork/p2p/stream/types"
+	"github.com/astra-net/astra-network/internal/utils"
+	"github.com/astra-net/astra-network/p2p/stream/common/streammanager"
+	sttypes "github.com/astra-net/astra-network/p2p/stream/types"
 	"github.com/ethereum/go-ethereum/event"
 )
 

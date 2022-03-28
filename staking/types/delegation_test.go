@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	common "github.com/ethereum/go-ethereum/common"
-	common2 "github.com/astra-net/AstraNetwork/internal/common"
+	common2 "github.com/astra-net/astra-network/internal/common"
 )
 
 var (

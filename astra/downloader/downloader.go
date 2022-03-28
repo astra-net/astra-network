@@ -9,15 +9,15 @@ import (
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
 
-	"github.com/astra-net/AstraNetwork/core"
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/crypto/bls"
-	"github.com/astra-net/AstraNetwork/internal/chain"
-	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
-	"github.com/astra-net/AstraNetwork/internal/utils"
-	"github.com/astra-net/AstraNetwork/p2p"
-	"github.com/astra-net/AstraNetwork/p2p/stream/common/streammanager"
-	"github.com/astra-net/AstraNetwork/p2p/stream/protocols/sync"
+	"github.com/astra-net/astra-network/core"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/crypto/bls"
+	"github.com/astra-net/astra-network/internal/chain"
+	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
+	"github.com/astra-net/astra-network/internal/utils"
+	"github.com/astra-net/astra-network/p2p"
+	"github.com/astra-net/astra-network/p2p/stream/common/streammanager"
+	"github.com/astra-net/astra-network/p2p/stream/protocols/sync"
 )
 
 type (

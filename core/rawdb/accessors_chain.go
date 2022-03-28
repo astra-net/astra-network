@@ -21,9 +21,9 @@ import (
 	"encoding/binary"
 	"math/big"
 
-	"github.com/astra-net/AstraNetwork/block"
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/internal/utils"
+	"github.com/astra-net/astra-network/block"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/internal/utils"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
 )

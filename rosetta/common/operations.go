@@ -6,8 +6,8 @@ import (
 
 	"github.com/coinbase/rosetta-sdk-go/types"
 
-	rpcV2 "github.com/astra-net/AstraNetwork/rpc/v2"
-	staking "github.com/astra-net/AstraNetwork/staking/types"
+	rpcV2 "github.com/astra-net/astra-network/rpc/v2"
+	staking "github.com/astra-net/astra-network/staking/types"
 )
 
 const (

@@ -3,10 +3,10 @@ package common
 import (
 	"encoding/json"
 
-	astraconfig "github.com/astra-net/AstraNetwork/internal/configs/astra"
-	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
+	astraconfig "github.com/astra-net/astra-network/internal/configs/astra"
+	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
 
-	"github.com/astra-net/AstraNetwork/internal/params"
+	"github.com/astra-net/astra-network/internal/params"
 	"github.com/libp2p/go-libp2p-core/peer"
 )
 

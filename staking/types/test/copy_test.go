@@ -7,11 +7,11 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/astra-network/crypto/bls"
 
-	"github.com/astra-net/AstraNetwork/numeric"
-	"github.com/astra-net/AstraNetwork/staking/effective"
-	staking "github.com/astra-net/AstraNetwork/staking/types"
+	"github.com/astra-net/astra-network/numeric"
+	"github.com/astra-net/astra-network/staking/effective"
+	staking "github.com/astra-net/astra-network/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 )
 

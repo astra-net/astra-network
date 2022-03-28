@@ -3,8 +3,8 @@ package rpc
 import (
 	"context"
 
-	"github.com/astra-net/AstraNetwork/eth/rpc"
-	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
+	"github.com/astra-net/astra-network/eth/rpc"
+	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
 )
 
 // PublicWeb3Service offers web3 related RPC methods

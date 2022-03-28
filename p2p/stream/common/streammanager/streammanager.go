@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/astra-net/AstraNetwork/internal/utils"
-	sttypes "github.com/astra-net/AstraNetwork/p2p/stream/types"
+	"github.com/astra-net/astra-network/internal/utils"
+	sttypes "github.com/astra-net/astra-network/p2p/stream/types"
 	"github.com/ethereum/go-ethereum/event"
 	"github.com/harmony-one/abool"
 	"github.com/libp2p/go-libp2p-core/network"

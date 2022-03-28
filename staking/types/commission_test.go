@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/astra-net/AstraNetwork/numeric"
+	"github.com/astra-net/astra-network/numeric"
 )
 
 var (

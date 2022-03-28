@@ -3,8 +3,8 @@ package downloader
 import (
 	"time"
 
-	"github.com/astra-net/AstraNetwork/core/types"
-	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
+	"github.com/astra-net/astra-network/core/types"
+	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
 )
 
 const (

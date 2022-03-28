@@ -6,12 +6,12 @@ import (
 
 	protobuf "github.com/golang/protobuf/proto"
 
-	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/astra-network/crypto/bls"
 
-	"github.com/astra-net/AstraNetwork/api/proto"
-	msg_pb "github.com/astra-net/AstraNetwork/api/proto/message"
-	"github.com/astra-net/AstraNetwork/consensus/quorum"
-	"github.com/astra-net/AstraNetwork/internal/utils"
+	"github.com/astra-net/astra-network/api/proto"
+	msg_pb "github.com/astra-net/astra-network/api/proto/message"
+	"github.com/astra-net/astra-network/consensus/quorum"
+	"github.com/astra-net/astra-network/internal/utils"
 	bls_core "github.com/astra-net/bls/ffi/go/bls"
 )
 

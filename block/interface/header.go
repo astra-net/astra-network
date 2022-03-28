@@ -7,7 +7,7 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/rs/zerolog"
 
-	"github.com/astra-net/AstraNetwork/shard"
+	"github.com/astra-net/astra-network/shard"
 )
 
 // Header defines the block header interface.

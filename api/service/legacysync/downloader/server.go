@@ -5,8 +5,8 @@ import (
 	"net"
 	"strconv"
 
-	pb "github.com/astra-net/AstraNetwork/api/service/legacysync/downloader/proto"
-	"github.com/astra-net/AstraNetwork/internal/utils"
+	pb "github.com/astra-net/astra-network/api/service/legacysync/downloader/proto"
+	"github.com/astra-net/astra-network/internal/utils"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/peer"

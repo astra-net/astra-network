@@ -10,10 +10,10 @@ import (
 	"testing"
 
 	bls_core "github.com/astra-net/bls/ffi/go/bls"
-	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/astra-network/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/astra-net/AstraNetwork/numeric"
+	"github.com/astra-net/astra-network/numeric"
 )
 
 const eposTestingFile = "epos.json"

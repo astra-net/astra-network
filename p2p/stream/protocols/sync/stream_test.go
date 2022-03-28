@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	syncpb "github.com/astra-net/AstraNetwork/p2p/stream/protocols/sync/message"
-	sttypes "github.com/astra-net/AstraNetwork/p2p/stream/types"
+	syncpb "github.com/astra-net/astra-network/p2p/stream/protocols/sync/message"
+	sttypes "github.com/astra-net/astra-network/p2p/stream/types"
 	"github.com/ethereum/go-ethereum/common"
 	protobuf "github.com/golang/protobuf/proto"
 	ic "github.com/libp2p/go-libp2p-core/crypto"

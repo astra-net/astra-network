@@ -4,16 +4,16 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/astra-net/AstraNetwork/block"
-	"github.com/astra-net/AstraNetwork/consensus/reward"
-	"github.com/astra-net/AstraNetwork/core/state"
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/crypto/bls"
-	"github.com/astra-net/AstraNetwork/internal/params"
-	"github.com/astra-net/AstraNetwork/shard"
-	"github.com/astra-net/AstraNetwork/shard/committee"
-	"github.com/astra-net/AstraNetwork/staking/slash"
-	staking "github.com/astra-net/AstraNetwork/staking/types"
+	"github.com/astra-net/astra-network/block"
+	"github.com/astra-net/astra-network/consensus/reward"
+	"github.com/astra-net/astra-network/core/state"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/crypto/bls"
+	"github.com/astra-net/astra-network/internal/params"
+	"github.com/astra-net/astra-network/shard"
+	"github.com/astra-net/astra-network/shard/committee"
+	"github.com/astra-net/astra-network/staking/slash"
+	staking "github.com/astra-net/astra-network/staking/types"
 )
 
 // ChainReader defines a collection of methods needed to access the local

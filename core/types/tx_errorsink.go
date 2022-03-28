@@ -5,8 +5,8 @@ import (
 
 	lru "github.com/hashicorp/golang-lru"
 
-	"github.com/astra-net/AstraNetwork/internal/utils"
-	staking "github.com/astra-net/AstraNetwork/staking/types"
+	"github.com/astra-net/astra-network/internal/utils"
+	staking "github.com/astra-net/astra-network/staking/types"
 )
 
 const (

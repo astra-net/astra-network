@@ -6,10 +6,10 @@ import (
 	"math/big"
 	"sort"
 
-	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/astra-network/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/astra-net/AstraNetwork/numeric"
+	"github.com/astra-net/astra-network/numeric"
 )
 
 // medium.com/harmony-one/introducing-astras-effective-proof-of-stake-epos-2d39b4b8d58

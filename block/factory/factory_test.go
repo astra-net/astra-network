@@ -4,7 +4,7 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/astra-net/AstraNetwork/internal/params"
+	"github.com/astra-net/astra-network/internal/params"
 )
 
 func Test_factory_NewHeader(t *testing.T) {

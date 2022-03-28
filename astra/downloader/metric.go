@@ -3,7 +3,7 @@ package downloader
 import (
 	"fmt"
 
-	prom "github.com/astra-net/AstraNetwork/api/service/prometheus"
+	prom "github.com/astra-net/astra-network/api/service/prometheus"
 	"github.com/prometheus/client_golang/prometheus"
 )
 

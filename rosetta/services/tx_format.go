@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/astra-net/AstraNetwork/astra/tracers"
+	"github.com/astra-net/astra-network/astra/tracers"
 
 	"github.com/coinbase/rosetta-sdk-go/types"
 	ethcommon "github.com/ethereum/go-ethereum/common"
 
-	astratypes "github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/rosetta/common"
-	stakingTypes "github.com/astra-net/AstraNetwork/staking/types"
+	astratypes "github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/rosetta/common"
+	stakingTypes "github.com/astra-net/astra-network/staking/types"
 )
 
 var (

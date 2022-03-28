@@ -7,22 +7,22 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/astra-net/AstraNetwork/internal/params"
+	"github.com/astra-net/astra-network/internal/params"
 
 	"github.com/ethereum/go-ethereum/core/rawdb"
 
-	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/astra-network/crypto/bls"
 
-	"github.com/astra-net/AstraNetwork/block"
-	consensus_engine "github.com/astra-net/AstraNetwork/consensus/engine"
-	"github.com/astra-net/AstraNetwork/core/state"
-	"github.com/astra-net/AstraNetwork/core/vm"
-	"github.com/astra-net/AstraNetwork/crypto/hash"
-	"github.com/astra-net/AstraNetwork/numeric"
-	"github.com/astra-net/AstraNetwork/shard"
-	"github.com/astra-net/AstraNetwork/staking/effective"
-	staking "github.com/astra-net/AstraNetwork/staking/types"
-	staketest "github.com/astra-net/AstraNetwork/staking/types/test"
+	"github.com/astra-net/astra-network/block"
+	consensus_engine "github.com/astra-net/astra-network/consensus/engine"
+	"github.com/astra-net/astra-network/core/state"
+	"github.com/astra-net/astra-network/core/vm"
+	"github.com/astra-net/astra-network/crypto/hash"
+	"github.com/astra-net/astra-network/numeric"
+	"github.com/astra-net/astra-network/shard"
+	"github.com/astra-net/astra-network/staking/effective"
+	staking "github.com/astra-net/astra-network/staking/types"
+	staketest "github.com/astra-net/astra-network/staking/types/test"
 	"github.com/ethereum/go-ethereum/common"
 )
 

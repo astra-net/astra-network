@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/astra-net/AstraNetwork/internal/utils"
+	"github.com/astra-net/astra-network/internal/utils"
 )
 
 const genesisString = "https://astranetwork.com 'Gaming Chain' 2022.03.01 $Astra"

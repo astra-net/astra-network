@@ -22,16 +22,16 @@ import (
 
 	"github.com/ethereum/go-ethereum/core/rawdb"
 
-	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/astra-network/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	blockfactory "github.com/astra-net/AstraNetwork/block/factory"
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/crypto/hash"
-	"github.com/astra-net/AstraNetwork/numeric"
-	staking "github.com/astra-net/AstraNetwork/staking/types"
+	blockfactory "github.com/astra-net/astra-network/block/factory"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/crypto/hash"
+	"github.com/astra-net/astra-network/numeric"
+	staking "github.com/astra-net/astra-network/staking/types"
 	bls_core "github.com/astra-net/bls/ffi/go/bls"
 )
 

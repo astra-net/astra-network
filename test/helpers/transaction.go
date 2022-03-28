@@ -8,9 +8,9 @@ import (
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	astratypes "github.com/astra-net/AstraNetwork/core/types"
-	rpcV2 "github.com/astra-net/AstraNetwork/rpc/v2"
-	stakingTypes "github.com/astra-net/AstraNetwork/staking/types"
+	astratypes "github.com/astra-net/astra-network/core/types"
+	rpcV2 "github.com/astra-net/astra-network/rpc/v2"
+	stakingTypes "github.com/astra-net/astra-network/staking/types"
 )
 
 // CreateTestStakingTransaction creates a pre-signed staking transaction

@@ -27,12 +27,12 @@ import (
 	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/pkg/errors"
 
-	"github.com/astra-net/AstraNetwork/block"
-	consensus_engine "github.com/astra-net/AstraNetwork/consensus/engine"
-	"github.com/astra-net/AstraNetwork/core/state"
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/crypto/bls"
-	"github.com/astra-net/AstraNetwork/internal/params"
+	"github.com/astra-net/astra-network/block"
+	consensus_engine "github.com/astra-net/astra-network/consensus/engine"
+	"github.com/astra-net/astra-network/core/state"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/crypto/bls"
+	"github.com/astra-net/astra-network/internal/params"
 )
 
 // BlockValidator is responsible for validating block headers, uncles and

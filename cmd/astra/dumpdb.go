@@ -10,20 +10,20 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/astra-net/AstraNetwork/astra"
-	"github.com/astra-net/AstraNetwork/block"
-	"github.com/astra-net/AstraNetwork/core/rawdb"
-	"github.com/astra-net/AstraNetwork/core/state"
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/internal/cli"
+	"github.com/astra-net/astra-network/astra"
+	"github.com/astra-net/astra-network/block"
+	"github.com/astra-net/astra-network/core/rawdb"
+	"github.com/astra-net/astra-network/core/state"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/internal/cli"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethRawDB "github.com/ethereum/go-ethereum/core/rawdb"
 	"github.com/ethereum/go-ethereum/ethdb"
 	"github.com/ethereum/go-ethereum/params"
 
-	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
-	shardingconfig "github.com/astra-net/AstraNetwork/internal/configs/sharding"
+	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
+	shardingconfig "github.com/astra-net/astra-network/internal/configs/sharding"
 )
 
 var batchFlag = cli.IntFlag{

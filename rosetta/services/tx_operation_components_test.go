@@ -4,9 +4,9 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/astra-net/AstraNetwork/crypto/bls"
-	internalCommon "github.com/astra-net/AstraNetwork/internal/common"
-	"github.com/astra-net/AstraNetwork/rosetta/common"
+	"github.com/astra-net/astra-network/crypto/bls"
+	internalCommon "github.com/astra-net/astra-network/internal/common"
+	"github.com/astra-net/astra-network/rosetta/common"
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/ethereum/go-ethereum/crypto"
 )

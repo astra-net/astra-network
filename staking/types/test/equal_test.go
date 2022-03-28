@@ -3,7 +3,7 @@ package staketest
 import (
 	"testing"
 
-	staking "github.com/astra-net/AstraNetwork/staking/types"
+	staking "github.com/astra-net/astra-network/staking/types"
 )
 
 func TestCheckValidatorWrapperEqual(t *testing.T) {

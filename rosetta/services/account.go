@@ -5,17 +5,17 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/astra-net/AstraNetwork/core/vm"
+	"github.com/astra-net/astra-network/core/vm"
 
 	"github.com/coinbase/rosetta-sdk-go/server"
 	"github.com/coinbase/rosetta-sdk-go/types"
 	ethCommon "github.com/ethereum/go-ethereum/common"
 
-	"github.com/astra-net/AstraNetwork/astra"
-	astraTypes "github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/eth/rpc"
-	internalCommon "github.com/astra-net/AstraNetwork/internal/common"
-	"github.com/astra-net/AstraNetwork/rosetta/common"
+	"github.com/astra-net/astra-network/astra"
+	astraTypes "github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/eth/rpc"
+	internalCommon "github.com/astra-net/astra-network/internal/common"
+	"github.com/astra-net/astra-network/rosetta/common"
 )
 
 // AccountAPI implements the server.AccountAPIServicer interface.

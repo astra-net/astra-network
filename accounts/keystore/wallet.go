@@ -19,8 +19,8 @@ package keystore
 import (
 	"math/big"
 
-	"github.com/astra-net/AstraNetwork/accounts"
-	"github.com/astra-net/AstraNetwork/core/types"
+	"github.com/astra-net/astra-network/accounts"
+	"github.com/astra-net/astra-network/core/types"
 	ethereum "github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/crypto"
 )

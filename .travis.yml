@@ -3,7 +3,7 @@ dist: bionic
 language: go
 go:
   - 1.16
-go_import_path: github.com/astra-net/AstraNetwork
+go_import_path: github.com/astra-net/astra-network
 cache:
   directories:
     - docker_images
@@ -14,7 +14,7 @@ env:
   - TEST="bash ./scripts/travis_rosetta_checker.sh"
 install:
   # default working directory with source code is automatically set to
-  #   /home/travis/gopath/src/github.com/astra-net/AstraNetwork
+  #   /home/travis/gopath/src/github.com/astra-net/astra-network
   # https://docs.travis-ci.com/user/languages/go/#go-import-path
   - git clone https://github.com/astra-net/mcl.git $HOME/gopath/src/github.com/astra-net/mcl
   - git clone https://github.com/astra-net/bls.git $HOME/gopath/src/github.com/astra-net/bls

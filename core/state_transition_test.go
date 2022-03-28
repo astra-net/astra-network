@@ -6,9 +6,9 @@ import (
 	"math"
 	"testing"
 
-	"github.com/astra-net/AstraNetwork/core/vm"
-	"github.com/astra-net/AstraNetwork/internal/params"
-	staking "github.com/astra-net/AstraNetwork/staking/types"
+	"github.com/astra-net/astra-network/core/vm"
+	"github.com/astra-net/astra-network/internal/params"
+	staking "github.com/astra-net/astra-network/staking/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/pkg/errors"
 )

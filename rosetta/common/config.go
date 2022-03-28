@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	shardingconfig "github.com/astra-net/AstraNetwork/internal/configs/sharding"
-	"github.com/astra-net/AstraNetwork/shard"
+	shardingconfig "github.com/astra-net/astra-network/internal/configs/sharding"
+	"github.com/astra-net/astra-network/shard"
 	"github.com/coinbase/rosetta-sdk-go/types"
 )
 

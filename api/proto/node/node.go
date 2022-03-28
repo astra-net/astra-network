@@ -5,13 +5,13 @@ import (
 	"log"
 
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/astra-net/AstraNetwork/api/proto"
-	"github.com/astra-net/AstraNetwork/block"
-	"github.com/astra-net/AstraNetwork/consensus/engine"
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/internal/utils"
-	"github.com/astra-net/AstraNetwork/staking/slash"
-	staking "github.com/astra-net/AstraNetwork/staking/types"
+	"github.com/astra-net/astra-network/api/proto"
+	"github.com/astra-net/astra-network/block"
+	"github.com/astra-net/astra-network/consensus/engine"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/internal/utils"
+	"github.com/astra-net/astra-network/staking/slash"
+	staking "github.com/astra-net/astra-network/staking/types"
 )
 
 // MessageType is to indicate the specific type of message under Node category

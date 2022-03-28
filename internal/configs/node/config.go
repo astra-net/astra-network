@@ -10,12 +10,12 @@ import (
 	"sync"
 
 	bls_core "github.com/astra-net/bls/ffi/go/bls"
-	"github.com/astra-net/AstraNetwork/crypto/bls"
-	shardingconfig "github.com/astra-net/AstraNetwork/internal/configs/sharding"
-	"github.com/astra-net/AstraNetwork/internal/params"
-	"github.com/astra-net/AstraNetwork/multibls"
-	"github.com/astra-net/AstraNetwork/shard"
-	"github.com/astra-net/AstraNetwork/webhooks"
+	"github.com/astra-net/astra-network/crypto/bls"
+	shardingconfig "github.com/astra-net/astra-network/internal/configs/sharding"
+	"github.com/astra-net/astra-network/internal/params"
+	"github.com/astra-net/astra-network/multibls"
+	"github.com/astra-net/astra-network/shard"
+	"github.com/astra-net/astra-network/webhooks"
 	p2p_crypto "github.com/libp2p/go-libp2p-core/crypto"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/pkg/errors"
@@ -68,7 +68,7 @@ var peerID peer.ID // PeerID of the node
 
 // ConfigType is the structure of all node related configuration variables
 type ConfigType struct {
-	// The three groupID design, please refer to https://github.com/astra-net/AstraNetwork/blob/master/node/node.md#libp2p-integration
+	// The three groupID design, please refer to https://github.com/astra-net/astra-network/blob/master/node/node.md#libp2p-integration
 	beacon          GroupID             // the beacon group ID
 	group           GroupID             // the group ID of the shard (note: for beacon chain node, the beacon and shard group are the same)
 	client          GroupID             // the client group ID of the shard

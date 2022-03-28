@@ -26,7 +26,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/astra-net/AstraNetwork/accounts"
+	"github.com/astra-net/astra-network/accounts"
 	"github.com/cespare/cp"
 	"github.com/ethereum/go-ethereum/common"
 )

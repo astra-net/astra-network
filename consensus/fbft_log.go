@@ -10,10 +10,10 @@ import (
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
 
-	msg_pb "github.com/astra-net/AstraNetwork/api/proto/message"
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/crypto/bls"
-	bls_cosi "github.com/astra-net/AstraNetwork/crypto/bls"
+	msg_pb "github.com/astra-net/astra-network/api/proto/message"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/crypto/bls"
+	bls_cosi "github.com/astra-net/astra-network/crypto/bls"
 )
 
 // FBFTMessage is the record of pbft messages received by a node during FBFT process

@@ -7,7 +7,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	sttypes "github.com/astra-net/AstraNetwork/p2p/stream/types"
+	sttypes "github.com/astra-net/astra-network/p2p/stream/types"
 	"github.com/libp2p/go-libp2p-core/network"
 	libp2p_peer "github.com/libp2p/go-libp2p-core/peer"
 	"github.com/libp2p/go-libp2p-core/protocol"

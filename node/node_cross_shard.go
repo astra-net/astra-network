@@ -1,13 +1,13 @@
 package node
 
 import (
-	proto_node "github.com/astra-net/AstraNetwork/api/proto/node"
-	"github.com/astra-net/AstraNetwork/core"
-	"github.com/astra-net/AstraNetwork/core/types"
-	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
-	"github.com/astra-net/AstraNetwork/internal/utils"
-	"github.com/astra-net/AstraNetwork/p2p"
-	"github.com/astra-net/AstraNetwork/shard"
+	proto_node "github.com/astra-net/astra-network/api/proto/node"
+	"github.com/astra-net/astra-network/core"
+	"github.com/astra-net/astra-network/core/types"
+	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
+	"github.com/astra-net/astra-network/internal/utils"
+	"github.com/astra-net/astra-network/p2p"
+	"github.com/astra-net/astra-network/shard"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/pkg/errors"

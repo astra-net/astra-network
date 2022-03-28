@@ -1,4 +1,4 @@
-module github.com/astra-net/AstraNetwork
+module github.com/astra-net/astra-network
 
 go 1.16
 

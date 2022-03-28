@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/astra-net/AstraNetwork/accounts/abi"
-	stakingTypes "github.com/astra-net/AstraNetwork/staking/types"
+	"github.com/astra-net/astra-network/accounts/abi"
+	stakingTypes "github.com/astra-net/astra-network/staking/types"
 	"github.com/pkg/errors"
 )
 

@@ -27,9 +27,9 @@ import (
 	"os"
 	"strings"
 
-	blockfactory "github.com/astra-net/AstraNetwork/block/factory"
-	"github.com/astra-net/AstraNetwork/internal/params"
-	"github.com/astra-net/AstraNetwork/staking/slash"
+	blockfactory "github.com/astra-net/astra-network/block/factory"
+	"github.com/astra-net/astra-network/internal/params"
+	"github.com/astra-net/astra-network/staking/slash"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/common/math"
@@ -37,14 +37,14 @@ import (
 	"github.com/ethereum/go-ethereum/ethdb"
 	"github.com/ethereum/go-ethereum/rlp"
 
-	"github.com/astra-net/AstraNetwork/common/denominations"
-	"github.com/astra-net/AstraNetwork/core/rawdb"
-	"github.com/astra-net/AstraNetwork/core/state"
-	"github.com/astra-net/AstraNetwork/core/types"
-	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
-	shardingconfig "github.com/astra-net/AstraNetwork/internal/configs/sharding"
-	"github.com/astra-net/AstraNetwork/internal/utils"
-	"github.com/astra-net/AstraNetwork/shard"
+	"github.com/astra-net/astra-network/common/denominations"
+	"github.com/astra-net/astra-network/core/rawdb"
+	"github.com/astra-net/astra-network/core/state"
+	"github.com/astra-net/astra-network/core/types"
+	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
+	shardingconfig "github.com/astra-net/astra-network/internal/configs/sharding"
+	"github.com/astra-net/astra-network/internal/utils"
+	"github.com/astra-net/astra-network/shard"
 )
 
 // no go:generate gencodec -type Genesis -field-override genesisSpecMarshaling -out gen_genesis.go

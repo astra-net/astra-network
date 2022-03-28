@@ -20,7 +20,7 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
-	stk "github.com/astra-net/AstraNetwork/staking/types"
+	stk "github.com/astra-net/astra-network/staking/types"
 )
 
 // journalEntry is a modification entry in the state change journal that can be

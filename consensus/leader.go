@@ -3,15 +3,15 @@ package consensus
 import (
 	"time"
 
-	"github.com/astra-net/AstraNetwork/crypto/bls"
-	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
+	"github.com/astra-net/astra-network/crypto/bls"
+	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
 
-	"github.com/astra-net/AstraNetwork/consensus/signature"
+	"github.com/astra-net/astra-network/consensus/signature"
 
-	msg_pb "github.com/astra-net/AstraNetwork/api/proto/message"
-	"github.com/astra-net/AstraNetwork/consensus/quorum"
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/p2p"
+	msg_pb "github.com/astra-net/astra-network/api/proto/message"
+	"github.com/astra-net/astra-network/consensus/quorum"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/p2p"
 	bls_core "github.com/astra-net/bls/ffi/go/bls"
 	"github.com/ethereum/go-ethereum/rlp"
 )

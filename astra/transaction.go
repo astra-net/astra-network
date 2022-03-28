@@ -3,10 +3,10 @@ package astra
 import (
 	"context"
 
-	"github.com/astra-net/AstraNetwork/core"
-	"github.com/astra-net/AstraNetwork/core/rawdb"
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/eth/rpc"
+	"github.com/astra-net/astra-network/core"
+	"github.com/astra-net/astra-network/core/rawdb"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/eth/rpc"
 	"github.com/ethereum/go-ethereum/common"
 )
 

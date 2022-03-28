@@ -7,11 +7,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/astra-net/AstraNetwork/block"
-	headerV3 "github.com/astra-net/AstraNetwork/block/v3"
-	"github.com/astra-net/AstraNetwork/core/types"
-	bls_cosi "github.com/astra-net/AstraNetwork/crypto/bls"
-	sttypes "github.com/astra-net/AstraNetwork/p2p/stream/types"
+	"github.com/astra-net/astra-network/block"
+	headerV3 "github.com/astra-net/astra-network/block/v3"
+	"github.com/astra-net/astra-network/core/types"
+	bls_cosi "github.com/astra-net/astra-network/crypto/bls"
+	sttypes "github.com/astra-net/astra-network/p2p/stream/types"
 )
 
 func TestResultQueue_AddBlockResults(t *testing.T) {

@@ -3,9 +3,9 @@ package staketest
 import (
 	"math/big"
 
-	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/astra-network/crypto/bls"
 
-	staking "github.com/astra-net/AstraNetwork/staking/types"
+	staking "github.com/astra-net/astra-network/staking/types"
 )
 
 // CopyValidatorWrapper deep copies staking.ValidatorWrapper

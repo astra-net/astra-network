@@ -24,11 +24,11 @@ import (
 	"github.com/rs/zerolog"
 
 	"github.com/astra-net/bls/ffi/go/bls"
-	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
-	"github.com/astra-net/AstraNetwork/internal/utils"
-	"github.com/astra-net/AstraNetwork/p2p/discovery"
-	"github.com/astra-net/AstraNetwork/p2p/security"
-	sttypes "github.com/astra-net/AstraNetwork/p2p/stream/types"
+	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
+	"github.com/astra-net/astra-network/internal/utils"
+	"github.com/astra-net/astra-network/p2p/discovery"
+	"github.com/astra-net/astra-network/p2p/security"
+	sttypes "github.com/astra-net/astra-network/p2p/stream/types"
 )
 
 type ConnectCallback func(net libp2p_network.Network, conn libp2p_network.Conn) error

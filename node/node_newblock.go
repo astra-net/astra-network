@@ -6,16 +6,16 @@ import (
 	"strings"
 	"time"
 
-	"github.com/astra-net/AstraNetwork/consensus"
+	"github.com/astra-net/astra-network/consensus"
 
-	"github.com/astra-net/AstraNetwork/crypto/bls"
+	"github.com/astra-net/astra-network/crypto/bls"
 
-	staking "github.com/astra-net/AstraNetwork/staking/types"
+	staking "github.com/astra-net/astra-network/staking/types"
 
-	"github.com/astra-net/AstraNetwork/core/rawdb"
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/internal/utils"
-	"github.com/astra-net/AstraNetwork/shard"
+	"github.com/astra-net/astra-network/core/rawdb"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/internal/utils"
+	"github.com/astra-net/astra-network/shard"
 	"github.com/ethereum/go-ethereum/common"
 )
 

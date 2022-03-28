@@ -5,11 +5,11 @@ import (
 	"os"
 	"sync"
 
-	astraconfig "github.com/astra-net/AstraNetwork/internal/configs/astra"
+	astraconfig "github.com/astra-net/astra-network/internal/configs/astra"
 
-	"github.com/astra-net/AstraNetwork/internal/blsgen"
-	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
-	"github.com/astra-net/AstraNetwork/multibls"
+	"github.com/astra-net/astra-network/internal/blsgen"
+	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
+	"github.com/astra-net/astra-network/multibls"
 )
 
 var (

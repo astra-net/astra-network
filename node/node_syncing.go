@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	prom "github.com/astra-net/AstraNetwork/api/service/prometheus"
+	prom "github.com/astra-net/astra-network/api/service/prometheus"
 	"github.com/prometheus/client_golang/prometheus"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -16,19 +16,19 @@ import (
 	lru "github.com/hashicorp/golang-lru"
 	"github.com/pkg/errors"
 
-	"github.com/astra-net/AstraNetwork/api/service"
-	"github.com/astra-net/AstraNetwork/api/service/legacysync"
-	legdownloader "github.com/astra-net/AstraNetwork/api/service/legacysync/downloader"
-	downloader_pb "github.com/astra-net/AstraNetwork/api/service/legacysync/downloader/proto"
-	"github.com/astra-net/AstraNetwork/api/service/synchronize"
-	"github.com/astra-net/AstraNetwork/astra/downloader"
-	"github.com/astra-net/AstraNetwork/core"
-	"github.com/astra-net/AstraNetwork/core/types"
-	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
-	"github.com/astra-net/AstraNetwork/internal/utils"
-	"github.com/astra-net/AstraNetwork/node/worker"
-	"github.com/astra-net/AstraNetwork/p2p"
-	"github.com/astra-net/AstraNetwork/shard"
+	"github.com/astra-net/astra-network/api/service"
+	"github.com/astra-net/astra-network/api/service/legacysync"
+	legdownloader "github.com/astra-net/astra-network/api/service/legacysync/downloader"
+	downloader_pb "github.com/astra-net/astra-network/api/service/legacysync/downloader/proto"
+	"github.com/astra-net/astra-network/api/service/synchronize"
+	"github.com/astra-net/astra-network/astra/downloader"
+	"github.com/astra-net/astra-network/core"
+	"github.com/astra-net/astra-network/core/types"
+	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
+	"github.com/astra-net/astra-network/internal/utils"
+	"github.com/astra-net/astra-network/node/worker"
+	"github.com/astra-net/astra-network/p2p"
+	"github.com/astra-net/astra-network/shard"
 )
 
 // Constants related to doing syncing.

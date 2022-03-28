@@ -23,10 +23,10 @@ import (
 	"math/big"
 	"sort"
 
-	staking "github.com/astra-net/AstraNetwork/staking/types"
+	staking "github.com/astra-net/astra-network/staking/types"
 
-	"github.com/astra-net/AstraNetwork/core/types"
-	"github.com/astra-net/AstraNetwork/internal/utils"
+	"github.com/astra-net/astra-network/core/types"
+	"github.com/astra-net/astra-network/internal/utils"
 	"github.com/ethereum/go-ethereum/common"
 )
 

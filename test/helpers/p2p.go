@@ -1,9 +1,9 @@
 package helpers
 
 import (
-	astra_bls "github.com/astra-net/AstraNetwork/crypto/bls"
-	nodeconfig "github.com/astra-net/AstraNetwork/internal/configs/node"
-	"github.com/astra-net/AstraNetwork/p2p"
+	astra_bls "github.com/astra-net/astra-network/crypto/bls"
+	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
+	"github.com/astra-net/astra-network/p2p"
 	"github.com/astra-net/bls/ffi/go/bls"
 	libp2p_crypto "github.com/libp2p/go-libp2p-crypto"
 	"github.com/pkg/errors"

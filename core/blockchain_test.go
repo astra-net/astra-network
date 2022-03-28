@@ -5,8 +5,8 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/astra-net/AstraNetwork/core/types"
-	staking "github.com/astra-net/AstraNetwork/staking/types"
+	"github.com/astra-net/astra-network/core/types"
+	staking "github.com/astra-net/astra-network/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 )

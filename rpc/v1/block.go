@@ -1,8 +1,8 @@
 package v1
 
 import (
-	"github.com/astra-net/AstraNetwork/core/types"
-	rpc_common "github.com/astra-net/AstraNetwork/rpc/common"
+	"github.com/astra-net/astra-network/core/types"
+	rpc_common "github.com/astra-net/astra-network/rpc/common"
 	"github.com/pkg/errors"
 )
 

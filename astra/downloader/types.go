@@ -4,8 +4,8 @@ import (
 	"container/heap"
 	"sync"
 
-	"github.com/astra-net/AstraNetwork/core/types"
-	sttypes "github.com/astra-net/AstraNetwork/p2p/stream/types"
+	"github.com/astra-net/astra-network/core/types"
+	sttypes "github.com/astra-net/astra-network/p2p/stream/types"
 	"github.com/ethereum/go-ethereum/common"
 )
 
