@@ -8,7 +8,6 @@ import (
 
 	"github.com/astra-net/astra-network/crypto/bls"
 
-	"github.com/ethereum/go-ethereum/common"
 	"github.com/astra-net/astra-network/block"
 	"github.com/astra-net/astra-network/core/types"
 	common2 "github.com/astra-net/astra-network/internal/common"
@@ -21,6 +20,7 @@ import (
 	"github.com/astra-net/astra-network/staking/effective"
 	staking "github.com/astra-net/astra-network/staking/types"
 	bls_core "github.com/astra-net/bls/ffi/go/bls"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
 )
 

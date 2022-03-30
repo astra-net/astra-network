@@ -56,9 +56,9 @@ const (
 	// GenesisEpoch is the number of the genesis epoch.
 	GenesisEpoch = 0
 	// GenesisAstraToken is the initial total number of Astra in the genesis block for mainnet.
-	GenesisAstraToken = 12600000000
+	GenesisAstraToken = 1_000_000_000
 	// ContractDeployerInitFund is the initial fund for the contract deployer account in testnet/devnet.
-	ContractDeployerInitFund = 10000000000
+	ContractDeployerInitFund = 100_000_000_000_000
 	// InitFreeFund is the initial fund for permissioned accounts for testnet/devnet/
 	InitFreeFund = 100
 )
@@ -102,7 +102,7 @@ func NewGenesisSpec(netType nodeconfig.NetworkType, shardID uint32) *Genesis {
 	case nodeconfig.Mainnet:
 		chainConfig = *params.MainnetChainConfig
 		if shardID == 0 {
-			foundationAddress := common.HexToAddress("0xE25ABC3f7C3d5fB7FB81EAFd421FF1621A61107c")
+			foundationAddress := common.HexToAddress("0xda029B45Ad164e2128cEDd39380AfA34f5AF8239")
 			genesisAlloc[foundationAddress] = GenesisAccount{Balance: GenesisFund}
 		}
 	case nodeconfig.Pangaea:
@@ -129,6 +129,8 @@ func NewGenesisSpec(netType nodeconfig.NetworkType, shardID uint32) *Genesis {
 			contractDeployerFunds, big.NewInt(denominations.One),
 		)
 		genesisAlloc[contractDeployerAddress] = GenesisAccount{Balance: contractDeployerFunds}
+		testAddress := common.HexToAddress("0xda029B45Ad164e2128cEDd39380AfA34f5AF8239")
+		genesisAlloc[testAddress] = GenesisAccount{Balance: contractDeployerFunds}
 
 		// Localnet only testing account
 		if netType == nodeconfig.Localnet {

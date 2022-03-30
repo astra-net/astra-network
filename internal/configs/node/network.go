@@ -2,11 +2,11 @@ package nodeconfig
 
 var (
 	mainnetBootNodes = []string{
-		"/dnsaddr/bootstrap.t.astranetwork.com",
+		"/dnsaddr/bootstrap.m.astranetwork.com",
 	}
 
 	testnetBootNodes = []string{
-		"/dnsaddr/bootstrap.b.astranetwork.com",
+		"/dnsaddr/bootstrap.t.astranetwork.com",
 	}
 
 	pangaeaBootNodes = []string{
@@ -26,8 +26,8 @@ var (
 )
 
 const (
-	mainnetDNSZone   = "t.astranetwork.com"
-	testnetDNSZone   = "b.astranetwork.com"
+	mainnetDNSZone   = "m.astranetwork.com"
+	testnetDNSZone   = "t.astranetwork.com"
 	pangaeaDNSZone   = "os.astranetwork.com"
 	partnerDNSZone   = "ps.astranetwork.com"
 	stressnetDNSZone = "stn.astranetwork.com"

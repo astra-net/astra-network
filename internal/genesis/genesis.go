@@ -6,11 +6,11 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/astra-net/astra-network/internal/utils"
+	"github.com/ethereum/go-ethereum/crypto"
 )
 
-const genesisString = "https://astranetwork.com 'Gaming Chain' 2022.03.01 $Astra"
+const genesisString = "https://astranetwork.com 'Gaming Chain' 2022.03.01 ₳stra"
 
 // DeployAccount is the account used in genesis
 type DeployAccount struct {

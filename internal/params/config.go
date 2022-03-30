@@ -19,13 +19,13 @@ var (
 	AllProtocolChangesChainID = big.NewInt(100) // not a real network
 
 	// EthMainnetShard0ChainID to be reserved unique chain ID for eth compatible chains.
-	EthMainnetShard0ChainID            = big.NewInt(1666600000)
-	EthTestnetShard0ChainID            = big.NewInt(1666700000)
-	EthPangaeaShard0ChainID            = big.NewInt(1666800000)
-	EthPartnerShard0ChainID            = big.NewInt(1666900000)
-	EthStressnetShard0ChainID          = big.NewInt(1667000000)
-	EthTestShard0ChainID               = big.NewInt(1667100000) // not a real network
-	EthAllProtocolChangesShard0ChainID = big.NewInt(1667200000) // not a real network
+	EthMainnetShard0ChainID            = big.NewInt(2730)
+	EthTestnetShard0ChainID            = big.NewInt(2731)
+	EthPangaeaShard0ChainID            = big.NewInt(2732)
+	EthPartnerShard0ChainID            = big.NewInt(2733)
+	EthStressnetShard0ChainID          = big.NewInt(2734)
+	EthTestShard0ChainID               = big.NewInt(2735) // not a real network
+	EthAllProtocolChangesShard0ChainID = big.NewInt(2736) // not a real network
 )
 
 // EpochTBD is a large, “not anytime soon” epoch.  It used as a placeholder
@@ -34,37 +34,38 @@ var EpochTBD = big.NewInt(10000000)
 var once sync.Once
 
 var (
+
 	// MainnetChainConfig is the chain parameters to run a node on the main network.
 	MainnetChainConfig = &ChainConfig{
 		ChainID:                    MainnetChainID,
 		EthCompatibleChainID:       EthMainnetShard0ChainID,
 		EthCompatibleShard0ChainID: EthMainnetShard0ChainID,
-		EthCompatibleEpoch:         big.NewInt(442), // Around Thursday Feb 4th 2020, 10AM PST
-		CrossTxEpoch:               big.NewInt(28),
-		CrossLinkEpoch:             big.NewInt(186),
-		AggregatedRewardEpoch:      big.NewInt(689), // Around Wed Sept 15th 2021 with 3.5s block time
-		StakingEpoch:               big.NewInt(186),
-		PreStakingEpoch:            big.NewInt(185),
-		QuickUnlockEpoch:           big.NewInt(191),
-		FiveSecondsEpoch:           big.NewInt(230),
-		TwoSecondsEpoch:            big.NewInt(366), // Around Tuesday Dec 8th 2020, 8AM PST
-		SixtyPercentEpoch:          big.NewInt(530), // Around Monday Apr 12th 2021, 22:30 UTC
-		RedelegationEpoch:          big.NewInt(290),
-		NoEarlyUnlockEpoch:         big.NewInt(530), // Around Monday Apr 12th 2021, 22:30 UTC
-		VRFEpoch:                   big.NewInt(631), // Around Wed July 7th 2021
-		PrevVRFEpoch:               big.NewInt(689), // Around Wed Sept 15th 2021 with 3.5s block time
-		MinDelegation100Epoch:      big.NewInt(631), // Around Wed July 7th 2021
-		MinCommissionRateEpoch:     big.NewInt(631), // Around Wed July 7th 2021
-		MinCommissionPromoPeriod:   big.NewInt(100),
-		EPoSBound35Epoch:           big.NewInt(631), // Around Wed July 7th 2021
-		EIP155Epoch:                big.NewInt(28),
-		S3Epoch:                    big.NewInt(28),
-		DataCopyFixEpoch:           big.NewInt(689), // Around Wed Sept 15th 2021 with 3.5s block time
-		IstanbulEpoch:              big.NewInt(314),
-		ReceiptLogEpoch:            big.NewInt(101),
-		SHA3Epoch:                  big.NewInt(725), // Around Mon Oct 11 2021, 19:00 UTC
-		HIP6And8Epoch:              big.NewInt(725), // Around Mon Oct 11 2021, 19:00 UTC
-		StakingPrecompileEpoch:     big.NewInt(871), // Around Tue Feb 11 2022
+		SixtyPercentEpoch:          big.NewInt(0),
+		HIP6And8Epoch:              big.NewInt(0),
+		EthCompatibleEpoch:         big.NewInt(0),
+		CrossTxEpoch:               big.NewInt(0),
+		CrossLinkEpoch:             big.NewInt(2),
+		AggregatedRewardEpoch:      big.NewInt(3),
+		StakingEpoch:               big.NewInt(2),
+		PreStakingEpoch:            big.NewInt(0),
+		QuickUnlockEpoch:           big.NewInt(0),
+		FiveSecondsEpoch:           big.NewInt(0),
+		TwoSecondsEpoch:            big.NewInt(3),
+		RedelegationEpoch:          big.NewInt(0),
+		NoEarlyUnlockEpoch:         big.NewInt(0),
+		VRFEpoch:                   big.NewInt(0),
+		PrevVRFEpoch:               big.NewInt(0),
+		MinDelegation100Epoch:      big.NewInt(0),
+		MinCommissionRateEpoch:     big.NewInt(0),
+		MinCommissionPromoPeriod:   big.NewInt(10),
+		EPoSBound35Epoch:           big.NewInt(0),
+		EIP155Epoch:                big.NewInt(0),
+		S3Epoch:                    big.NewInt(0),
+		DataCopyFixEpoch:           big.NewInt(0),
+		IstanbulEpoch:              big.NewInt(0),
+		ReceiptLogEpoch:            big.NewInt(0),
+		SHA3Epoch:                  big.NewInt(0),
+		StakingPrecompileEpoch:     big.NewInt(2),
 	}
 
 	// TestnetChainConfig contains the chain parameters to run a node on the astra test network.

@@ -54,7 +54,7 @@ function setup() {
 
 function launch_bootnode() {
   echo "launching boot node ..."
-  ${DRYRUN} ${ROOT}/bin/bootnode -port 19876 -max_conn_per_ip 100 >"${log_folder}"/bootnode.log 2>&1 | tee -a "${LOG_FILE}" &
+  ${DRYRUN} ${ROOT}/bin/bootnode -port 9876 -max_conn_per_ip 100 >"${log_folder}"/bootnode.log 2>&1 | tee -a "${LOG_FILE}" &
   sleep 1
   BN_MA=$(grep "BN_MA" "${log_folder}"/bootnode.log | awk -F\= ' { print $2 } ')
   echo "bootnode launched." + " $BN_MA"
@@ -126,6 +126,7 @@ function launch_localnet() {
     esac
 
     # Start the node
+    echo "${DRYRUN} ${ROOT}/bin/astra ${args[@]} ${extra_args[@]} 2>&1 | tee -a ${LOG_FILE} &"
     ${DRYRUN} "${ROOT}/bin/astra" "${args[@]}" "${extra_args[@]}" 2>&1 | tee -a "${LOG_FILE}" &
   done <"${config}"
 }
@@ -191,5 +192,5 @@ extra_args=("$@")
 
 setup
 launch_localnet
-sleep "${DURATION}"
-cleanup || true
+# sleep "${DURATION}"
+# cleanup || true

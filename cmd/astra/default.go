@@ -119,7 +119,7 @@ var defaultLogContext = astraconfig.LogContext{
 }
 
 var defaultConsensusConfig = astraconfig.ConsensusConfig{
-	MinPeers:     6,
+	MinPeers:     2,
 	AggregateSig: true,
 }
 

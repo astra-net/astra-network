@@ -67,9 +67,9 @@ Version = "1.0.4"
   Verbosity = 3
 
 [Network]
-  BootNodes = ["/dnsaddr/bootstrap.t.astranetwork.com"]
+  BootNodes = ["/dnsaddr/bootstrap.m.astranetwork.com"]
   DNSPort = 9000
-  DNSZone = "t.astranetwork.com"
+  DNSZone = "m.astranetwork.com"
   LegacySyncing = false
   NetworkType = "mainnet"
 
