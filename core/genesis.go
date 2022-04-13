@@ -129,8 +129,10 @@ func NewGenesisSpec(netType nodeconfig.NetworkType, shardID uint32) *Genesis {
 			contractDeployerFunds, big.NewInt(denominations.One),
 		)
 		genesisAlloc[contractDeployerAddress] = GenesisAccount{Balance: contractDeployerFunds}
-		testAddress := common.HexToAddress("0xda029B45Ad164e2128cEDd39380AfA34f5AF8239")
-		genesisAlloc[testAddress] = GenesisAccount{Balance: contractDeployerFunds}
+		if netType == nodeconfig.Testnet {
+			genesisAlloc[common.HexToAddress("0xA556F41c30f363E90416Cf13ADEECf7187ACDBF2")] = GenesisAccount{Balance: contractDeployerFunds}
+			genesisAlloc[common.HexToAddress("0xFaDA9f8E705207bC65c4b712F31C0C0cC3E56063")] = GenesisAccount{Balance: contractDeployerFunds}
+		}
 
 		// Localnet only testing account
 		if netType == nodeconfig.Localnet {

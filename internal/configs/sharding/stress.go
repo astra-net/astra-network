@@ -22,7 +22,7 @@ const (
 	stressnetVdfDifficulty = 10000 // This takes about 20s to finish the vdf
 
 	// StressNetHTTPPattern is the http pattern for stressnet.
-	StressNetHTTPPattern = "https://api.s%d.stn.astranetwork.com"
+	StressNetHTTPPattern = "https://rpc.s%d.stn.astranetwork.com"
 	// StressNetWSPattern is the websocket pattern for stressnet.
 	StressNetWSPattern = "wss://ws.s%d.stn.astranetwork.com"
 )

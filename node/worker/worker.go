@@ -15,8 +15,6 @@ import (
 
 	"github.com/astra-net/astra-network/crypto/hash"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/astra-net/astra-network/block"
 	blockfactory "github.com/astra-net/astra-network/block/factory"
 	consensus_engine "github.com/astra-net/astra-network/consensus/engine"
@@ -29,6 +27,8 @@ import (
 	"github.com/astra-net/astra-network/shard"
 	"github.com/astra-net/astra-network/staking/slash"
 	staking "github.com/astra-net/astra-network/staking/types"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/pkg/errors"
 )
 
@@ -289,6 +289,7 @@ func (w *Worker) CommitReceipts(receiptsList []*types.CXReceiptsProof) error {
 func (w *Worker) UpdateCurrent() error {
 	parent := w.chain.CurrentBlock()
 	num := parent.Number()
+	fmt.Println("blknum: ", num)
 	timestamp := time.Now().Unix()
 
 	epoch := w.GetNewEpoch()

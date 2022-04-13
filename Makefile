@@ -54,6 +54,9 @@ race:
 trace-pointer:
 	bash ./scripts/go_executable_build.sh -t
 
+testnet:
+	bash ./test/testnet.sh
+
 debug:
 	bash ./test/debug.sh
 

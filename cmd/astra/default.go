@@ -98,7 +98,7 @@ var defaultConfig = astraconfig.AstraConfig{
 }
 
 var defaultSysConfig = astraconfig.SysConfig{
-	NtpServer: "pool.ntp.org",
+	NtpServer: "1.pool.ntp.org",
 }
 
 var defaultDevnetConfig = astraconfig.DevnetConfig{

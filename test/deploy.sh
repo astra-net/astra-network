@@ -54,7 +54,7 @@ function setup() {
 
 function launch_bootnode() {
   echo "launching boot node ..."
-  ${DRYRUN} ${ROOT}/bin/bootnode -port 9876 -max_conn_per_ip 100 >"${log_folder}"/bootnode.log 2>&1 | tee -a "${LOG_FILE}" &
+  ${DRYRUN} ${ROOT}/bin/bootnode -port 9876 -max_conn_per_ip 2000 >"${log_folder}"/bootnode.log 2>&1 | tee -a "${LOG_FILE}" &
   sleep 1
   BN_MA=$(grep "BN_MA" "${log_folder}"/bootnode.log | awk -F\= ' { print $2 } ')
   echo "bootnode launched." + " $BN_MA"
@@ -72,7 +72,7 @@ function launch_localnet() {
     verbosity=3
   fi
 
-  base_args=(--log_folder "${log_folder}" --min_peers "${MIN}" --bootnodes "${BN_MA}" "--network_type=$NETWORK" --blspass file:"${ROOT}/.astra/blspass.txt" "--dns=false" "--verbosity=${verbosity}" "--p2p.security.max-conn-per-ip=100")
+  base_args=(--log_folder "${log_folder}" --min_peers "${MIN}" --bootnodes "${BN_MA}" "--network_type=$NETWORK" --blspass file:"${ROOT}/.astra/blspass.txt" "--dns=false" "--verbosity=${verbosity}" "--p2p.security.max-conn-per-ip=2000")
   sleep 2
 
   # Start nodes
@@ -82,8 +82,7 @@ function launch_localnet() {
 
     # Read config for i-th node form config file
     IFS=' ' read -r ip port mode bls_key shard <<<"${line}"
-    echo $bls_key
-    args=("${base_args[@]}" --ip "${ip}" --port "${port}" --key "/tmp/${ip}-${port}.key" --db_dir "${ROOT}/db-${ip}-${port}" "--broadcast_invalid_tx=false")
+    args=("${base_args[@]}" --ip "${ip}" --port "${port}" --key "/tmp/${ip}-${port}.key" --db_dir "${ROOT}/db-${ip}-${port}")
     if [[ -z "$ip" || -z "$port" ]]; then
       echo "skip empty node"
       continue
@@ -126,7 +125,6 @@ function launch_localnet() {
     esac
 
     # Start the node
-    echo "${DRYRUN} ${ROOT}/bin/astra ${args[@]} ${extra_args[@]} 2>&1 | tee -a ${LOG_FILE} &"
     ${DRYRUN} "${ROOT}/bin/astra" "${args[@]}" "${extra_args[@]}" 2>&1 | tee -a "${LOG_FILE}" &
   done <"${config}"
 }
@@ -142,7 +140,6 @@ USAGE: $ME [OPTIONS] config_file_name [extra args to node]
    -h             print this help message
    -D duration    test run duration (default: $DURATION)
    -m min_peers   minimal number of peers to start consensus (default: $MIN)
-   -s shards      number of shards (default: $SHARDS)
    -n             dryrun mode (default: $DRYRUN)
    -N network     network type (default: $NETWORK)
    -B             don't build the binary
@@ -158,9 +155,9 @@ EXAMPLES:
   exit 0
 }
 
+CONTINUOUS=false
 DURATION=60000
 MIN=3
-SHARDS=2
 DRYRUN=
 NETWORK=localnet
 VERBOSE=false
@@ -170,6 +167,7 @@ EXPOSEAPIS=false
 while getopts "hD:m:s:nBN:ve" option; do
   case ${option} in
   h) usage ;;
+  C) CONTINUOUS=$OPTARG ;;
   D) DURATION=$OPTARG ;;
   m) MIN=$OPTARG ;;
   s) SHARDS=$OPTARG ;;
@@ -192,5 +190,7 @@ extra_args=("$@")
 
 setup
 launch_localnet
-# sleep "${DURATION}"
-# cleanup || true
+if [[ $CONTINUOUS == false ]]; then
+  sleep "${DURATION}"
+  cleanup || true
+fi

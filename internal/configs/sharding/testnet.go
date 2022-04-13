@@ -24,7 +24,7 @@ const (
 	testnetVdfDifficulty = 10000 // This takes about 20s to finish the vdf
 
 	// TestNetHTTPPattern is the http pattern for testnet.
-	TestNetHTTPPattern = "https://api.s%d.t.astranetwork.com"
+	TestNetHTTPPattern = "https://rpc.s%d.t.astranetwork.com"
 	// TestNetWSPattern is the websocket pattern for testnet.
 	TestNetWSPattern = "wss://ws.s%d.t.astranetwork.com"
 

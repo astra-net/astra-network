@@ -96,7 +96,7 @@ func (pk *SerializedPublicKey) FromLibBLSPublicKey(key *bls.PublicKey) error {
 	return nil
 }
 
-// SeparateSigAndMask parse the commig signature data into signature and bitmap.
+// SeparateSigAndMask parse the commit signature data into signature and bitmap.
 func SeparateSigAndMask(commitSigs []byte) ([]byte, []byte, error) {
 	if len(commitSigs) < BLSSignatureSizeInBytes {
 		return nil, nil, errors.Errorf("no mask data found in commit sigs: %x", commitSigs)

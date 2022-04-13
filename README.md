@@ -18,6 +18,10 @@ http://api.astranetwork.com/
 
 ### **Go 1.16.3**
 
+````bash
+sudo snap install go --channel=1.16/stable --classic
+```
+
 ### **GMP and OpenSSL**
 
 On macOS:
@@ -26,7 +30,7 @@ On macOS:
 brew install gmp
 brew install openssl
 sudo ln -sf /usr/local/opt/openssl@1.1 /usr/local/opt/openssl
-```
+````
 
 On Linux (Ubuntu)
 

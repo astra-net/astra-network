@@ -16,8 +16,6 @@ import (
 	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
 
 	"github.com/Workiva/go-datastructures/queue"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/astra-net/astra-network/api/service/legacysync/downloader"
 	pb "github.com/astra-net/astra-network/api/service/legacysync/downloader/proto"
 	"github.com/astra-net/astra-network/consensus"
@@ -28,6 +26,8 @@ import (
 	"github.com/astra-net/astra-network/internal/utils"
 	"github.com/astra-net/astra-network/node/worker"
 	"github.com/astra-net/astra-network/p2p"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/pkg/errors"
 )
 

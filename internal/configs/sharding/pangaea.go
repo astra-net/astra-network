@@ -21,7 +21,7 @@ const (
 	pangaeaVdfDifficulty = 10000 // This takes about 20s to finish the vdf
 
 	// PangaeaHTTPPattern is the http pattern for pangaea.
-	PangaeaHTTPPattern = "https://api.s%d.os.astranetwork.com"
+	PangaeaHTTPPattern = "https://rpc.s%d.os.astranetwork.com"
 	// PangaeaWSPattern is the websocket pattern for pangaea.
 	PangaeaWSPattern = "wss://ws.s%d.os.astranetwork.com"
 )

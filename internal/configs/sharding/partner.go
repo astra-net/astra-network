@@ -22,7 +22,7 @@ const (
 	partnerVdfDifficulty = 10000 // This takes about 20s to finish the vdf
 
 	// PartnerHTTPPattern is the http pattern for partner.
-	PartnerHTTPPattern = "https://api.s%d.ps.astranetwork.com"
+	PartnerHTTPPattern = "https://rpc.s%d.ps.astranetwork.com"
 	// PartnerWSPattern is the websocket pattern for partner.
 	PartnerWSPattern = "wss://ws.s%d.ps.astranetwork.com"
 )
