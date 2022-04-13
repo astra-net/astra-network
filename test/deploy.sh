@@ -138,6 +138,7 @@ function usage() {
 USAGE: $ME [OPTIONS] config_file_name [extra args to node]
 
    -h             print this help message
+   -C continuous  don't give the network a duration
    -D duration    test run duration (default: $DURATION)
    -m min_peers   minimal number of peers to start consensus (default: $MIN)
    -n             dryrun mode (default: $DRYRUN)
@@ -164,10 +165,10 @@ VERBOSE=false
 NOBUILD=false
 EXPOSEAPIS=false
 
-while getopts "hD:m:s:nBN:ve" option; do
+while getopts "hCD:m:s:nBN:ve" option; do
   case ${option} in
   h) usage ;;
-  C) CONTINUOUS=$OPTARG ;;
+  C) CONTINUOUS=true ;;
   D) DURATION=$OPTARG ;;
   m) MIN=$OPTARG ;;
   s) SHARDS=$OPTARG ;;

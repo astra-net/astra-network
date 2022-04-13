@@ -51,7 +51,7 @@ var (
 // PublicTracerService provides an API to access Astra's staking services.
 // It offers only methods that operate on public data that is freely available to anyone.
 type PublicTracerService struct {
-	astra     *astra.Astra
+	astra   *astra.Astra
 	version Version
 }
 
@@ -78,25 +78,26 @@ func (s *PublicTracerService) TraceChain(ctx context.Context, start, end rpc.Blo
 	// TODO (JL): Make API available after DoS testing
 	return nil, ErrNotAvailable
 	/*
-		if uint64(start) >= uint64(end) {
-			return nil, fmt.Errorf("start block can not be equal or greater than the end block")
+			if uint64(start) >= uint64(end) {
+				return nil, fmt.Errorf("start block can not be equal or greater than the end block")
+			}
+
+		currentBlock := s.astra.BlockChain.CurrentBlock().NumberU64()
+		if uint64(start) > currentBlock || uint64(end) > currentBlock {
+			return nil, ErrRequestedBlockTooHigh
 		}
 
-	currentBlock := s.astra.BlockChain.CurrentBlock().NumberU64()
-	if uint64(start) > currentBlock || uint64(end) > currentBlock {
-		return nil, ErrRequestedBlockTooHigh
-	}
+		from := s.astra.BlockChain.GetBlockByNumber(uint64(start))
+		if from == nil {
+			return nil, fmt.Errorf("start block #%d not found", start)
+		}
+		to := s.astra.BlockChain.GetBlockByNumber(uint64(end))
+		if to == nil {
+			return nil, fmt.Errorf("end block #%d not found", end)
+		}
 
-	from := s.astra.BlockChain.GetBlockByNumber(uint64(start))
-	if from == nil {
-		return nil, fmt.Errorf("start block #%d not found", start)
-	}
-	to := s.astra.BlockChain.GetBlockByNumber(uint64(end))
-	if to == nil {
-		return nil, fmt.Errorf("end block #%d not found", end)
-	}
-
-	return s.astra.TraceChain(ctx, from, to, config)
+		return s.astra.TraceChain(ctx, from, to, config)
+	*/
 }
 
 // TraceBlockByNumber returns the structured logs created during the execution of
