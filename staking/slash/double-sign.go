@@ -87,8 +87,8 @@ type Record struct {
 
 // Application tracks the slash application to state
 type Application struct {
-	TotalSlashed      *big.Int `json:"total-slashed"`
-	TotalSnitchReward *big.Int `json:"total-snitch-reward"`
+	TotalSlashed           *big.Int `json:"total-slashed"`
+	TotalBeneficiaryReward *big.Int `json:"total-beneficiary-reward"`
 }
 
 func (a *Application) String() string {
@@ -365,7 +365,7 @@ func delegatorSlashApply(
 	snapshot, current *staking.ValidatorWrapper,
 	rate numeric.Dec,
 	state *state.DB,
-	reporter common.Address,
+	rewardBeneficiary common.Address,
 	doubleSignEpoch *big.Int,
 	slashTrack *Application,
 ) error {
@@ -439,19 +439,19 @@ func delegatorSlashApply(
 					}
 				}
 
-				// NOTE only need to pay snitch here,
+				// NOTE only need to pay beneficiary here,
 				// they only get half of what was actually dispersed
 				halfOfSlashDebt := new(big.Int).Div(slashDiff.TotalSlashed, common.Big2)
-				slashDiff.TotalSnitchReward.Add(slashDiff.TotalSnitchReward, halfOfSlashDebt)
+				slashDiff.TotalBeneficiaryReward.Add(slashDiff.TotalBeneficiaryReward, halfOfSlashDebt)
 				utils.Logger().Info().
 					RawJSON("delegation-snapshot", []byte(delegationSnapshot.String())).
 					RawJSON("delegation-current", []byte(delegationNow.String())).
-					Uint64("reporter-reward", halfOfSlashDebt.Uint64()).
+					Uint64("beneficiary-reward", halfOfSlashDebt.Uint64()).
 					RawJSON("application", []byte(slashDiff.String())).
 					Msg("completed an application of slashing")
-				state.AddBalance(reporter, halfOfSlashDebt)
-				slashTrack.TotalSnitchReward.Add(
-					slashTrack.TotalSnitchReward, slashDiff.TotalSnitchReward,
+				state.AddBalance(rewardBeneficiary, halfOfSlashDebt)
+				slashTrack.TotalBeneficiaryReward.Add(
+					slashTrack.TotalBeneficiaryReward, slashDiff.TotalBeneficiaryReward,
 				)
 				slashTrack.TotalSlashed.Add(
 					slashTrack.TotalSlashed, slashDiff.TotalSlashed,
@@ -475,7 +475,7 @@ func delegatorSlashApply(
 // Apply ..
 func Apply(
 	chain staking.ValidatorSnapshotReader, state *state.DB,
-	slashes Records, rate numeric.Dec,
+	slashes Records, rate numeric.Dec, rewardBeneficiary common.Address,
 ) (*Application, error) {
 	slashDiff := &Application{big.NewInt(0), big.NewInt(0)}
 	for _, slash := range slashes {
@@ -502,7 +502,7 @@ func Apply(
 		// Bottom line: everyone will be slashed under the same rule.
 		if err := delegatorSlashApply(
 			snapshot.Validator, current, rate, state,
-			slash.Reporter, slash.Evidence.Epoch, slashDiff,
+			rewardBeneficiary, slash.Evidence.Epoch, slashDiff,
 		); err != nil {
 			return nil, err
 		}

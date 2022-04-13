@@ -811,7 +811,9 @@ func setupSyncService(node *node.Node, host p2p.Host, hc astraconfig.AstraConfig
 	node.RegisterService(service.Synchronize, s)
 
 	d := s.Downloaders.GetShardDownloader(node.Blockchain().ShardID())
-	node.Consensus.SetDownloader(d)
+	if hc.Sync.Downloader {
+		node.Consensus.SetDownloader(d) // Set downloader when stream client is active
+	}
 }
 
 func setupBlacklist(hc astraconfig.AstraConfig) (map[ethCommon.Address]struct{}, error) {
@@ -838,7 +840,7 @@ func setupBlacklist(hc astraconfig.AstraConfig) (map[ethCommon.Address]struct{},
 
 func listenOSSigAndShutDown(node *node.Node) {
 	// Prepare for graceful shutdown from os signals
-	osSignal := make(chan os.Signal)
+	osSignal := make(chan os.Signal, 1)
 	signal.Notify(osSignal, syscall.SIGINT, syscall.SIGTERM)
 	sig := <-osSignal
 	utils.Logger().Warn().Str("signal", sig.String()).Msg("Gracefully shutting down...")

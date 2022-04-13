@@ -18,13 +18,11 @@ require (
 	github.com/deckarep/golang-set v1.7.1
 	github.com/ethereum/go-ethereum v1.9.25
 	github.com/fjl/memsize v0.0.0-20180929194037-2a09253e352a // indirect
-	github.com/garslo/gogen v0.0.0-20170307003452-d6ebae628c7c // indirect
 	github.com/golang/mock v1.6.0
 	github.com/golang/protobuf v1.5.2
 	github.com/golangci/golangci-lint v1.22.2
 	github.com/gorilla/mux v1.8.0
 	github.com/gorilla/websocket v1.4.2
-	github.com/harmony-ek/gencodec v0.0.0-20190215044613-e6740dbdd846
 	github.com/harmony-one/abool v1.0.1
 	github.com/harmony-one/taggedrlp v0.1.4
 	github.com/harmony-one/vdf v0.0.0-20190924175951-620379da8849
@@ -58,10 +56,10 @@ require (
 	go.uber.org/ratelimit v0.1.0
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20210506145944-38f3c27a63bf
-	golang.org/x/lint v0.0.0-20210508222113-6edffad5e616
+	golang.org/x/lint v0.0.0-20210508222113-6edffad5e616 // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/time v0.0.0-20210220033141-f8bda1e9f3ba
-	golang.org/x/tools v0.1.7
+	golang.org/x/tools v0.1.7 // indirect
 	google.golang.org/grpc v1.33.2
 	google.golang.org/protobuf v1.26.0
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c

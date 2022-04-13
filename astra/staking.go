@@ -328,6 +328,8 @@ func (astra *Astra) GetValidatorInformation(
 	if defaultReply.CurrentlyInCommittee {
 		defaultReply.Performance = &staking.CurrentEpochPerformance{
 			CurrentSigningPercentage: *computed,
+			Epoch:                    astra.BeaconChain.CurrentBlock().Header().Number().Uint64(),
+			Block:                    astra.BeaconChain.CurrentBlock().Header().Epoch().Uint64(),
 		}
 	}
 

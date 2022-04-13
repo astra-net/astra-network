@@ -77,9 +77,10 @@ func (s *PublicTracerService) TraceChain(ctx context.Context, start, end rpc.Blo
 
 	// TODO (JL): Make API available after DoS testing
 	return nil, ErrNotAvailable
-	if uint64(start) >= uint64(end) {
-		return nil, fmt.Errorf("start block can not be equal or greater than the end block")
-	}
+	/*
+		if uint64(start) >= uint64(end) {
+			return nil, fmt.Errorf("start block can not be equal or greater than the end block")
+		}
 
 	currentBlock := s.astra.BlockChain.CurrentBlock().NumberU64()
 	if uint64(start) > currentBlock || uint64(end) > currentBlock {

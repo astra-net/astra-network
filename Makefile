@@ -154,3 +154,9 @@ rpmpub_dev: rpm
 
 rpmpub_prod: rpm
 	./scripts/package/publish-repo.sh -p prod -n rpm -s $(RPMBUILD)
+
+go-vet:
+	go vet ./...
+
+go-test:
+	go test ./...

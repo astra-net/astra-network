@@ -44,7 +44,7 @@ func (astra *Astra) ResendCx(ctx context.Context, txID common.Hash) (uint64, boo
 	if tx.ShardID() == tx.ToShardID() || blk.Header().ShardID() != tx.ShardID() {
 		return 0, false
 	}
-	entry := core.CxEntry{blockHash, tx.ToShardID()}
+	entry := core.CxEntry{BlockHash: blockHash, ToShardID: tx.ToShardID()}
 	success := astra.CxPool.Add(entry)
 	return blockNum, success
 }

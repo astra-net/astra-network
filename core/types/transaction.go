@@ -23,6 +23,7 @@ import (
 	"io"
 	"math/big"
 	"sync/atomic"
+	"time"
 
 	"github.com/astra-net/astra-network/internal/params"
 
@@ -99,6 +100,9 @@ type Transaction struct {
 	hash atomic.Value
 	size atomic.Value
 	from atomic.Value
+	// time at which the node received the tx
+	// and not the time set by the sender
+	time time.Time
 }
 
 // String print mode string
@@ -223,7 +227,7 @@ func newTransaction(nonce uint64, to *common.Address, shardID uint32, amount *bi
 		d.Price.Set(gasPrice)
 	}
 
-	return &Transaction{data: d}
+	return &Transaction{data: d, time: time.Now()}
 }
 
 func newCrossShardTransaction(nonce uint64, to *common.Address, shardID uint32, toShardID uint32, amount *big.Int, gasLimit uint64, gasPrice *big.Int, data []byte) *Transaction {
@@ -250,7 +254,7 @@ func newCrossShardTransaction(nonce uint64, to *common.Address, shardID uint32, 
 		d.Price.Set(gasPrice)
 	}
 
-	return &Transaction{data: d}
+	return &Transaction{data: d, time: time.Now()}
 }
 
 // From returns the sender address of the transaction
@@ -308,6 +312,11 @@ func (tx *Transaction) ToShardID() uint32 {
 	return tx.data.ToShardID
 }
 
+// Time returns the time at which the transaction was received by the node
+func (tx *Transaction) Time() time.Time {
+	return tx.time
+}
+
 // Protected returns whether the transaction is protected from replay protection.
 func (tx *Transaction) Protected() bool {
 	return isProtectedV(tx.data.V)
@@ -333,6 +342,7 @@ func (tx *Transaction) DecodeRLP(s *rlp.Stream) error {
 	err := s.Decode(&tx.data)
 	if err == nil {
 		tx.size.Store(common.StorageSize(rlp.ListSize(size)))
+		tx.time = time.Now()
 	}
 
 	return err
@@ -447,6 +457,8 @@ func (tx *Transaction) ConvertToEth() *EthTransaction {
 	copy := tx2.Hash()
 	d2.Hash = &copy
 
+	tx2.time = tx.time
+
 	return &tx2
 }
 
@@ -499,6 +511,7 @@ func (tx *Transaction) RawSignatureValues() (*big.Int, *big.Int, *big.Int) {
 func (tx *Transaction) Copy() *Transaction {
 	var tx2 Transaction
 	tx2.data.CopyFrom(&tx.data)
+	tx2.time = tx.time
 	return &tx2
 }
 
@@ -549,12 +562,40 @@ func (s *TxByPrice) Pop() interface{} {
 	return x
 }
 
+// TxByPriceAndTime implements both the sort and the heap interface, making it useful
+// for all at once sorting as well as individually adding and removing elements.
+type TxByPriceAndTime Transactions
+
+func (s TxByPriceAndTime) Len() int { return len(s) }
+func (s TxByPriceAndTime) Less(i, j int) bool {
+	// If the prices are equal, use the time the transaction was first seen for
+	// deterministic sorting
+	cmp := s[i].data.Price.Cmp(s[j].data.Price)
+	if cmp == 0 {
+		return s[i].time.Before(s[j].time)
+	}
+	return cmp > 0
+}
+func (s TxByPriceAndTime) Swap(i, j int) { s[i], s[j] = s[j], s[i] }
+
+func (s *TxByPriceAndTime) Push(x interface{}) {
+	*s = append(*s, x.(*Transaction))
+}
+
+func (s *TxByPriceAndTime) Pop() interface{} {
+	old := *s
+	n := len(old)
+	x := old[n-1]
+	*s = old[0 : n-1]
+	return x
+}
+
 // TransactionsByPriceAndNonce represents a set of transactions that can return
 // transactions in a profit-maximizing sorted order, while supporting removing
 // entire batches of transactions for non-executable accounts.
 type TransactionsByPriceAndNonce struct {
 	txs       map[common.Address]Transactions // Per account nonce-sorted list of transactions
-	heads     TxByPrice                       // Next transaction for each unique account (price heap)
+	heads     TxByPriceAndTime                // Next transaction for each unique account (price heap)
 	signer    Signer                          // Signer for the set of transactions
 	ethSigner Signer                          // Signer for the set of transactions
 }
@@ -566,7 +607,7 @@ type TransactionsByPriceAndNonce struct {
 // if after providing it to the constructor.
 func NewTransactionsByPriceAndNonce(astraSigner Signer, ethSigner Signer, txs map[common.Address]Transactions) *TransactionsByPriceAndNonce {
 	// Initialize a price based heap with the head transactions
-	heads := make(TxByPrice, 0, len(txs))
+	heads := make(TxByPriceAndTime, 0, len(txs))
 	for from, accTxs := range txs {
 		if accTxs.Len() == 0 {
 			continue
