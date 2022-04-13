@@ -2,6 +2,8 @@ module github.com/astra-net/astra-network
 
 go 1.16
 
+replace github.com/ethereum/go-ethereum => github.com/ethereum/go-ethereum v1.9.9
+
 require (
 	github.com/VictoriaMetrics/fastcache v1.5.7 // indirect
 	github.com/Workiva/go-datastructures v1.0.50
@@ -69,5 +71,3 @@ require (
 	gopkg.in/yaml.v2 v2.4.0
 	honnef.co/go/tools v0.0.1-2020.1.5 // indirect
 )
-
-replace github.com/ethereum/go-ethereum => github.com/ethereum/go-ethereum v1.9.9
