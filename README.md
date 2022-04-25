@@ -18,7 +18,7 @@ http://api.astranetwork.com/
 
 ### **Go 1.16.3**
 
-````bash
+```bash
 sudo snap install go --channel=1.16/stable --classic
 ```
 
