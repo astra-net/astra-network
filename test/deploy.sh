@@ -69,7 +69,7 @@ function launch_localnet() {
   if ${VERBOSE}; then
     verbosity=5
   else
-    verbosity=3
+    verbosity=2
   fi
 
   base_args=(--log_folder "${log_folder}" --min_peers "${MIN}" --bootnodes "${BN_MA}" "--network_type=$NETWORK" --blspass file:"${ROOT}/.astra/blspass.txt" "--dns=false" "--verbosity=${verbosity}" "--p2p.security.max-conn-per-ip=2000")
@@ -108,19 +108,19 @@ function launch_localnet() {
     explorer)
       args=("${args[@]}" "--node_type=explorer" "--shard_id=${shard}" "--http.rosetta=true" "--run.archive")
       ;;
-    archival)
-      args=("${args[@]}" --is_archival --run.legacy)
+    archive)
+      args=("${args[@]}" "--run.archive" "--run.legacy")
       ;;
     leader)
-      args=("${args[@]}" --is_leader --run.legacy)
+      args=("${args[@]}" "--run.beacon-archive" "--run.legacy")
       ;;
     external)
       ;;
     client)
-      args=("${args[@]}" --run.legacy)
+      args=("${args[@]}" "--run.legacy")
       ;;
     validator)
-      args=("${args[@]}" --run.legacy)
+      args=("${args[@]}" "--run.legacy")
       ;;
     esac
 
