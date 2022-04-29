@@ -2,6 +2,7 @@ package node
 
 import (
 	"errors"
+	"fmt"
 	"sort"
 	"strings"
 	"time"
@@ -205,12 +206,15 @@ func (node *Node) ProposeNewBlock(commitSigs chan []byte) (*types.Block, error) 
 
 		// Try commit normal and staking transactions based on the current state
 		// The successfully committed transactions will be put in the proposed block
-		if err := node.Worker.CommitTransactions(
-			pendingPlainTxs, pendingStakingTxs, beneficiary,
-		); err != nil {
+		deferredTxs, err := node.Worker.CommitTransactions(pendingPlainTxs, pendingStakingTxs, beneficiary)
+		if err != nil {
 			utils.Logger().Error().Err(err).Msg("cannot commit transactions")
 			return nil, err
 		}
+
+		fmt.Println("deferredTxs:", deferredTxs)
+		node.TxPool.SetToDefer(deferredTxs)
+
 		utils.AnalysisEnd("proposeNewBlockChooseFromTxnPool")
 	}
 

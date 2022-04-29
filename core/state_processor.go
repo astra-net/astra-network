@@ -125,6 +125,9 @@ func (p *StateProcessor) Process(
 		receipt, cxReceipt, stakeMsgs, _, err := ApplyTransaction(
 			p.config, p.bc, &beneficiary, gp, statedb, header, tx, usedGas, cfg,
 		)
+		if err == vm.ErrDeferredForNextBlock {
+			err = nil
+		}
 		if err != nil {
 			return nil, nil, nil, nil, 0, nil, statedb, err
 		}
@@ -267,6 +270,7 @@ func ApplyTransaction(config *params.ChainConfig, bc ChainContext, author *commo
 	vmenv := vm.NewEVM(context, statedb, config, cfg)
 	// Apply the transaction to the current state (included in the env)
 	result, err := ApplyMessage(vmenv, msg, gp)
+	// fmt.Println("state_processor: ", result, err)
 	if err != nil {
 		return nil, nil, nil, 0, err
 	}
@@ -304,7 +308,11 @@ func ApplyTransaction(config *params.ChainConfig, bc ChainContext, author *commo
 		cxReceipt = nil
 	}
 
-	return receipt, cxReceipt, vmenv.StakeMsgs, result.UsedGas, err
+	if result.VMErr == vm.ErrDeferredForNextBlock {
+		return receipt, cxReceipt, vmenv.StakeMsgs, result.UsedGas, vm.ErrDeferredForNextBlock
+	} else {
+		return receipt, cxReceipt, vmenv.StakeMsgs, result.UsedGas, err
+	}
 }
 
 // ApplyStakingTransaction attempts to apply a staking transaction to the given state database

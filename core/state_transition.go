@@ -90,6 +90,7 @@ type Message interface {
 	Data() []byte
 	Type() types.TransactionType
 	BlockNum() *big.Int
+	MinBlockNum() *big.Int
 }
 
 // ExecutionResult is the return value from a transaction committed to the DB
@@ -148,7 +149,17 @@ func NewStateTransition(evm *vm.EVM, msg Message, gp *GasPool, bc ChainContext) 
 // indicates a core error meaning that the message would always fail for that particular
 // state and would never be accepted within a block.
 func ApplyMessage(evm *vm.EVM, msg Message, gp *GasPool) (ExecutionResult, error) {
-	return NewStateTransition(evm, msg, gp, nil).TransitionDb()
+	st := NewStateTransition(evm, msg, gp, nil)
+	if msg.MinBlockNum() != nil {
+		fmt.Println("min:", msg.MinBlockNum())
+	} else {
+		fmt.Println("no min")
+	}
+	// if this tx was deferred
+	// if msg.MinBlockNum().Cmp(evm.BlockNumber) >= 0 {
+	// 	st.data = evm.BlockNumber.Bytes()
+	// }
+	return st.TransitionDb()
 }
 
 // ApplyStakingMessage computes the new state for staking message
@@ -238,7 +249,9 @@ func (st *StateTransition) TransitionDb() (ExecutionResult, error) {
 	} else {
 		// Increment the nonce for the next transaction
 		st.state.SetNonce(msg.From(), st.state.GetNonce(sender.Address())+1)
+		fmt.Println("called from core: ", st.data)
 		ret, st.gas, vmErr = evm.Call(sender, st.to(), st.data, st.gas, st.value)
+		fmt.Println(ret, st.gas, vmErr, err)
 	}
 	if vmErr != nil {
 		utils.Logger().Debug().Err(vmErr).Msg("VM returned with error")

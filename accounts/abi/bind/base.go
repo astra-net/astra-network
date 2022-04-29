@@ -206,6 +206,7 @@ func (c *BoundContract) Transfer(opts *TransactOpts) (*types.Transaction, error)
 // authorization fields, and then scheduling the transaction for execution.
 func (c *BoundContract) transact(opts *TransactOpts, contract *common.Address, input []byte) (*types.Transaction, error) {
 	var err error
+	shouldDefer := false
 
 	// Ensure a valid value field and resolve the account nonce
 	value := opts.Value
@@ -250,8 +251,12 @@ func (c *BoundContract) transact(opts *TransactOpts, contract *common.Address, i
 	var rawTx *types.Transaction
 	shardID := uint32(0)
 
-	if contract == nil {
+	if contract == nil && shouldDefer {
+		rawTx = types.NewDeferredContractCreation(nonce, shardID, value, gasLimit, gasPrice, input) //FIXME: hardcoded shardID 0
+	} else if contract == nil {
 		rawTx = types.NewContractCreation(nonce, shardID, value, gasLimit, gasPrice, input) //FIXME: hardcoded shardID 0
+	} else if shouldDefer {
+		rawTx = types.NewDeferredTransaction(nonce, c.address, shardID, value, gasLimit, gasPrice, input) //FIXME: hardcoded shardID 0
 	} else {
 		rawTx = types.NewTransaction(nonce, c.address, shardID, value, gasLimit, gasPrice, input) //FIXME: hardcoded shardID 0
 	}

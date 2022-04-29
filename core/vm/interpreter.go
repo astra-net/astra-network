@@ -172,10 +172,11 @@ func (in *EVMInterpreter) Run(contract *Contract, input []byte, readOnly bool) (
 		pc   = uint64(0) // program counter
 		cost uint64
 		// copies used by tracer
-		pcCopy  uint64 // needed for the deferred Tracer
-		gasCopy uint64 // for Tracer to log gas remaining before execution
-		logged  bool   // deferred Tracer should ignore already logged steps
-		res     []byte // result of the opcode execution function
+		pcCopy   uint64 // needed for the deferred Tracer
+		gasCopy  uint64 // for Tracer to log gas remaining before execution
+		logged   bool   // deferred Tracer should ignore already logged steps
+		res      []byte // result of the opcode execution function
+		deferred bool   // whether this tx should get deferred
 	)
 	contract.Input = input
 
@@ -206,6 +207,10 @@ func (in *EVMInterpreter) Run(contract *Contract, input []byte, readOnly bool) (
 		// Get the operation from the jump table and validate the stack to ensure there are
 		// enough stack items available to perform the operation.
 		op = contract.GetOp(pc)
+		// 0xfe
+		if int(op) == 254 {
+			return nil, ErrDeferredForNextBlock
+		}
 		operation := in.cfg.JumpTable[op]
 		if !operation.valid {
 			return nil, fmt.Errorf("invalid opcode 0x%x", int(op))
@@ -257,6 +262,9 @@ func (in *EVMInterpreter) Run(contract *Contract, input []byte, readOnly bool) (
 			dynamicCost, err = operation.dynamicGas(in.evm, contract, stack, mem, memorySize)
 			cost += dynamicCost // total cost, for debug tracing
 			if err != nil || !contract.UseGas(dynamicCost) {
+				if deferred == true {
+					return nil, ErrDeferredForNextBlock
+				}
 				return nil, ErrOutOfGas
 			}
 		}
@@ -290,7 +298,9 @@ func (in *EVMInterpreter) Run(contract *Contract, input []byte, readOnly bool) (
 		}
 
 		switch {
-		case err != nil:
+		case err == ErrDeferredForNextBlock:
+			deferred = true
+		case err != nil && err != ErrDeferredForNextBlock:
 			return nil, err
 		case operation.reverts:
 			return res, ErrExecutionReverted
@@ -299,6 +309,9 @@ func (in *EVMInterpreter) Run(contract *Contract, input []byte, readOnly bool) (
 		case !operation.jumps:
 			pc++
 		}
+	}
+	if deferred == true {
+		return nil, ErrDeferredForNextBlock
 	}
 	return nil, nil
 }

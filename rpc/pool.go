@@ -196,12 +196,13 @@ func (s *PublicPoolService) GetPoolStats(
 	timer := DoMetricRPCRequest(GetPoolStats)
 	defer DoRPCRequestDuration(GetPoolStats, timer)
 
-	pendingCount, queuedCount := s.astra.GetPoolStats()
+	pendingCount, queuedCount,deferredCount := s.astra.GetPoolStats()
 
 	// Response output is the same for all versions
 	return StructuredResponse{
 		"executable-count":     pendingCount,
 		"non-executable-count": queuedCount,
+		"deferred-count": deferredCount,
 	}, nil
 }
 

@@ -9,7 +9,7 @@ import (
 )
 
 // GetPoolStats returns the number of pending and queued transactions
-func (astra *Astra) GetPoolStats() (pendingCount, queuedCount int) {
+func (astra *Astra) GetPoolStats() (pendingCount, queuedCount int, deferredCount int) {
 	return astra.TxPool.Stats()
 }
 

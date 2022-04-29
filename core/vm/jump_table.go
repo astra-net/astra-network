@@ -128,6 +128,16 @@ func newConstantinopleInstructionSet() JumpTable {
 // byzantium instructions.
 func newByzantiumInstructionSet() JumpTable {
 	instructionSet := newSpuriousDragonInstructionSet()
+	// instructionSet[DEFER] = operation{
+	// 	execute:     opDefer,
+	// 	constantGas: params.CallGasEIP150,
+	// 	dynamicGas:  gasStaticCall,
+	// 	minStack:    minStack(4, 1),
+	// 	maxStack:    maxStack(4, 1),
+	// 	memorySize:  memoryStaticCall,
+	// 	valid:       true,
+	// 	returns:     true,
+	// }
 	instructionSet[STATICCALL] = operation{
 		execute:     opStaticCall,
 		constantGas: params.CallGasEIP150,

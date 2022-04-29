@@ -66,7 +66,8 @@ type Worker struct {
 func (w *Worker) CommitSortedTransactions(
 	txs *types.TransactionsByPriceAndNonce,
 	coinbase common.Address,
-) {
+) types.PoolTransactions {
+	deferredTxs := types.PoolTransactions{}
 	for {
 		if w.current.gasPool.Gas() < 30000000 {
 			// Temporary solution to reduce the fullness of the block. Break here when the available gas left hit 30M.
@@ -126,6 +127,11 @@ func (w *Worker) CommitSortedTransactions(
 			utils.Logger().Info().Str("sender", sender).Uint64("nonce", tx.Nonce()).Msg("Skipping account with high nonce")
 			txs.Pop()
 
+		case vm.ErrDeferredForNextBlock:
+			// utils.Logger().Info().Str("sender", sender).Msg(vm.ErrDeferredForNextBlock.Error())
+			deferredTxs = append(deferredTxs, tx)
+			txs.Shift()
+
 		case nil:
 			// Everything ok, collect the logs and shift in the next transaction from the same account
 			txs.Shift()
@@ -137,13 +143,14 @@ func (w *Worker) CommitSortedTransactions(
 			txs.Shift()
 		}
 	}
+	return deferredTxs
 }
 
 // CommitTransactions commits transactions for new block.
 func (w *Worker) CommitTransactions(
 	pendingNormal map[common.Address]types.Transactions,
 	pendingStaking staking.StakingTransactions, coinbase common.Address,
-) error {
+) (types.PoolTransactions, error) {
 	if w.current.gasPool == nil {
 		w.current.gasPool = new(core.GasPool).AddGas(w.current.header.GasLimit())
 	}
@@ -151,7 +158,7 @@ func (w *Worker) CommitTransactions(
 	// ASTRA TXNS
 	normalTxns := types.NewTransactionsByPriceAndNonce(w.current.signer, w.current.ethSigner, pendingNormal)
 
-	w.CommitSortedTransactions(normalTxns, coinbase)
+	deferredTxs := w.CommitSortedTransactions(normalTxns, coinbase)
 
 	// STAKING - only beaconchain process staking transaction
 	if w.chain.ShardID() == shard.BeaconChainShardID {
@@ -191,7 +198,7 @@ func (w *Worker) CommitTransactions(
 		Uint64("blockGasLimit", w.current.header.GasLimit()).
 		Uint64("blockGasUsed", w.current.header.GasUsed()).
 		Msg("Block gas limit and usage info")
-	return nil
+	return deferredTxs, nil
 }
 
 func (w *Worker) commitStakingTransaction(
@@ -242,8 +249,9 @@ func (w *Worker) commitTransaction(
 		&gasUsed,
 		vm.Config{},
 	)
+	// fmt.Println("worker: ", receipt, cx, stakeMsgs, err)
 	w.current.header.SetGasUsed(gasUsed)
-	if err != nil {
+	if err != nil && err != vm.ErrDeferredForNextBlock {
 		w.current.state.RevertToSnapshot(snap)
 		utils.Logger().Error().
 			Err(err).Interface("txn", tx).
@@ -262,6 +270,9 @@ func (w *Worker) commitTransaction(
 
 	if cx != nil {
 		w.current.outcxs = append(w.current.outcxs, cx)
+	}
+	if err == vm.ErrDeferredForNextBlock {
+		return vm.ErrDeferredForNextBlock
 	}
 	return nil
 }

@@ -214,8 +214,8 @@ const (
 	DELEGATECALL
 	CREATE2
 	STATICCALL = 0xfa
-
-	REVERT              = 0xfd
+	REVERT     = 0xfd
+	// DEFER               = 0xfe
 	SELFDESTRUCT OpCode = 0xff
 )
 
@@ -380,6 +380,7 @@ var opCodeToString = map[OpCode]string{
 	CREATE2:      "CREATE2",
 	STATICCALL:   "STATICCALL",
 	REVERT:       "REVERT",
+	// DEFER:        "DEFER",
 	SELFDESTRUCT: "SELFDESTRUCT",
 
 	PUSH: "PUSH",
@@ -537,7 +538,8 @@ var stringToOp = map[string]OpCode{
 	"RETURN":         RETURN,
 	"CALLCODE":       CALLCODE,
 	"REVERT":         REVERT,
-	"SELFDESTRUCT":   SELFDESTRUCT,
+	// "DEFER":          DEFER,
+	"SELFDESTRUCT": SELFDESTRUCT,
 }
 
 // StringToOp finds the opcode whose name is stored in `str`.

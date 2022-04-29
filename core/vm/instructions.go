@@ -18,12 +18,13 @@ package vm
 
 import (
 	"errors"
+	"fmt"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/math"
 	"github.com/astra-net/astra-network/core/types"
 	"github.com/astra-net/astra-network/internal/params"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/common/math"
 	"golang.org/x/crypto/sha3"
 )
 
@@ -760,6 +761,7 @@ func opCall(pc *uint64, interpreter *EVMInterpreter, contract *Contract, memory 
 	if value.Sign() != 0 {
 		gas += params.CallStipend
 	}
+	fmt.Println("called from vm")
 	ret, returnGas, err := interpreter.evm.Call(contract, toAddr, args, gas, value)
 	if err != nil {
 		stack.push(interpreter.intPool.getZero())
@@ -838,7 +840,29 @@ func opDelegateCall(pc *uint64, interpreter *EVMInterpreter, contract *Contract,
 	return ret, nil
 }
 
+// func opDefer(pc *uint64, interpreter *EVMInterpreter, contract *Contract, memory *Memory, stack *Stack) ([]byte, error) {
+// 	fmt.Println("opdefer")
+// 	// 1) change tx input to be the next blocks number (instead of 0)
+// 	addr, inOffset, inSize := stack.pop(), stack.pop(), stack.pop()
+// 	a := memory.GetPtr(inOffset.Int64(), inSize.Int64())
+// 	fmt.Println("a: ", a)
+// 	memory.Set(inOffset.Uint64(), inSize.Uint64(), big.NewInt(0).Add(interpreter.evm.BlockNumber, common.Big1).Bytes())
+// 	fmt.Println("stng to :", interpreter.evm.BlockNumber)
+// 	stack.push(inSize)
+// 	stack.push(inOffset)
+// 	stack.push(addr)
+
+// 	// 2) put tx into deferredTxs array
+// 	// deferredTxs.append(tx)
+
+// 	// 3) return nothing
+// 	return nil, nil
+
+// 	// 4) where blocks go through the new tx pool, add defferedTxs there so that it executes it now
+// }
+
 func opStaticCall(pc *uint64, interpreter *EVMInterpreter, contract *Contract, memory *Memory, stack *Stack) ([]byte, error) {
+	fmt.Println("opstaticcall")
 	// Pop gas. The actual gas is in interpreter.evm.callGasTemp.
 	interpreter.intPool.put(stack.pop())
 	gas := interpreter.evm.callGasTemp
@@ -849,7 +873,7 @@ func opStaticCall(pc *uint64, interpreter *EVMInterpreter, contract *Contract, m
 	args := memory.GetPtr(inOffset.Int64(), inSize.Int64())
 
 	ret, returnGas, err := interpreter.evm.StaticCall(contract, toAddr, args, gas)
-	if err != nil {
+	if err != nil && err != ErrDeferredForNextBlock {
 		stack.push(interpreter.intPool.getZero())
 	} else {
 		stack.push(interpreter.intPool.get().SetUint64(1))
@@ -863,6 +887,9 @@ func opStaticCall(pc *uint64, interpreter *EVMInterpreter, contract *Contract, m
 	contract.Gas += returnGas
 
 	interpreter.intPool.put(addr, inOffset, inSize, retOffset, retSize)
+	if err == ErrDeferredForNextBlock {
+		return ret, err
+	}
 	return ret, nil
 }
 

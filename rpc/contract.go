@@ -28,7 +28,7 @@ const (
 // PublicContractService provides an API to access Astra's contract services.
 // It offers only methods that operate on public data that is freely available to anyone.
 type PublicContractService struct {
-	astra     *astra.Astra
+	astra   *astra.Astra
 	version Version
 	// TEMP SOLUTION to rpc node spamming issue
 	limiterCall *rate.Limiter
@@ -79,6 +79,7 @@ func (s *PublicContractService) Call(
 
 	// Execute call
 	result, err := DoEVMCall(ctx, s.astra, args, blockNum, CallTimeout)
+	fmt.Println("rpc: ", err)
 	if err != nil {
 		return nil, err
 	}
@@ -193,7 +194,9 @@ func DoEVMCall(
 	// Setup the gas pool (also for unmetered requests)
 	// and apply the message.
 	gp := new(core.GasPool).AddGas(math.MaxUint64)
+	fmt.Println("contract")
 	result, err := core.ApplyMessage(evm, msg, gp)
+	// make errdefer propogate up till i can save the tx to the next blocks pool
 	if err != nil {
 		DoMetricRPCQueryInfo(DoEvmCall, FailedNumber)
 		return core.ExecutionResult{}, err

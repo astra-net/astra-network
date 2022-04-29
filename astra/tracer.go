@@ -365,9 +365,9 @@ func (astra *Astra) traceBlockNoThread(ctx context.Context, block *types.Block, 
 	// Execute all the transaction contained within the block concurrently
 	var (
 		astraSigner = types.MakeSigner(astra.BlockChain.Config(), block.Number())
-		ethSigner = types.NewEIP155Signer(astra.BlockChain.Config().EthCompatibleChainID)
-		txs       = block.Transactions()
-		results   = make([]*TxTraceResult, len(txs))
+		ethSigner   = types.NewEIP155Signer(astra.BlockChain.Config().EthCompatibleChainID)
+		txs         = block.Transactions()
+		results     = make([]*TxTraceResult, len(txs))
 	)
 
 	blockHash := block.Hash()
@@ -441,9 +441,9 @@ func (astra *Astra) TraceBlock(ctx context.Context, block *types.Block, config *
 	// Execute all the transaction contained within the block concurrently
 	var (
 		astraSigner = types.MakeSigner(astra.BlockChain.Config(), block.Number())
-		ethSigner = types.NewEIP155Signer(astra.BlockChain.Config().EthCompatibleChainID)
-		txs       = block.Transactions()
-		results   = make([]*TxTraceResult, len(txs))
+		ethSigner   = types.NewEIP155Signer(astra.BlockChain.Config().EthCompatibleChainID)
+		txs         = block.Transactions()
+		results     = make([]*TxTraceResult, len(txs))
 
 		pend = new(sync.WaitGroup)
 		jobs = make(chan *txTraceTask, len(txs))
@@ -553,8 +553,8 @@ func (astra *Astra) standardTraceBlockToFile(ctx context.Context, block *types.B
 	// Execute transaction, either tracing all or just the requested one
 	var (
 		astraSigner = types.MakeSigner(astra.BlockChain.Config(), block.Number())
-		ethSigner = types.NewEIP155Signer(astra.BlockChain.Config().EthCompatibleChainID)
-		dumps     []string
+		ethSigner   = types.NewEIP155Signer(astra.BlockChain.Config().EthCompatibleChainID)
+		dumps       []string
 	)
 	for i, tx := range block.Transactions() {
 		signer := astraSigner

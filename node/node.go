@@ -224,12 +224,13 @@ func (node *Node) addPendingTransactions(newTxs types.Transactions) []error {
 	}
 	errs = append(errs, node.TxPool.AddRemotes(poolTxs)...)
 
-	pendingCount, queueCount := node.TxPool.Stats()
+	pendingCount, queueCount, deferredCount := node.TxPool.Stats()
 	utils.Logger().Debug().
 		Interface("err", errs).
 		Int("length of newTxs", len(newTxs)).
 		Int("totalPending", pendingCount).
 		Int("totalQueued", queueCount).
+		Int("totalDeferred", deferredCount).
 		Msg("[addPendingTransactions] Adding more transactions")
 	return errs
 }
@@ -243,11 +244,12 @@ func (node *Node) addPendingStakingTransactions(newStakingTxs staking.StakingTra
 				poolTxs = append(poolTxs, tx)
 			}
 			errs := node.TxPool.AddRemotes(poolTxs)
-			pendingCount, queueCount := node.TxPool.Stats()
+			pendingCount, queueCount, deferredCount := node.TxPool.Stats()
 			utils.Logger().Info().
 				Int("length of newStakingTxs", len(poolTxs)).
 				Int("totalPending", pendingCount).
 				Int("totalQueued", queueCount).
+				Int("totalDeferred", deferredCount).
 				Msg("Got more staking transactions")
 			return errs
 		}

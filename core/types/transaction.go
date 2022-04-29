@@ -91,6 +91,10 @@ type CoreTransaction interface {
 	Hash() common.Hash
 	Protected() bool
 	ChainID() *big.Int
+
+	// the block number this tx was deferred to
+	// Deferred() *big.Int
+	// Defer(*big.Int)
 }
 
 // Transaction struct.
@@ -103,6 +107,8 @@ type Transaction struct {
 	// time at which the node received the tx
 	// and not the time set by the sender
 	time time.Time
+	// the block number this tx was deferred to
+	minBlockNum *big.Int
 }
 
 // String print mode string
@@ -348,6 +354,15 @@ func (tx *Transaction) DecodeRLP(s *rlp.Stream) error {
 	return err
 }
 
+func (tx *Transaction) Defer(newBlockNum *big.Int) {
+	tx.minBlockNum = newBlockNum
+	fmt.Println("set tx.minBlockNum", newBlockNum, tx.minBlockNum)
+}
+
+func (tx *Transaction) Deferred() *big.Int {
+	return tx.minBlockNum
+}
+
 // MarshalJSON encodes the web3 RPC transaction format.
 func (tx *Transaction) MarshalJSON() ([]byte, error) {
 	hash := tx.Hash()
@@ -469,14 +484,16 @@ func (tx *Transaction) ConvertToEth() *EthTransaction {
 // XXX Rename message to something less arbitrary?
 func (tx *Transaction) AsMessage(s Signer) (Message, error) {
 	msg := Message{
-		nonce:      tx.data.AccountNonce,
-		gasLimit:   tx.data.GasLimit,
-		gasPrice:   new(big.Int).Set(tx.data.Price),
-		to:         tx.data.Recipient,
-		amount:     tx.data.Amount,
-		data:       tx.data.Payload,
-		checkNonce: true,
+		nonce:       tx.data.AccountNonce,
+		gasLimit:    tx.data.GasLimit,
+		gasPrice:    new(big.Int).Set(tx.data.Price),
+		to:          tx.data.Recipient,
+		amount:      tx.data.Amount,
+		data:        tx.data.Payload,
+		checkNonce:  true,
+		minBlockNum: tx.minBlockNum,
 	}
+	fmt.Println("set msg.minBlockNum", tx.minBlockNum, msg.minBlockNum, msg.MinBlockNum())
 
 	var err error
 	msg.from, err = Sender(s, tx)
@@ -671,16 +688,17 @@ func (t *TransactionsByPriceAndNonce) Pop() {
 // Message is a fully derived transaction and implements core.Message
 // NOTE: In a future PR this will be removed.
 type Message struct {
-	to         *common.Address
-	from       common.Address
-	nonce      uint64
-	amount     *big.Int
-	gasLimit   uint64
-	gasPrice   *big.Int
-	data       []byte
-	checkNonce bool
-	blockNum   *big.Int
-	txType     TransactionType
+	to          *common.Address
+	from        common.Address
+	nonce       uint64
+	amount      *big.Int
+	gasLimit    uint64
+	gasPrice    *big.Int
+	data        []byte
+	checkNonce  bool
+	blockNum    *big.Int
+	txType      TransactionType
+	minBlockNum *big.Int // the block num that this tx can be executed at
 }
 
 // NewMessage returns new message.
@@ -764,6 +782,11 @@ func (m *Message) SetType(typ TransactionType) {
 // BlockNum returns the blockNum of the tx belongs to
 func (m Message) BlockNum() *big.Int {
 	return m.blockNum
+}
+
+// the block num that this tx can be executed at
+func (m Message) MinBlockNum() *big.Int {
+	return m.minBlockNum
 }
 
 // RecentTxsStats is a recent transactions stats map tracking stats like BlockTxsCounts.

@@ -33,7 +33,7 @@ var CallMethod = []string{
 }
 
 type CallAPIService struct {
-	astra                 *astra.Astra
+	astra               *astra.Astra
 	publicContractAPI   rpc.API
 	publicStakingAPI    rpc.API
 	publicBlockChainAPI rpc.API
@@ -84,7 +84,7 @@ func (c *CallAPIService) Call(
 
 func NewCallAPIService(astra *astra.Astra, limiterEnable bool, rateLimit int) server.CallAPIServicer {
 	return &CallAPIService{
-		astra:                 astra,
+		astra:               astra,
 		publicContractAPI:   rpc2.NewPublicContractAPI(astra, rpc2.V2),
 		publicStakingAPI:    rpc2.NewPublicStakingAPI(astra, rpc2.V2),
 		publicBlockChainAPI: rpc2.NewPublicBlockchainAPI(astra, rpc2.V2, limiterEnable, rateLimit),

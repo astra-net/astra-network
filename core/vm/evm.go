@@ -17,6 +17,7 @@
 package vm
 
 import (
+	"fmt"
 	"math/big"
 	"sync/atomic"
 	"time"
@@ -31,6 +32,7 @@ import (
 // emptyCodeHash is used by create to ensure deployment is disallowed to already
 // deployed contract addresses (relevant after the account abstraction).
 var emptyCodeHash = crypto.Keccak256Hash(nil)
+var i *big.Int
 
 type RosettaLogAddressItem struct {
 	Account, SubAccount *common.Address
@@ -93,8 +95,17 @@ func run(evm *EVM, contract *Contract, input []byte, readOnly bool) ([]byte, err
 					requestedBlockNum := big.NewInt(0).SetBytes(input)
 					minBlockNum := big.NewInt(0).Sub(evm.BlockNumber, common.Big257)
 
-					if requestedBlockNum.Cmp(evm.BlockNumber) == 0 {
-						input = evm.Context.VRF.Bytes()
+					if requestedBlockNum.Cmp(common.Big0) == 0 {
+						// fmt.Println("next blknum: ", input)
+						return big.NewInt(0).Bytes(), ErrDeferredForNextBlock
+					} else if requestedBlockNum.Cmp(evm.BlockNumber) == 0 {
+						fmt.Println("i:", i, "by:", evm.Origin)
+						if i == nil {
+							i = big.NewInt(0)
+						}
+						input = crypto.Keccak256(evm.Context.VRF.Bytes(), evm.Origin.Bytes(), i.Add(i, common.Big1).Bytes())
+						fmt.Println(input)
+						// input = evm.Context.VRF.Bytes()
 					} else if requestedBlockNum.Cmp(minBlockNum) > 0 && requestedBlockNum.Cmp(evm.BlockNumber) < 0 {
 						// requested block number is in range
 						input = evm.GetVRF(requestedBlockNum.Uint64()).Bytes()
@@ -102,6 +113,7 @@ func run(evm *EVM, contract *Contract, input []byte, readOnly bool) ([]byte, err
 						// else default to the current block's VRF
 						input = evm.Context.VRF.Bytes()
 					}
+					fmt.Println("input: ", input)
 				} else {
 					// Override the input with vrf data of the requested block so it can be returned to the contract program.
 					input = evm.Context.VRF.Bytes()
@@ -351,13 +363,20 @@ func (evm *EVM) Call(caller ContractRef, addr common.Address, input []byte, gas 
 			evm.vmConfig.Tracer.CaptureEnd(ret, gas-contract.Gas, time.Since(start), err)
 		}()
 	}
+	fmt.Println("in call")
 	ret, err = run(evm, contract, input, false)
+	fmt.Println("call err: ", err)
 
 	// When an error was returned by the EVM or when setting the creation code
 	// above we revert to the snapshot and consume any gas remaining. Additionally
 	// when we're in homestead this also counts for code storage gas errors.
 	if err != nil {
 		evm.StateDB.RevertToSnapshot(snapshot)
+		if err == ErrDeferredForNextBlock {
+			fmt.Println("error is defer , ", gas, contract.Gas)
+			// 	// debug.PrintStack()
+			// return ret, gas, err
+		}
 		if err != ErrExecutionReverted {
 			contract.UseGas(contract.Gas)
 		}
@@ -396,6 +415,7 @@ func (evm *EVM) CallCode(caller ContractRef, addr common.Address, input []byte, 
 	contract := NewContract(caller, to, value, gas)
 	contract.SetCallCode(&addr, evm.StateDB.GetCodeHash(addr), evm.StateDB.GetCode(addr))
 
+	fmt.Println("in callcode")
 	ret, err = run(evm, contract, input, false)
 	if err != nil {
 		evm.StateDB.RevertToSnapshot(snapshot)
@@ -429,6 +449,7 @@ func (evm *EVM) DelegateCall(caller ContractRef, addr common.Address, input []by
 	contract := NewContract(caller, to, nil, gas).AsDelegate()
 	contract.SetCallCode(&addr, evm.StateDB.GetCodeHash(addr), evm.StateDB.GetCode(addr))
 
+	fmt.Println("in delegatecall")
 	ret, err = run(evm, contract, input, false)
 	if err != nil {
 		evm.StateDB.RevertToSnapshot(snapshot)
@@ -471,9 +492,24 @@ func (evm *EVM) StaticCall(caller ContractRef, addr common.Address, input []byte
 	// When an error was returned by the EVM or when setting the creation code
 	// above we revert to the snapshot and consume any gas remaining. Additionally
 	// when we're in Homestead this also counts for code storage gas errors.
+	fmt.Println("in staticcall")
 	ret, err = run(evm, contract, input, true)
 	if err != nil {
 		evm.StateDB.RevertToSnapshot(snapshot)
+		if err == ErrDeferredForNextBlock {
+			// 	// change tx input to be the next blocks number (instead of 0)
+			// 	// input = big.NewInt(0).Add(evm.BlockNumber, common.Big1).Bytes()
+			// fmt.Println("called static blockchain")
+			fmt.Println(err.Error())
+			// 	// debug.PrintStack()
+			// 	return ret, gas, err
+
+			// 	// put tx into deferredTxs array
+			// 	// deferredTxs.append(tx)
+
+			// 	// 3) where blocks go through the new tx pool, add defferedTxs there so that it executes it now
+			// 	// input = evm.BlockNumber.Bytes()
+		}
 		if err != ErrExecutionReverted {
 			contract.UseGas(contract.Gas)
 		}
@@ -534,6 +570,7 @@ func (evm *EVM) create(caller ContractRef, codeAndHash *codeAndHash, gas uint64,
 	}
 	start := time.Now()
 
+	fmt.Println("in create")
 	ret, err := run(evm, contract, nil, false)
 
 	// check whether the max code size has been exceeded
