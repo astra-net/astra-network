@@ -31,7 +31,7 @@ import (
 // emptyCodeHash is used by create to ensure deployment is disallowed to already
 // deployed contract addresses (relevant after the account abstraction).
 var emptyCodeHash = crypto.Keccak256Hash(nil)
-var i *big.Int
+var requestCounter *big.Int
 
 type RosettaLogAddressItem struct {
 	Account, SubAccount *common.Address
@@ -95,10 +95,11 @@ func run(evm *EVM, contract *Contract, input []byte, readOnly bool) ([]byte, err
 					minBlockNum := big.NewInt(0).Sub(evm.BlockNumber, common.Big257)
 
 					if requestedBlockNum.Cmp(evm.BlockNumber) == 0 {
-						if i == nil {
-							i = big.NewInt(0)
+						if requestCounter == nil {
+							requestCounter = big.NewInt(0)
 						}
-						input = crypto.Keccak256(evm.Context.VRF.Bytes(), evm.Origin.Bytes(), i.Add(i, common.Big1).Bytes())
+						input = crypto.Keccak256(evm.Context.VRF.Bytes(), evm.Origin.Bytes(), big.NewInt(time.Now().UnixNano()).Bytes(),
+							requestCounter.Add(requestCounter, common.Big1).Bytes())
 					} else if requestedBlockNum.Cmp(minBlockNum) > 0 && requestedBlockNum.Cmp(evm.BlockNumber) < 0 {
 						// requested block number is in range
 						input = evm.GetVRF(requestedBlockNum.Uint64()).Bytes()

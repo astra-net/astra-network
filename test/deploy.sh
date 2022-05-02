@@ -69,8 +69,9 @@ function launch_localnet() {
   if ${VERBOSE}; then
     verbosity=5
   else
-    verbosity=2
+    verbosity=1
   fi
+  echo verbosity: $verbosity
 
   base_args=(--log_folder "${log_folder}" --min_peers "${MIN}" --bootnodes "${BN_MA}" "--network_type=$NETWORK" --blspass file:"${ROOT}/.astra/blspass.txt" "--dns=false" "--verbosity=${verbosity}" "--p2p.security.max-conn-per-ip=2000")
   sleep 2
