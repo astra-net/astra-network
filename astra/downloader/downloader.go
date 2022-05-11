@@ -159,7 +159,7 @@ func (d *Downloader) waitForBootFinish() {
 	t := time.NewTicker(10 * time.Second)
 	defer t.Stop()
 	for {
-		d.logger.Info().Msg("waiting for initial bootstrap discovery")
+		d.logger.Info().Msg(fmt.Sprint("waiting for initial bootstrap discovery: ", d.syncProtocol.NumStreams()))
 		select {
 		case <-t.C:
 			trigger()

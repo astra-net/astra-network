@@ -30,7 +30,7 @@ On macOS:
 brew install gmp
 brew install openssl
 sudo ln -sf /usr/local/opt/openssl@1.1 /usr/local/opt/openssl
-````
+```
 
 On Linux (Ubuntu)
 

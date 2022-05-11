@@ -16,7 +16,7 @@ type testnetSchedule struct{}
 
 const (
 	// ~304 sec epochs for P2 of open staking
-	testnetBlocksPerEpoch = 38
+	testnetBlocksPerEpoch = 5
 
 	// 4.5 hours per epoch (given 2s block time)
 	testnetBlocksPerEpochV2 = 8192
@@ -28,7 +28,7 @@ const (
 	// TestNetWSPattern is the websocket pattern for testnet.
 	TestNetWSPattern = "wss://ws.s%d.t.astranetwork.com"
 
-	testnetV2Epoch = 6050 // per shard, reduce internal node from 15 to 8, and external nodes from 5 to 22
+	testnetV2Epoch = 3 // per shard, reduce internal node from 15 to 8, and external nodes from 5 to 22
 )
 
 func (ts testnetSchedule) InstanceForEpoch(epoch *big.Int) Instance {

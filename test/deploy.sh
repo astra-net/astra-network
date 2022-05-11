@@ -54,7 +54,7 @@ function setup() {
 
 function launch_bootnode() {
   echo "launching boot node ..."
-  ${DRYRUN} ${ROOT}/bin/bootnode -port 9876 -max_conn_per_ip 2000 >"${log_folder}"/bootnode.log 2>&1 | tee -a "${LOG_FILE}" &
+  ${DRYRUN} ${ROOT}/bin/bootnode -ip "108.61.84.40" -port 9874 -max_conn_per_ip 2000 >"${log_folder}"/bootnode.log 2>&1 | tee -a "${LOG_FILE}" &
   sleep 1
   BN_MA=$(grep "BN_MA" "${log_folder}"/bootnode.log | awk -F\= ' { print $2 } ')
   echo "bootnode launched." + " $BN_MA"
@@ -73,7 +73,7 @@ function launch_localnet() {
   fi
   echo verbosity: $verbosity
 
-  base_args=(--log_folder "${log_folder}" --min_peers "${MIN}" --bootnodes "${BN_MA}" "--network_type=$NETWORK" --blspass file:"${ROOT}/.astra/blspass.txt" "--dns=false" "--verbosity=${verbosity}" "--p2p.security.max-conn-per-ip=2000")
+  base_args=(--log_folder "${log_folder}" --min_peers "${MIN}" --bootnodes "${BN_MA}" "--network_type=$NETWORK" --blspass file:"${ROOT}/.astra/blspass.txt" "--verbosity=${verbosity}" "--dns=false" "--p2p.security.max-conn-per-ip=2000")
   sleep 2
 
   # Start nodes
@@ -110,18 +110,16 @@ function launch_localnet() {
       args=("${args[@]}" "--node_type=explorer" "--shard_id=${shard}" "--http.rosetta=true" "--run.archive")
       ;;
     archive)
-      args=("${args[@]}" "--run.archive" "--run.legacy")
+      args=("${args[@]}" "--run.archive")
       ;;
     leader)
-      args=("${args[@]}" "--run.beacon-archive" "--run.legacy")
-      ;;
-    external)
-      ;;
-    client)
-      args=("${args[@]}" "--run.legacy")
+      args=("${args[@]}" "--run.beacon-archive")
       ;;
     validator)
       args=("${args[@]}" "--run.legacy")
+      ;;
+    staker)
+      args=("${args[@]}")
       ;;
     esac
 

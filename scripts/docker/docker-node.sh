@@ -7,7 +7,7 @@ port_base=9000
 tag=latest
 db_dir=db
 
-DOCKER_REPO=astraone/node
+DOCKER_REPO=astranetwork/node
 DOCKER_IMAGE=$DOCKER_REPO:$tag
 
 function usage()
