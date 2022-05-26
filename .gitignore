@@ -66,14 +66,14 @@ node_modules/
 # go.sum
 
 # bnkey
-test/.bnkey
+.bnkey
 
 # exported keys
-.astra/*.key
-.astra/keystore
+#.astra/*.key
+#.astra/keystore
 
 # blspass
-blspass.txt
+#blspass.txt
 
 # local test db
 db-127.0.0.1-*

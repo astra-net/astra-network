@@ -35,7 +35,7 @@ RUN git clone https://github.com/astra-net/bls.git ${ASTRA_PATH}/bls
 
 RUN git clone https://github.com/astra-net/mcl.git ${ASTRA_PATH}/mcl
 
-RUN git clone https://github.com/harmony-one/go-sdk.git ${ASTRA_PATH}/go-sdk
+RUN git clone https://github.com/astra-net/go-sdk.git ${ASTRA_PATH}/go-sdk
 
 RUN cd ${ASTRA_PATH}/bls && make -j8 BLS_SWAP_G=1
 

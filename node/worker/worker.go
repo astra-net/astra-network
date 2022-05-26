@@ -295,7 +295,6 @@ func (w *Worker) CommitReceipts(receiptsList []*types.CXReceiptsProof) error {
 func (w *Worker) UpdateCurrent() error {
 	parent := w.chain.CurrentBlock()
 	num := parent.Number()
-	fmt.Println("blknum: ", num)
 	timestamp := time.Now().Unix()
 
 	epoch := w.GetNewEpoch()
