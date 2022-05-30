@@ -54,6 +54,8 @@ import (
 	"github.com/ethereum/go-ethereum/event"
 	"github.com/ethereum/go-ethereum/metrics"
 	"github.com/ethereum/go-ethereum/rlp"
+
+	"github.com/astra-net/astra-network/astra/tracers"
 	lru "github.com/hashicorp/golang-lru"
 	"github.com/pkg/errors"
 )
@@ -141,6 +143,8 @@ type BlockChain struct {
 	gcproc time.Duration  // Accumulates canonical block processing for trie dumping
 
 	hc            *HeaderChain
+	trace         bool       // atomic?
+	traceFeed     event.Feed // send trace_block result to explorer
 	rmLogsFeed    event.Feed
 	chainFeed     event.Feed
 	chainSideFeed event.Feed
@@ -1492,11 +1496,24 @@ func (bc *BlockChain) insertChain(chain types.Blocks, verifyHeaders bool) (int, 
 		if err != nil {
 			return i, events, coalescedLogs, err
 		}
-
+		vmConfig := bc.vmConfig
+		if bc.trace {
+			ev := TraceEvent{
+				Tracer: &tracers.ParityBlockTracer{
+					Hash:   block.Hash(),
+					Number: block.NumberU64(),
+				},
+			}
+			vmConfig = vm.Config{
+				Debug:  true,
+				Tracer: ev.Tracer,
+			}
+			events = append(events, ev)
+		}
 		// Process block using the parent state as reference point.
 		substart := time.Now()
 		receipts, cxReceipts, stakeMsgs, logs, usedGas, payout, newState, err := bc.processor.Process(
-			block, state, bc.vmConfig, true,
+			block, state, vmConfig, true,
 		)
 		state = newState // update state in case the new state is cached.
 		if err != nil {
@@ -1659,6 +1676,9 @@ func (bc *BlockChain) PostChainEvents(events []interface{}, logs []*types.Log) {
 
 		case ChainSideEvent:
 			bc.chainSideFeed.Send(ev)
+
+		case TraceEvent:
+			bc.traceFeed.Send(ev)
 		}
 	}
 }
@@ -1845,6 +1865,12 @@ func (bc *BlockChain) Engine() consensus_engine.Engine { return bc.engine }
 // SubscribeRemovedLogsEvent registers a subscription of RemovedLogsEvent.
 func (bc *BlockChain) SubscribeRemovedLogsEvent(ch chan<- RemovedLogsEvent) event.Subscription {
 	return bc.scope.Track(bc.rmLogsFeed.Subscribe(ch))
+}
+
+// SubscribeChainEvent registers a subscription of ChainEvent.
+func (bc *BlockChain) SubscribeTraceEvent(ch chan<- TraceEvent) event.Subscription {
+	bc.trace = true
+	return bc.scope.Track(bc.traceFeed.Subscribe(ch))
 }
 
 // SubscribeChainEvent registers a subscription of ChainEvent.
@@ -2542,12 +2568,7 @@ func (bc *BlockChain) UpdateValidatorVotingPower(
 		if snapshot, err := bc.ReadValidatorSnapshotAtEpoch(
 			newEpochSuperCommittee.Epoch, key,
 		); err == nil {
-			wrapper := snapshot.Validator
-			spread := numeric.ZeroDec()
-			if len(wrapper.SlotPubKeys) > 0 {
-				spread = numeric.NewDecFromBigInt(wrapper.TotalDelegation()).
-					QuoInt64(int64(len(wrapper.SlotPubKeys)))
-			}
+			spread := snapshot.RawStakePerSlot()
 			for i := range stats.MetricsPerShard {
 				stats.MetricsPerShard[i].Vote.RawStake = spread
 			}
@@ -2640,10 +2661,9 @@ func (bc *BlockChain) UpdateValidatorSnapshots(
 // ReadValidatorList reads the addresses of current all validators
 func (bc *BlockChain) ReadValidatorList() ([]common.Address, error) {
 	if cached, ok := bc.validatorListCache.Get("validatorList"); ok {
-		by := cached.([]byte)
-		m := []common.Address{}
-		if err := rlp.DecodeBytes(by, &m); err != nil {
-			return nil, err
+		m, ok := cached.([]common.Address)
+		if !ok {
+			return nil, errors.New("failed to get validator list")
 		}
 		return m, nil
 	}
@@ -2658,10 +2678,7 @@ func (bc *BlockChain) WriteValidatorList(
 	if err := rawdb.WriteValidatorList(db, addrs); err != nil {
 		return err
 	}
-	bytes, err := rlp.EncodeToBytes(addrs)
-	if err == nil {
-		bc.validatorListCache.Add("validatorList", bytes)
-	}
+	bc.validatorListCache.Add("validatorList", addrs)
 	return nil
 }
 

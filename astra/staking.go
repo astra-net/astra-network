@@ -45,9 +45,7 @@ func (astra *Astra) readAndUpdateRawStakes(
 			if err != nil {
 				continue
 			}
-			wrapper := snapshot.Validator
-			spread = numeric.NewDecFromBigInt(wrapper.TotalDelegation()).
-				QuoInt64(int64(len(wrapper.SlotPubKeys)))
+			spread = snapshot.RawStakePerSlot()
 			validatorSpreads[slotAddr] = spread
 		}
 
@@ -443,7 +441,8 @@ func (astra *Astra) GetMedianRawStakeSnapshot() (
 		func() (interface{}, error) {
 			// Compute for next epoch
 			epoch := big.NewInt(0).Add(astra.CurrentBlock().Epoch(), big.NewInt(1))
-			return committee.NewEPoSRound(epoch, astra.BlockChain, astra.BlockChain.Config().IsEPoSBound35(epoch))
+			instance := shard.Schedule.InstanceForEpoch(epoch)
+			return committee.NewEPoSRound(epoch, astra.BlockChain, astra.BlockChain.Config().IsEPoSBound35(epoch), instance.SlotsLimit(), int(instance.NumShards()))
 		},
 	)
 	if err != nil {
@@ -453,31 +452,23 @@ func (astra *Astra) GetMedianRawStakeSnapshot() (
 }
 
 // GetDelegationsByValidator returns all delegation information of a validator
-func (astra *Astra) GetDelegationsByValidator(validator common.Address) []*staking.Delegation {
+func (astra *Astra) GetDelegationsByValidator(validator common.Address) []staking.Delegation {
 	wrapper, err := astra.BlockChain.ReadValidatorInformation(validator)
 	if err != nil || wrapper == nil {
 		return nil
 	}
-	delegations := []*staking.Delegation{}
-	for i := range wrapper.Delegations {
-		delegations = append(delegations, &wrapper.Delegations[i])
-	}
-	return delegations
+	return wrapper.Delegations
 }
 
 // GetDelegationsByValidatorAtBlock returns all delegation information of a validator at the given block
 func (astra *Astra) GetDelegationsByValidatorAtBlock(
 	validator common.Address, block *types.Block,
-) []*staking.Delegation {
+) []staking.Delegation {
 	wrapper, err := astra.BlockChain.ReadValidatorInformationAtRoot(validator, block.Root())
 	if err != nil || wrapper == nil {
 		return nil
 	}
-	delegations := []*staking.Delegation{}
-	for i := range wrapper.Delegations {
-		delegations = append(delegations, &wrapper.Delegations[i])
-	}
-	return delegations
+	return wrapper.Delegations
 }
 
 // GetDelegationsByDelegator returns all delegation information of a delegator
@@ -492,13 +483,14 @@ func (astra *Astra) GetDelegationsByDelegator(
 func (astra *Astra) GetDelegationsByDelegatorByBlock(
 	delegator common.Address, block *types.Block,
 ) ([]common.Address, []*staking.Delegation) {
-	addresses := []common.Address{}
-	delegations := []*staking.Delegation{}
 	delegationIndexes, err := astra.BlockChain.
 		ReadDelegationsByDelegatorAt(delegator, block.Number())
 	if err != nil {
 		return nil, nil
 	}
+
+	addresses := make([]common.Address, 0, len(delegationIndexes))
+	delegations := make([]*staking.Delegation, 0, len(delegationIndexes))
 
 	for i := range delegationIndexes {
 		wrapper, err := astra.BlockChain.ReadValidatorInformationAtRoot(

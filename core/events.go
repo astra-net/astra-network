@@ -17,6 +17,7 @@
 package core
 
 import (
+	"github.com/astra-net/astra-network/astra/tracers"
 	"github.com/astra-net/astra-network/core/types"
 	"github.com/ethereum/go-ethereum/common"
 )
@@ -40,6 +41,10 @@ type ChainEvent struct {
 	Block *types.Block
 	Hash  common.Hash
 	Logs  []*types.Log
+}
+
+type TraceEvent struct {
+	Tracer *tracers.ParityBlockTracer
 }
 
 // ChainSideEvent is chain side event.

@@ -28,7 +28,7 @@ const (
 // PublicStakingService provides an API to access Astra's staking services.
 // It offers only methods that operate on public data that is freely available to anyone.
 type PublicStakingService struct {
-	astra     *astra.Astra
+	astra   *astra.Astra
 	version Version
 
 	validatorInfoCache *lru.Cache // cache for detailed validator information per page and block
@@ -45,7 +45,7 @@ func NewPublicStakingAPI(astra *astra.Astra, version Version) rpc.API {
 		Namespace: version.Namespace(),
 		Version:   APIVersion,
 		Service: &PublicStakingService{
-			astra:                                astra,
+			astra:                              astra,
 			version:                            version,
 			validatorInfoCache:                 viCache,
 			limiterGetAllValidatorInformation:  rate.NewLimiter(1, 3),
@@ -243,7 +243,6 @@ func (s *PublicStakingService) GetValidatorKeys(
 }
 
 // GetAllValidatorInformation returns information about all validators.
-// If page is -1, return all instead of `validatorsPageSize` elements.
 func (s *PublicStakingService) GetAllValidatorInformation(
 	ctx context.Context, page int,
 ) (interface{}, error) {
@@ -336,25 +335,22 @@ func (s *PublicStakingService) getPagedValidatorInformationCached(ctx context.Co
 func (s *PublicStakingService) getAllValidatorInformation(
 	ctx context.Context, page int, blockNum uint64,
 ) (interface{}, error) {
-	if page < -1 {
-		return nil, errors.Errorf("page given %d cannot be less than -1", page)
+	if page < 0 {
+		return nil, errors.Errorf("page given %d cannot be less than 0", page)
 	}
 
 	// Get all validators
 	addresses := s.astra.GetAllValidatorAddresses()
-	if page != -1 && len(addresses) <= page*validatorsPageSize {
+	if len(addresses) <= page*validatorsPageSize {
 		return []StructuredResponse{}, nil
 	}
 
 	// Set page start
-	validatorsNum := len(addresses)
 	start := 0
-	if page != -1 {
-		validatorsNum = validatorsPageSize
-		start = page * validatorsPageSize
-		if len(addresses)-start < validatorsPageSize {
-			validatorsNum = len(addresses) - start
-		}
+	validatorsNum := validatorsPageSize
+	start = page * validatorsPageSize
+	if len(addresses)-start < validatorsPageSize {
+		validatorsNum = len(addresses) - start
 	}
 
 	// Fetch block
@@ -518,7 +514,6 @@ func (s *PublicStakingService) GetValidatorTotalDelegation(
 
 // GetAllDelegationInformation returns delegation information about `validatorsPageSize` validators,
 // starting at `page*validatorsPageSize`.
-// If page is -1, return all instead of `validatorsPageSize` elements.
 // TODO(dm): optimize with single flight
 func (s *PublicStakingService) GetAllDelegationInformation(
 	ctx context.Context, page int,
@@ -536,7 +531,7 @@ func (s *PublicStakingService) GetAllDelegationInformation(
 		DoMetricRPCQueryInfo(GetAllDelegationInformation, FailedNumber)
 		return nil, ErrNotBeaconShard
 	}
-	if page < -1 {
+	if page < 0 {
 		return make([][]StructuredResponse, 0), nil
 	}
 
@@ -544,19 +539,16 @@ func (s *PublicStakingService) GetAllDelegationInformation(
 	addresses := s.astra.GetAllValidatorAddresses()
 
 	// Return nothing if no delegation on page
-	if page != -1 && len(addresses) <= page*validatorsPageSize {
+	if len(addresses) <= page*validatorsPageSize {
 		return make([][]StructuredResponse, 0), nil
 	}
 
 	// Set page start
-	validatorsNum := len(addresses)
 	start := 0
-	if page != -1 {
-		validatorsNum = validatorsPageSize
-		start = page * validatorsPageSize
-		if len(addresses)-start < validatorsPageSize {
-			validatorsNum = len(addresses) - start
-		}
+	validatorsNum := validatorsPageSize
+	start = page * validatorsPageSize
+	if len(addresses)-start < validatorsPageSize {
+		validatorsNum = len(addresses) - start
 	}
 
 	// Fetch all delegations
@@ -679,8 +671,8 @@ func (s *PublicStakingService) parseGetDelegationsByDelegatorResp(
 				Epoch:  delegation.Undelegations[j].Epoch,
 			}
 		}
-		valAddr:= validators[i]
-		delAddr:= delegator
+		valAddr := validators[i]
+		delAddr := delegator
 
 		// Response output is the same for all versions
 		del, err := NewStructuredResponse(Delegation{
@@ -727,19 +719,18 @@ func (s *PublicStakingService) getDelegationByValidatorHelper(address string) ([
 	delegations := s.astra.GetDelegationsByValidator(validatorAddress)
 
 	// Format response
-	result := []StructuredResponse{}
-	for i := range delegations {
-		delegation := delegations[i]
-		undelegations := make([]Undelegation, len(delegation.Undelegations))
+	result := make([]StructuredResponse, 0, len(delegations))
+	for _, delegation := range delegations {
+		undelegations := make([]Undelegation, 0, len(delegation.Undelegations))
 
-		for j := range delegation.Undelegations {
-			undelegations[j] = Undelegation{
-				Amount: delegation.Undelegations[j].Amount,
-				Epoch:  delegation.Undelegations[j].Epoch,
-			}
+		for _, undelegation := range delegation.Undelegations {
+			undelegations = append(undelegations, Undelegation{
+				Amount: undelegation.Amount,
+				Epoch:  undelegation.Epoch,
+			})
 		}
-		valAddr:= validatorAddress
-		delAddr:= delegation.DelegatorAddress
+		valAddr := validatorAddress
+		delAddr := delegation.DelegatorAddress
 
 		// Skip delegations with zero amount and empty undelegation
 		if delegation.Amount.Cmp(common.Big0) == 0 && len(undelegations) == 0 {
@@ -747,17 +738,13 @@ func (s *PublicStakingService) getDelegationByValidatorHelper(address string) ([
 		}
 
 		// Response output is the same for all versions
-		del, err := NewStructuredResponse(Delegation{
-			ValidatorAddress: valAddr.Hex(),
-			DelegatorAddress: delAddr.Hex(),
+		del := Delegation{
+			ValidatorAddress: valAddr.String(),
+			DelegatorAddress: delAddr.String(),
 			Amount:           delegation.Amount,
 			Reward:           delegation.Reward,
 			Undelegations:    undelegations,
-		})
-		if err != nil {
-			DoMetricRPCQueryInfo(GetDelegationsByValidator, FailedNumber)
-			return nil, err
-		}
+		}.IntoStructuredResponse()
 		result = append(result, del)
 	}
 	return result, nil

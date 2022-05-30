@@ -329,6 +329,10 @@ func setupNodeAndRun(hc astraconfig.AstraConfig) {
 		WSPort:             hc.WS.Port,
 		WSAuthPort:         hc.WS.AuthPort,
 		DebugEnabled:       hc.RPCOpt.DebugEnabled,
+		EthRPCsEnabled:     hc.RPCOpt.EthRPCsEnabled,
+		StakingRPCsEnabled: hc.RPCOpt.StakingRPCsEnabled,
+		LegacyRPCsEnabled:  hc.RPCOpt.LegacyRPCsEnabled,
+		RpcFilterFile:      hc.RPCOpt.RpcFilterFile,
 		RateLimiterEnabled: hc.RPCOpt.RateLimterEnabled,
 		RequestsPerSecond:  hc.RPCOpt.RequestsPerSecond,
 	}
@@ -485,7 +489,7 @@ func nodeconfigSetShardSchedule(config astraconfig.AstraConfig) {
 		}
 
 		devnetConfig, err := shardingconfig.NewInstance(
-			uint32(dnConfig.NumShards), dnConfig.ShardSize, dnConfig.AstraNodeSize, numeric.OneDec(), genesis.AstraAccounts, genesis.FoundationalNodeAccounts, nil, shardingconfig.VLBPE)
+			uint32(dnConfig.NumShards), dnConfig.ShardSize, dnConfig.AstraNodeSize, dnConfig.SlotsLimit, numeric.OneDec(), genesis.AstraAccounts, genesis.FoundationalNodeAccounts, nil, shardingconfig.VLBPE)
 		if err != nil {
 			_, _ = fmt.Fprintf(os.Stderr, "ERROR invalid devnet sharding config: %s",
 				err)
@@ -594,12 +598,13 @@ func createGlobalConfig(hc astraconfig.AstraConfig) (*nodeconfig.ConfigType, err
 		ConsensusPubKey: nodeConfig.ConsensusPriKey[0].Pub.Object,
 	}
 	myHost, err = p2p.NewHost(p2p.HostConfig{
-		Self:            &selfPeer,
-		BLSKey:          nodeConfig.P2PPriKey,
-		BootNodes:       hc.Network.BootNodes,
-		DataStoreFile:   hc.P2P.DHTDataStore,
-		DiscConcurrency: hc.P2P.DiscConcurrency,
-		MaxConnPerIP:    hc.P2P.MaxConnsPerIP,
+		Self:                 &selfPeer,
+		BLSKey:               nodeConfig.P2PPriKey,
+		BootNodes:            hc.Network.BootNodes,
+		DataStoreFile:        hc.P2P.DHTDataStore,
+		DiscConcurrency:      hc.P2P.DiscConcurrency,
+		MaxConnPerIP:         hc.P2P.MaxConnsPerIP,
+		DisablePrivateIPScan: hc.P2P.DisablePrivateIPScan,
 	})
 	if err != nil {
 		return nil, errors.Wrap(err, "cannot create P2P network host")
@@ -620,6 +625,8 @@ func createGlobalConfig(hc astraconfig.AstraConfig) (*nodeconfig.ConfigType, err
 	}
 
 	nodeConfig.NtpServer = hc.Sys.NtpServer
+
+	nodeConfig.TraceEnable = hc.General.TraceEnable
 
 	return nodeConfig, nil
 }
@@ -659,6 +666,11 @@ func setupConsensusAndNode(hc astraconfig.AstraConfig, nodeConfig *nodeconfig.Co
 		utils.Logger().Warn().Msgf("Blacklist setup error: %s", err.Error())
 	}
 
+	localAccounts, err := setupLocalAccounts(hc, blacklist)
+	if err != nil {
+		utils.Logger().Warn().Msgf("local accounts setup error: %s", err.Error())
+	}
+
 	// Current node.
 	var chainDBFactory shardchain.DBFactory
 	if hc.ShardData.EnableShardData {
@@ -673,7 +685,7 @@ func setupConsensusAndNode(hc astraconfig.AstraConfig, nodeConfig *nodeconfig.Co
 		chainDBFactory = &shardchain.LDBFactory{RootDir: nodeConfig.DBDir}
 	}
 
-	currentNode := node.New(myHost, currentConsensus, chainDBFactory, blacklist, nodeConfig.ArchiveModes(), &hc)
+	currentNode := node.New(myHost, currentConsensus, chainDBFactory, blacklist, localAccounts, nodeConfig.ArchiveModes(), &hc)
 
 	if hc.Legacy != nil && hc.Legacy.TPBroadcastInvalidTxn != nil {
 		currentNode.BroadcastInvalidTx = *hc.Legacy.TPBroadcastInvalidTxn
@@ -811,7 +823,7 @@ func setupSyncService(node *node.Node, host p2p.Host, hc astraconfig.AstraConfig
 	node.RegisterService(service.Synchronize, s)
 
 	d := s.Downloaders.GetShardDownloader(node.Blockchain().ShardID())
-	if hc.Sync.Downloader {
+	if hc.Sync.Downloader && hc.General.NodeType != nodeTypeExplorer {
 		node.Consensus.SetDownloader(d) // Set downloader when stream client is active
 	}
 }
@@ -836,6 +848,52 @@ func setupBlacklist(hc astraconfig.AstraConfig) (map[ethCommon.Address]struct{},
 		}
 	}
 	return addrMap, nil
+}
+
+func setupLocalAccounts(hc astraconfig.AstraConfig, blacklist map[ethCommon.Address]struct{}) ([]ethCommon.Address, error) {
+	file := hc.TxPool.LocalAccountsFile
+	// check if file exist
+	var fileData string
+	if _, err := os.Stat(file); err == nil {
+		b, err := ioutil.ReadFile(file)
+		if err != nil {
+			return nil, err
+		}
+		fileData = string(b)
+	} else if errors.Is(err, os.ErrNotExist) {
+		// file path does not exist
+		return []ethCommon.Address{}, nil
+	} else {
+		// some other errors happened
+		return nil, err
+	}
+
+	localAccounts := make(map[ethCommon.Address]struct{})
+	lines := strings.Split(fileData, "\n")
+	for _, line := range lines {
+		if len(line) != 0 { // the file may have trailing empty string line
+			trimmedLine := strings.TrimSpace(line)
+			if strings.HasPrefix(trimmedLine, "#") { //check the line is not commented
+				continue
+			}
+			addr, err := common.ParseAddr(trimmedLine)
+			if err != nil {
+				return nil, err
+			}
+			// skip the blacklisted addresses
+			if _, exists := blacklist[addr]; exists {
+				utils.Logger().Warn().Msgf("local account with address %s is blacklisted", addr.String())
+				continue
+			}
+			localAccounts[addr] = struct{}{}
+		}
+	}
+	uniqueAddresses := make([]ethCommon.Address, 0, len(localAccounts))
+	for addr := range localAccounts {
+		uniqueAddresses = append(uniqueAddresses, addr)
+	}
+
+	return uniqueAddresses, nil
 }
 
 func listenOSSigAndShutDown(node *node.Node) {

@@ -83,6 +83,7 @@ Version = "1.0.4"
 
 [TxPool]
   BlacklistFile = "./.astra/blacklist.txt"
+  LocalAccountsFile = "./.astra/locals.txt"
 
 [Sync]
   Downloader = false

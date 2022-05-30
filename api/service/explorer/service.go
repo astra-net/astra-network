@@ -11,11 +11,11 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/astra-net/astra-network/core/types"
-
 	msg_pb "github.com/astra-net/astra-network/api/proto/message"
 	"github.com/astra-net/astra-network/astra"
+	"github.com/astra-net/astra-network/astra/tracers"
 	"github.com/astra-net/astra-network/core"
+	"github.com/astra-net/astra-network/core/types"
 	"github.com/astra-net/astra-network/internal/chain"
 	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
 	"github.com/astra-net/astra-network/internal/utils"
@@ -215,6 +215,15 @@ func (s *Service) GetNormalTxHashesByAccount(address string) ([]ethCommon.Hash, 
 // GetStakingTxHashesByAccount get the staking transaction hashes by account
 func (s *Service) GetStakingTxHashesByAccount(address string) ([]ethCommon.Hash, []TxType, error) {
 	return s.storage.GetStakingTxsByAddress(address)
+}
+
+func (s *Service) GetTraceResultByHash(hash ethCommon.Hash) (json.RawMessage, error) {
+	return s.storage.GetTraceResultByHash(hash)
+}
+
+// DumpTraceResult instruct the explorer storage to trace data in explorer DB
+func (s *Service) DumpTraceResult(data *tracers.TraceBlockStorage) {
+	s.storage.DumpTraceResult(data)
 }
 
 // DumpNewBlock instruct the explorer storage to dump block data in explorer DB

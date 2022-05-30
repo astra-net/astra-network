@@ -32,12 +32,13 @@ type instance struct {
 	fnAccounts                    []genesis.DeployAccount
 	reshardingEpoch               []*big.Int
 	blocksPerEpoch                uint64
+	slotsLimit                    int // HIP-16: The absolute number of maximum effective slots per shard limit for each validator. 0 means no limit.
 }
 
 // NewInstance creates and validates a new sharding configuration based
 // upon given parameters.
 func NewInstance(
-	numShards uint32, numNodesPerShard, numAstraOperatedNodesPerShard int, astraVotePercent numeric.Dec,
+	numShards uint32, numNodesPerShard, numAstraOperatedNodesPerShard, slotsLimit int, astraVotePercent numeric.Dec,
 	astraAccounts []genesis.DeployAccount,
 	fnAccounts []genesis.DeployAccount,
 	reshardingEpoch []*big.Int, blocksE uint64,
@@ -65,6 +66,9 @@ func NewInstance(
 			numNodesPerShard,
 		)
 	}
+	if slotsLimit < 0 {
+		return nil, errors.Errorf("SlotsLimit cannot be negative %d", slotsLimit)
+	}
 	if astraVotePercent.LT(numeric.ZeroDec()) ||
 		astraVotePercent.GT(numeric.OneDec()) {
 		return nil, errors.Errorf("" +
@@ -82,6 +86,7 @@ func NewInstance(
 		fnAccounts:                    fnAccounts,
 		reshardingEpoch:               reshardingEpoch,
 		blocksPerEpoch:                blocksE,
+		slotsLimit:                    slotsLimit,
 	}, nil
 }
 
@@ -90,14 +95,15 @@ func NewInstance(
 // It is intended to be used for static initialization.
 func MustNewInstance(
 	numShards uint32,
-	numNodesPerShard, numAstraOperatedNodesPerShard int,
+	numNodesPerShard, numAstraOperatedNodesPerShard int, slotsLimitPercent float32,
 	astraVotePercent numeric.Dec,
 	astraAccounts []genesis.DeployAccount,
 	fnAccounts []genesis.DeployAccount,
 	reshardingEpoch []*big.Int, blocksPerEpoch uint64,
 ) Instance {
+	slotsLimit := int(float32(numNodesPerShard-numAstraOperatedNodesPerShard) * slotsLimitPercent)
 	sc, err := NewInstance(
-		numShards, numNodesPerShard, numAstraOperatedNodesPerShard, astraVotePercent,
+		numShards, numNodesPerShard, numAstraOperatedNodesPerShard, slotsLimit, astraVotePercent,
 		astraAccounts, fnAccounts, reshardingEpoch, blocksPerEpoch,
 	)
 	if err != nil {
@@ -114,6 +120,11 @@ func (sc instance) BlocksPerEpoch() uint64 {
 // NumShards returns the number of shards in the network.
 func (sc instance) NumShards() uint32 {
 	return sc.numShards
+}
+
+// SlotsLimit returns the max slots per shard limit for each validator
+func (sc instance) SlotsLimit() int {
+	return sc.slotsLimit
 }
 
 // AstraVotePercent returns total percentage of voting power astra nodes possess.

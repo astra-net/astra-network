@@ -931,6 +931,7 @@ func (node *Node) StartPubSub() error {
 		}
 	}()
 
+	node.TraceLoopForExplorer()
 	return nil
 }
 
@@ -952,6 +953,7 @@ func New(
 	consensusObj *consensus.Consensus,
 	chainDBFactory shardchain.DBFactory,
 	blacklist map[common.Address]struct{},
+	localAccounts []common.Address,
 	isArchival map[uint32]bool,
 	astraconfig *astraconfig.AstraConfig,
 ) *Node {
@@ -1022,6 +1024,7 @@ func New(
 		}
 		if astraconfig != nil {
 			txPoolConfig.AccountSlots = astraconfig.TxPool.AccountSlots
+			txPoolConfig.Locals = append(txPoolConfig.Locals, localAccounts...)
 		}
 
 		txPoolConfig.Blacklist = blacklist

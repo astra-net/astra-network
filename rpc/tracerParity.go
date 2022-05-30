@@ -33,6 +33,9 @@ func (s *PublicParityTracerService) Block(ctx context.Context, number rpc.BlockN
 	if block == nil {
 		return nil, nil
 	}
+	if results, err := s.astra.NodeAPI.GetTraceResultByHash(block.Hash()); err == nil {
+		return results, nil
+	}
 	results, err := s.astra.TraceBlock(ctx, block, &astra.TraceConfig{Tracer: &parityTraceGO})
 	if err != nil {
 		return results, err

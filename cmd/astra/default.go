@@ -5,7 +5,7 @@ import (
 	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
 )
 
-const tomlConfigVersion = "2.5.1" // bump from 2.5.0 for AccountSlots
+const tomlConfigVersion = "2.5.2" // bump from 2.5.1 for DisablePrivateIPScan
 
 const (
 	defNetworkType = nodeconfig.Mainnet
@@ -21,14 +21,16 @@ var defaultConfig = astraconfig.AstraConfig{
 		IsBeaconArchival: false,
 		IsOffline:        false,
 		DataDir:          "./",
+		TraceEnable:      false,
 	},
 	Network: getDefaultNetworkConfig(defNetworkType),
 	P2P: astraconfig.P2pConfig{
-		Port:            nodeconfig.DefaultP2PPort,
-		IP:              nodeconfig.DefaultPublicListenIP,
-		KeyFile:         "./.astrakey",
-		DiscConcurrency: nodeconfig.DefaultP2PConcurrency,
-		MaxConnsPerIP:   nodeconfig.DefaultMaxConnPerIP,
+		Port:                 nodeconfig.DefaultP2PPort,
+		IP:                   nodeconfig.DefaultPublicListenIP,
+		KeyFile:              "./.astrakey",
+		DiscConcurrency:      nodeconfig.DefaultP2PConcurrency,
+		MaxConnsPerIP:        nodeconfig.DefaultMaxConnPerIP,
+		DisablePrivateIPScan: false,
 	},
 	HTTP: astraconfig.HttpConfig{
 		Enabled:        true,
@@ -45,9 +47,13 @@ var defaultConfig = astraconfig.AstraConfig{
 		AuthPort: nodeconfig.DefaultAuthWSPort,
 	},
 	RPCOpt: astraconfig.RpcOptConfig{
-		DebugEnabled:      false,
-		RateLimterEnabled: true,
-		RequestsPerSecond: nodeconfig.DefaultRPCRateLimit,
+		DebugEnabled:       false,
+		EthRPCsEnabled:     true,
+		StakingRPCsEnabled: true,
+		LegacyRPCsEnabled:  true,
+		RpcFilterFile:      "",
+		RateLimterEnabled:  true,
+		RequestsPerSecond:  nodeconfig.DefaultRPCRateLimit,
 	},
 	BLSKeys: astraconfig.BlsConfig{
 		KeyDir:   "./.astra/blskeys",
@@ -63,9 +69,10 @@ var defaultConfig = astraconfig.AstraConfig{
 		KMSConfigFile:    "",
 	},
 	TxPool: astraconfig.TxPoolConfig{
-		BlacklistFile:  "./.astra/blacklist.txt",
-		RosettaFixFile: "",
-		AccountSlots:   16,
+		BlacklistFile:     "./.astra/blacklist.txt",
+		RosettaFixFile:    "",
+		AccountSlots:      16,
+		LocalAccountsFile: "./.astra/locals.txt",
 	},
 	Sync: getDefaultSyncConfig(defNetworkType),
 	Pprof: astraconfig.PprofConfig{
@@ -105,6 +112,7 @@ var defaultDevnetConfig = astraconfig.DevnetConfig{
 	NumShards:     2,
 	ShardSize:     10,
 	AstraNodeSize: 10,
+	SlotsLimit:    0, // 0 means no limit
 }
 
 var defaultRevertConfig = astraconfig.RevertConfig{

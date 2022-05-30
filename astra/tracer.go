@@ -365,9 +365,9 @@ func (astra *Astra) traceBlockNoThread(ctx context.Context, block *types.Block, 
 	// Execute all the transaction contained within the block concurrently
 	var (
 		astraSigner = types.MakeSigner(astra.BlockChain.Config(), block.Number())
-		ethSigner = types.NewEIP155Signer(astra.BlockChain.Config().EthCompatibleChainID)
-		txs       = block.Transactions()
-		results   = make([]*TxTraceResult, len(txs))
+		ethSigner   = types.NewEIP155Signer(astra.BlockChain.Config().EthCompatibleChainID)
+		txs         = block.Transactions()
+		results     = make([]*TxTraceResult, len(txs))
 	)
 
 	blockHash := block.Hash()
@@ -381,9 +381,8 @@ traceLoop:
 		}
 		// Generate the next state snapshot fast without tracing
 		msg, _ := tx.AsMessage(signer)
-
-		ethTx := tx.ConvertToEth()
-		statedb.Prepare(ethTx.Hash(), blockHash, i)
+		statedb.Prepare(tx.Hash(), blockHash, i)
+		statedb.SetTxHashETH(tx.ConvertToEth().Hash())
 		vmctx := core.NewEVMContext(msg, block.Header(), astra.BlockChain, nil)
 		res, err := astra.TraceTx(ctx, msg, vmctx, statedb, config)
 		if err != nil {
@@ -419,7 +418,7 @@ func (astra *Astra) TraceBlock(ctx context.Context, block *types.Block, config *
 	default:
 	}
 
-	if *config.Tracer == "ParityBlockTracer" {
+	if config != nil && config.Tracer != nil && *config.Tracer == "ParityBlockTracer" {
 		return astra.traceBlockNoThread(ctx, block, config)
 	}
 	// Create the parent state database
@@ -441,9 +440,9 @@ func (astra *Astra) TraceBlock(ctx context.Context, block *types.Block, config *
 	// Execute all the transaction contained within the block concurrently
 	var (
 		astraSigner = types.MakeSigner(astra.BlockChain.Config(), block.Number())
-		ethSigner = types.NewEIP155Signer(astra.BlockChain.Config().EthCompatibleChainID)
-		txs       = block.Transactions()
-		results   = make([]*TxTraceResult, len(txs))
+		ethSigner   = types.NewEIP155Signer(astra.BlockChain.Config().EthCompatibleChainID)
+		txs         = block.Transactions()
+		results     = make([]*TxTraceResult, len(txs))
 
 		pend = new(sync.WaitGroup)
 		jobs = make(chan *txTraceTask, len(txs))
@@ -467,8 +466,9 @@ func (astra *Astra) TraceBlock(ctx context.Context, block *types.Block, config *
 
 				msg, _ := txs[task.index].AsMessage(signer)
 				vmctx := core.NewEVMContext(msg, block.Header(), astra.BlockChain, nil)
-				ethTx := txs[task.index].ConvertToEth()
-				task.statedb.Prepare(ethTx.Hash(), blockHash, task.index)
+				tx := txs[task.index]
+				task.statedb.Prepare(tx.Hash(), blockHash, task.index)
+				task.statedb.SetTxHashETH(tx.ConvertToEth().Hash())
 				res, err := astra.TraceTx(ctx, msg, vmctx, task.statedb, config)
 				if err != nil {
 					results[task.index] = &TxTraceResult{Error: err.Error()}
@@ -491,6 +491,7 @@ func (astra *Astra) TraceBlock(ctx context.Context, block *types.Block, config *
 		// Generate the next state snapshot fast without tracing
 		msg, _ := tx.AsMessage(signer)
 		statedb.Prepare(tx.Hash(), block.Hash(), i)
+		statedb.SetTxHashETH(tx.ConvertToEth().Hash())
 		vmctx := core.NewEVMContext(msg, block.Header(), astra.BlockChain, nil)
 
 		vmenv := vm.NewEVM(vmctx, statedb, astra.BlockChain.Config(), vm.Config{})
@@ -553,8 +554,8 @@ func (astra *Astra) standardTraceBlockToFile(ctx context.Context, block *types.B
 	// Execute transaction, either tracing all or just the requested one
 	var (
 		astraSigner = types.MakeSigner(astra.BlockChain.Config(), block.Number())
-		ethSigner = types.NewEIP155Signer(astra.BlockChain.Config().EthCompatibleChainID)
-		dumps     []string
+		ethSigner   = types.NewEIP155Signer(astra.BlockChain.Config().EthCompatibleChainID)
+		dumps       []string
 	)
 	for i, tx := range block.Transactions() {
 		signer := astraSigner

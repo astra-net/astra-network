@@ -70,7 +70,7 @@ func (node *Node) StartRPC() error {
 	// Gather all the possible APIs to surface
 	apis := node.APIs(astra)
 
-	return astra_rpc.StartServers(astra, apis, node.NodeConfig.RPCServer)
+	return astra_rpc.StartServers(astra, apis, node.NodeConfig.RPCServer, node.AstraConfig.RPCOpt)
 }
 
 // StopRPC stop RPC service
@@ -159,8 +159,8 @@ func (node *Node) SetNodeBackupMode(isBackup bool) bool {
 func (node *Node) GetConfig() rpc_common.Config {
 	return rpc_common.Config{
 		AstraConfig: *node.AstraConfig,
-		NodeConfig:    *node.NodeConfig,
-		ChainConfig:   node.chainConfig,
+		NodeConfig:  *node.NodeConfig,
+		ChainConfig: node.chainConfig,
 	}
 }
 

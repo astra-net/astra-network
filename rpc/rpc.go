@@ -8,6 +8,7 @@ import (
 
 	"github.com/astra-net/astra-network/astra"
 	"github.com/astra-net/astra-network/eth/rpc"
+	astraconfig "github.com/astra-net/astra-network/internal/configs/astra"
 	nodeconfig "github.com/astra-net/astra-network/internal/configs/node"
 	"github.com/astra-net/astra-network/internal/utils"
 	eth "github.com/astra-net/astra-network/rpc/eth"
@@ -71,30 +72,39 @@ func (n Version) Namespace() string {
 }
 
 // StartServers starts the http & ws servers
-func StartServers(astra *astra.Astra, apis []rpc.API, config nodeconfig.RPCServerConfig) error {
-	apis = append(apis, getAPIs(astra, config.DebugEnabled, config.RateLimiterEnabled, config.RequestsPerSecond)...)
+func StartServers(astra *astra.Astra, apis []rpc.API, config nodeconfig.RPCServerConfig, rpcOpt astraconfig.RpcOptConfig) error {
+	apis = append(apis, getAPIs(astra, config)...)
 	authApis := append(apis, getAuthAPIs(astra, config.DebugEnabled, config.RateLimiterEnabled, config.RequestsPerSecond)...)
-
+	// load method filter from file (if exist)
+	var rmf rpc.RpcMethodFilter
+	rpcFilterFilePath := strings.Trim(rpcOpt.RpcFilterFile, " ")
+	if len(rpcFilterFilePath) > 0 {
+		if err := rmf.LoadRpcMethodFiltersFromFile(rpcFilterFilePath); err != nil {
+			return err
+		}
+	} else {
+		rmf.ExposeAll()
+	}
 	if config.HTTPEnabled {
 		httpEndpoint = fmt.Sprintf("%v:%v", config.HTTPIp, config.HTTPPort)
-		if err := startHTTP(apis); err != nil {
+		if err := startHTTP(apis, &rmf); err != nil {
 			return err
 		}
 
 		httpAuthEndpoint = fmt.Sprintf("%v:%v", config.HTTPIp, config.HTTPAuthPort)
-		if err := startAuthHTTP(authApis); err != nil {
+		if err := startAuthHTTP(authApis, &rmf); err != nil {
 			return err
 		}
 	}
 
 	if config.WSEnabled {
 		wsEndpoint = fmt.Sprintf("%v:%v", config.WSIp, config.WSPort)
-		if err := startWS(apis); err != nil {
+		if err := startWS(apis, &rmf); err != nil {
 			return err
 		}
 
 		wsAuthEndpoint = fmt.Sprintf("%v:%v", config.WSIp, config.WSAuthPort)
-		if err := startAuthWS(authApis); err != nil {
+		if err := startAuthWS(authApis, &rmf); err != nil {
 			return err
 		}
 	}
@@ -141,32 +151,45 @@ func getAuthAPIs(astra *astra.Astra, debugEnable bool, rateLimiterEnable bool, r
 }
 
 // getAPIs returns all the API methods for the RPC interface
-func getAPIs(astra *astra.Astra, debugEnable bool, rateLimiterEnable bool, ratelimit int) []rpc.API {
+func getAPIs(astra *astra.Astra, config nodeconfig.RPCServerConfig) []rpc.API {
 	publicAPIs := []rpc.API{
 		// Public methods
 		NewPublicAstraAPI(astra, V1),
 		NewPublicAstraAPI(astra, V2),
-		NewPublicAstraAPI(astra, Eth),
-		NewPublicBlockchainAPI(astra, V1, rateLimiterEnable, ratelimit),
-		NewPublicBlockchainAPI(astra, V2, rateLimiterEnable, ratelimit),
-		NewPublicBlockchainAPI(astra, Eth, rateLimiterEnable, ratelimit),
+		NewPublicBlockchainAPI(astra, V1, config.RateLimiterEnabled, config.RequestsPerSecond),
+		NewPublicBlockchainAPI(astra, V2, config.RateLimiterEnabled, config.RequestsPerSecond),
 		NewPublicContractAPI(astra, V1),
 		NewPublicContractAPI(astra, V2),
-		NewPublicContractAPI(astra, Eth),
 		NewPublicTransactionAPI(astra, V1),
 		NewPublicTransactionAPI(astra, V2),
-		NewPublicTransactionAPI(astra, Eth),
 		NewPublicPoolAPI(astra, V1),
 		NewPublicPoolAPI(astra, V2),
-		NewPublicPoolAPI(astra, Eth),
-		NewPublicStakingAPI(astra, V1),
-		NewPublicStakingAPI(astra, V2),
-		NewPublicDebugAPI(astra, V1),
-		NewPublicDebugAPI(astra, V2),
-		// Legacy methods (subject to removal)
-		v1.NewPublicLegacyAPI(astra, "astra"),
-		eth.NewPublicEthService(astra, "eth"),
-		v2.NewPublicLegacyAPI(astra, "astrav2"),
+	}
+
+	// Legacy methods (subject to removal)
+	if config.LegacyRPCsEnabled {
+		publicAPIs = append(publicAPIs,
+			v1.NewPublicLegacyAPI(astra, "astra"),
+			v2.NewPublicLegacyAPI(astra, "astrav2"),
+		)
+	}
+
+	if config.StakingRPCsEnabled {
+		publicAPIs = append(publicAPIs,
+			NewPublicStakingAPI(astra, V1),
+			NewPublicStakingAPI(astra, V2),
+		)
+	}
+
+	if config.EthRPCsEnabled {
+		publicAPIs = append(publicAPIs,
+			NewPublicAstraAPI(astra, Eth),
+			NewPublicBlockchainAPI(astra, Eth, config.RateLimiterEnabled, config.RequestsPerSecond),
+			NewPublicContractAPI(astra, Eth),
+			NewPublicTransactionAPI(astra, Eth),
+			NewPublicPoolAPI(astra, Eth),
+			eth.NewPublicEthService(astra, "eth"),
+		)
 	}
 
 	publicDebugAPIs := []rpc.API{
@@ -180,16 +203,16 @@ func getAPIs(astra *astra.Astra, debugEnable bool, rateLimiterEnable bool, ratel
 		NewPrivateDebugAPI(astra, V2),
 	}
 
-	if debugEnable {
+	if config.DebugEnabled {
 		apis := append(publicAPIs, publicDebugAPIs...)
 		return append(apis, privateAPIs...)
 	}
 	return publicAPIs
 }
 
-func startHTTP(apis []rpc.API) (err error) {
+func startHTTP(apis []rpc.API, rmf *rpc.RpcMethodFilter) (err error) {
 	httpListener, httpHandler, err = rpc.StartHTTPEndpoint(
-		httpEndpoint, apis, HTTPModules, httpOrigins, httpVirtualHosts, httpTimeouts,
+		httpEndpoint, apis, HTTPModules, rmf, httpOrigins, httpVirtualHosts, httpTimeouts,
 	)
 	if err != nil {
 		return err
@@ -204,9 +227,9 @@ func startHTTP(apis []rpc.API) (err error) {
 	return nil
 }
 
-func startAuthHTTP(apis []rpc.API) (err error) {
+func startAuthHTTP(apis []rpc.API, rmf *rpc.RpcMethodFilter) (err error) {
 	httpListener, httpHandler, err = rpc.StartHTTPEndpoint(
-		httpAuthEndpoint, apis, HTTPModules, httpOrigins, httpVirtualHosts, httpTimeouts,
+		httpAuthEndpoint, apis, HTTPModules, rmf, httpOrigins, httpVirtualHosts, httpTimeouts,
 	)
 	if err != nil {
 		return err
@@ -221,8 +244,8 @@ func startAuthHTTP(apis []rpc.API) (err error) {
 	return nil
 }
 
-func startWS(apis []rpc.API) (err error) {
-	wsListener, wsHandler, err = rpc.StartWSEndpoint(wsEndpoint, apis, WSModules, wsOrigins, true)
+func startWS(apis []rpc.API, rmf *rpc.RpcMethodFilter) (err error) {
+	wsListener, wsHandler, err = rpc.StartWSEndpoint(wsEndpoint, apis, WSModules, rmf, wsOrigins, true)
 	if err != nil {
 		return err
 	}
@@ -234,8 +257,8 @@ func startWS(apis []rpc.API) (err error) {
 	return nil
 }
 
-func startAuthWS(apis []rpc.API) (err error) {
-	wsListener, wsHandler, err = rpc.StartWSEndpoint(wsAuthEndpoint, apis, WSModules, wsOrigins, true)
+func startAuthWS(apis []rpc.API, rmf *rpc.RpcMethodFilter) (err error) {
+	wsListener, wsHandler, err = rpc.StartWSEndpoint(wsAuthEndpoint, apis, WSModules, rmf, wsOrigins, true)
 	if err != nil {
 		return err
 	}
