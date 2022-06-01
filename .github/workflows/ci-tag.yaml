@@ -171,8 +171,8 @@ jobs:
           file: ./astra/scripts/docker/Dockerfile
           push: true
           tags: |
-            astraone/astra:${{ github.event.inputs.tag }}
-            astraone/astra:${{ env.build_version }}-${{ env.build_release }}
+            astranetwork/astra:${{ github.event.inputs.tag }}
+            astranetwork/astra:${{ env.build_version }}-${{ env.build_release }}
 
   release-page:
     name: Sign binary and create and publish release page

@@ -101,8 +101,8 @@ var (
 		SHA3Epoch:                  big.NewInt(0),
 		HIP6And8Epoch:              EpochTBD, // Never enable it for localnet as localnet has no external validator setup
 		StakingPrecompileEpoch:     big.NewInt(1),
-		ChainIdFixEpoch:            EpochTBD,
-		SlotsLimitedEpoch:          big.NewInt(0),
+		ChainIdFixEpoch:            big.NewInt(0),
+		SlotsLimitedEpoch:          EpochTBD,
 	}
 
 	// PangaeaChainConfig contains the chain parameters for the Pangaea network.
@@ -226,7 +226,7 @@ var (
 		PreStakingEpoch:            big.NewInt(0),
 		QuickUnlockEpoch:           big.NewInt(0),
 		FiveSecondsEpoch:           big.NewInt(0),
-		TwoSecondsEpoch:            big.NewInt(3),
+		TwoSecondsEpoch:            big.NewInt(4),
 		SixtyPercentEpoch:          EpochTBD, // Never enable it for localnet as localnet has no external validator setup
 		RedelegationEpoch:          big.NewInt(0),
 		NoEarlyUnlockEpoch:         big.NewInt(0),
@@ -243,7 +243,7 @@ var (
 		ReceiptLogEpoch:            big.NewInt(0),
 		SHA3Epoch:                  big.NewInt(0),
 		HIP6And8Epoch:              EpochTBD, // Never enable it for localnet as localnet has no external validator setup
-		StakingPrecompileEpoch:     big.NewInt(2),
+		StakingPrecompileEpoch:     big.NewInt(1),
 		ChainIdFixEpoch:            big.NewInt(0),
 		SlotsLimitedEpoch:          EpochTBD, // epoch to enable HIP-16
 	}

@@ -1,7 +1,7 @@
 @ECHO OFF
 
 SET SELF=%0
-SET DOCKER_IMAGE=astraone/node:s3
+SET DOCKER_IMAGE=astranetwork/node:s3
 
 WHERE docker >NUL 2>&1
 IF %ERRORLEVEL% NEQ 0 (

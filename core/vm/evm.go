@@ -100,6 +100,7 @@ func run(evm *EVM, contract *Contract, input []byte, readOnly bool) ([]byte, err
 						}
 						input = crypto.Keccak256(evm.Context.VRF.Bytes(), evm.Origin.Bytes(), big.NewInt(time.Now().UnixNano()).Bytes(),
 							requestCounter.Add(requestCounter, common.Big1).Bytes())
+						input = evm.Context.VRF.Bytes()
 					} else if requestedBlockNum.Cmp(minBlockNum) > 0 && requestedBlockNum.Cmp(evm.BlockNumber) < 0 {
 						// requested block number is in range
 						input = evm.GetVRF(requestedBlockNum.Uint64()).Bytes()
