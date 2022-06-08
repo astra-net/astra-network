@@ -1,8 +1,8 @@
 package crosslink_sending
 
 import (
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/shard"
+	"github.com/astra-net/astra-network/core"
+	"github.com/astra-net/astra-network/shard"
 )
 
 type broadcast interface {

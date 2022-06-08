@@ -8,11 +8,11 @@ import (
 
 	"github.com/astra-net/astra-network/crypto/bls"
 
-	"github.com/ethereum/go-ethereum/common"
 	"github.com/astra-net/astra-network/numeric"
+	"github.com/ethereum/go-ethereum/common"
 )
 
-// medium.com/harmony-one/introducing-astras-effective-proof-of-stake-epos-2d39b4b8d58
+// medium.com/astra-net/introducing-astras-effective-proof-of-stake-epos-2d39b4b8d58
 var (
 	two         = numeric.NewDecFromBigInt(big.NewInt(2))
 	c, _        = numeric.NewDecFromStr("0.15")

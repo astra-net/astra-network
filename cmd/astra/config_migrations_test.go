@@ -67,7 +67,7 @@ Version = "1.0.2"
   EthRPCsEnabled = true
   StakingRPCsEnabled = true
   LegacyRPCsEnabled = true
-  RpcFilterFile = "./.hmy/rpc_filter.txt"
+  RpcFilterFile = "./.astra/rpc_filter.txt"
 
 [TxPool]
   BlacklistFile = "./.astra/blacklist.txt"
@@ -137,7 +137,7 @@ Version = "1.0.3"
   EthRPCsEnabled = true
   StakingRPCsEnabled = true
   LegacyRPCsEnabled = true
-  RpcFilterFile = "./.hmy/rpc_filter.txt"
+  RpcFilterFile = "./.astra/rpc_filter.txt"
 
 [TxPool]
   BlacklistFile = "./.astra/blacklist.txt"
@@ -207,7 +207,7 @@ Version = "1.0.4"
   EthRPCsEnabled = true
   StakingRPCsEnabled = true
   LegacyRPCsEnabled = true
-  RpcFilterFile = "./.hmy/rpc_filter.txt"
+  RpcFilterFile = "./.astra/rpc_filter.txt"
 
 [Sync]
   Concurrency = 6
@@ -289,7 +289,7 @@ Version = "1.0.4"
   EthRPCsEnabled = true
   StakingRPCsEnabled = true
   LegacyRPCsEnabled = true
-  RpcFilterFile = "./.hmy/rpc_filter.txt"
+  RpcFilterFile = "./.astra/rpc_filter.txt"
 
 [Sync]
   Concurrency = 6

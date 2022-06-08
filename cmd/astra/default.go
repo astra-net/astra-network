@@ -51,7 +51,7 @@ var defaultConfig = astraconfig.AstraConfig{
 		EthRPCsEnabled:     true,
 		StakingRPCsEnabled: true,
 		LegacyRPCsEnabled:  true,
-		RpcFilterFile:      "./.hmy/rpc_filter.txt",
+		RpcFilterFile:      "./.astra/rpc_filter.txt",
 		RateLimterEnabled:  true,
 		RequestsPerSecond:  nodeconfig.DefaultRPCRateLimit,
 	},
