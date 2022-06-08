@@ -4,8 +4,8 @@ import (
 	"context"
 	"math/big"
 
-	"github.com/astra-net/astra-network/eth/rpc"
 	"github.com/astra-net/astra-network/astra"
+	"github.com/astra-net/astra-network/eth/rpc"
 	internal_common "github.com/astra-net/astra-network/internal/common"
 )
 
@@ -38,7 +38,7 @@ func (s *PublicLegacyService) GetBalance(
 	if err != nil {
 		return nil, err
 	}
-	balance, err := s.astra.GetBalance(ctx, addr, rpc.BlockNumber(-1))
+	balance, err := s.astra.GetBalance(ctx, addr, rpc.BlockNumberOrHashWithNumber(rpc.LatestBlockNumber))
 	if err != nil {
 		return nil, err
 	}

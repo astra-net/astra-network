@@ -28,7 +28,7 @@ const (
 // PublicContractService provides an API to access Astra's contract services.
 // It offers only methods that operate on public data that is freely available to anyone.
 type PublicContractService struct {
-	astra     *astra.Astra
+	astra   *astra.Astra
 	version Version
 	// TEMP SOLUTION to rpc node spamming issue
 	limiterCall *rate.Limiter
@@ -63,13 +63,10 @@ func (s *PublicContractService) wait(limiter *rate.Limiter, ctx context.Context)
 // Call executes the given transaction on the state for the given block number.
 // It doesn't make and changes in the state/blockchain and is useful to execute and retrieve values.
 func (s *PublicContractService) Call(
-	ctx context.Context, args CallArgs, blockNumber BlockNumber,
+	ctx context.Context, args CallArgs, blockNrOrHash rpc.BlockNumberOrHash,
 ) (hexutil.Bytes, error) {
 	timer := DoMetricRPCRequest(Call)
 	defer DoRPCRequestDuration(Call, timer)
-
-	// Process number based on version
-	blockNum := blockNumber.EthBlockNumber()
 
 	err := s.wait(s.limiterCall, ctx)
 	if err != nil {
@@ -78,7 +75,7 @@ func (s *PublicContractService) Call(
 	}
 
 	// Execute call
-	result, err := DoEVMCall(ctx, s.astra, args, blockNum, CallTimeout)
+	result, err := DoEVMCall(ctx, s.astra, args, blockNrOrHash, CallTimeout)
 	if err != nil {
 		return nil, err
 	}
@@ -93,13 +90,10 @@ func (s *PublicContractService) Call(
 
 // GetCode returns the code stored at the given address in the state for the given block number.
 func (s *PublicContractService) GetCode(
-	ctx context.Context, addr string, blockNumber BlockNumber,
+	ctx context.Context, addr string, blockNrOrHash rpc.BlockNumberOrHash,
 ) (hexutil.Bytes, error) {
 	timer := DoMetricRPCRequest(GetCode)
 	defer DoRPCRequestDuration(GetCode, timer)
-
-	// Process number based on version
-	blockNum := blockNumber.EthBlockNumber()
 
 	// Fetch state
 	address, err := astraCommon.ParseAddr(addr)
@@ -107,7 +101,7 @@ func (s *PublicContractService) GetCode(
 		DoMetricRPCQueryInfo(GetCode, FailedNumber)
 		return nil, err
 	}
-	state, _, err := s.astra.StateAndHeaderByNumber(ctx, blockNum)
+	state, _, err := s.astra.StateAndHeaderByNumberOrHash(ctx, blockNrOrHash)
 	if state == nil || err != nil {
 		DoMetricRPCQueryInfo(GetCode, FailedNumber)
 		return nil, err
@@ -122,15 +116,13 @@ func (s *PublicContractService) GetCode(
 // block number. The rpc.LatestBlockNumber and rpc.PendingBlockNumber meta block
 // numbers are also allowed.
 func (s *PublicContractService) GetStorageAt(
-	ctx context.Context, addr string, key string, blockNumber BlockNumber,
+	ctx context.Context, addr string, key string, blockNrOrHash rpc.BlockNumberOrHash,
 ) (hexutil.Bytes, error) {
 	timer := DoMetricRPCRequest(GetStorageAt)
 	defer DoRPCRequestDuration(GetStorageAt, timer)
-	// Process number based on version
-	blockNum := blockNumber.EthBlockNumber()
 
 	// Fetch state
-	state, _, err := s.astra.StateAndHeaderByNumber(ctx, blockNum)
+	state, _, err := s.astra.StateAndHeaderByNumberOrHash(ctx, blockNrOrHash)
 	if state == nil || err != nil {
 		DoMetricRPCQueryInfo(GetStorageAt, FailedNumber)
 		return nil, err
@@ -148,7 +140,7 @@ func (s *PublicContractService) GetStorageAt(
 
 // DoEVMCall executes an EVM call
 func DoEVMCall(
-	ctx context.Context, astra *astra.Astra, args CallArgs, blockNum rpc.BlockNumber,
+	ctx context.Context, astra *astra.Astra, args CallArgs, blockNrOrHash rpc.BlockNumberOrHash,
 	timeout time.Duration,
 ) (core.ExecutionResult, error) {
 	defer func(start time.Time) {
@@ -158,7 +150,7 @@ func DoEVMCall(
 	}(time.Now())
 
 	// Fetch state
-	state, header, err := astra.StateAndHeaderByNumber(ctx, blockNum)
+	state, header, err := astra.StateAndHeaderByNumberOrHash(ctx, blockNrOrHash)
 	if state == nil || err != nil {
 		DoMetricRPCQueryInfo(DoEvmCall, FailedNumber)
 		return core.ExecutionResult{}, err

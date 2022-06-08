@@ -3,10 +3,10 @@ package quorum
 import (
 	"fmt"
 	"math/big"
+	"sort"
 
 	"github.com/astra-net/astra-network/crypto/bls"
 
-	"github.com/ethereum/go-ethereum/common"
 	"github.com/astra-net/astra-network/consensus/votepower"
 	bls_cosi "github.com/astra-net/astra-network/crypto/bls"
 	shardingconfig "github.com/astra-net/astra-network/internal/configs/sharding"
@@ -14,6 +14,7 @@ import (
 	"github.com/astra-net/astra-network/numeric"
 	"github.com/astra-net/astra-network/shard"
 	bls_core "github.com/astra-net/bls/ffi/go/bls"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
 )
 
@@ -75,8 +76,9 @@ type ParticipantTracker interface {
 	ParticipantsCount() int64
 	NthNext(*bls.PublicKeyWrapper, int) (bool, *bls.PublicKeyWrapper)
 	NthNextAstra(shardingconfig.Instance, *bls.PublicKeyWrapper, int) (bool, *bls.PublicKeyWrapper)
+	NthNextAstraExt(shardingconfig.Instance, *bls.PublicKeyWrapper, int) (bool, *bls.PublicKeyWrapper)
 	FirstParticipant(shardingconfig.Instance) *bls.PublicKeyWrapper
-	UpdateParticipants(pubKeys []bls.PublicKeyWrapper)
+	UpdateParticipants(pubKeys, allowlist []bls.PublicKeyWrapper)
 }
 
 // SignatoryTracker ..
@@ -160,8 +162,10 @@ type cIdentities struct {
 	// Public keys of the committee including leader and validators
 	publicKeys  []bls.PublicKeyWrapper
 	keyIndexMap map[bls.SerializedPublicKey]int
-	prepare     *votepower.Round
-	commit      *votepower.Round
+	// every element is a index of publickKeys
+	allowlistIndex []int
+	prepare        *votepower.Round
+	commit         *votepower.Round
 	// viewIDSigs: every validator
 	// sign on |viewID|blockHash| in view changing message
 	viewChange *votepower.Round
@@ -246,6 +250,41 @@ func (s *cIdentities) NthNextAstra(instance shardingconfig.Instance, pubKey *bls
 	return found, &s.publicKeys[idx]
 }
 
+// NthNextAstraExt return the Nth next pubkey of Astra + allowlist nodes, next can be negative number
+func (s *cIdentities) NthNextAstraExt(instance shardingconfig.Instance, pubKey *bls.PublicKeyWrapper, next int) (bool, *bls.PublicKeyWrapper) {
+	found := false
+
+	idx := s.IndexOf(pubKey.Bytes)
+	if idx != -1 {
+		found = true
+	}
+	numAstraNodes := instance.NumAstraOperatedNodesPerShard()
+	// sanity check to avoid out of bound access
+	if numAstraNodes <= 0 || numAstraNodes > len(s.publicKeys) {
+		numAstraNodes = len(s.publicKeys)
+	}
+	nth := idx
+	if idx >= numAstraNodes {
+		nth = sort.SearchInts(s.allowlistIndex, idx) + numAstraNodes
+	}
+
+	numExtNodes := instance.ExternalAllowlistLimit()
+	if numExtNodes > len(s.allowlistIndex) {
+		numExtNodes = len(s.allowlistIndex)
+	}
+
+	totalNodes := numAstraNodes + numExtNodes
+	// (totalNodes + next%totalNodes) can convert negitive 'next' to positive
+	nth = (nth + totalNodes + next%totalNodes) % totalNodes
+	if nth < numAstraNodes {
+		idx = nth
+	} else {
+		// find index of external slot key
+		idx = s.allowlistIndex[nth-numAstraNodes]
+	}
+	return found, &s.publicKeys[idx]
+}
+
 // FirstParticipant returns the first participant of the shard
 func (s *cIdentities) FirstParticipant(instance shardingconfig.Instance) *bls.PublicKeyWrapper {
 	return &s.publicKeys[0]
@@ -255,11 +294,17 @@ func (s *cIdentities) Participants() multibls.PublicKeys {
 	return s.publicKeys
 }
 
-func (s *cIdentities) UpdateParticipants(pubKeys []bls.PublicKeyWrapper) {
+func (s *cIdentities) UpdateParticipants(pubKeys, allowlist []bls.PublicKeyWrapper) {
 	keyIndexMap := map[bls.SerializedPublicKey]int{}
 	for i := range pubKeys {
 		keyIndexMap[pubKeys[i].Bytes] = i
 	}
+	for _, key := range allowlist {
+		if i, exist := keyIndexMap[key.Bytes]; exist {
+			s.allowlistIndex = append(s.allowlistIndex, i)
+		}
+	}
+	sort.Ints(s.allowlistIndex)
 	s.publicKeys = pubKeys
 	s.keyIndexMap = keyIndexMap
 }

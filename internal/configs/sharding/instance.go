@@ -3,6 +3,7 @@ package shardingconfig
 import (
 	"math/big"
 
+	"github.com/astra-net/astra-network/crypto/bls"
 	"github.com/astra-net/astra-network/internal/genesis"
 	"github.com/astra-net/astra-network/numeric"
 	"github.com/pkg/errors"
@@ -33,6 +34,7 @@ type instance struct {
 	reshardingEpoch               []*big.Int
 	blocksPerEpoch                uint64
 	slotsLimit                    int // HIP-16: The absolute number of maximum effective slots per shard limit for each validator. 0 means no limit.
+	allowlist                     Allowlist
 }
 
 // NewInstance creates and validates a new sharding configuration based
@@ -41,6 +43,7 @@ func NewInstance(
 	numShards uint32, numNodesPerShard, numAstraOperatedNodesPerShard, slotsLimit int, astraVotePercent numeric.Dec,
 	astraAccounts []genesis.DeployAccount,
 	fnAccounts []genesis.DeployAccount,
+	allowlist Allowlist,
 	reshardingEpoch []*big.Int, blocksE uint64,
 ) (Instance, error) {
 	if numShards < 1 {
@@ -84,6 +87,7 @@ func NewInstance(
 		externalVotePercent:           numeric.OneDec().Sub(astraVotePercent),
 		astraAccounts:                 astraAccounts,
 		fnAccounts:                    fnAccounts,
+		allowlist:                     allowlist,
 		reshardingEpoch:               reshardingEpoch,
 		blocksPerEpoch:                blocksE,
 		slotsLimit:                    slotsLimit,
@@ -99,12 +103,13 @@ func MustNewInstance(
 	astraVotePercent numeric.Dec,
 	astraAccounts []genesis.DeployAccount,
 	fnAccounts []genesis.DeployAccount,
+	allowlist Allowlist,
 	reshardingEpoch []*big.Int, blocksPerEpoch uint64,
 ) Instance {
 	slotsLimit := int(float32(numNodesPerShard-numAstraOperatedNodesPerShard) * slotsLimitPercent)
 	sc, err := NewInstance(
 		numShards, numNodesPerShard, numAstraOperatedNodesPerShard, slotsLimit, astraVotePercent,
-		astraAccounts, fnAccounts, reshardingEpoch, blocksPerEpoch,
+		astraAccounts, fnAccounts, allowlist, reshardingEpoch, blocksPerEpoch,
 	)
 	if err != nil {
 		panic(err)
@@ -184,4 +189,14 @@ func (sc instance) ReshardingEpoch() []*big.Int {
 // ReshardingEpoch returns the list of epoch number
 func (sc instance) GetNetworkID() NetworkID {
 	return DevNet
+}
+
+// ExternalAllowlist returns the list of external leader keys in allowlist(HIP18)
+func (sc instance) ExternalAllowlist() []bls.PublicKeyWrapper {
+	return sc.allowlist.BLSPublicKeys
+}
+
+// ExternalAllowlistLimit returns the maximum number of external leader keys on each shard
+func (sc instance) ExternalAllowlistLimit() int {
+	return sc.allowlist.MaxLimitPerShard
 }

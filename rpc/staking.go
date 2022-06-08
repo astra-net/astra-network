@@ -80,7 +80,7 @@ func (s *PublicStakingService) getBalanceByBlockNumber(
 	if err != nil {
 		return nil, err
 	}
-	balance, err := s.astra.GetBalance(ctx, addr, blockNum)
+	balance, err := s.astra.GetBalance(ctx, addr, rpc.BlockNumberOrHashWithNumber(blockNum))
 	if err != nil {
 		return nil, err
 	}

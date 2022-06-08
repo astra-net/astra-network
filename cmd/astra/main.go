@@ -15,6 +15,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/astra-net/astra-network/api/service/crosslink_sending"
 	rosetta_common "github.com/astra-net/astra-network/rosetta/common"
 
 	astraconfig "github.com/astra-net/astra-network/internal/configs/astra"
@@ -408,6 +409,7 @@ func setupNodeAndRun(hc astraconfig.AstraConfig) {
 	} else if currentNode.NodeConfig.Role() == nodeconfig.ExplorerNode {
 		currentNode.RegisterExplorerServices()
 	}
+	currentNode.RegisterService(service.CrosslinkSending, crosslink_sending.New(currentNode, currentNode.Blockchain()))
 	if hc.Pprof.Enabled {
 		setupPprofService(currentNode, hc)
 	}
@@ -489,7 +491,7 @@ func nodeconfigSetShardSchedule(config astraconfig.AstraConfig) {
 		}
 
 		devnetConfig, err := shardingconfig.NewInstance(
-			uint32(dnConfig.NumShards), dnConfig.ShardSize, dnConfig.AstraNodeSize, dnConfig.SlotsLimit, numeric.OneDec(), genesis.AstraAccounts, genesis.FoundationalNodeAccounts, nil, shardingconfig.VLBPE)
+			uint32(dnConfig.NumShards), dnConfig.ShardSize, dnConfig.AstraNodeSize, dnConfig.SlotsLimit, numeric.OneDec(), genesis.AstraAccounts, genesis.FoundationalNodeAccounts, shardingconfig.Allowlist{}, nil, shardingconfig.VLBPE)
 		if err != nil {
 			_, _ = fmt.Fprintf(os.Stderr, "ERROR invalid devnet sharding config: %s",
 				err)

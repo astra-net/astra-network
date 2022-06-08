@@ -126,7 +126,7 @@ func (s *PublicBlockchainService) getBalanceByBlockNumber(
 	if err != nil {
 		return nil, err
 	}
-	balance, err := s.astra.GetBalance(ctx, addr, blockNum)
+	balance, err := s.astra.GetBalance(ctx, addr, rpc.BlockNumberOrHashWithNumber(blockNum))
 	if err != nil {
 		return nil, err
 	}
@@ -787,7 +787,7 @@ type StorageResult struct {
 
 // GetHeaderByNumberRLPHex returns block header at given number by `hex(rlp(header))`
 func (s *PublicBlockchainService) GetProof(
-	ctx context.Context, address common.Address, storageKeys []string, blockNumber BlockNumber) (ret *AccountResult, err error) {
+	ctx context.Context, address common.Address, storageKeys []string, blockNrOrHash rpc.BlockNumberOrHash) (ret *AccountResult, err error) {
 	timer := DoMetricRPCRequest(GetProof)
 	defer DoRPCRequestDuration(GetProof, timer)
 
@@ -803,23 +803,9 @@ func (s *PublicBlockchainService) GetProof(
 		return
 	}
 
-	// Process number based on version
-	blockNum := blockNumber.EthBlockNumber()
-
-	// Ensure valid block number
-	if s.version != Eth && isBlockGreaterThanLatest(s.astra, blockNum) {
-		err = ErrRequestedBlockTooHigh
-		return
-	}
-
-	// Fetch Header
-	header, err := s.astra.HeaderByNumber(ctx, blockNum)
-	if header == nil && err != nil {
-		return
-	}
-	state, err := s.astra.BeaconChain.StateAt(header.Root())
+	state, _, err := s.astra.StateAndHeaderByNumberOrHash(ctx, blockNrOrHash)
 	if state == nil || err != nil {
-		return
+		return nil, err
 	}
 
 	storageTrie := state.StorageTrie(address)
