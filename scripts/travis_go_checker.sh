@@ -42,6 +42,7 @@ fi
 
 echo "Running goimports..."
 goimports_output="${tmpdir}/goimports_output.txt"
+echo "${progdir}/goimports.sh"
 "${progdir}/goimports.sh" -d -e > "${goimports_output}" 2>&1
 if [ -s "${goimports_output}" ]
 then

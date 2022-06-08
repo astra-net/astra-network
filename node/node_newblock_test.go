@@ -37,7 +37,7 @@ func TestFinalizeNewBlockAsync(t *testing.T) {
 		host, shard.BeaconChainShardID, leader, multibls.GetPrivateKeys(blsKey), decider,
 	)
 	if err != nil {
-		t.Fatalf("Cannot craeate consensus: %v", err)
+		t.Fatalf("Cannot create consensus: %v", err)
 	}
 	var testDBFactory = &shardchain.MemDBFactory{}
 	node := New(host, consensus, testDBFactory, nil, nil, nil, nil)

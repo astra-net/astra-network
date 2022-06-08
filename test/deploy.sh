@@ -124,6 +124,8 @@ function launch_localnet() {
     validator)
       args=("${args[@]}" "--run.legacy")
       ;;
+    explorer)
+      ;;
     staker)
       args=("${args[@]}")
       ;;

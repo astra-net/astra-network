@@ -24,6 +24,6 @@ func TestGetTransaction(t *testing.T) {
 
 	tx, _ := GetTransaction(tx1, block)
 	assert.Equal(t, tx.ID, tx1.HashByType().Hex(), "should be equal tx1.Hash()")
-	assert.Equal(t, tx.To, common.HexToAddress(tx1.To().Hex()), "should be equal tx1.To()")
+	assert.Equal(t, tx.To, common.HexToAddress(tx1.To().Hex()).String(), "should be equal tx1.To()")
 	assert.Equal(t, tx.Bytes, strconv.Itoa(int(tx1.Size())), "should be equal tx1.Size()")
 }

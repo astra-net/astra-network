@@ -102,8 +102,8 @@ func TestAddressHexChecksum(t *testing.T) {
 		{"0x000000000000000000000000000000000000000a", "0x000000000000000000000000000000000000000A"},
 	}
 	for i, test := range tests {
-		output := HexToAddress(test.Input)
-		if output.Hash().Hex() != test.Output {
+		output := HexToAddress(test.Input).String()
+		if output != test.Output {
 			t.Errorf("test #%d: failed to match when it should (%s != %s)", i, output, test.Output)
 		}
 	}

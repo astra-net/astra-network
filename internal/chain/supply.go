@@ -17,7 +17,7 @@ import (
 var (
 	// InaccessibleAddresses are a list of known eth addresses that cannot spend Astra tokens.
 	InaccessibleAddresses = []common.Address{
-		// one10000000000000000000000000000dead5shlag
+		// 0x7bDeF7Bdef7BDeF7BDEf7bDef7bdef7bdeF6E7AD
 		common.HexToAddress("0x7bDeF7Bdef7BDeF7BDEf7bDef7bdef7bdeF6E7AD"),
 	}
 )

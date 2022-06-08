@@ -55,7 +55,7 @@ func TestGetAddressFromKnownPublicKey(t *testing.T) {
 	if rosettaError != nil {
 		t.Fatal(rosettaError)
 	}
-	refB32Addr := "one1aaw9mcd8hcwela748rl3mn9c7phe7ujzdls5rg"
+	refB32Addr := "0xef5c5dE1a7bE1d9fF7D538fF1dccb8f06f9F7242"
 	if addrID.Address != refB32Addr {
 		t.Error("account ID from key is incorrect")
 	}

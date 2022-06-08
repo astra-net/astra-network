@@ -45,7 +45,7 @@ func TestIsEpochBlock(t *testing.T) {
 		{
 			shardingconfig.TestnetSchedule,
 			blockNumbered(38),
-			true,
+			false,
 		},
 		{
 			shardingconfig.TestnetSchedule,
@@ -55,7 +55,7 @@ func TestIsEpochBlock(t *testing.T) {
 		{
 			shardingconfig.TestnetSchedule,
 			blockNumbered(76),
-			true,
+			false,
 		},
 	}
 	for i, test := range tests {

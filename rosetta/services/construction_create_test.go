@@ -176,7 +176,7 @@ func TestRecoverSenderAddressFromCreateValidatorString(t *testing.T) {
 		t.Fatal("address error")
 	}
 
-	_, tx, rosettaError := unpackWrappedTransactionFromString("{\"rlp_bytes\":\"+QExgPkBIJQLWF+NrvvGijEfvUyyDZF0rRdAFvg4hUFsaWNlhWFsaWNlkWFsaWNlLmhhcm1vbnkub25lg0JvYpVEb24ndCBtZXNzIHdpdGggbWUhISHdyYgBY0V4XYoAAMmIDH1xO0naAADIh7GivC7FAACIiscjBInoAACJoqFdCVGb4AAA8bAwssOLExbakeBorDvYdRwJAe9sAqHVi8cSEEkYMCxu0D1YlGcdDIFtrStNMDMg8gL4YrhgaPgAtq32V7Z0kD4EcIBgkSuJO3x7UAeIgIJHVQqz4YblakTr88pIj47RpC9s7zoEvV0rK361p2eEjTE1s2LmaM5rukLHudVmbY46g75we1cI5yLFiTn+mwfBcPO3BiQUiQVrx14tYxAAAICEdzWUAIOhvkCAgIA=\",\"is_staking\":true,\"contract_code\":\"0x\",\"from\":{\"address\":\"one1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9\",\"metadata\":{\"hex_address\":\"0xeBCD16e8c1D8f493bA04E99a56474122D81A9c58\"}}}", false)
+	_, tx, rosettaError := unpackWrappedTransactionFromString("{\"rlp_bytes\":\"+QExgPkBIJQLWF+NrvvGijEfvUyyDZF0rRdAFvg4hUFsaWNlhWFsaWNlkWFsaWNlLmhhcm1vbnkub25lg0JvYpVEb24ndCBtZXNzIHdpdGggbWUhISHdyYgBY0V4XYoAAMmIDH1xO0naAADIh7GivC7FAACIiscjBInoAACJoqFdCVGb4AAA8bAwssOLExbakeBorDvYdRwJAe9sAqHVi8cSEEkYMCxu0D1YlGcdDIFtrStNMDMg8gL4YrhgaPgAtq32V7Z0kD4EcIBgkSuJO3x7UAeIgIJHVQqz4YblakTr88pIj47RpC9s7zoEvV0rK361p2eEjTE1s2LmaM5rukLHudVmbY46g75we1cI5yLFiTn+mwfBcPO3BiQUiQVrx14tYxAAAICEdzWUAIOhvkCAgIA=\",\"is_staking\":true,\"contract_code\":\"0x\",\"from\":{\"address\":\"0xeBCD16e8c1D8f493bA04E99a56474122D81A9c58\",\"metadata\":{\"hex_address\":\"0xeBCD16e8c1D8f493bA04E99a56474122D81A9c58\"}}}", false)
 	if rosettaError != nil {
 		t.Fatal(rosettaError)
 	}
@@ -237,7 +237,7 @@ func TestRecoverSenderAddressFromEditValidatorString(t *testing.T) {
 	}
 
 	// todo to correct rlp bytes
-	_, tx, rosettaError := unpackWrappedTransactionFromString("{\"rlp_bytes\":\"+QFBAfkBMZTrzRbowdj0k7oE6ZpWR0Ei2BqcWPg4hUFsaWNlhWFsaWNlkWFsaWNlLmhhcm1vbnkub25lg0JvYpVEb24ndCBtZXNzIHdpdGggbWUhISHJiAFjRXhdigAAiIrHIwSJ6AAAiaKhXQlRm+AAALAwssOLExbakeBorDvYdRwJAe9sAqHVi8cSEEkYMCxu0D1YlGcdDIFtrStNMDMg8gKwMLLDixMW2pHgaKw72HUcCQHvbAKh1YvHEhBJGDAsbtA9WJRnHQyBba0rTTAzIPICuGBo+AC2rfZXtnSQPgRwgGCRK4k7fHtQB4iAgkdVCrPhhuVqROvzykiPjtGkL2zvOgS9XSsrfrWnZ4SNMTWzYuZozmu6Qse51WZtjjqDvnB7VwjnIsWJOf6bB8Fw87cGJBSAgIR3NZQAgqQQgICA\",\"is_staking\":true,\"contract_code\":\"0x\",\"from\":{\"address\":\"one1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9\",\"metadata\":{\"hex_address\":\"0xeBCD16e8c1D8f493bA04E99a56474122D81A9c58\"}}}", false)
+	_, tx, rosettaError := unpackWrappedTransactionFromString("{\"rlp_bytes\":\"+QFBAfkBMZTrzRbowdj0k7oE6ZpWR0Ei2BqcWPg4hUFsaWNlhWFsaWNlkWFsaWNlLmhhcm1vbnkub25lg0JvYpVEb24ndCBtZXNzIHdpdGggbWUhISHJiAFjRXhdigAAiIrHIwSJ6AAAiaKhXQlRm+AAALAwssOLExbakeBorDvYdRwJAe9sAqHVi8cSEEkYMCxu0D1YlGcdDIFtrStNMDMg8gKwMLLDixMW2pHgaKw72HUcCQHvbAKh1YvHEhBJGDAsbtA9WJRnHQyBba0rTTAzIPICuGBo+AC2rfZXtnSQPgRwgGCRK4k7fHtQB4iAgkdVCrPhhuVqROvzykiPjtGkL2zvOgS9XSsrfrWnZ4SNMTWzYuZozmu6Qse51WZtjjqDvnB7VwjnIsWJOf6bB8Fw87cGJBSAgIR3NZQAgqQQgICA\",\"is_staking\":true,\"contract_code\":\"0x\",\"from\":{\"address\":\"0xeBCD16e8c1D8f493bA04E99a56474122D81A9c58\",\"metadata\":{\"hex_address\":\"0xeBCD16e8c1D8f493bA04E99a56474122D81A9c58\"}}}", false)
 	if rosettaError != nil {
 		t.Fatal(rosettaError)
 	}
@@ -296,7 +296,7 @@ func TestRecoverSenderAddressFromDelegateString(t *testing.T) {
 		t.Fatal("address error")
 	}
 
-	_, tx, rosettaError := unpackWrappedTransactionFromString("{\"rlp_bytes\":\"+EEC85TrzRbowdj0k7oE6ZpWR0Ei2BqcWJTrzRbowdj0k7oE6ZpWR0Ei2BqcWIiKxyMEiegAAICEdzWUAIKkEICAgA==\",\"is_staking\":true,\"contract_code\":\"0x\",\"from\":{\"address\":\"one1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9\",\"metadata\":{\"hex_address\":\"0xeBCD16e8c1D8f493bA04E99a56474122D81A9c58\"}}}", false)
+	_, tx, rosettaError := unpackWrappedTransactionFromString("{\"rlp_bytes\":\"+EEC85TrzRbowdj0k7oE6ZpWR0Ei2BqcWJTrzRbowdj0k7oE6ZpWR0Ei2BqcWIiKxyMEiegAAICEdzWUAIKkEICAgA==\",\"is_staking\":true,\"contract_code\":\"0x\",\"from\":{\"address\":\"0xeBCD16e8c1D8f493bA04E99a56474122D81A9c58\",\"metadata\":{\"hex_address\":\"0xeBCD16e8c1D8f493bA04E99a56474122D81A9c58\"}}}", false)
 	if rosettaError != nil {
 		t.Fatal(rosettaError)
 	}
@@ -354,7 +354,7 @@ func TestRecoverSenderAddressFromUndelegateString(t *testing.T) {
 	if strings.ToLower(hexutil.Encode(address[:])) != "0xebcd16e8c1d8f493ba04e99a56474122d81a9c58" {
 		t.Fatal("address error")
 	}
-	_, tx, rosettaError := unpackWrappedTransactionFromString("{\"rlp_bytes\":\"+EED85TrzRbowdj0k7oE6ZpWR0Ei2BqcWJTrzRbowdj0k7oE6ZpWR0Ei2BqcWIiKxyMEiegAAICEdzWUAIJSCICAgA==\",\"is_staking\":true,\"contract_code\":\"0x\",\"from\":{\"address\":\"one1a0x3d6xpmr6f8wsyaxd9v36pytvp48zckswvv9\",\"metadata\":{\"hex_address\":\"0xeBCD16e8c1D8f493bA04E99a56474122D81A9c58\"}}}", false)
+	_, tx, rosettaError := unpackWrappedTransactionFromString("{\"rlp_bytes\":\"+EED85TrzRbowdj0k7oE6ZpWR0Ei2BqcWJTrzRbowdj0k7oE6ZpWR0Ei2BqcWIiKxyMEiegAAICEdzWUAIJSCICAgA==\",\"is_staking\":true,\"contract_code\":\"0x\",\"from\":{\"address\":\"0xeBCD16e8c1D8f493bA04E99a56474122D81A9c58\",\"metadata\":{\"hex_address\":\"0xeBCD16e8c1D8f493bA04E99a56474122D81A9c58\"}}}", false)
 	if rosettaError != nil {
 		t.Fatal(rosettaError)
 	}
@@ -413,7 +413,7 @@ func TestRecoverSenderAddressFromCollectRewardsString(t *testing.T) {
 		t.Fatal("address error")
 	}
 
-	_, tx, rosettaError := unpackWrappedTransactionFromString("{\"rlp_bytes\":\"4wTVlOvNFujB2PSTugTpmlZHQSLYGpxYgIR3NZQAglIIgICA\",\"is_staking\":true,\"contract_code\":\"0x\",\"from\":{\"address\":\"one13lx3exmpfc446vsguc5d0mtgha2ff7h5uz85pk\",\"metadata\":{\"hex_address\":\"0x8fCD1C9B614E2b5D3208E628d7eD68bF5494faF4\"}}}", false)
+	_, tx, rosettaError := unpackWrappedTransactionFromString("{\"rlp_bytes\":\"4wTVlOvNFujB2PSTugTpmlZHQSLYGpxYgIR3NZQAglIIgICA\",\"is_staking\":true,\"contract_code\":\"0x\",\"from\":{\"address\":\"0x8fCD1C9B614E2b5D3208E628d7eD68bF5494faF4\",\"metadata\":{\"hex_address\":\"0x8fCD1C9B614E2b5D3208E628d7eD68bF5494faF4\"}}}", false)
 	if rosettaError != nil {
 		a, _ := json.Marshal(rosettaError)
 		fmt.Println(string(a))
