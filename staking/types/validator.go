@@ -7,8 +7,6 @@ import (
 	"github.com/astra-net/astra-network/crypto/bls"
 	"github.com/astra-net/astra-network/shard"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/astra-net/astra-network/common/denominations"
 	"github.com/astra-net/astra-network/consensus/votepower"
 	"github.com/astra-net/astra-network/crypto/hash"
@@ -16,6 +14,8 @@ import (
 	"github.com/astra-net/astra-network/numeric"
 	"github.com/astra-net/astra-network/staking/effective"
 	bls_core "github.com/astra-net/bls/ffi/go/bls"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/pkg/errors"
 )
 
@@ -26,7 +26,7 @@ const (
 	MaxWebsiteLength         = 140
 	MaxSecurityContactLength = 140
 	MaxDetailsLength         = 280
-	BLSVerificationStr       = "astra-net"
+	BLSVerificationStr       = "astra-network"
 	TenThousand              = 10000
 	APRHistoryLength         = 30
 	SigningHistoryLength     = 30

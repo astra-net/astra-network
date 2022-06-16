@@ -21,8 +21,8 @@ var (
 	blsPubSigPairs = makeBLSPubSigPairs(5)
 	astraBLSPub    bls.SerializedPublicKey
 
-	astraBLSPubStr   = "c2962419d9999a87daa134f6d177f9ccabfe168a470587b13dd02ce91d1690a92170e5949d3dbdfc1b13fd7327dbef8c"
-	validatorAddr, _ = common2.ParseAddr("0x0b585f8daefbc68a311fbd4cb20d9174ad174016")
+	astraBLSPubStr   = "4982a58dc71e612ef674eb31a8ca446ce5ee01a96451a968f5bd820604c1ce0efd5a113cb974189e55457da75428ad8d"
+	validatorAddr, _ = common2.ParseAddr("0x413c5bdc7f2623d859f13f6f61a828026160595a")
 )
 
 var (

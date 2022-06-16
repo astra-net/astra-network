@@ -32,7 +32,7 @@ func TestGetPreStakingRewardsFromBlockNumber(t *testing.T) {
 		t.Errorf("Expected mainnet rewards to be %v NOT %v", refMainnetRewards, mainnetRewards)
 	}
 
-	refTestnetRewards, _ := new(big.Int).SetString("7104000000000000000000", 10)
+	refTestnetRewards, _ := new(big.Int).SetString("768000000000000000000", 10)
 	testnetRewards := getTotalPreStakingNetworkRewards(shardingconfig.TestNet)
 	if refTestnetRewards.Cmp(testnetRewards) != 0 {
 		t.Errorf("Expected testnet rewards to be %v NOT %v", refTestnetRewards, testnetRewards)

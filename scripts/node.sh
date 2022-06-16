@@ -33,7 +33,7 @@ get_version() {
     else
         # Find the latest Astra release available for download.
         readonly reason="automatically selected latest available release"
-        astra_rel=$(curl -f -s https://astranetwork.com/releases/latest) || (color "31" "Get latest version failed. You may manually download the binaries from Github release page. https://github.com/astra-net/astra-network/releases/" && exit 1)
+        astra_rel=$(curl -f -s https://astranetwork.com/latest) || (color "31" "Get latest version failed. You may manually download the binaries from Github release page. https://github.com/astra-net/astra-network/releases/" && exit 1)
         readonly astra_rel
     fi
 }
